@@ -1,0 +1,292 @@
+
+<div class="conatiner-fluid checkout-login-bg">
+    <div class="container p-tb-2 ">
+        <div class="checkout-new-con-area">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="check-new-login">
+                        <div class="check-out-box">
+                                <h3>{{'Register.CLogin'|translate}}</h3>
+                                <form id="login-form" action="" method="post" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                                    <div class="login-form-check-new">
+                                        <div class="form-group">
+                                            <label
+                                                class="placeholder " for="username">
+                                                {{'Register.EmailPlaceholder'|translate}}<span class="text-danger">*</span></label>
+                                                  <input type="text" formControlName="username" class="form-control"
+                                                    [ngClass]="{ 'is-invalid': submitted && f.username.errors }" autocomplete="on" required />
+                                                  <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                                                    <div class="text-danger" *ngIf="f.username.errors.required">
+                                                      {{'Register.RequiredField'|translate}}.</div>
+                                                  </div>
+                                                  <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                                                    <div class="text-danger" *ngIf="f.username.errors.email">
+                                                      {{'Register.ValidEmail'|translate}}.</div>
+                                                  </div>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                          <label
+                                                class="placeholder" for="password">
+                                                {{'Register.Password'|translate}}<span class="text-danger">*</span></label>
+                                                <input type="password" formControlName="password" class="form-control ng-untouched ng-pristine ng-invalid"
+                                                [ngClass]="{ 'is-invalid': submitted && f.password.errors }" autocomplete="off" />
+                                                <!-- Forgot pwd Start -->
+                                                <a class="link pull-right" data-toggle="modal" data-target="#myModal" (click)="resetPass()" >{{'Register.ForgotPassowrd'|translate}}</a>
+                                                <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                  <div class="modal-dialog modal-lg forgot-password-modal" role="document">
+                                                    <div class="modal-content ">
+                                                      <div class="modal-body">	
+                                                        <button type="button" class="close pull-right" (click)="clickModal()"><span aria-hidden="true">&times;</span></button>
+                                                         
+                                                         <div class="row">
+                                                           <div class="col-md-5">
+                                                              <div class="news-pop-tumb">
+                                                                  <img alt="Password Image" src="assets/img/forgot-password.png">
+                                                                 
+                                                                  </div>
+                                                           </div>
+                                                          <div class="col-md-7 col-sm-7 col-lg-7 col-xs-12">
+                                                            <div class="row">
+                                                              <div class="col-md-12 ">
+                                                                <h4 class="forgot-pass-modal-head"> {{'Register.PasswordAssistance'|translate}}</h4>	
+                                                                
+                                                                <div >
+                                                                  <span *ngIf="EmailFirst && !otpFirst" class="mrgn-b-xs email-title">
+                                                                    <strong>{{'Register.AuthenticationRequired'|translate}}</strong>
+                                                                    <p>{{'Register.AuthenticationRequiredMsg'|translate}}</p>
+                                                                    <!-- {{'Register.Cart.ChangePassword'|translate}} -->
+                                                                  </span>
+                                                                  <span *ngIf="otpFirst" class="mrgn-b-xs email-title">
+                                                                   <strong>{{'Register.Cart.ChangePassword'|translate}}</strong> 
+                                                                  </span>
+                                                                  <span *ngIf="!EmailFirst" class="mrgn-b-xs email-title">
+                                                                    {{'Register.CurrentEmail'|translate}}
+                                                                  </span><br>
+                                                                  <span *ngIf="!EmailFirst" class="email-title">
+                                                                    <strong>{{'Register.EnterEmail'|translate}}</strong>
+                                                                  </span>
+                                                                 
+                                                                  
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                            <div *ngIf="!EmailFirst" class="form-group row">
+                                                              <div class="col-md-12">
+                                                                <input type="text" class="form-control" #pass1 [(ngModel)]="CurrentEmail" [ngModelOptions]="{standalone: true}" 
+                                                                  (focusout)="takeEmail(pass1.value)" placeholder=" {{'Register.EnterEmail'|translate}}">
+                                                               
+                                                              </div>
+                                                            </div>
+                    
+                                                            <div *ngIf="EmailFirst && !otpFirst"  class="form-group row">
+                    
+                                                              <div class="col-md-12">
+                                                                <input type="text" class="form-control" #pass [(ngModel)]="Currentpass" [ngModelOptions]="{standalone: true}" 
+                                                                  (focusout)="takeTheSalt(pass.value)" placeholder="{{'Register.EnterOtp'|translate}}">
+                                                                <div *ngIf="passwordCheck" class="text-danger">{{'Register.EnterValidOtp'|translate}}</div>
+                                                              </div>
+                                                            </div>
+                                                            <div *ngIf="otpFirst"  class="form-group row">
+                    
+                                                              <div class="col-md-12">
+                                                                <input type="password" #newSalt class="form-control" [(ngModel)]="Newpass" [ngModelOptions]="{standalone: true}" 
+                                                                  placeholder="{{'Register.Cart.TypeNewPass'|translate}}" (focusout)="Salt(newSalt.value)">
+                                                                <div *ngIf="passlen" class="text-danger">{{'Register.Cart.PasswordMinimum'|translate}}</div>
+                                                              </div>
+                                                            </div>
+                                                            <div *ngIf="otpFirst"  class="form-group row">
+                                                              <div class="col-md-12">
+                                                                <input type="password" #againSalt class="form-control" [(ngModel)]="ConfirmPass" [ngModelOptions]="{standalone: true}" 
+                                                                  placeholder="{{'Register.Cart.RetypeNewPass'|translate}}" (focusout)="saltMixture(againSalt.value)">
+                                                                <div *ngIf="confirmPass" class="text-danger">{{'Register.Cart.PasswordNotMatch'|translate}}</div>
+                                                                <div *ngIf="enterPassAgain" class="text-danger">{{'Register.Cart.PasswordNotMatch'|translate}}</div>
+                          
+                                                              </div>
+                                                            </div>
+                                                            <div *ngIf="otpFirst"  class="form-group row">
+                                                              <div class="col-md-12">
+                                                                <button _ngcontent-xqk-c1="" class="btn btn-lg btn-primary"
+                                                                  [disabled]="passwordCheck" type="button"
+                                                                  >{{'Register.Cart.ChangePassword'|translate}}</button>
+                                                              </div>
+                                                            </div>
+                                                            <div *ngIf="!EmailFirst"  class="form-group row">
+                                                              <div class="col-md-6">
+                                                                <button _ngcontent-xqk-c1="" class="btn btn-lg btn-primary"
+                                                                   type="button"
+                                                                  > {{'Register.SubmitButotn'|translate}}   </button>
+                                                              </div>
+                                                            </div>
+                                                            <!-- *ngIf="otpbutton" -->
+                                                            <div *ngIf="EmailFirst && !otpFirst"  class="form-group row">
+                                                              <div class="col-md-6">
+                                                                <button _ngcontent-xqk-c1="" class="btn btn-lg btn-primary"
+                                                                 type="button"
+                                                                  >{{'Register.SubmitButotn'|translate}}</button>
+                                                              </div>
+                                                            </div>
+                                                           
+                                                          </div>
+                                                        </div>
+                                                       
+                                                      </div>
+                          
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                            <!-- Forgot password End -->
+                                            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                           
+                                              <div class="text-danger" *ngIf="f.password.errors.required">
+                                                {{'Register.RequiredField'|translate}}</div>
+                                            </div>
+                                            <div class="show-password"><i
+                                                    class="flaticon-interface"></i></div>
+                                        </div>
+                                        <div class="form-group form-action-d-flex mt-25"><button type="submit"
+                                                class="btn btn-success btn-lg btn-block btn-round">{{'Register.CLogin'|translate}}</button></div>
+                                      
+                                    </div>
+                                  </form>
+                             
+                           
+                        </div>
+                    </div>
+                    <div class="check-new-login">
+                            <div class="check-out-box" *ngIf="checkoutDiv">
+                              <h3 >{{'Register.GuestHeader'|translate}}</h3>
+                              
+                                    
+                                        <div class="login-form-check-new">
+                                          <div>
+                                            <p class="continue-text">{{'Register.GuestSubHeader'|translate}}</p>
+                                          
+                                            <div class="form-group form-action-d-flex"><button
+                                                    class="btn btn-success btn-lg btn-block btn-round" [routerLink]="['/checkout-process/checkout']" [queryParams]="{ guestUser: true }" routerLinkActive="router-link-active" >                 {{'Register.Continue'|translate}}</button></div>
+                                                    <div class="form-group form-action-d-flex mt-25">
+                                                            {{'Register.PromoCodeMsg'|translate}} <br>
+                                                            <a class="link" (click)="openRegister()">{{'Register.CreateAccount'|translate}}.</a>
+                                                    </div>
+                                                  </div>
+                                                   
+                                          
+                                        </div>
+                                 
+                               
+                            </div>
+
+                            <div class="check-out-box" *ngIf="registerDiv">
+                              <h3>{{'Register.CreateNewAccount'|translate}}</h3>
+                                        <div class="login-form-check-new">
+                            <div >
+                              <p class="mrgn-b-md">{{'Register.RegisterMsg'|translate}}</p>
+                               <span class="mrgn-b-md pull-left">{{'Register.Cart.RequiredFields'|translate}} <span class="text-danger">*</span></span>
+                               <form  [formGroup]="registerService.formModel" autocomplete="off" (submit)=onRegister()>
+                               <div class="form-group">
+                                 <label for="FirstName">{{'Register.FirstName'|translate}}<span class="text-danger">*</span></label>
+                                 <input name="FirstName" class="form-control" formControlName="FirstName"  [ngClass]="{ 'is-invalid':registerService.formModel.get('FirstName').touched && registerService.formModel.get('FirstName').errors?.required }">
+                                 <span class="text-danger"
+                                   *ngIf="registerService.formModel.get('FirstName').touched && registerService.formModel.get('FirstName').errors?.required">{{'Register.Required_Msg'|translate}}</span>
+                               </div>
+                               <div class="form-group">
+                                 <label>{{'Register.MiddleName'|translate}}</label>
+                                 <input name="MiddleName" class="form-control" formControlName="MiddleName">
+                               </div>
+                               <div class="form-group">
+                                 <label>{{'Register.LastName'|translate}}</label>
+                                 <input name="LastName" class="form-control" formControlName="LastName">
+                               </div>
+                               <div class="form-group">
+                                 <label>{{'Register.Phone'|translate}}</label>
+                                
+                                 <input name="Phone" class="form-control" formControlName="Phone">
+                               </div>
+                               <div class="form-group">
+                                 <label>{{'Register.Email'|translate}}<span class="text-danger">*</span></label>
+                                 <input name="Email" class="form-control" formControlName="Email" [ngClass]="{ 'is-invalid':registerService.formModel.get('Email').touched && registerService.formModel.get('Email').errors?.required }">
+                                 <span class="text-danger"
+                                   *ngIf="registerService.formModel.get('Email').touched && registerService.formModel.get('Email').errors?.required">{{'Register.Required_Msg'|translate}}</span>
+                                 <span class="text-danger"
+                                   *ngIf="registerService.formModel.get('Email').touched && registerService.formModel.get('Email').errors?.email">{{'Register.ValidEmail'|translate}}</span>
+                               </div>
+                               <div class="form-group">
+                                 <label>{{'Register.Password'|translate}}<span class="text-danger">*</span></label>
+                                 <input name="Password" type="password" class="form-control" formControlName="Password"  [ngClass]="{ 'is-invalid':registerService.formModel.get('Password').touched && registerService.formModel.get('Password').errors?.required }">
+                                 <span class="text-danger"
+                                   *ngIf="registerService.formModel.get('Password').touched && registerService.formModel.get('Password').errors?.required">{{'Register.Required_Msg'|translate}}</span>
+                                 <span class="text-danger"
+                                   *ngIf="registerService.formModel.get('Password').touched && registerService.formModel.get('Password').errors?.minlength">
+                                   {{'Register.Password_Format_Msg'|translate}}</span>
+                               </div>
+                               <div class="form-group">
+                                 <label>{{'Register.ConfirmPassword'|translate}}<span class="text-danger">*</span></label>
+                                 <input Id="ConfirmPassword" type="password" class="form-control" formControlName="ConfirmPassword" [ngClass]="{ 'is-invalid':registerService.formModel.get('ConfirmPassword').touched && registerService.formModel.get('ConfirmPassword').errors?.required }">
+                                 <span class="text-danger"
+                                   *ngIf="registerService.formModel.get('ConfirmPassword').touched && registerService.formModel.get('ConfirmPassword').errors?.required">This field is required</span>
+                                 <span class="text-danger"
+                                   *ngIf="registerService.formModel.get('ConfirmPassword').touched && registerService.formModel.get('ConfirmPassword').errors?.passwordMismatch">
+                                   {{'Register.ConfirmPassword_Password_Match_Msg'|translate}}</span>
+                               </div>
+                               <div class="form-group form-action-d-flex mt-25"><button type="submit"
+                                 class="btn btn-success btn-lg btn-block btn-round"  [disabled]="!registerService.formModel.valid">{{'Register.SignUp'|translate}}</button></div>
+
+                                 </form>
+                                 <div class="form-group form-action-d-flex">
+                                   <a
+                                   class="link" [routerLink]="['/checkout-process/checkout']" [queryParams]="{ guestUser: true }"  routerLinkActive="router-link-active" >                 {{'Register.ContinueToCheckout'|translate}}</a>
+                                 </div>
+                             </div>
+                             </div>
+                             </div>
+
+
+                        </div>
+                </div>
+                 <div class="col-md-4 clear-block">
+                        <div class="row">
+                                <div class="col-sm-12">
+                          <div class="cart-right-box check-new-right-box">
+                            <div class="row">
+                              <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                <div class="cart-right-heading">
+                                <h4>{{'Register.Cart.PRICEDETAILS'|translate}}</h4>
+                              </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                <div class="cart-right-price-detail">
+                                  <div class="cart-right-price-row">{{'Register.Products1'|translate}} ({{cartItem.length}})
+                                    <span *ngIf="cartItem.length>0"> ${{cartItem[0].TotalAmount.toFixed(2)|number}}</span>
+                                  </div>
+                                  <div class="delivery-charge">
+                                    <a href="#">{{'Register.ImportFees'|translate}} </a> {{'Register.ApplyEnd'|translate}} .
+                                  </div>
+                                  <div class="ammout-payable">
+                                    <div class="cart-right-price-row">{{'Register.MyOrders.Total'|translate}}
+                                      <span *ngIf="cartItem.length>0">${{cartItem[0].TotalAmount.toFixed(2)|number}}</span>
+                                    </div>
+                                  </div>
+                                
+                                </div>
+                                
+                              </div>
+                              
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                      <div class="col-sm-12">
+                        <div class="sequre-payment-box">
+                          <img src="assets/img/shield_icon.png">
+                          <strong> <span class="sequre-text">{{'Register.Cart.SafeandSecure'|translate}}</span></strong>
+                        </div>
+                        <!-- <img class="text-right" style="margin-left: 6%;" src="assets/img/sectigo_trust_seal_lg_140x54.png"> -->
+                      </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,158 @@
+<div class="main-panel">
+    <div class="content">
+      <div class="page-inner">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-head-row">
+                  <div class="card-title">Report</div>
+
+
+                </div>
+              </div>
+
+
+
+                    <div class="row">
+
+                    <div class="col-md-6 mt-3" >
+                      <div class="col-md-12">
+                        <div class="table-responsive">
+                          <h1>Most Visited Product</h1>
+                          <a  (click)="getValVisitedPro('H')">H</a> | <a  (click)="getValVisitedPro('W')">W</a> |<a   (click)="getValVisitedPro('M')" > M</a> |<a  (click)="getValVisitedPro('Y')"> Y</a>
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+
+                                  <th>Product Name</th>
+                                  <th>Count</th>
+
+                                </tr>
+                              </thead>
+                              <tbody>
+
+                                <tr *ngFor="let item of visistedProduct" >
+
+                                  <td>{{item.ProductName}}</td>
+                                  <td>{{item.ProductCount}}</td>
+                                 </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                    </div>
+                    </div>
+                    <div class="col-md-6 mt-3" >
+                      <div class="col-md-12">
+                        <div class="table-responsive">
+                          <h1>Most Visited page</h1>
+                          <a  (click)="getValVisitedPage('H')">H</a> | <a  (click)="getValVisitedPage('W')">W</a> |<a   (click)="getValVisitedPage('M')" > M</a> |<a  (click)="getValVisitedPage('Y')"> Y</a>
+
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+
+                                  <th>Page Name</th>
+                                  <th>Count</th>
+
+                                </tr>
+                              </thead>
+                              <tbody>
+
+                                <tr *ngFor="let item of visitedPage" >
+
+                                  <td>{{item.Element}}</td>
+                                  <td>{{item.Counter}}</td>
+                                 </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                    </div>
+                    </div>
+                    <div class="col-md-3 mt-3">
+                      <div class="col-md-12">
+                        <div class="table-responsive">
+                          <h1>Subscribed customers count</h1>
+                          <a  (click)="getSubcut('H')">H</a> | <a  (click)="getSubcut('W')">W</a> |<a   (click)="getSubcut('M')" > M</a> |<a  (click)="getSubcut('Y')"> Y</a>
+
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+
+                                  <th>Subscribed</th>
+
+                                </tr>
+                              </thead>
+                              <tbody>
+
+                                <tr >
+
+                                  <td>{{subs.SubscribedNewsletter}}</td>
+
+                                 </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                    </div>
+                    </div>
+                    <div class="col-md-3 mt-3">
+                      <div class="col-md-12">
+                        <div class="table-responsive">
+                          <h1>UnSubscribed customers count</h1>
+                          <a  (click)="getUnSub('H')">H</a> | <a  (click)="getUnSub('W')">W</a> |<a   (click)="getUnSub('M')" > M</a> |<a  (click)="getUnSub('Y')"> Y</a>
+
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+
+                                  <th>UnSubscribed</th>
+
+                                </tr>
+                              </thead>
+                              <tbody>
+
+                                <tr >
+
+                                  <td>{{subs.unSubscribedNewsletter}}</td>
+
+                                 </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                    </div>
+                    </div>
+                    <div class="col-md-3 mt-3">
+                      <div class="col-md-12">
+                        <div class="table-responsive">
+                          <h1>Registered  customers count</h1>
+                          <a  (click)="getSubcut('H')">H</a> | <a  (click)="getSubcut('W')">W</a> |<a   (click)="getSubcut('M')" > M</a> |<a  (click)="getSubcut('Y')"> Y</a>
+
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+
+                                  <th>Registered</th>
+
+                                </tr>
+                              </thead>
+                              <tbody>
+
+                                <tr >
+
+                                  <td>{{subs.registeredUSer}}</td>
+
+                                 </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                    </div>
+                    </div>
+
+                    </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

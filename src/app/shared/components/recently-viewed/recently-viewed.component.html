@@ -1,0 +1,188 @@
+<body>
+    <app-header></app-header>
+ 
+
+ 
+ <div class="container-fluid bestseller clear" >
+    <div class="row list-hover-icon mrgn-tb-lg" >
+      <div > 
+       <div
+         class="col-sm-3 col-md-2 col-lg-2 col-xs-12 text-center mrgn-b-md doc-item common-doctor animated fadeInUp clearfix ae-animation-fadeInUp"
+         *ngFor="let cat of List1">
+         <a [routerLink]="" (click)="passTheSalt(cat.Id,cat.VariantDetailId)">
+           <div class="bestseller-box" *ngIf="cat.InStock>0; else elseblock">
+
+             <div class="bestseller-sale" *ngIf="cat.Discount>0">{{cat.Discount}}%</div>
+             <div class="sale-tag" *ngIf="cat.Discount>0"><img src="assets/img/sale-tag-img.png"></div>
+
+             <div class="bestseller-img">
+
+               <img src={{cat.Image150}} />
+               
+             </div>
+             <div class="bestseller-text">{{cat.Name.length > 19 ? cat.Name.substring(0,19)+"..." : cat.Name}}</div>
+             <div class="bestseller-stars" *ngIf="cat.Rating==0">
+              <i class="far fa-star" aria-hidden="true"></i>
+              <i class="far fa-star" aria-hidden="true"></i>
+              <i class="far fa-star" aria-hidden="true"></i>
+              <i class="far fa-star" aria-hidden="true"></i>
+              <i class="far fa-star" aria-hidden="true"></i>
+            </div>
+            <div class="bestseller-stars" *ngIf="cat.Rating==1">
+             <i class="fa fa-star" aria-hidden="true"></i>
+             <i class="far fa-star" aria-hidden="true"></i>
+             <i class="far fa-star" aria-hidden="true"></i>
+             <i class="far fa-star" aria-hidden="true"></i>
+             <i class="far fa-star" aria-hidden="true"></i>
+           </div>
+           <div class="bestseller-stars" *ngIf="cat.Rating==2">
+             <i class="fa fa-star" aria-hidden="true"></i>
+             <i class="fa fa-star" aria-hidden="true"></i>
+             <i class="far fa-star" aria-hidden="true"></i>
+             <i class="far fa-star" aria-hidden="true"></i>
+             <i class="far fa-star" aria-hidden="true"></i>
+           </div>
+           <div class="bestseller-stars" *ngIf="cat.Rating==3">
+             <i class="fa fa-star" aria-hidden="true"></i>
+             <i class="fa fa-star" aria-hidden="true"></i>
+             <i class="fa fa-star" aria-hidden="true"></i>
+             <i class="far fa-star" aria-hidden="true"></i>
+             <i class="far fa-star" aria-hidden="true"></i>
+           </div>
+           <div class="bestseller-stars" *ngIf="cat.Rating==4">
+             <i class="fa fa-star" aria-hidden="true"></i>
+             <i class="fa fa-star" aria-hidden="true"></i>
+             <i class="fa fa-star" aria-hidden="true"></i>
+             <i class="fa fa-star" aria-hidden="true"></i>
+             <i class="far fa-star" aria-hidden="true"></i>
+           </div>
+           <div class="bestseller-stars" *ngIf="cat.Rating==5">
+             <i class="fa fa-star" aria-hidden="true"></i>
+             <i class="fa fa-star" aria-hidden="true"></i>
+             <i class="fa fa-star" aria-hidden="true"></i>
+             <i class="fa fa-star" aria-hidden="true"></i>
+             <i class="fa fa-star" aria-hidden="true"></i>
+           </div>
+             <div class="bestseller-price" *ngIf="cat.Discount>0">
+               <span class="price-off">${{cat.PriceAfterDiscount.toFixed(2)}}</span>
+               <span class="price-now">${{cat.SellingPrice.toFixed(2)}}</span>
+             </div>
+             <div class="bestseller-price" *ngIf="cat.Discount==0">
+              <span class="price-off">${{cat.PriceAfterDiscount.toFixed(2)}}</span>
+            </div>
+            
+           </div>
+           <ng-template #elseblock>
+             <div class="bestseller-box">
+
+               <div class="bestseller-sale" *ngIf="cat.Discount>0">{{cat.Discount}}%</div>
+               <div class="bestseller-out-of-stock">Out of Stock</div>
+               <div class="bestseller-img out-of-stock">
+
+                 <img src={{cat.Image150}} />
+                
+               </div>
+               <div class="bestseller-text">{{cat.Name.length > 25 ? cat.Name.substring(0,25)+"..." : cat.Name}}</div>
+               <div class="bestseller-stars" *ngIf="cat.Rating==0">
+                <i class="far fa-star" aria-hidden="true"></i>
+                <i class="far fa-star" aria-hidden="true"></i>
+                <i class="far fa-star" aria-hidden="true"></i>
+                <i class="far fa-star" aria-hidden="true"></i>
+                <i class="far fa-star" aria-hidden="true"></i>
+              </div>
+              <div class="bestseller-stars" *ngIf="cat.Rating==1">
+               <i class="fa fa-star" aria-hidden="true"></i>
+               <i class="far fa-star" aria-hidden="true"></i>
+               <i class="far fa-star" aria-hidden="true"></i>
+               <i class="far fa-star" aria-hidden="true"></i>
+               <i class="far fa-star" aria-hidden="true"></i>
+             </div>
+             <div class="bestseller-stars" *ngIf="cat.Rating==2">
+               <i class="fa fa-star" aria-hidden="true"></i>
+               <i class="fa fa-star" aria-hidden="true"></i>
+               <i class="far fa-star" aria-hidden="true"></i>
+               <i class="far fa-star" aria-hidden="true"></i>
+               <i class="far fa-star" aria-hidden="true"></i>
+             </div>
+             <div class="bestseller-stars" *ngIf="cat.Rating==3">
+               <i class="fa fa-star" aria-hidden="true"></i>
+               <i class="fa fa-star" aria-hidden="true"></i>
+               <i class="fa fa-star" aria-hidden="true"></i>
+               <i class="far fa-star" aria-hidden="true"></i>
+               <i class="far fa-star" aria-hidden="true"></i>
+             </div>
+             <div class="bestseller-stars" *ngIf="cat.Rating==4">
+               <i class="fa fa-star" aria-hidden="true"></i>
+               <i class="fa fa-star" aria-hidden="true"></i>
+               <i class="fa fa-star" aria-hidden="true"></i>
+               <i class="fa fa-star" aria-hidden="true"></i>
+               <i class="far fa-star" aria-hidden="true"></i>
+             </div>
+             <div class="bestseller-stars" *ngIf="cat.Rating==5">
+               <i class="fa fa-star" aria-hidden="true"></i>
+               <i class="fa fa-star" aria-hidden="true"></i>
+               <i class="fa fa-star" aria-hidden="true"></i>
+               <i class="fa fa-star" aria-hidden="true"></i>
+               <i class="fa fa-star" aria-hidden="true"></i>
+             </div>
+               <div class="bestseller-price" *ngIf="cat.Discount>0">
+                 <span class="price-off">${{cat.SellingPrice.toFixed(2)}}</span>
+                 <span class="price-now">${{cat.PriceAfterDiscount.toFixed(2)}}</span>
+               </div>
+               <div class="bestseller-price" *ngIf="cat.Discount==0">
+                <!-- <span class="price-off">${{cat.SellingPrice}}</span> -->
+                <span class="price-now">${{cat.PriceAfterDiscount.toFixed(2)}}</span>
+              </div>
+               <div class="product-action icon-vertical">
+                 <a class="">
+                   <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                   <span class="tooltip">{{'Register.Compare.AddToCartButton'|translate}}</span>
+                 </a>
+
+                 <a class="">
+                   <i class="fa fa-eye" aria-hidden="true"></i>
+                   <span class="tooltip">{{'Register.Compare.QuickView'|translate}}</span>
+                 </a>
+
+                 <a class="">
+                   <i class="fa fa-refresh" aria-hidden="true"></i>
+                   <span class="tooltip">{{'Register.Compare.CompareText'|translate}}</span>
+                 </a>
+
+                 <a class="">
+                   <i class="fa fa-heart-o" aria-hidden="true"></i>
+                   <span class="tooltip">{{'Register.Compare.AddToWishlist'|translate}}</span>
+                 </a>
+
+               </div>
+             </div>
+           </ng-template>
+
+         </a>
+         <ul class="list-inline social-lists animate">
+           <li><a (click)="addToCart(cat.VariantDetailId,cat.SellingPrice,cat.Discount,cat.PriceAfterDiscount)"
+               [class.disabled]="cat.InStock<=0 ? true : null" title="{{'Register.Compare.AddToCartButton'|translate}}"><i class="fas fa-cart-plus"></i></a>
+           </li>
+           <li><a (click)="getProductDetails1(cat.VariantDetailId)" title="{{'Register.Compare.AddToWishlist'|translate}}"><i
+                 class="fas fa-heart"></i></a></li>
+           <li><a (click)="addCompare(cat.VariantDetailId)" title="{{'Register.Compare.CompareText'|translate}}"><i class="fas fa-random"></i></a>
+           </li>
+         </ul>
+       </div>
+      </div>
+
+      <div class="col-sm-12 col-xs-12 text-right" *ngIf="showMore">
+        <div class="link-bottom">
+          <a  (click)="show()">{{'Register.ShowMore'|translate}} <i class="fas fa-plus"></i></a>
+        </div>
+      </div>
+     </div>
+     </div>
+   
+    
+    
+          <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+            <p style="font-size: 20px; color:#fff">{{'Register.LoadingWait'|translate}}</p>
+          </ngx-spinner>
+    <app-footer></app-footer>
+</body>

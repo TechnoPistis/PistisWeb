@@ -1,0 +1,45 @@
+<div class="main-panel">
+  <div class="content">
+          <div class="page-inner">
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+    <div class="card-header">
+        <div class="card-head-row">
+          <div class="card-title">{{'Register.AddCustomerGroup'|translate}}</div>
+        </div>
+      </div>
+      <div class="card-body">
+                         
+  <form #form="ngForm" (submit)="onSubmit(form)" autocomplete="off">
+      <input type="hidden" name="Id" #Id="ngModel" [(ngModel)]="service.formData.Id">
+     <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+            <label>{{'Register.GroupName'|translate}}</label>
+            <input name="GroupName" #GroupName="ngModel" [(ngModel)]="service.formData.GroupName" class="form-control" required>
+            <div class="validation-error" *ngIf="GroupName.invalid && GroupName.touched">{{'Register.RequiredField'|translate}}</div>
+          </div>
+        </div>
+          <div *ngIf="dropdownlist==true" class="col-sm-6 mat-field">
+              <mat-form-field>
+                  
+              <mat-label>{{'Register.SelectCustomers1'|translate}}</mat-label>
+              <mat-select name="CustomerId" #CustomerId="ngModel" [(ngModel)]="service.formData.CustomerId"   class="form-control" [value]="0" multiple>
+                  <mat-option *ngFor="let data of dataList" [value]="data.Id">{{data.Email}}</mat-option>
+                </mat-select>
+                </mat-form-field>
+            </div>
+     </div>
+    <div class="form-group col-sm-2">
+          <button type="submit" [disabled]="form.invalid" class="btn btn-primary btn-block">{{'Register.SubmitButton'|translate}}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  

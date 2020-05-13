@@ -1,0 +1,51 @@
+<div class="main-panel">
+  <div class="content">
+    <div class="page-inner">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-head-row">
+                <div class="card-title">{{'Register.AddFooter&Url'|translate}} </div>
+                <div class="btn-group btn-group-page-header ml-auto">
+                  <button type="button" class="btn btn-success" (click)="onClick()">{{'Register.ShowFootersButton'|translate}}</button>
+                </div>
+              </div>
+            </div>
+            <form #form="ngForm" (submit)="onSubmit(form)" autocomplete="off">
+              <input type="hidden" name="Id" #Id="ngModel" [(ngModel)]="service.formData.Id">
+              <div class="form-group col-sm-12">
+                <label>{{'Register.SelectHeaderName'|translate}}</label>
+                <select name="FooterHeaderId" #FooterHeaderId="ngModel" [(ngModel)]="service.formData.FooterHeaderId"
+                  class="form-control" selected [value]="service.formData.FooterHeaderId" >
+                  <option value=0>{{'Register.SelectOption'|translate}}</option>
+                  <option *ngFor="let c of dataList ;" [value]="c.Id">
+                    {{c.Name}}
+                  </option>
+                </select>
+                <div *ngIf="FooterHeaderId.invalid" class="invalid-feedback">
+                  <div *ngIf="FooterHeaderId.errors.required">{{'Register.TitleIsRequired'|translate}}</div>
+                </div>
+              </div>
+
+              <div class="form-group col-sm-12">
+                <label>{{'Register.FooterURL'|translate}}</label>
+                <input name="Url" #Url="ngModel" [(ngModel)]="service.formData.Url" class="form-control" required>
+                <div class="validation-error" *ngIf="Url.invalid && Url.touched">{{'Register.RequiredField'|translate}}</div>
+              </div>
+
+
+              <div class="form-group col-sm-12">
+                <label>{{'Register.FooterURLName'|translate}}</label>
+                <input name="Name" #Name="ngModel" [(ngModel)]="service.formData.Name" class="form-control" required>
+                <div class="validation-error" *ngIf="Name.invalid && Name.touched">{{'Register.RequiredField'|translate}}</div>
+              </div>
+              
+                  <div  class="form-group col-sm-2">
+                      <button type="submit" [disabled]="form.invalid" class="btn btn-info btn-md btn-block">{{'Register.SubmitButton'|translate}}</button>
+                      </div>
+            </form>
+
+          </div>
+        </div>
+      </div>

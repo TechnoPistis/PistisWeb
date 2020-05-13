@@ -1,0 +1,96 @@
+<div class="main-panel">
+    <div class="content">
+      <div class="page-inner">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <!-- <div class="card-head-row">
+                  <div class="card-title">{{'Spinner.SpinnerOptions'|translate}}</div>
+                  <div class="btn-group btn-group-page-header ml-auto">
+                    <button type="button" class="btn btn-success"  (click)="check()">{{'Spinner.AddSpinnerOption'|translate}}
+                      </button>
+                  </div>
+                  
+                </div> -->
+                <div class="col-md-3">
+                    <div class="form-group">
+                      <label>{{'Register.Search'|translate}}</label>
+
+                      <select  name="PeriodId" 
+                        id="categories"
+                        class="form-control" selected="" (change)="onChangeEvent($event.target.value)">
+                        <option value="">{{'Register.Select'|translate}}</option>
+                        <option value="spin">{{'Register.Spinned'|translate}}</option>
+                        <option value="won">{{'Register.Wonprize'|translate}}</option>
+                        <option value="used">{{'Register.Availprize'|translate}}</option>
+                        <option value="lost">{{'Register.Lossprize'|translate}}</option>
+                        
+                      </select>
+                    </div>
+                  </div>
+                <div class="row" >
+                    <div class="col-md-8"></div>
+                    <div class="col-md-4" *ngIf="counts">
+                      <div class="spin-noti-box">
+                        <div class="spin-noti-row">
+                            <div class="pull-left">{{'Register.Noofuserspinwheel'|translate}}</div>
+                            <div class="pull-right">{{counts.SpinnedWheel}}</div>
+                        </div>
+                        <div class="spin-noti-row">
+                            <div class="pull-left">{{'Register.Noofuserwonprize'|translate}}</div>
+                            <div class="pull-right">{{counts.UserWonPrize}}</div>
+                        </div>
+                        <div class="spin-noti-row">
+                            <div class="pull-left">{{'Register.Noofusernotwon'|translate}}</div>
+                            <div class="pull-right">{{counts.UserLostprize}}</div>
+                        </div>
+                        <div class="spin-noti-row">
+                            <div class="pull-left">{{'Register.Noofusersavailprize'|translate}}</div>
+                            <div class="pull-right">{{counts.UserAvailprize}}</div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+              <div class="row pt-3">
+                <div class="col-md-12">
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>{{'Register.User'|translate}}</th>
+                          <th>{{'Register.Prize'|translate}}</th>
+                          <th>{{'Register.Spin'|translate}}</th>
+                          <th>{{'Register.Prizeavail'|translate}}</th>
+  
+                        </tr>
+                      </thead>
+                      <tbody>
+  
+                        <tr *ngFor="let d of data">
+                            <td>{{d.UserEmail}}</td>
+                            <td>{{d.Prize}}</td>
+                            <td *ngIf="d.SpinCount>0">{{'Register.Spinned'|translate}}</td>
+                            <td *ngIf="d.SpinCount==0">{{'Register.Notspin'|translate}}</td>
+                          <!-- <td>
+                            <button (click)="edit(d.Id)" class="btn btn-sm btn-outline-danger"><i
+                                class="fas fa-edit"></i></button>
+                            <button (click)="delete(d.Id)" class="btn btn-sm btn-outline-danger mr-2"><i
+                                class="fas fa-trash"></i></button>
+                          </td> -->
+                          <td *ngIf="d.IsUsed">{{'Register.Used'|translate}}</td>
+                          <td *ngIf="!d.IsUsed">{{'Register.Notused'|translate}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

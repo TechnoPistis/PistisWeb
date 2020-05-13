@@ -1,0 +1,141 @@
+
+        <div class="bestseller-box rounded" *ngIf="list.InStock>0; else elseblock">
+
+          <div class="bestseller-sale" *ngIf="list.Discount>0">{{list.Discount}}%</div>
+          <div class="sale-tag" *ngIf="list.Discount>0"><img src="assets/img/sale-tag-img.png"></div>
+          <!-- <div class="countdown-time-box-product-list"><i class="far fa-clock"></i>  <countdown-timer [end]="list.ActiveTo"></countdown-timer></div> -->
+          <div class="bestseller-img">
+
+            <img src={{list.Url150}} />
+
+          </div>
+          <div class="bestseller-text" *ngIf="list.Name!=null">{{list.Name.length > 22 ? list.Name.substring(0,22)+"..." : list.Name}}</div>
+          <div class="bestseller-stars" *ngIf="list.Rating==0">
+            <i class="far fa-star" aria-hidden="true"></i>
+            <i class="far fa-star" aria-hidden="true"></i>
+            <i class="far fa-star" aria-hidden="true"></i>
+            <i class="far fa-star" aria-hidden="true"></i>
+            <i class="far fa-star" aria-hidden="true"></i>
+          </div>
+          <div class="bestseller-stars" *ngIf="list.Rating==1">
+           <i class="fa fa-star" aria-hidden="true"></i>
+           <i class="far fa-star" aria-hidden="true"></i>
+           <i class="far fa-star" aria-hidden="true"></i>
+           <i class="far fa-star" aria-hidden="true"></i>
+           <i class="far fa-star" aria-hidden="true"></i>
+         </div>
+         <div class="bestseller-stars" *ngIf="list.Rating==2">
+           <i class="fa fa-star" aria-hidden="true"></i>
+           <i class="fa fa-star" aria-hidden="true"></i>
+           <i class="far fa-star" aria-hidden="true"></i>
+           <i class="far fa-star" aria-hidden="true"></i>
+           <i class="far fa-star" aria-hidden="true"></i>
+         </div>
+         <div class="bestseller-stars" *ngIf="list.Rating==3">
+           <i class="fa fa-star" aria-hidden="true"></i>
+           <i class="fa fa-star" aria-hidden="true"></i>
+           <i class="fa fa-star" aria-hidden="true"></i>
+           <i class="far fa-star" aria-hidden="true"></i>
+           <i class="far fa-star" aria-hidden="true"></i>
+         </div>
+         <div class="bestseller-stars" *ngIf="list.Rating==4">
+           <i class="fa fa-star" aria-hidden="true"></i>
+           <i class="fa fa-star" aria-hidden="true"></i>
+           <i class="fa fa-star" aria-hidden="true"></i>
+           <i class="fa fa-star" aria-hidden="true"></i>
+           <i class="far fa-star" aria-hidden="true"></i>
+         </div>
+         <div class="bestseller-stars" *ngIf="list.Rating==5">
+           <i class="fa fa-star" aria-hidden="true"></i>
+           <i class="fa fa-star" aria-hidden="true"></i>
+           <i class="fa fa-star" aria-hidden="true"></i>
+           <i class="fa fa-star" aria-hidden="true"></i>
+           <i class="fa fa-star" aria-hidden="true"></i>
+         </div>
+          <div class="bestseller-price" *ngIf="list.Discount>0">
+            <span class="price-off">${{list.PriceAfterdiscount.toFixed(2)}}</span>
+            <span class="price-now">${{list.SellingPrice.toFixed(2)}}</span>
+          </div>
+          <div class="bestseller-price" *ngIf="list.Discount==0">
+           <!-- <span class="price-off">${{list.SellingPrice}}</span> -->
+           <span class="price-off">${{list.PriceAfterdiscount.toFixed(2)}}</span>
+         </div>
+          <!-- <div class="product-action icon-vertical">
+            <a class="">
+              <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+              <span class="tooltip">Add to cart</span>
+            </a>
+
+            <a class="">
+              <i class="fa fa-eye" aria-hidden="true"></i>
+              <span class="tooltip">Quick View</span>
+            </a>
+
+            <a class="">
+              <i class="fa fa-refresh" aria-hidden="true"></i>
+              <span class="tooltip">Compare</span>
+            </a>
+
+            <a class="">
+              <i class="fa fa-heart-o" aria-hidden="true"></i>
+              <span class="tooltip">Add to Wishlist</span>
+            </a>
+
+          </div> -->
+        </div>
+        <ng-template #elseblock>
+          <div class="bestseller-box">
+
+            <div class="bestseller-sale" *ngIf="list.Discount>0">{{list.Discount}}%</div>
+            <div class="sale-tag" *ngIf="list.Discount>0"><img src="assets/img/sale-tag-img.png"></div>
+            <div class="bestseller-out-of-stock">Out of Stock</div>
+            <div class="bestseller-img out-of-stock">
+
+              <img src={{list.Url150}} />
+
+            </div>
+            <div class="bestseller-text" *ngIf="list.Name!=null">{{list.Name.length >22 ? list.Name.substring(0,22)+"..." : list.Name}}</div>
+            <div class="bestseller-stars">
+              <i class="far fa-star" aria-hidden="true"></i>
+              <i class="far fa-star" aria-hidden="true"></i>
+              <i class="far fa-star" aria-hidden="true"></i>
+              <i class="far fa-star" aria-hidden="true"></i>
+              <i class="far fa-star" aria-hidden="true"></i>
+            </div>
+            <div class="bestseller-price" *ngIf="list.Discount>0">
+              <span class="price-off">${{list.PriceAfterdiscount.toFixed(2)}}</span>
+              <span class="price-now">${{list.SellingPrice.toFixed(2)}}</span>
+            </div>
+            <div class="bestseller-price" *ngIf="list.Discount==0">
+             <!-- <span class="price-off">${{list.SellingPrice}}</span> -->
+             <span class="price-off">${{list.PriceAfterdiscount.toFixed(2)}}</span>
+           </div>
+            <div class="product-action icon-vertical">
+              <a class="" *ngIf="!list.ShipmentVendor">
+                <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                <span class="tooltip">{{'Register.Compare.AddToCartButton'|translate}}</span>
+              </a>
+              <a class="" *ngIf="list.ShipmentVendor">
+                <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                <span class="tooltip">{{'Register.Compare.BuyNowButton'|translate}}</span>
+              </a>
+              <a class="">
+                <i class="fa fa-eye" aria-hidden="true"></i>
+                <span class="tooltip">{{'Register.Compare.QuickView'|translate}}</span>
+              </a>
+
+              <a class="">
+                <i class="fa fa-refresh" aria-hidden="true"></i>
+                <span class="tooltip">{{'Register.Compare.CompareText'|translate}}</span>
+              </a>
+
+              <a class="">
+                <i class="fa fa-heart-o" aria-hidden="true"></i>
+                <span class="tooltip">{{'Register.Compare.AddToWishlist'|translate}}</span>
+              </a>
+
+            </div>
+          </div>
+        </ng-template>
+
+     

@@ -1,0 +1,113 @@
+<app-header></app-header>
+<div class="container p-tb-2">
+  <div class="cart-page-con-area mrgn-b-md">
+
+    <div class="row mrgn-b-sm" *ngIf="errMsg">
+      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+        <div class="track-detail-box">
+          <div class="row mrgn-b-sm">
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12 border-right">
+              <div class="row">
+                <h3>{{errMsg}}</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mrgn-b-sm" *ngIf="TopData">
+      <div class="col-md-12">
+        <div class="track-detail-box">
+          <div class="row mrgn-b-sm">
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12 border-right">
+              <div class="row">
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 mrgn-b-xs">
+                  <h4>{{'Register.Cart.DeliveryAddress'|translate}}</h4>
+                </div>
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 mrgn-b-xs">
+                  <h5 class="capitalize" >{{TopData.Name}}</h5>
+                  <p>{{TopData.Address}}</p>
+                  <strong>{{'Register.Cart.PhoneNumber'|translate}}</strong>: {{TopData.Phone}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mrgn-b-sm" *ngIf="TopData && checkoutItems && checkoutItems.length>0">
+      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+        <div class="order_box">
+          <div class="order_content">
+            <div class="row" *ngFor="let item of checkoutItems">
+              <div class="col-12 col-md-2 text-center">
+                <img src={{item.Image}} alt="" class="img-pro">
+              </div>
+              <div class="col-md-10 col-lg-10 col-sm-10 col-xs-12">
+                <div class="order_list">
+                  <div class="row">
+                    <div class="col-md-3 col-lg-3 col-sm-3 col-xs-12">
+                      <a class="item-title" (click)="goToDetail(item.ProductId,item.ProductVariantDetailId)"> <strong class="text-transform: capitalize"> {{item.Name}}</strong><br></a>
+                      <p class="brand mt-10" *ngFor="let V of item.VariantOptions">
+                        {{V.varientName}}:
+                        {{V.Name}}</p>
+                      <p class="brand ">{{'Register.MyOrders.Seller'|translate}}: {{item.SellerName}}</p>
+                      <p class="productPrice">
+                        <span class="sellingPrice">
+                          <strong>
+                            ${{item.PriceAfterDiscount.toFixed(2)}} x {{item.Quantity}}
+                          </strong>
+                        </span></p>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+                      <div class="track-bar mrgn-b-lg">
+                        <ol class="progtrckr" data-progtrckr-steps="4">
+                          <li class="{{Preparing}}">{{'Register.MyOrders.Ordered'|translate}}</li>
+                          <!--
+                                                               -->
+                          <li class="{{Packed}}">{{'Register.MyOrders.Packed'|translate}}</li>
+                          <!--
+                                                               -->
+                          <li class="{{Shipped}}">{{'Register.MyOrders.Shipped'|translate}}</li>
+                          <!--
+                                                               -->
+                          <li class="{{Delivered}}">{{'Register.MyOrders.Delivered'|translate}}</li>
+                        </ol>
+                      </div>
+                      <!-- <p>Your item has been delivered</p> -->
+                    </div>
+                    <!-- <div class="col-md-3 col-lg-3 col-sm-3 col-xs-12">
+                      <h4 class="mrgn-b-sm">{{'Register.MyOrders.DeliveredOn'|translate}} {{TopData.DeliveryDate | date: 'dd/MM/yyyy'}}</h4>
+                      <p (click)="getproductId(item.ProductId,item.ProductVariantDetailId)"><a class="raterev mrgn-b-sm" href="#"><i class="fas fa-star mr-1"></i> {{'Register.MyOrders.RateReviews'|translate}}</a></p>
+                      <p><a class="raterev" href="#">
+                        <i class="fas fa-question-circle"></i> {{'Register.MyOrders.NeedHelpButton'|translate}}</a></p>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mrgn-b-sm">
+              <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12" *ngIf="TopData">
+                <!-- {{'Register.MyOrders.ReturnPolicyEnded'|translate}} -->
+              </div>
+            </div>
+          </div>
+          <div class="order_footer">
+            <div class="row">
+              <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+                <span class="totalPrice" *ngIf="TopData">Total $ {{TopData.TotalAmount.toFixed(2)}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+
+<app-footer></app-footer>

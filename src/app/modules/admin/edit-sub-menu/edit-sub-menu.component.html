@@ -1,0 +1,64 @@
+<div class="main-panel">
+    <div class="content">
+      <div class="page-inner">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-head-row">
+                  <h4 class="card-title">Add sub category</h4>
+                  <div class="btn-group btn-group-page-header ml-auto">
+                    <hr>
+                    <!-- <button type="button" class="btn btn-success" [routerLink]="['/admin/AddSubMenu']"
+                      routerLinkActive="router-link-active">{{'Register.AddSubCategoryButton'|translate}}</button> -->
+                  </div>
+  
+                </div>
+              </div>
+              <div class="card-body">
+  
+                  <div class="row ">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="filter" class="mr-2">Is Adult </label>
+                        <input type="checkbox" [checked]="IsAdult" (change)="handleSelected($event)">
+                       
+                      </div>
+                      </div>
+                    <div class="col-md-6">
+  
+                      <div class="row ">
+  
+                        <div class="form-group col-md-6">
+                          <label>sub category name</label>
+                          <input name="Name" [(ngModel)]="SubmenuName" class="form-control"
+                            required>
+                          <!-- <div class="validation-error" *ngIf="Name.invalid && Name.touched">
+                            {{'Register.RequiredField'|translate}}</div>-->
+                        </div> 
+                        <div class="form-group col-md-6">
+                          <label>sub category name spanish name</label>
+                          <input name="SpanishName"  [(ngModel)]="SpanishSubmenuName" class="form-control"
+                            required>
+                          <!-- <div class="validation-error" *ngIf="SpanishName.invalid && SpanishName.touched">
+                            {{'Register.RequiredField'|translate}}</div> -->
+                        </div>
+  
+                      </div>
+  
+                    </div>
+  
+                  </div>
+                  <div class="row ">
+                  </div>
+                  <div class="form-group col-sm-2">
+                    <button type="button" 
+                      class="btn btn-primary btn-block" (click)="save()">{{'Register.SubmitButton'|translate}}</button>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  

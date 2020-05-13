@@ -1,0 +1,703 @@
+<div class="main-panel">
+  <div class="content">
+    <div class="page-inner">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-head-row">
+            <div class="card-title">{{'Register.AddProduct'|translate}} </div>
+            <div class="btn-group btn-group-page-header ml-auto">
+              <button type="button" class="btn btn-sm btn-success" (click)="goToProducts()">{{'Register.Showproducts'|translate}} </button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <form #form="ngForm" (submit)="addProduct(form)" autocomplete="off">
+                <input type="hidden" name="Id" #Id="ngModel" [(ngModel)]="service.formData.Id">
+                <div class="row mt-3">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="card">
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <label>{{'Register.TITLE'|translate}}</label>
+                                  <input class="form-control" type="text" placeholder="Short Sleeve T-Shirt" name="Name"
+                                    #Name="ngModel" [(ngModel)]="service.formData.Name" required>
+                                  <div class="validation-error" *ngIf="Name.invalid && Name.touched">{{'Register.Thisfieldisrequired'|translate}}
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-2">
+                                <div class="form-group">
+                                  <label>{{'Register.Category'|translate}}</label>
+                                  <select name="ProductCategory" #ProductCategory="ngModel"
+                                    (change)="getSubCategoriesByCategory($event.target.value)"
+                                    [(ngModel)]="service.formData.MainCategoryId" id="category" class="form-control"
+                                    required>
+                                    <option [value]="null">{{'Register.SelectCategory'|translate}}</option>
+                                    <option *ngFor="let c of ProductCategories;" [value]="c.Id">
+                                      {{c.Name}}
+                                    </option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="col-md-2">
+                                <div class="form-group">
+                                  <label>{{'Register.SubCategory'|translate}}</label>
+                                  <select name="ProductCategoryId" #ProductCategoryId="ngModel"
+                                    (change)="getVariants($event.target.value)"
+                                    [(ngModel)]="service.formData.ProductCategoryId" id="categories"
+                                    class="form-control" required>
+                                    <option [value]="null">{{'Register.Selectsubcategory'|translate}}</option>
+                                    <option *ngFor="let c of Categories;" [value]="c.Id">
+                                      {{c.Name}}
+                                    </option>
+                                  </select>
+                                  <!-- <div class="validation-error" *ngIf="ProductCategoryId.invalid ">
+                              This field is required.
+                            </div> -->
+                                </div>
+                              </div>
+                              <div class="col-md-2" *ngIf="vendor!=null">
+                                <div class="form-group">
+                                  <label>{{'Register.Vendor'|translate}}</label>
+                                  <input class="form-control" type="text" readonly
+                                    value=" {{vendor.FirstName}} {{vendor.MiddleName}}">
+
+                                </div>
+                              </div>
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <label>{{'Register.Tags'|translate}}</label>
+                                  <input class="form-control" type="text" placeholder="Vintage, cotton, summer"
+                                    name="ProductTags" #ProductTags="ngModel"
+                                    [(ngModel)]="service.formData.ProductTags">
+                                </div>
+                              </div>
+                              <div class="col-md-12">
+                                <div class="form-group">
+                                  <label>{{'Register.Description'|translate}}</label>
+                                  <div class="row">
+                                    <div class="col-md-12">
+                                      <ckeditor name="Description" #Description="ngModel"
+                                        [(ngModel)]="service.formData.Description"></ckeditor>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="card">
+                          <div class="card-header">
+                            <div class="card-head-row">
+                              <div class="card-title">{{'Register.Variants'|translate}}</div>
+                              <div class="card-tools">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card-body">
+                            <div *ngIf="show">
+                              <div *ngIf="Variants.length>=1" class="bg-light p-3 mt-3">
+                                <div class="row">
+                                  <input type="hidden" id="action">
+                                  <input type="hidden" id="index">
+                                  <div class="col-md-4" *ngFor="let o of Variants;let i=index">
+                                    <div class="form-group ">
+                                      <label> {{'Register.Select'|translate}} {{o.option}}<i style="color: red;"> *</i></label>
+                                      <select name="Variants" #Variants="ngModel" [value]="editoptions[i]"
+                                        [ngModel]="stage" id="Variant" class="form-control changeClass " required
+                                        (change)=onChange($event)>
+                                        <option [value]="null">{{'Register.Select'|translate}}</option>
+                                        <option *ngFor="let c of o.optionvalue;" [value]="c">
+                                          {{c}}
+                                        </option>
+                                      </select>
+                                      <div class="validation-error" *ngIf="showoptionerr==true ">{{'Register.Thisfieldisrequired'|translate}}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-4">
+                                    <label>{{'Register.Price'|translate}}<i style="color: red;"> *</i></label>
+                                    <input class="form-control" name="Price" type="text" placeholder="Enter price"
+                                      #Price="ngModel" [(ngModel)]="variant_price"
+                                      (change)="CalculatePriceAfterDiscount1('','','')">
+                                    <div class="validation-error" *ngIf="showpriceerr==true ">{{'Register.Thisfieldisrequired'|translate}}
+                                    </div>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <label>{{'Register.Discount'|translate}} </label>
+                                    <input class="form-control" name="Discount1" type="text"
+                                      placeholder="Enter Discount" #Discount="ngModel" [(ngModel)]="Discount1"
+                                      (change)="CalculatePriceAfterDiscount1('','','')">
+                                    <!-- <div class="validation-error" *ngIf="showoptionerr==true ">This
+                                        field is
+                                        required.
+                                      </div> -->
+                                  </div>
+                                  <div class="col-md-4">
+                                    <label>{{'Register.Quantity'|translate}} <i style="color: red;">*</i></label>
+                                    <input class="form-control" name="quantity" type="text" placeholder="Enter quantity"
+                                      #quantity="ngModel" [(ngModel)]="variant_quantity">
+                                    <div class="validation-error" *ngIf="showquantityerr==true  ">{{'Register.Thisfieldisrequired'|translate}}
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="row">
+                                  <div class="col-md-4">
+                                    <div class="form-group">
+                                      <label>{{'Register.PriceAfterDiscount'|translate}} </label>
+                                      <input class="form-control" name="PriceAfterDiscount1" type="text" placeholder=""
+                                        #PriceAfterDiscount="ngModel" [(ngModel)]="PriceAfterDiscount1" readonly>
+                                      <div class="validation-error" *ngIf="showdiscountpriceerr==true">{{'Register.Pricecannotbe0'|translate}}
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <div class="form-group">
+                                      <label>{{'Register.CostPrice'|translate}} <i style="color: red;">*</i></label>
+                                      <input class="form-control" name="CostPrice1" type="text"
+                                        placeholder="Enter CostPrice" #CostPrice="ngModel" [(ngModel)]="CostPrice1">
+                                      <div class="validation-error" *ngIf="showcosterr==true">{{'Register.Thisfieldisrequired'|translate}}
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <div class="chiller_cb">
+                                      <input id="isdefault" name="isdefault" type="checkbox" #isdefault="ngModel"
+                                        [(ngModel)]="variant_isDefault" class="custom-control-input">
+                                      <label for="isdefault" class="custom-control-label">{{'Register.IsDefaultVariant'|translate}} </label>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="row">
+                                  <div class="col-md-4">
+                                    <div class="form-group">
+                                      <label>{{'Register.ProductSKU'|translate}} <i style="color: red;">*</i></label>
+                                      <input class="form-control" name="ProductSKU1" type="text"
+                                        (change)="checkExistingSKU()" placeholder="" #ProductSKU="ngModel"
+                                        [(ngModel)]="ProductSKU1">
+                                      <div class="validation-error" *ngIf="showskuerr==true">{{'Register.Thisfieldisrequired'|translate}}
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <div class="form-group">
+                                      <label>{{'Register.Weight(kg)'|translate}} <i style="color: red;">*</i></label>
+                                      <input class="form-control" name="Weight1" type="text" placeholder="Enter Weight"
+                                        #Weight="ngModel" [(ngModel)]="Weight1">
+                                      <div class="validation-error" *ngIf="showweighterr==true">{{'Register.Thisfieldisrequired'|translate}}
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-4">
+                                    <div class="form-group">
+                                      <label>{{'Register.Length(cm)'|translate}}<i style="color: red;">*</i></label>
+                                      <input class="form-control" name="Lenght" type="text" placeholder="Enter Length"
+                                        #Weight="ngModel" [(ngModel)]="Lenght">
+                                      <div class="validation-error" *ngIf="showweighterr==true">{{'Register.Thisfieldisrequired'|translate}}
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <div class="form-group">
+                                      <label>{{'Register.Width(cm)'|translate}} <i style="color: red;">*</i></label>
+                                      <input class="form-control" name="Width" type="text" placeholder="Enter Weight"
+                                        #Weight="ngModel" [(ngModel)]="Width">
+                                      <div class="validation-error" *ngIf="showweighterr==true">{{'Register.Thisfieldisrequired'|translate}}
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <div class="form-group">
+                                      <label>{{'Register.Height(cm)'|translate}} <i style="color: red;">*</i></label>
+                                      <input class="form-control" name="Height" type="text" placeholder="Enter height"
+                                        #Weight="ngModel" [(ngModel)]="Height">
+                                      <div class="validation-error" *ngIf="showweighterr==true">{{'Register.Thisfieldisrequired'|translate}}
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                </div>
+                                <hr>
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label>{{'Register.CopyFrom'|translate}} </label>
+                                      <select name="ImageVariant" (change)="copySpecs($event)" class="form-control">
+                                        <option [value]="null">{{'Register.Select'|translate}}</option>
+                                        <option *ngFor="let v of variantModelArray" [value]="v.variants">{{v.variants}}
+                                        </option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-4" style="float: right">
+                                    <div class="form-group">
+                                      <br>
+                                      <button type="button" class="btn btn-warning" style="float: right"
+                                        (click)="addVariantSpecs()">{{'Register.AddSpecification'|translate}} </button>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row" *ngFor="let  o of variantSpecsArray; let i=index">
+                                  <div class="col-md-4">
+                                    <div class="form-group">
+                                      <label>{{'Register.SpecificationHeading'|translate}} </label>
+                                      <input class="form-control" id="Heading[i]" value="{{o.Heading}}"
+                                        (change)="addToSpecs($event,i)" type="text" placeholder="Heading">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-7">
+                                    <div class="form-group">
+                                      <label>{{'Register.Description'|translate}} </label>
+                                      <input class="form-control" id="Description[i]" value="{{o.Description}}"
+                                        (change)="addToSpecs($event,i)" id="SpecsDesciption">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-1">
+                                    <div class="form-group">
+                                      <br>
+                                      <button type="button" *ngIf="i>0" class="btn btn-default btn-sm"
+                                        (click)=deleteVariantSpecs(i)><i class="fas fa-trash"></i></button>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <hr>
+                                  <div class="col-md-12">
+                                    <div class="form-group">
+                                      <button type="button" *ngIf="!IsEdit" class="btn btn-info mr-2"
+                                        (click)="saveVariants(form)">{{'Register.AddVariant'|translate}} </button>
+                                      <button type="button" *ngIf="IsEdit" class="btn btn-info mr-2"
+                                        (click)="saveVariants(form)">{{'Register.UpdateVariant'|translate}} </button>
+                                      <button type="button" class="btn btn-secondary"
+                                        (click)="resetUpdateColumn()">{{'Register.ResetVariant'|translate}} </button>
+                                    </div>
+                                  </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                  <div class="col-md-12 table-responsive">
+                                    <table class="table">
+                                      <thead>
+                                        <tr>
+                                          <th style="width: 30%">{{'Register.Variants'|translate}}</th>
+                                          <th>{{'Register.Price'|translate}}</th>
+                                          <th>{{'Register.Discount'|translate}}</th>
+                                          <th>{{'Register.PriceAfterDiscount'|translate}}</th>
+                                          <th>{{'Register.CostPrice'|translate}} </th>
+                                          <th>{{'Register.Quantity'|translate}}</th>
+                                          <th>{{'Register.IsDefault'|translate}} </th>
+                                          <th></th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr *ngFor="let  o of variantModelArray; let i=index">
+                                          <td>
+                                            <label>{{o.variants}}</label>
+                                          </td>
+                                          <td>
+                                            <label>{{o.price}}</label>
+                                          </td>
+                                          <td><label>{{o.Discount}}</label></td>
+                                          <td><label>{{o.PriceAfterdiscount}}</label></td>
+                                          <td><label>{{o.CostPrice}}</label></td>
+                                          <td>
+                                            <label>{{o.quantity}}</label>
+                                          </td>
+                                          <td>
+                                            <label>{{o.isDefault}}</label>
+                                          </td>
+                                          <td>
+                                            <button type="button" class="btn btn-default btn-sm mr-2"
+                                              (click)=editVariant(i)><i class="fas fa-pencil-alt"></i></button>
+                                            <button type="button" class="btn btn-default btn-sm"
+                                              (click)=deleteVariant(i)><i class="fas fa-trash"></i></button>
+                                          </td>
+                                        </tr>
+                                        <!-- edit -->
+
+                                        <tr *ngIf="editdivshow">
+                                          <td colspan="8">
+                                            <div class="row">
+                                              <div class="col-md-4" *ngFor="let v of Variants;let i=index">
+                                                <label> {{'Register.Select'|translate}} {{v.option}}</label>
+                                                <!-- <select name="Variants{{i}}" [(ngModel)]="editoptions[i]" id="Variant" -->
+                                                <select name="Variants1" #Variants1="ngModel"
+                                                  [(ngModel)]="editoptions[i]" id="Variant1" class="form-control"
+                                                  required (change)=onChange1($event)>
+                                                  <option *ngFor="let ce of v.optionvalue;" [value]="ce">
+                                                    {{ce}}
+                                                  </option>
+                                                </select>
+                                              </div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-md-4">
+                                                <div class="form-group">
+                                                  <label>{{'Register.Price'|translate}} </label>
+                                                  <input class="form-control" name="edit_Price" type="text"
+                                                    placeholder="Enter price" #edit_Price="ngModel"
+                                                    [(ngModel)]="edit_variant_price" required
+                                                    (change)="CalculatePriceAfterDiscount1(edit_variant_Discount1,'','edit')">
+                                                  <div class="validation-error" *ngIf="Price.invalid">{{'Register.Thisfieldisrequired'|translate}}
+                                                  </div>
+                                                </div>
+                                              </div>
+                                              <div class="col-md-4">
+                                                <label>{{'Register.Discount'|translate}}</label>
+                                                <input class="form-control" type="text" placeholder="0%"
+                                                  (change)="CalculatePriceAfterDiscount1(edit_variant_Discount1,'','edit')"
+                                                  name="edit_variant_Discount1" [(ngModel)]="edit_variant_Discount1">
+                                              </div>
+                                              <div class="col-md-4">
+                                                <div class="form-group">
+                                                  <label>{{'Register.Quantity'|translate}}</label>
+                                                  <input class="form-control" name="edit_quantity" type="text"
+                                                    placeholder="Enter quantity" #edit_quantity="ngModel"
+                                                    [(ngModel)]="edit_variant_quantity" required>
+                                                  <div class="validation-error" *ngIf="quantity.invalid  ">
+                                                    {{'Register.Thisfieldisrequired'|translate}}
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-md-4">
+                                                <div class="form-group">
+                                                  <label>{{'Register.PriceAfterDiscount'|translate}}</label>
+                                                  <input class="form-control" type="text" placeholder="Rs"
+                                                    name="edit_variant_PriceAfterDiscount1"
+                                                    [(ngModel)]="edit_variant_PriceAfterDiscount1" readonly>
+                                                </div>
+                                              </div>
+                                              <div class="col-md-4">
+                                                <div class="form-group">
+                                                  <label>{{'Register.CostPrice'|translate}} </label>
+                                                  <input class="form-control" type="text" placeholder="Rs"
+                                                    name="edit_variant_CostPrice1" [(ngModel)]="edit_variant_CostPrice1"
+                                                    required>
+                                                </div>
+                                              </div>
+                                              <div class="col-md-4">
+                                                <div class="chiller_cb">
+                                                  <label for="edit_isdefault">{{'Register.IsDefaultVariant'|translate}}</label><br>
+                                                  <input id="edit_isdefault" name="edit_isdefault" type="checkbox"
+                                                    #isdefault="ngModel" [(ngModel)]="edit_variant_isDefault">
+                                                  <span>
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+
+                                            <div class="row" *ngFor="let  o of variantSpecsArray; let i=index">
+                                              <div class="col-md-4">
+                                                <div class="form-group">
+                                                  <label>{{'Register.SpecificationHeading'|translate}} </label>
+                                                  <input class="form-control" id="Heading[i]" value="{{o.Heading}}"
+                                                    (change)="addToSpecs($event,i)" type="text" placeholder="Heading">
+                                                </div>
+                                              </div>
+                                              <div class="col-md-7">
+                                                <div class="form-group">
+                                                  <label>{{'Register.Description'|translate}}</label>
+                                                  <input class="form-control" id="Description[i]" value="o.Description"
+                                                    (change)="addToSpecs($event,i)" id="SpecsDesciption">
+                                                </div>
+                                              </div>
+                                              <div class="col-md-1">
+                                                <div class="form-group">
+                                                  <br>
+                                                  <button type="button" *ngIf="i>0" class="btn btn-default btn-sm"
+                                                    (click)=deleteVariantSpecs(i)><i class="fas fa-trash"></i></button>
+                                                </div>
+                                              </div>
+                                            </div>
+
+                                            <div class="row">
+                                              <div class="col-md-11">
+                                                <div class="form-group">
+                                                  <button type="button" class="btn btn-warning" style="float: right"
+                                                    (click)="addVariantSpecs()">{{'Register.AddSpecification'|translate}}</button>
+                                                </div>
+                                              </div>
+                                              <div class="col-md-12">
+                                                <div class="form-group"><br>
+                                                  <button type="button" class="btn btn-default"
+                                                    (click)="saveEditVariants(form)">{{'Register.Update'|translate}}</button>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </td>
+                                        </tr>
+                                        <!-- end edit -->
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-12">
+                        <div class="card">
+                          <div class="card-header">
+                            <div class="card-head-row">
+                              <div class="card-title">{{'Register.Images'|translate}}</div>
+                            </div>
+                          </div>
+
+                          <div class="card-body">
+                            <div class="row mb-4">
+                              <div class="col-lg-12 col-xs-12">
+                                <div class="table-style">
+                                  <div class="row">
+                                    <div class="col-lg-8 col-xs-12">
+                                      <dropzone (success)="onUploadSuccess($event)" [config]="config"
+                                        [message]="'Drag and Drop Images here'"></dropzone>
+                                    </div>
+                                    <div class="col-lg-4 col-xs-12 images-right">
+                                      <div class="form-group">
+                                        <label>{{'Register.SelectVariant'|translate}} </label>
+                                        <select name="ImageVariant" #ImageVariant="ngModel"
+                                          [(ngModel)]="SelectedImageVariant" class="form-control">
+                                          <option [value]="null">{{'Register.Select'|translate}}</option>
+                                          <option *ngFor="let v of variantModelArray" [value]="v.variants">
+                                            {{v.variants}}
+                                          </option>
+                                        </select>
+                                      </div>
+                                      <div class="form-group">
+                                        <div class="chiller_cb m-0">
+                                          <label for="isDefault_Image">{{'Register.IsDefaultImage'|translate}}</label><br>
+                                          <input id="isDefault_Image" name="isDefault_Image" #isDefault_Image
+                                            [(ngModel)]="isDefaultImage" type="checkbox">
+                                          <span></span>
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-lg-12">
+                                          <a class="btn btn-light reset-btn" (click)="resetDropzoneUploads()">{{'Register.Reset'|translate}}</a>
+                                          <a class="upload-btn btn btn-default"
+                                            (click)="AddImage(ImageVariant.value,isDefault_Image.checked)">{{'Register.Upload'|translate}}</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div *ngIf="imageList.length>=1">
+                              <div class="row mb-3">
+                                <div class="col-lg-12 col-xs-12">
+                                  <h5>{{'Register.UploadedImages'|translate}} </h5>
+                                </div>
+                              </div>
+                              <div *ngFor="let image of imageList;let i=index">
+                                <div>
+                                  <div class="row mb-4">
+                                    <div class="col-md-12">
+                                      <span class="badge badge-light">{{image.variant}}</span>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-lg-3 col-xs-12 mb-4" *ngFor="let img of image.images;let j=index">
+                                      <div class="upload-slider">
+                                        <span class="upload-img mb-2"><img [src]="img.image"
+                                            asp-append-version="true" /></span>
+                                        <span class="upload-cross-btn" (click)="ImageDelete(i,j)">X</span>
+                                        <span class="upload-ok-btn" *ngIf="img.isdefaultimage"><i
+                                            class="fa fa-check"></i></span>
+                                        <div class="table-style">
+                                          <button class="btn btn-secondary" *ngIf="!img.isdefaultimage"
+                                            (click)="setAsDefault(i,j)">{{'Register.SetAsDefault'|translate}} </button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <hr>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                      <!-- end -->
+                      <!-- <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">
+                    <div class="card-head-row">
+                      <div class="card-title mb-3">Search engine listing preview</div>
+                      <div class="card-tools">
+                        <a href="#" class="mr-2">
+
+                          Edit website SEO
+                        </a>
+
+                      </div>
+                    </div>
+                    <h4>Add a title and description to see how this product might appear in a search engine listing.
+                    </h4>
+                  </div>
+                  <div class="card-body">
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Option name</label> <span class="float-right"><small>0 of 70 characters
+                              used</small></span>
+                          <input class="form-control" type="text">
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Meta description</label> <span class="float-right"><small>0 of 320 characters
+                              used</small></span>
+                          <textarea class="form-control" id="comment" rows="5"></textarea>
+                        </div>
+
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>URL and handle</label>
+                          <input class="form-control" type="text"
+                            value="https://technostore007.myshopify.com/products/">
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+                      <!-- <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">
+                    <div class="card-head-row">
+                      <div class="card-title">Specifications</div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <h5> Add Specifications of products.</h5>
+                    <div class="row" *ngFor="let option of optionsSpecs; let i=index">
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label>Specification Heading</label>
+                          <input name="SpecificationHeading{{i}}" #SpecificationHeading class="form-control"
+                            (focusout)="onKeyPress1(SpecificationHeading.value,Specification.value,i)"
+                            placeholder="Product Heading" type="text" value="">
+                        </div>
+                      </div>
+                      <div class="col-md-5">
+                        <div class="form-group">
+                          <label>Product Specification </label>
+                          <input class="form-control" name="Specification{{i}}" type="text" #Specification
+                            placeholder="Product Specification"
+                            (focusout)="onKeyPress1(SpecificationHeading.value,Specification.value,i)">
+                        </div>
+                      </div>
+                      <div class="col-md-1" *ngIf="optionsSpecs.length>0">
+                        <div class="form-group">
+                          <label>&nbsp;</label>
+                          <br />
+                          <button type="button" class="btn btn-default btn-light"
+                            (click)="deleteRowSpec(i,SpecificationHeading.value)"><i
+                              class="fas fa-trash text-danger"></i></button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mt-2">
+                      <div class="col-md-12">
+                        <button type="button" class="btn btn-default btn-sm" (click)="addOption1()"> <i
+                            class="fas fa-plus"></i> Add another specification</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+
+                      <div class="col-md-12">
+                        <div class="card">
+                          <div class="card-header">
+                            <div class="card-head-row">
+                              <div class="card-title">{{'Register.Shipments'|translate}}</div>
+                              <div class="card-tools"></div>
+                            </div>
+                          </div>
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <label>{{'Register.Shipmentbyvendor'|translate}} </label><br>
+                                  <input (change)="handleSelected($event)" 
+                                    type="checkbox"><span></span>
+                                </div>
+                              </div>
+                              <div *ngIf="Shipchecked" class="col-md-4">
+                                <div class="form-group">
+                                  <label>{{'Register.ShipmentCost($)'|translate}} </label>
+                                  <input type="text"  class="form-control"
+                                 [(ngModel)]="ShippmentCost" [ngModelOptions]="{standalone: true}">
+                                </div>
+                              </div>
+                              <div *ngIf="Shipchecked" class="col-md-4">
+                                <div class="form-group">
+                                  <label>{{'Register.Shipmenttime(days)'|translate}}</label>
+                                  <input type="text" class="form-control" 
+                                 [(ngModel)]="ShippmentTime" [ngModelOptions]="{standalone: true}" >
+                                </div>
+                                <div *ngIf="Shiptime" class="text-danger">
+                                  {{'Register.Thisfieldisnecessary'|translate}}
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group col-sm-2">
+                  <button type="submit" [disabled]="form.invalid" class="btn btn-primary btn-block">{{'Register.Save'|translate}}</button>
+                </div>
+                <!-- <input name="ProductSpecifications" #SpecificationModel="ngModel"
+          [(ngModel)]="service.formData.SpecificationModel" type="hidden"> -->
+                <input name="VariantModels" #VariantModels="ngModel" [(ngModel)]="service.formData.VariantModels"
+                  type="hidden">
+                <input name="VariantImages" #VariantImages="ngModel" [(ngModel)]="service.formData.VariantImages"
+                  type="hidden">
+                <input name="FinalVariants" #FinalVariants="ngModel" [(ngModel)]="service.formData.FinalVariants"
+                  type="hidden">
+                <input name="FileUploads" #FileUploads="ngModel" [(ngModel)]="service.formData.FileUploads"
+                  type="hidden">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

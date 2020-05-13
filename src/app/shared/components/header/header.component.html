@@ -1,0 +1,862 @@
+<header>
+<div *ngIf="!isMobileResolution; else mobileContainer">
+ 
+   <div  class="modal modal-newsletter-main" [ngStyle]="{'display':display}" >
+      <div class="modal-dialog modal-newsletter">
+      <div class="modal-content">
+      <form action="/examples/actions/confirmation.php" method="post">
+      <div class="modal-header">
+
+      <button type="button" class="close pull-right" data-dismiss="modal"
+                        aria-label="Close" (click)="onCloseHandled(email.value='')"><span
+                          aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body text-center">
+      <div class="row">
+      <div class="col-md-6">
+      <div class="news-pop-tumb">
+      <img  alt="newsletter" src={{ModalImage}}>
+      </div>
+      </div>
+      <div class="col-md-6">
+      <div class="form-block-news-pop">
+      <h4>{{subribe}}<br>{{NewsletterHeading}}</h4>
+      <p>{{Newsletterdescription}}</p>
+      <div class="input-group">
+        <input type="text" class="form-control" #email
+        placeholder="{{'Register.NewsLetterSection.EmailPlaceHolder'|translate}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="searchValue">
+      <span class="input-group-btn">
+      <button _ngcontent-xqk-c1="" class="btn btn-lg btn-primary btn-block"
+      (click)="getEmail(email.value)"
+        type="button">{{'Register.NewsLetterSection.SubscribeButton'|translate}}</button>
+      </span>
+      </div>
+      </div>
+      </div>
+
+
+      </div>
+      </div>
+      </form>
+      </div>
+      </div>
+      </div>  
+     
+ <div class="container-fluid logo-search">
+    <div class="row">
+      <div class="col-sm-3 col-md-3 col-lg-3 col-xs-12 logo" style="width:20%; padding-right:0;"><a [routerLink]="['/']" routerLinkActive="router-link-active"><img src="assets/img/logo.png" alt="logo"></a>
+        </div>
+      <div class="col-sm-5 col-md-5 col-lg-5 col-xs-12 search" style="width:35%!important;">
+
+        <div class="search-categories-section" *ngIf="slanguage=='english'">
+
+          <div class="header-all--collections list-unstyled">
+
+            <span class="init">
+              <select class="form-control categories-dropdown" #selectedCategory id="sel1">
+                <option [value]="0">{{'Register.Header.AllCategories'|translate}}</option>
+                <option *ngFor="let cat of category" [value]="cat.Id">{{cat.Name}}</option>
+
+              </select>
+            </span>
+
+          </div>
+
+          <div class="header-search medium--hide">
+            <div class="search-bar__table-cell search-bar__form"
+              (keydown)="keyDownFunction($event,selectedCategory.value,searchData.value)">
+<!-- 
+              <input type="text" id="search" #searchData [(ngModel)]=serachValue
+                placeholder="{{'Register.Header.Search'|translate}}..." [value]="searchData"> -->
+
+                
+
+ 
+    <input type="text"
+    placeholder="{{'Register.Header.Search'|translate}}..."
+           aria-label="Number"
+           matInput
+           [formControl]="myControl"
+           [matAutocomplete]="auto" 
+           [value]="searchData"
+           id="search" #searchData [(ngModel)]=serachValue
+           >
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+
+              <button class="sb-search-submit" type="button" value=""
+                (click)="mainSearch(selectedCategory.value,searchData.value)"><i class="fa fa-search"></i></button>
+            </div>
+
+          </div>
+
+<!-- auto search -->
+
+<!-- 
+
+<div class="ng-autocomplete">
+  <ng-autocomplete
+    [data]="countries"
+    [searchKeyword]="keyword"
+    placeHolder="Enter the Country Name"
+    (selected)='selectEvent($event)'
+    (inputChanged)='onChangeSearch($event)'
+    (inputFocused)='onFocused($event)'
+    historyIdentifier="countries"
+    [itemTemplate]="itemTemplate"
+    [notFoundTemplate]="notFoundTemplate">
+  </ng-autocomplete>
+
+  <ng-template #itemTemplate let-item>
+    <a [innerHTML]="item.name"></a>
+  </ng-template>
+
+  <ng-template #notFoundTemplate let-notFound>
+    <div [innerHTML]="notFound"></div>
+  </ng-template>
+</div> -->
+
+
+
+
+
+
+
+
+
+
+
+<!-- auto search end -->
+
+
+
+
+
+        </div>
+        <div class="search-categories-section" *ngIf="slanguage=='espanol'">
+
+          <div class="header-all--collections list-unstyled">
+            <!-- <span class="init">All Categories <i class="fa fa-caret-down pull-right" aria-hidden="true"></i></span> -->
+            <span class="init">
+              <select class="form-control categories-dropdown" #selectedCategory id="sel1">
+                <option [value]="0">{{'Register.Header.AllCategories'|translate}}</option>
+                <option *ngFor="let cat of category" [value]="cat.Id">{{cat.SpanishName}}</option>
+
+              </select>
+            </span>
+            <!-- <ul class="inline-list">
+                    <li *ngFor="let cat of category"><a href="#">{{cat.Name}}</a></li>
+                  </ul> -->
+          </div>
+
+          <div class="header-search medium--hide">
+            <div class="search-bar__table-cell search-bar__form">
+
+              <input type="text" id="search" #searchData [(ngModel)]=serachValue
+                placeholder="{{'Register.Header.Search'|translate}}..." [value]="searchData">
+              <button class="sb-search-submit" type="button" value=""
+                (click)="mainSearch(selectedCategory.value,searchData.value)"><i class="fa fa-search"></i></button>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      <div class="col-sm-4 col-md-4 col-lg-4 col-xs-12 text-right pl-0" style="width:45%!important;">
+        <a  (click)="getDealId(0)"
+        class="account btn btn-xs btn-primary mr-4">{{'Register.Deals'|translate}}</a>
+        <a href="#" [routerLink]="['/wishlist']" routerLinkActive="router-link-active"
+          class="account btn btn-xs btn-primary mr-4">{{'Register.Header.Wishlist'|translate}}</a>
+            <a href="http://blog.pistis.com.mx/" 
+          class="account btn btn-xs btn-primary mr-4">{{'Register.Header.Blog'|translate}}</a> 
+         
+       <!-- login section -->
+       <div class="login-container">
+         <div *ngIf="loginCheck==false" class="dd-guest">{{'Register.LoginAs'|translate}}</div>
+       <!-- customer -->
+       <div *ngIf="loginCheck==false" class="dropdown-top ">
+        <button class="dropbtn login-area" [routerLink]="['/customer/UserLogin']"
+          routerLinkActive="router-link-active">{{'Register.Customer'|translate}}<span
+            class="caret"></span></button>
+            
+        <!-- <div class="dd-guest">{{'Register.Header.HelloGuest.HelloGuestText'|translate}}</div> -->
+        <div class="dropdown-content user-dd no-padding">
+          <div class="list-group">
+            <a href="#" [routerLink]="['/customer/UserLogin']" routerLinkActive="router-link-active"
+              class="list-group-item"><i class="fas fa-unlock-alt"></i> <span>{{'Register.Login'|translate}}</span></a>
+            <a href="#" [routerLink]="['/customer/UserRegistration']" routerLinkActive="router-link-active"
+              class="list-group-item"><i class="fas fa-user-edit"></i>
+              <span>{{'Register.Header.HelloGuest.Register'|translate}}</span></a>
+              <a href="#" [routerLink]="['/trackorder_bynumber']" routerLinkActive="router-link-active"
+              class="list-group-item"><i class="fas fa-user-edit"></i>
+              <span>{{'Register.TrackOrder'|translate}}</span></a>
+          </div>
+        </div>
+      </div>
+      <!-- Vendor -->
+      <div *ngIf="loginCheck==false" class="dropdown-top ">
+        <button class="dropbtn login-area" [routerLink]="['/customer/UserLogin']"
+          routerLinkActive="router-link-active">{{'Register.Vendor'|translate}}<span
+            class="caret"></span></button>
+        <div class="dropdown-content user-dd no-padding">
+          <div class="list-group">
+              <a href="#" [routerLink]="['vendor/login']" routerLinkActive="router-link-active"
+              class="list-group-item"><i class="fas fa-unlock-alt"></i> <span>{{'Register.LoginAsVendor'|translate}}</span></a>
+            <a href="#" [routerLink]="['/user/registervendor']" routerLinkActive="router-link-active"
+              class="list-group-item"><i class="fas fa-user-edit"></i>
+              <span>{{'Register.RegisterAsVendor'|translate}}</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+       <!-- login section ends -->
+        <!-----------------------------------after login start------------------------------->
+        <div class="login-container">
+          <div *ngIf="loginCheck==true" class="dd-guest">{{'Register.Header.HelloGuest.WelcomeUser'|translate}}</div>
+        <div *ngIf="loginCheck==true" class="dropdown-top">
+          <button class="dropbtn capitalize dropbtn-a-login login-area">{{UserName}}<span class="caret"></span></button>
+          
+
+          <div class="dropdown-content user-dd no-padding">
+            <div class="list-group">
+              <a href="#" (click)="goToProfile()"[routerLink]="['/MyProfile']" routerLinkActive="router-link-active"  class="list-group-item"><i
+                  class="fas fa-user-circle"></i> <span>{{'Register.MyProfile.MyProfileText'|translate}}</span></a>
+              <a href="#" (click)="goToOrders()" [routerLink]="['/MyOrders']" routerLinkActive="router-link-active" class="list-group-item"><i
+                  class="fas fa-gifts"></i> <span>{{'Register.MyProfile.Orders'|translate}}</span></a>
+              <a href="#" (click)="goToWishlist()"[routerLink]="['/wishlist']" routerLinkActive="router-link-active" class="list-group-item"><i
+                  class="fas fa-heart"></i> <span>{{'Register.MyProfile.Wishlist'|translate}}</span> <span
+                  class="badge"></span></a>
+
+              <a (click)="logout()" class="list-group-item"><i class="fas fa-power-off"></i>
+                <span>{{'Register.MyProfile.Logout'|translate}}</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+        <!-----------------------------------after login end--------------------------------->
+
+        <div class="dropdown-top">
+          <button class="dropbtn"><i class="fas fa-random"></i> {{'Register.Compare.CompareText'|translate}} <span
+              class="caret"></span></button>
+          <div class="dd-count">{{CompareItemLength}}</div>
+          <div class="dropdown-content">
+            <div class="row">
+              <div class="col-md-12 col-xs-12">
+                <h4 class="mrgn-b-sm">
+                  {{'Register.Compare.RecentItems'|translate}}
+                </h4>
+                <div class="row mrgn-b-sm">
+                  <div class="col-md-12 col-xs-12">
+                    <div class="row mrgn-b-sm" *ngFor="let P of CompareItems; let i=index">
+                      <div class="col-md-2 col-xs-2">
+                        <div class="compare-dd-thumb">
+                          <a (click)="productDetail(P.ProductId,P.VariantDetailId)"> <img src={{P.LandingImage150}} /></a>
+                        </div>
+                      </div>
+                      <div class="col-md-8 col-xs-8"><a
+                          (click)="productDetail(P.ProductId,P.VariantDetailId)">{{P.Name}}</a></div>
+                      <div class="col-md-2 col-xs-1 text-right">
+                        <i class="cross-icon" (click)="deleteCompareproduct(P.CompareProductId, i)"
+                          class="far fa-times-circle"></i>
+                        <!-- <a class="cross-icon" href="#"><i class="far fa-times-circle"></i></a> -->
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="row border-top">
+                  <div class="col-md-6 col-xs-6" *ngIf="CompareItemLength>=2"><button *ngIf="CompareItemLength>=2"
+                      class="btn btn-sm btn-primary"
+                      (click)="compareProduct()">{{'Register.Compare.CompareText'|translate}}</button>
+                  </div>
+                  <div *ngIf="CompareItemLength<2" class="col-md-12 col-xs-12">
+                    <p class="mrgn-b-sm" *ngIf="CompareItemLength<2">{{'Register.Compare.AtleastTwo'|translate}}</p>
+                  </div>
+                  <!-- <div class="col-md-6 col-xs-6 text-right"><button class="btn btn-sm btn-default">Clear All</button></div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="dropdown-top">
+          <button class="dropbtn"><i class="fas fa-shopping-cart"></i> {{'Register.Cart.CartText'|translate}} <span
+              class="caret"></span></button>
+          <div class="dd-count"*ngIf="cartItem!=null">{{cartItem.length}}</div>
+          <div class="dropdown-content">
+            <div class="row">
+              <div class="col-md-12 col-xs-12">
+                <h4 class="mrgn-b-sm">
+                  {{'Register.Compare.RecentItems'|translate}}
+                </h4>
+                <div class="row mrgn-b-sm">
+                  <div class="col-md-12 col-xs-12">
+                    <div class="row mrgn-b-sm" *ngFor="let c of cartItem">
+                      <div class="col-md-2 col-xs-2">
+                        <div class="compare-dd-thumb">
+                          <a (click)="productDetail(c.ProductId,c.ProductVariantDetailId)"><img src={{c.Image150}} /></a>
+                        </div>
+                      </div>
+                      <div class="col-md-7 col-xs-7"><a *ngIf="c.Name!=null" (click)="productDetail(c.ProductId,c.ProductVariantDetailId) ">{{c.Name.length
+                            > 30 ? c.Name.substring(0,30)+"..." : c.Name}}</a>
+                        <p>{{c.Quantity}} x ${{c.PriceAfterDiscount.toFixed(2)}}</p>
+                      </div>
+                      <div *ngIf="cartCheck" class="col-md-3 col-xs-3 text-right">
+                        <a class="cross-icon" [routerLink]="['/mycart']"><i class="fas fa-edit"></i></a>
+                        <a class="cross-icon" (click)="removeItem(c.CartItemId)"><i class="far fa-times-circle"></i></a>
+                      </div>
+                    </div>
+
+
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12" *ngIf="cartItem!=null">
+                    <h4 class="mrgn-b-sm" *ngIf="cartItem.length>0">
+                      Cart Subtotal: ${{cartItem[0].TotalAmount.toFixed(2)}}
+                    </h4>
+                  </div>
+                </div>
+                <div class="row border-top" *ngIf="cartItem!=null">
+                  <div class="col-md-4 col-xs-6"><button *ngIf="cartItem.length>0" class="btn btn-sm btn-primary"
+                      [routerLink]="['/mycart']">{{'Register.Cart.ViewAllButton'|translate}}</button>
+                    <p class="mrgn-b-sm" *ngIf="cartItem.length<0">{{'Register.Cart.NoItems'|translate}}</p>
+
+                  </div>
+                  <div class="col-md-8 col-xs-6">
+                    <button *ngIf="cartItem.length>0" class="btn btn-sm btn-primary"
+                      (click)="PlaceOrder()"> {{'Register.Cart.ProceedToCheckoutButton'|translate}}</button>
+                      <!-- <button *ngIf="cartItem.length>0 && UserId==0" class="btn btn-sm btn-primary"
+                        [routerLink]="['/checkout-process/checkout-login']"
+                        routerLinkActive="router-link-active">{{'Register.Cart.ProceedToCheckoutButton'|translate}}</button> -->
+                  </div>
+                  <div class="col-md-12">
+                    <p class="mrgn-b-sm" *ngIf="cartItem.length==0">{{'Register.Cart.NoItems'|translate}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dropdown-top">
+          <button class="dropbtn"><i class="fas fa-bell"></i><span class="caret"></span></button>
+          <div class="dd-count">{{NotificationLength}}</div>
+          <div class="dropdown-content">
+            <div class="row">
+              <div class="col-md-12 col-xs-12">
+
+                <div class="row mrgn-b-sm" *ngIf="spanish">
+                  <div class="col-md-12 col-xs-12">
+                    <div class="row mrgn-b-sm border-top" *ngFor="let noti of Notifications; let i=index">
+                      <div class="col-md-10 col-xs-10">
+                        <div class="compare-dd-thumb">
+                          <a (click)="watchNotification(noti.Id)"><strong>{{noti.SpanishTitle}}</strong></a>
+                          <p>{{noti.SpanishDescription}}</p>
+                        </div>
+                      </div>
+                      <div class="col-md-2 col-xs-2 text-right">
+                        <a class="cross-icon" (click)="removeNotification(noti.Id)"><i
+                            class="far fa-times-circle"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mrgn-b-sm" *ngIf="!spanish" >
+                  <div class="col-md-12 col-xs-12">
+                    <div class="row mrgn-b-sm border-top" *ngFor="let noti of Notifications; let i=index">
+                      <div class="col-md-10 col-xs-10">
+                        <div class="compare-dd-thumb">
+                          <a (click)="watchNotification(noti.Id)"><strong>{{noti.Title}}</strong></a>
+                          <p>{{noti.Description}}</p>
+                        </div>
+                      </div>
+                      <div class="col-md-2 col-xs-2 text-right">
+                        <a class="cross-icon" (click)="removeNotification(noti.Id)"><i
+                            class="far fa-times-circle"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row border-top" *ngIf="Count>0">
+                  <div class="col-md-12 col-xs-12">
+                    <a (click)="seeAllNotification()">{{'Register.Cart.SeeNotifications'|translate}}</a>
+                  </div>
+                </div>
+                <div *ngIf="spanish==false">
+                <p *ngIf="Count==0">
+                  {{'Register.Cart.NoNotifications'|translate}}</p>
+                </div>
+                <div *ngIf="spanish==true">
+                  <p *ngIf="Count==0">
+                    {{'Register.Cart.NoNotifications'|translate}}</p>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="language-top"><label>
+          <select class="form-control language-select" #languageselect
+            (change)="languageChangeOnce(languageselect.value)" *ngIf="selectedlang=='espanol'">
+            <option value="espanol" selected>
+              espanol
+            </option>
+            <option value="english">
+              english
+            </option>
+          </select>
+          <select class="form-control language-select" #languageselect
+            (change)="languageChangeOnce(languageselect.value)" *ngIf="selectedlang=='english'">
+            <option value="espanol">
+              espanol
+            </option>
+            <option value="english" selected>
+              english
+            </option>
+          </select>
+        </label></div>
+      </div>
+    </div>
+  </div>
+  <!-- menu bar -->
+   <nav class="navbar">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div  class="collapse navbar-collapse" id="myNavbar" *ngIf="slanguage=='english'">
+        <ul class="nav navbar-nav">
+          <!-- func -->
+          <li class="dropdown-nav mega-menu" *ngFor="let item of list">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{item.Name}} <span class="caret"></span></a>
+            <div class="site-nav-dropdown" *ngIf="ProductList">
+              <div class="container   style_4">
+                <div class="col-1 parent-mega-menu">
+                  <div class="inner col-xs-12 col" *ngFor="let Child of item.ProductCategory1">
+                    <!-- Menu level 2 -->
+                    <a (click)="getId(Child.Id)">
+                      {{Child.Name}}
+                    </a>
+
+                    <ul class="dropdown">
+
+                      <li *ngFor="let LastChild of Child.ProductCategory1">
+                        <a (click)="getId(LastChild.Id)">
+                          {{LastChild.Name}}
+                        </a>
+                      </li>
+
+                    </ul>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </li>
+          <!-- end func -->
+          <li class="newsletter-nav" (click)="handleclick(email.value='')">
+            <div class="nav-newsletter">
+            
+            <div class="nav-news-icon">
+            <img src="assets/img/newletter-icon.png">
+            </div>
+            <div class="nav-news-text">
+            Newsletter
+            </div>
+            
+            </div>
+          </li>
+
+        </ul>
+      
+        
+      
+      </div>
+
+      <div   class="collapse navbar-collapse" id="myNavbar" *ngIf="slanguage=='espanol'">
+        <ul class="nav navbar-nav">
+          <!-- func -->
+          <li class="dropdown-nav mega-menu" *ngFor="let item of list">
+            <a class="dropdown-toggle nav-s-a" data-toggle="dropdown" href="#">{{item.SpanishName}} <span
+                class="caret"></span></a>
+            <div class="site-nav-dropdown" *ngIf="ProductList">
+              <div class="container   style_4">
+                <div class="col-1 parent-mega-menu">
+                  <div class="inner col-xs-12 col" *ngFor="let Child of item.ProductCategory1">
+                    <!-- Menu level 2 -->
+                    <a (click)="getId(Child.Id)">
+                      {{Child.SpanishName}}
+                    </a>
+
+                    <ul class="dropdown">
+
+                      <li *ngFor="let LastChild of Child.ProductCategory1">
+                        <a  (click)="getId(LastChild.Id)">
+                          {{LastChild.SpanishName}}
+                        </a>
+                      </li>
+
+                    </ul>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </li>
+          <li class="newsletter-nav" (click)="handleclick(email.value='')">
+            <div class="nav-newsletter">
+            
+            <div class="nav-news-icon">
+            <img src="assets/img/newletter-icon.png">
+            </div>
+            <div class="nav-news-text">
+              el boletín informativo
+            </div>
+            
+            </div>
+          </li>
+          <!-- end func -->
+
+
+        </ul>
+       
+      
+      
+      </div>
+    </div>
+  </nav>
+
+</div>
+<ng-template #mobileContainer>
+    <!-- Newsletter -->
+    <div  class="modal modal-newsletter-main" [ngStyle]="{'display':display}" >
+      <div class="modal-dialog modal-newsletter">
+      <div class="modal-content">
+      <form action="/examples/actions/confirmation.php" method="post">
+      <div class="modal-header">
+      <button type="button" class="close pull-right" data-dismiss="modal"
+                        aria-label="Close" (click)="onCloseHandled(email.value='')"><span
+                          aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body text-center">
+      <div class="row">
+      <div class="col-md-6">
+      <div class="news-pop-tumb">
+      <img class="hidden-xs" alt="newsletter" src={{ModalImage}}>
+      </div>
+      </div>
+      <div class="col-md-6">
+      <div class="form-block-news-pop">
+      <h4>{{subribe}}<br>{{NewsletterHeading}}</h4>
+      <p>{{Newsletterdescription}}</p>
+      <div class="input-group">
+        <input type="text" class="form-control" #email
+        placeholder="{{'Register.NewsLetterSection.EmailPlaceHolder'|translate}}"  [(ngModel)]="searchValue" [ngModelOptions]="{standalone: true}">
+      <span class="input-group-btn">
+      <button _ngcontent-xqk-c1="" class="btn btn-lg btn-primary btn-block"
+      (click)="getEmail(email.value)"
+        type="button">{{'Register.NewsLetterSection.SubscribeButton'|translate}}</button>
+      </span>
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
+      </form>
+      </div>
+      </div>
+      </div>  
+      <!-- Newsletter end -->
+      <div class="container-fluid logo-search">
+        <div class="row">
+          <!---------------------MOBILE MENU-------------------------->
+          <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12 mrgn-b-sm">
+             <div class="logo-m">
+                <a [routerLink]="['/']"
+                routerLinkActive="router-link-active"><img src="assets/img/logo.png" alt="logo"></a>
+             </div>
+             <div class="cart-m">
+                <div class="dropdown dropdown-top" >
+                    <button   class="dropdown-toggle dropbtn no-padding" data-toggle="dropdown"><i class="fas fa-shopping-cart"></i> <span
+                        class="caret"></span>
+                        <div class="dd-count cart-count" *ngIf="cartItem!=null">{{cartItem.length}}</div>
+                      </button>
+                    
+                    <div class=" dropdown-menu dropdown-content">
+                      <div class="row">
+                        <div class="col-md-12 col-xs-12">
+                          <h4 class="mrgn-b-sm">
+                            {{'Register.Compare.RecentItems'|translate}}
+                          </h4>
+                          <div class="row mrgn-b-sm">
+                            <div class="col-md-12 col-xs-12">
+                              <div class="row mrgn-b-sm" *ngFor="let c of cartItem">
+                                <div class="col-md-2 col-xs-2">
+                                  <div class="compare-dd-thumb">
+                                    <a (click)="productDetail(c.ProductId,c.ProductVariantDetailId)">
+                                      <img src={{c.Image150}} /></a>
+                                  </div>
+                                </div>
+                                <div class="col-md-7 col-xs-7"><a *ngIf="c.Name" (click)="productDetail(c.ProductId,c.ProductVariantDetailId)">{{c.Name.length
+                                      > 30 ? c.Name.substring(0,30)+"..." : c.Name}}</a>
+                                  <p>{{c.Quantity}} x ${{c.PriceAfterDiscount}}</p>
+                                </div>
+                                <div *ngIf="cartCheck" class="col-md-3 col-xs-3 text-right">
+                                  <a class="cross-icon" [routerLink]="['/mycart']"><i class="fas fa-edit"></i></a>
+                                  <a class="cross-icon" (click)="removeItem(c.CartItemId)"><i class="far fa-times-circle"></i></a>
+                                </div>
+                              </div>
+          
+          
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12" *ngIf="cartItem!=null">
+                              <h4 class="mrgn-b-sm" *ngIf="cartItem.length>0">
+                                Cart Subtotal: ${{cartItem[0].TotalAmount}}
+                              </h4>
+                            </div>
+                          </div>
+                          <div class="row border-top" *ngIf="cartItem!=null">
+                            <div class="col-md-4 col-xs-4"><button *ngIf="cartItem.length>0" class="btn btn-sm btn-primary"
+                                [routerLink]="['/mycart']">{{'Register.Cart.ViewAllButton'|translate}}</button>
+                              <p class="mrgn-b-sm" *ngIf="cartItem.length<0">{{'Register.Cart.NoItems'|translate}}</p>
+          
+                            </div>
+                            <div class="col-md-8 col-xs-8">
+                              <button *ngIf="cartItem.length>0" class="btn btn-sm btn-primary"
+                                (click)="PlaceOrder()"> {{'Register.Cart.ProceedToCheckoutButton'|translate}}</button>
+                                <!-- <button *ngIf="cartItem.length>0 && UserId==0" class="btn btn-sm btn-primary"
+                                  [routerLink]="['/checkout-process/checkout-login']"
+                                  routerLinkActive="router-link-active">{{'Register.Cart.ProceedToCheckoutButton'|translate}}</button> -->
+          
+                            </div>
+                            <div class="col-md-12">
+                              <p class="mrgn-b-sm" *ngIf="cartItem.length==0">{{'Register.Cart.NoItems'|translate}}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+             </div>
+             <div class="user-m">
+                <div class="dropdown dropdown-top">
+                    <button  class="dropdown-toggle dropbtn no-padding" data-toggle="dropdown">
+                      <i class="far fa-user-circle"></i> <span class="caret"></span> </button>
+                    
+                    <div class="dropdown-menu dropdown-content">
+                        <div *ngIf="hidemainDiv==true" class="list-group">
+                            <a href="#" [routerLink]="['/ManageAddress']" routerLinkActive="router-link-active"
+                              class="list-group-item"><i class="fas fa-user-circle"></i>
+                              <span>{{'Register.MyProfile.MyProfileText'|translate}}</span></a>
+                            <a href="#" [routerLink]="['/MyOrders']" routerLinkActive="router-link-active"
+                              class="list-group-item"><i class="fas fa-gifts"></i>
+                              <span>{{'Register.MyProfile.Orders'|translate}}</span></a>
+                            <a href="#" [routerLink]="['/wishlist']" routerLinkActive="router-link-active"
+                              class="list-group-item"><i class="fas fa-heart"></i>
+                              <span>{{'Register.MyProfile.Wishlist'|translate}}</span> <span class="badge"></span></a>
+                            <a (click)="logout()" class="list-group-item"><i class="fas fa-power-off"></i>
+                              <span>{{'Register.MyProfile.Logout'|translate}}</span></a>
+                          </div>
+          
+                          <div *ngIf="hidemainDiv==false" class="list-group">
+                            <a href="#" [routerLink]="['/customer/UserLogin']" routerLinkActive="router-link-active"
+                              class="list-group-item"><i class="fas fa-power-off"></i>
+                              <span>{{'Register.LoginAsCustomer'|translate}}</span></a>
+                            <a href="#" [routerLink]="['/customer/UserRegistration']" routerLinkActive="router-link-active"
+                              class="list-group-item"><i class="fas fa-user-edit"></i>
+                              <span>{{'Register.RegisterAsCustomer'|translate}}</span></a>
+                              <a href="#" [routerLink]="['vendor/login']" routerLinkActive="router-link-active"
+                              class="list-group-item"><i class="fas fa-unlock-alt"></i> <span>{{'Register.LoginAsVendor'|translate}}</span></a>
+                            <a href="#" [routerLink]="['/user/registervendor']" routerLinkActive="router-link-active"
+                              class="list-group-item"><i class="fas fa-user-edit"></i>
+                              <span>{{'Register.RegisterAsVendor'|translate}}</span></a>
+                          </div>
+                    </div>
+                  </div>
+             </div>
+          </div>
+          <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12 ">
+              <div class="search-bar__table-cell search-bar__form">
+                  <input type="text" id="search" class="search-m" #searchData [(ngModel)]=serachValue
+                    placeholder="{{'Register.Header.Search'|translate}}..." [value]="searchData">
+                  <button class="sb-search-submit" type="button" value="" (click)="mainSearch(0,searchData.value)"><i class="fa fa-search"></i></button>
+                </div>
+          </div>
+          <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12 ">
+             <div class="search-bottom-m">
+               <!-- Menu -->
+                <div class="menu-m">
+                  <div class="dropdown-top">
+                      <button  class="dropdown-toggle dropbtn no-padding" data-toggle="dropdown">
+                        <div class="navbar-toggle">
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                        </div>
+                      </button>
+                      
+                      <div class="dropdown-content" id="menuId" >
+                        <!--  -->
+                        <ng-material-multilevel-menu [items]='appitems' (selectedItem)="selectedItem($event)">
+                        </ng-material-multilevel-menu>
+                      </div>
+                    </div>
+               </div>
+               <!-- Notification -->
+                <div class="dropdown-block-right-m">
+                    <div class="dropdown dropdown-top">
+                        <button class="dropdown-toggle dropbtn" data-toggle="dropdown"><i class="fas fa-bell"></i><span class="caret"></span>
+                          <div class="dd-count">{{NotificationLength}}</div>
+                        </button>
+                        
+                        <div class="dropdown-menu dropdown-content">
+                          <div class="row">
+                            <div class="col-md-12 col-xs-12">
+                              <div class="row mrgn-b-sm">
+                                <div class="col-md-12 col-xs-12">
+                                  <div class="row mrgn-b-sm border-top" *ngFor="let noti of Notifications; let i=index">
+                                    <div class="col-md-10 col-xs-10">
+                                      <div class="compare-dd-thumb">
+                                        <a (click)="watchNotification(noti.Id)"><strong>{{noti.Title}}</strong></a>
+                                        <p>{{noti.Description}}</p>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-2 col-xs-2 text-right">
+                                      <a class="cross-icon" (click)="removeNotification(noti.Id)"><i
+                                          class="far fa-times-circle"></i></a>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row border-top" *ngIf="Count>0">
+                                <div class="col-md-12 col-xs-12">
+                                  <a (click)="seeAllNotification()">{{'Register.Cart.SeeNotifications'|translate}}</a>
+                                </div>
+                              </div>
+                              <p *ngIf="Count==0">
+                                {{'Register.Cart.NoNotifications'|translate}}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                 </div>
+                 <!-- Language -->
+                 <div class="dropdown-block-right-m">
+                    <div class="dropdown dropdown-top">
+                        <button class="dropdown-toggle dropbtn" data-toggle="dropdown"><i class="fa fa-globe"></i><span class="caret"></span>
+                          <div class="dd-count" *ngIf="slanguage=='english';else elseblock">EN</div>
+                         <ng-template #elseblock>
+                          <div class="dd-count">ES</div>
+                         </ng-template> 
+                        </button>
+                       
+                        <div class="dropdown-menu dropdown-content">
+                          <div class="list-group">
+                            <a (click)="languageChangeOnce('espanol')" id="check" class="list-group-item"><i
+                                class="fa fa-angle-right" aria-hidden="true"></i> <img class="lang-icon" src="assets/img/flag-mexico.png"> Espanol</a>
+                            <a class="list-group-item " (click)="languageChangeOnce('english')"><i class="fa fa-angle-right"
+                                aria-hidden="true"></i><img class="lang-icon" src="assets/img/flag-usa.png"> English</a>
+                          </div>
+                        </div>
+                      </div>
+                 </div>
+                 <!-- Compare -->
+                 <div class="dropdown-block-right-m">
+                    <div class="dropdown dropdown-top">
+                        <button class="dropdown-toggle dropbtn" data-toggle="dropdown"><i class="fas fa-random"></i> <span
+                            class="caret"></span>
+                            <div class="dd-count">{{CompareItemLength}}</div>
+                          </button>
+                       
+                        <div class="dropdown-menu dropdown-content">
+                          <div class="row">
+                            <div class="col-md-12 col-xs-12">
+                              <h4 class="mrgn-b-sm">
+                                {{'Register.Compare.RecentItems'|translate}}
+                              </h4>
+                              <div class="row mrgn-b-sm">
+                                <div class="col-md-12 col-xs-12">
+                                  <div class="row mrgn-b-sm" *ngFor="let P of CompareItems; let i=index">
+                                    <div class="col-md-2 col-xs-2">
+                                      <div class="compare-dd-thumb">
+                                        <a (click)="productDetail(P.ProductId,P.VariantDetailId)"> 
+                                          <img src={{P.LandingImage150}} /></a>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-8 col-xs-8"><a
+                                        (click)="productDetail(P.ProductId,P.VariantDetailId)">{{P.Name}}</a></div>
+                                    <div class="col-md-2 col-xs-1 text-right">
+                                      <i class="cross-icon" (click)="deleteCompareproduct(P.CompareProductId, i)"
+                                        class="far fa-times-circle"></i>
+                                      <!-- <a class="cross-icon" href="#"><i class="far fa-times-circle"></i></a> -->
+                                    </div>
+                                  </div>
+              
+                                </div>
+                              </div>
+                              <div class="row border-top">
+                                <div class="col-md-6 col-xs-6" *ngIf="CompareItemLength>=2"><button *ngIf="CompareItemLength>=2"
+                                    class="btn btn-sm btn-primary"
+                                    (click)="compareProduct()">{{'Register.Compare.CompareText'|translate}}</button>
+                                </div>
+                                <div *ngIf="CompareItemLength<2" class="col-md-12 col-xs-12">
+                                  <p class="mrgn-b-sm" *ngIf="CompareItemLength<2">{{'Register.Compare.AtleastTwo'|translate}}</p>
+                                </div>
+                                <!-- <div class="col-md-6 col-xs-6 text-right"><button class="btn btn-sm btn-default">Clear All</button></div> -->
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                 </div>
+                 <!-- Deal -->
+                 <div class="dropdown-block-right-m">
+                    <div class="dropdown dropdown-top">
+                        <button class="dropdown-toggle dropbtn" data-toggle="dropdown"><i class="fa fa-tag"></i><span class="caret"></span></button>
+                       
+                        <div class="dropdown-menu dropdown-content">
+                          <div  class="list-group">
+                            <a  (click)="getDealId(0)"
+                            class="account btn btn-xs btn-primary mr-4"><i class="fas fa-tag mr-1"></i>
+                            <span>{{'Register.Deals'|translate}}</span></a>
+                        
+                        </div>
+                        </div>
+                      </div>
+                 </div>
+                 <!-- Newsletter -->
+                 <div class="dropdown-block-right-m">
+                  <div class="dropdown dropdown-top">
+                      <button class="dropdown-toggle dropbtn" data-toggle="dropdown"><i class="fas fa-envelope-open-text"></i><span class="caret"></span></button>
+                     
+                      <div class="dropdown-menu dropdown-content">
+                        <div  class="list-group">
+                          <a  (click)="handleclick(email.value='')"
+                          class="account btn btn-xs btn-primary mr-4"><i class="fas fa-envelope-open-text mr-1"></i>
+                          <span> {{'Register.Newsletter'|translate}}</span></a>
+                      
+                      </div>
+                      </div>
+                    </div>
+               </div>
+             </div>
+    
+             
+          </div>
+          <!---------------------MOBILE MENU ENDS-------------------------->
+        </div>
+      </div>
+      <!-- menu bar -->
+</ng-template>
+
+</header>

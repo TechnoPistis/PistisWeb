@@ -1,0 +1,220 @@
+<div class="main-panel">
+    <div class="content">
+      <div class="page-inner">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-head-row">
+                  <div class="card-title  mr-2">HomePage User logs</div>
+
+                  <div class="form-group mr-4">
+                    <label for="filter">Response filter :</label>
+                    <select class="form-control" (change)="Filter($event)">
+                      <option value="0" selected="">Select Option</option>
+                      <option value="1">Request</option>
+                      <option value="2">Error</option>
+                      <option value="3">Success</option>
+                      <!-- <option value="4">step-1</option>
+                      <option value="5">step-2</option>
+                      <option value="6">step-3</option> -->
+                    </select>
+                  </div>
+                  <div class="form-group  mr-2">
+                    <label for="filter">Response filter :</label>
+                    <label>{{'Register.From'|translate}} </label>
+                    <input class="form-control" bsDatepicker
+                       [(ngModel)]="date"
+                      placeholder="YYYY-MM-DD" type="text" autocomplete="off" >
+                  </div>
+                  <div class="mr-2" >
+                    <button type="button" (click)="Filter2($event,date)"  class="btn btn-primary btn-block">{{'Register.SubmitButton'|translate}}</button>
+                  </div>
+                  <div class="form-group  mr-2">
+                    <label for="filter">User filter:</label>
+                    <select class="form-control" >
+                      <option value="0" selected="">Select Option</option>
+                      <option  *ngFor="let c of Users;" [value]="c.Id">{{c.Name}}</option>
+
+                      <!-- <option value="4">step-1</option>
+                      <option value="5">step-2</option>
+                      <option value="6">step-3</option> -->
+                    </select>
+                  </div>
+                  <div class="form-group  mr-2">
+                    <label for="filter">User sessions:</label>
+                    <select class="form-control" (change)="Filter3($event)" >
+                      <option value="0" selected="">Select Option</option>
+                      <option  *ngFor="let c of sessions;" [value]="c.Guid">{{c.SessionId}}</option>
+
+                      <!-- <option value="4">step-1</option>
+                      <option value="5">step-2</option>
+                      <option value="6">step-3</option> -->
+                    </select>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="row pt-3">
+                <div class="col-md-12">
+                    <!-- Modal -->
+                <div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':display}">
+                  <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                      <div class="modal-body pad-all-md">
+                        <div class="row">
+
+                          <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="profile-tab-head mrgn-b-xs">
+                                  <div class="table-responsive">
+
+
+                                    <table class="table table-striped" *ngIf="Action=='Web Home list rendering'">
+                                      <thead>
+                                        <tr >
+
+                                          <th>Product Name</th>
+                                          <th>Image</th>
+                                          <th>Price</th>
+
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+
+                                        <tr *ngFor="let cat of data">
+                                          <td>{{cat.Name}}</td>
+                                          <td>
+
+                                            <div class="pro-thumb">
+                                              <img src={{cat.Url}}>
+                                            </div>
+
+                                          </td>
+                                          <td>{{cat.PriceAfterdiscount}}</td>      </tr>
+                                      </tbody>
+                                    </table>
+                                    <div *ngIf="Action=='STEP-3 clicked on pay button'">
+                                      <h4>{{ Result}}</h4>
+                                    </div>
+
+
+
+
+                                    <table class="table table-striped" *ngIf="Action=='STEP-1-Cart items'">
+                                      <thead>
+                                        <tr>
+
+
+                                          <th>{{'Register.Image'|translate}}</th>
+                                          <th>{{'Register.Name'|translate}}</th>
+                                          <th>Price</th>
+
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+
+                                        <tr *ngFor="let cat of Result">
+                                          <td>
+
+                                            <div class="pro-thumb">
+                                              <img src={{cat.Image150}}>
+                                            </div>
+
+                                          </td>
+                                          <td>{{cat.Name}}</td>
+                                          <td>{{cat.Amount}}</td>
+
+                                          <!-- <td>{{cat.CostPrice}}</td>
+                                                                              <td>{{cat.SellingPrice}}</td>
+                                                                              <td>{{cat.PriceAfterdiscount}}</td> -->
+                                          <!-- <td><select  name="ParentId" #ParentId   class="form-control">
+                                                                              <option *ngFor="let c of dataList;" [value]="c.Id">
+                                                                              {{c.Name}}
+                                                                            </option>
+                                                                               </select> </td> -->
+
+                                          <!-- <td><div class="pro-thumb"><img  style="height: 50px;" src={{cat.Icon}}/></div></td> -->
+                                          <!-- <td><button (click)="onDelete(cat.Id)" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash" ></i></button>
+                                                  <button (click)="onEdit(cat.Id)" class="btn btn-sm btn-outline-danger"><i class="fas fa-edit" ></i></button></td> -->
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+
+
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="col-md-12">
+                              </div>
+                            </div>
+<!-- (click)="close()" -->
+                            <div class="form-group row">
+                              <div class="col-md-3">
+                                <button class="btn btn-lg btn-primary btn-block"
+                                  type="button">close</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+
+
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+
+                          <th>Action</th>
+                          <th>Description</th>
+                          <th>Result</th>
+                          <th>IpAddress</th>
+                          <th>User</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                        <tr *ngFor="let cat of data">
+                          <td>{{cat.Action}}</td>
+                          <td>{{cat.Description}}</td>
+                          <td *ngIf="cat.Result=='1'"> <i class="fas fa-spinner " (click)="getValue(cat.Id)"></i></td>
+                          <td *ngIf="cat.Result=='Error'"><i class="fas fa-times-circle  text-danger"
+                              (click)="getValue(cat.Id)"></i></td>
+                          <td *ngIf="cat.Result!='1' && cat.Result!='Error' "><i class="fas fa-check-circle text-success"
+                              (click)="getValue(cat.Id)"></i></td>
+
+                          <td>{{cat.IpAddress}}</td>
+                          <td *ngIf="cat.User&&cat.User.Email" >{{cat.User.Email}}</td>
+                          <!-- <td>{{cat.CostPrice}}</td>
+                                                            <td>{{cat.SellingPrice}}</td>
+                                                            <td>{{cat.PriceAfterdiscount}}</td> -->
+                          <!-- <td><select  name="ParentId" #ParentId   class="form-control">
+                                                            <option *ngFor="let c of dataList;" [value]="c.Id">
+                                                            {{c.Name}}
+                                                          </option>
+                                                             </select> </td> -->
+
+                          <!-- <td><div class="pro-thumb"><img  style="height: 50px;" src={{cat.Icon}}/></div></td> -->
+                          <!-- <td><button (click)="onDelete(cat.Id)" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash" ></i></button>
+                                <button (click)="onEdit(cat.Id)" class="btn btn-sm btn-outline-danger"><i class="fas fa-edit" ></i></button></td> -->
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

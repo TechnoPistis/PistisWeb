@@ -1,0 +1,75 @@
+<div class="main-panel">
+    <div class="content">
+        <div class="page-inner">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-head-row">
+                                <div class="card-title">{{'Register.Testimonial'|translate}}</div>
+                                <div class="btn-group btn-group-page-header ml-auto">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="input-group" id="adv-search">
+                                        <input type="text" class="form-control" placeholder="Search.." [(ngModel)]="search" >
+
+                                        <div class="input-group-btn">
+                                            <div class="btn-group" role="group">
+                                                <!-- <div class="dropdown dropdown-lg">
+                                                    <button type="button" class="btn dropdown-toggle"
+                                                        data-toggle="dropdown" aria-expanded="false">Filter</button>
+                                                </div> -->
+                                                <button type="button" (click)="clickSearch()" class="btn btn-primary"><span class="fa fa-search"
+                                                        aria-hidden="true"></span></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row pt-3">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>{{'Register.User'|translate}}</th>
+                                                    <th>{{'Register.Cart.Rating'|translate}}</th>
+                                                    <th>{{'Register.Description'|translate}}</th>
+                                                    <th>{{'Register.CreatedOn'|translate}}</th>
+                                                    <th>{{'Register.Status'|translate}}</th>
+                                                    <th>{{'Register.Action'|translate}}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let item of TestimonialList">
+                                                    <td>{{item.UserName}}</td>
+                                                    <td>{{item.Rating}}</td>
+                                                    <td>{{item.Description | slice:0:50}}...</td>
+                                                    <td>{{item.CreatedOn | date:'yyyy-MM-dd'}}</td>
+                                                    <td *ngIf="item.IsApproved">{{'Register.Approved'|translate}}</td>
+                                                    <td *ngIf="!item.IsApproved">{{'Register.NotApproved'|translate}}</td>
+                                                    <td>
+                                                        <input *ngIf="item.IsApproved" type="button" name="approved" value=" {{'Register.NotApproved'|translate}}"
+                                                          class="btn btn-primary"  (click)="Approved(item.Id, false)">
+
+                                                          <input *ngIf="!item.IsApproved" type="button" name="approved" value="{{'Register.Approved'|translate}}"
+                                                          class="btn btn-primary"  (click)="Approved(item.Id, true)">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

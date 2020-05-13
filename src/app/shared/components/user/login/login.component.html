@@ -1,0 +1,72 @@
+
+   
+
+
+
+
+<div class="container-login-wrapper">
+        <div class="login-wrapper-inner">
+            <div class="login-bg">
+                <div class="row">
+                    <div class="col-md-5">
+                       <div class="login-text-area">
+                        <h5>{{'Register.WelcomeToPistis'|translate}}</h5>
+                        <h1>{{'Register.FillForm'|translate}}</h1>
+                        <h4>{{'Register.ToLoginYourAccount'|translate}}</h4>
+                       </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="container-login-form-new">
+           
+                            <h3>{{'Register.Login'|translate}}</h3>
+                            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                            <div class="login-form">
+                                <div class="form-group">
+                                    <label for="username" class="placeholder"><b>{{'Register.Email'|translate}}</b></label>
+                                    <input id="username" name="username" type="text" formControlName="email" autocomplete="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" required>
+                                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                            <div *ngIf="f.email.errors.required">{{'Register.Required_Msg'|translate}}</div>
+                                            <div *ngIf="f.email.errors.email">{{'Register.Email_Format_Msg'|translate}}</div>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password" class="placeholder"><b>{{'Register.Password'|translate}}</b></label>
+                                    <!-- <a href="#" class="link float-right">Forget Password ?</a> -->
+                                    <div class="position-relative">
+                                            <input type="password" id="password" name="password" formControlName="password" autocomplete="current-password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                                            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                                                <div *ngIf="f.password.errors.required">{{'Register.Required_Msg'|translate}}</div>
+                                            </div>
+                                        <div class="show-password">
+                                            <i class="flaticon-interface"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-action-d-flex mb-3">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="rememberme">
+                                        <!-- <label class="custom-control-label m-0" for="rememberme">{{'Register.RememberMe'|translate}}</label> -->
+                                    </div>
+                                    <a href="#" class="btn btn-success col-md-5 float-right mt-3 mt-sm-0 fw-bold">{{'Register.SignIn'|translate}}</a>
+                                </div>
+                                                 
+                                <div class="login-account mt-5">
+                                    <span class="msg">{{'Register.NewUser'|translate}}</span> <a routerLink="/register"  id="show-signup" class="link"> {{'Register.SignUp'|translate}}</a> 
+                                </div>
+                            </div>
+                        </form>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+
+
+
+
+
+
+
+

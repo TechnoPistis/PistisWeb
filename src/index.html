@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+
+<meta charset="utf-8">
+<title>PISTIS</title>
+<base href="/">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="PISTIS" />
+<meta property="og:type" content="article" />
+<meta property="og:image" content="assets/img/logo-for-white-bg.png" />
+<meta property="og:url" content="https://www.pistis.com.mx"/>
+  <meta property="og:description" content="Ecommerce site" />
+
+<link rel="icon" type="image/x-icon" href="assets/img/icon.ico">
+ <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+ <link id="adminStyle" name="admin-style" rel="stylesheet" href="assets/css/bootstrap.min.css"> 
+
+<link id="frontStyle" name="front-style" rel="stylesheet" href="assets/css/custome-bootstrap.css">
+<link id="frontStyle" name="front-style" rel="stylesheet" href="assets/css/style_Front.css">
+
+<link id="adminStyle" name="admin-style" rel="stylesheet" href="assets/css/style.min.css">
+<link rel="stylesheet" href="assets/css/fontawesome.min.css"> 
+<link rel="stylesheet" href="assets/css/all.css"> 
+
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"> -->
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link
+href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
+rel="stylesheet">
+
+
+
+</head>
+
+<body class="login">
+<app-root></app-root>
+ <script src="assets/js/core/jquery-3.3.1.slim.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+</script> 
+<!--
+
+
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+</script> -->
+<script src="assets/js/core/jquery.3.4.1.min.js"></script>
+<!-- <script src="assets/js/core/bootstrap.js"></script>-->
+<script src="assets/js/core/bootstrap.min.js"></script> 
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+<script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>
+
+<!-- <script>
+  var ops = {
+  'html':true, 
+  content: function(){
+    for(var i=0;i<=20;i++){
+  return $('#content'+i).html();
+    }
+  }
+  };
+  
+  $(function(){
+    for(var i=0;i<=20;i++){
+  $('#example'+i).popover(ops)
+    }
+  });
+  </script> -->
+<script>
+  var ops = {
+ 'html':true,    
+ content: function(){
+     return $('#content').html();
+ }
+};
+
+$(function(){
+ $('#example').popover(ops)
+});
+ </script>
+
+<!-- Smartsupp Live Chat script -->
+<script type="text/javascript">
+  
+if(window.location.href.indexOf("admin") <= -1)
+    if(window.location.href.indexOf("pistis") > -1)
+   {
+       var _smartsupp = _smartsupp || {};
+       _smartsupp.key = 'e9519123c97ad3825d272a2e5792def44039ded4';
+       window.smartsupp||(function(d) {
+       var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[];
+       s=d.getElementsByTagName('script')[0];c=d.createElement('script');
+       c.type='text/javascript';c.charset='utf-8';c.async=true;
+       c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
+       })(document);
+      
+   }
+       </script>
+   
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-152870542-1"></script>
+<script>
+if(window.location.href.indexOf("pistis") > -1)
+{
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'UA-152870542-1');
+
+}
+</script>
+<!-- Facebook Pixel Code -->
+<script>
+  if(window.location.href.indexOf("pistis") > -1)
+{
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1572799889717264');
+    fbq('track', 'PageView');
+}
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1572799889717264&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
+    <!-- Flags for language change -->
+    <script>
+        $(document).ready(function(){
+          
+      $(".lang-flag").click(function(){
+          
+        $(".language-dropdown").toggleClass("open");
+      });
+      $("ul.lang-list li").click(function(){
+          
+        $("ul.lang-list li").removeClass("selected");
+        $(this).addClass("selected");
+        if($(this).hasClass('lang-en')){
+          $(".language-dropdown").find(".lang-flag").addClass("lang-en").removeClass("lang-mx");
+          $("#lang_selected").html("<p>EN</p>")
+        }else if($(this).hasClass('lang-mx')){
+          $(".language-dropdown").find(".lang-flag").addClass("lang-mx").removeClass("lang-en");
+        $("#lang_selected").html("<p>mx</p>")
+        }
+        $(".language-dropdown").removeClass("open");
+      });
+    })
+  
+    </script>
+ <!-- End of Flags for language change -->
+
+ <!-- For mobile view -->
+ <!-- <script>
+  var isMobile = {
+    Android: function() {
+        return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function() {
+        return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function() {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function() {
+        return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function() {
+        return navigator.userAgent.match(/IEMobile/i);
+    },
+    any: function() {
+        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+    }
+};
+
+// if(isMobile.any()) {
+//    window.location = "https://m.trippat.com";
+// }
+  
+</script> -->
+
+ <!-- End of for mobile view -->
+</body>
+
+</html>

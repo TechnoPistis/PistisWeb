@@ -1,0 +1,39 @@
+<div class="main-panel">
+  <div class="content">
+    <div class="page-inner">
+      <div class="row">
+        <div class="col-md-12">
+          <input type="file" (change)="fileChangeEvent($event)" />
+          <br />
+          <br />
+          <button (click)="rotateLeft()">{{'Register.Rotateleft'|translate}}</button>
+          <button (click)="rotateRight()">{{'Register.Rotateright'|translate}}</button>
+          <button (click)="flipHorizontal()">{{'Register.Fliphorizontal'|translate}}</button>
+          <button (click)="flipVertical()">{{'Register.Flipvertical'|translate}}</button>
+          <br />
+          <br />
+          <button
+            (click)="toggleContainWithinAspectRatio()">{{containWithinAspectRatio?'Fill Aspect Ratio':'Contain Within Aspect Ratio'}}</button>
+          <button (click)="resetImage()">{{'Register.ResetImage'|translate}}</button>
+          <br />
+          <br />
+          <input [(ngModel)]="rotation" placeholder="Rotation" type="number" (keyup)="updateRotation()" /> <button
+            (click)="zoomOut()">{{'Register.Zoom'|translate}} -</button> <button
+            (click)="zoomIn()">{{'Register.Zoom'|translate}} +</button>
+
+          <div>
+            <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+              [containWithinAspectRatio]="containWithinAspectRatio" [aspectRatio]="4 / 3" [resizeToWidth]="256"
+              [cropperMinWidth]="128" [onlyScaleDown]="true" [roundCropper]="false" [canvasRotation]="canvasRotation"
+              [transform]="transform" [alignImage]="'left'" [style.display]="showCropper ? null : 'none'" format="png"
+              (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady($event)"
+              (loadImageFailed)="loadImageFailed()"></image-cropper>
+          </div>
+          <img [src]="croppedImage" [style.border]="croppedImage ? '1px solid black' : 'none'" />
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

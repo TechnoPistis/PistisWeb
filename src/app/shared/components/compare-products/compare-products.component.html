@@ -1,0 +1,87 @@
+<app-header></app-header>
+<div class="container">
+  <div class="compare-table-wrapper">
+    <div class="compare-block-main" *ngIf="product && product!=null &&product.length>0">
+      <h4>{{'Register.Compare.CompareProducts'|translate}}</h4>
+      <div class="table-responsive">
+      <table class="table table-hover" *ngIf="product && product.length>0">
+        <thead>
+          <tr>
+            <th>&nbsp;</th>
+            <th *ngFor="let P of product; let i =index">
+              <a class="cross-icon"><i class="far fa-times-circle"
+                  (click)="deleteCompareproduct(P.CompareProductId, i)"></i></a>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>&nbsp;</td>
+            <td *ngFor="let P of product; let i =index" [ngStyle]="{'width':width}">
+              <a class="product-image" (click)="productDetail(P.ProductId,P.VariantDetailId)">
+                <img src={{P.LandingImage150}}>
+              </a>
+              <h2 class="product-name"><a (click)="productDetail(P.ProductId,P.VariantDetailId)">{{P.Name}}</a></h2>
+              <div class="wish-rate">
+                <span class="label label-success">{{P.RatingAvg}} <i class="fas fa-star"></i></span>
+                <!--( {{p.ReviewCount}} ) -->
+              </div>
+              <div class="_3iZgFn">
+                <div class="product-price">${{P.PriceAfterdiscount.toFixed(2)}}</div>
+                <div class="product-discount" *ngIf="P.Discount>0">${{P.SellingPrice.toFixed(2)}}</div>
+                <div class="off-percentage"*ngIf="P.Discount>0">{{P.Discount}}% Off</div>
+                
+              </div>
+              <div *ngIf="P.InStock==0" style="color: red">{{'Register.Cart.OutOfStockItem'|translate}}</div>
+              <p>
+                <button type="button" *ngIf="!P.ShipmentVendor"
+                  (click)="addToCart(P.VariantDetailId,P.SellingPrice,P.Discount,P.PriceAfterdiscount,P.ShipmentVendor)"
+                  title="Add to Cart" [disabled]="P.InStock==0?true:false" class="btn btn-sm btn-primary btn-cart"><span><span> <i
+                        class="fa fa-shopping-cart" aria-hidden="true"></i> {{'Register.Compare.AddToCartButton'|translate}}</span></span></button>
+                        <button type="button"
+                  (click)="addToCart(P.VariantDetailId,P.SellingPrice,P.Discount,P.PriceAfterdiscount,P.ShipmentVendor)"
+                  title="Buy Now" *ngIf="P.ShipmentVendor" [disabled]="P.InStock==0?true:false" class="btn btn-sm btn-primary btn-cart"><span><span> <i
+                        class="fa fa-shopping-cart" aria-hidden="true"></i> {{'Register.Compare.BuyNowButton'|translate}}</span></span></button>
+                      
+                      </p>
+              <p>
+                <a class="link-wishlist" (click)="getProductDetails1(P.VariantDetailId)">Add to Wishlist</a>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td class="nobr">{{'Register.Compare.ShortDescription'|translate}}
+            </td>
+            <td *ngFor="let P of product; let i =index">
+              <span *ngIf="P.Description">
+                <div innerHTML="{{P.Description}}"></div>
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td class="nobr">SKU</td>
+            <td *ngFor="let P of product; let i =index">
+              <div class="std">
+                {{P.ProductSKU}} </div>
+            </td>
+          </tr>
+          <tr class="even" *ngFor="let item of product[0].ProductionSpecification;let ind=index;">
+            <th><span class="nobr" *ngIf="item && item!=''">{{item.HeadingName}}</span></th>
+            <td *ngFor="let item1 of product">
+              <div *ngFor="let specs of item1.ProductionSpecification;let ind1=index;">
+                <div div class="std" *ngIf="item.HeadingName==specs.HeadingName && item && item!=''">
+                  {{specs.Description}}
+                </div>
+                <div class="std" *ngIf="item.HeadingName!=specs.HeadingName && item && item!=''">
+                  N/A
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

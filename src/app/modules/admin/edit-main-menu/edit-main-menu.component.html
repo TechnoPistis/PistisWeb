@@ -1,0 +1,86 @@
+<div class="main-panel">
+    <div class="content">
+      <div class="page-inner">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-head-row">
+                  <h4 class="card-title">{{'Register.EditCategory'|translate}}</h4>
+                  <!-- <div class="btn-group btn-group-page-header ml-auto">
+                    <hr>
+                    <button type="button" class="btn btn-success" [routerLink]="['/admin/AddSubMenu']"
+                      routerLinkActive="router-link-active">{{'Register.AddSubCategoryButton'|translate}}</button>
+                  </div> -->
+  
+                </div>
+              </div>
+              <div class="card-body">
+  
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="filter" class="mr-2">Is Adult </label>
+                    <input type="checkbox" [checked]="IsAdult" (change)="handleSelected($event)">
+                   
+                  </div>
+                  </div>
+  
+                      <div class="row ">
+                       
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>{{'Register.CategoryName'|translate}}</label>
+                            <input name="Name"  [(ngModel)]="mainMenuName" class="form-control"
+                              required>
+                            <!-- <div class="validation-error" *ngIf="Name.invalid && Name.touched">
+                              {{'Register.RequiredField'|translate}}</div> -->
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                        <div class="form-group">
+                          <label>{{'Register.Categoryspanishname'|translate}}</label>
+                          <input name="SpanishName" [(ngModel)]="SpanishmainMenuName" class="form-control"
+                            required>
+                          <!-- <div class="validation-error" *ngIf="SpanishName.invalid && SpanishName.touched">
+                            {{'Register.RequiredField'|translate}}</div> -->
+                        </div>
+                        </div>
+  
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label>{{'Register.Icon'|translate}}</label>
+                          <div  class="cat-upload-img-area" >
+                          
+                            
+                            <img  [ngClass]="{'cate-icon-img': ActualIcon!=null }" [src]="!ActualIcon?'/assets/1234.png':ActualIcon" (click)="Open()">
+                          </div>
+                          <input id="fileDialog" name="ActualIcon"  style="visibility:hidden;" type='file' (change)="onSelectFile($event)" multiple  >
+                        </div>
+
+                        <div class="col-md-6">
+                          <label>{{'Register.Image'|translate}}</label>
+                          <div  class="cat-upload-img-area" >
+                          
+                            
+                            <img  [ngClass]="{'cate-icon-img': Icon }" [src]="!Icon?'/assets/1234.png':Icon" (click)="Open1()">
+                          </div>
+                          <input id="fileDialog1" name="Icon"  style="visibility:hidden;" type='file' (change)="onSelectFile1($event)" multiple  >
+                        </div>
+                      </div>
+  
+                    </div>
+  
+                  </div>
+                  <div class="row ">
+                  </div>
+                  <div class="form-group col-sm-2">
+                    <button type="button" 
+                      class="btn btn-primary btn-block" (click)="save()">{{'Register.SubmitButton'|translate}}</button>
+                  </div>
+              </div>
+     
+        </div>
+      </div>
+    </div>
+  

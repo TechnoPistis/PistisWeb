@@ -1,0 +1,267 @@
+<app-header></app-header>
+
+<section class="myaccount">
+  <div *ngIf="hidemainDiv" class="container p-tb-2">
+    <div class="row">
+      <div class="col-md-4 col-sm-4 col-lg-3 col-xs-12">
+        <div class="sign_outsec">
+          <div class="pull-left">
+            <div class="my-account-thumb">
+              <img alt="" src="assets/defaul.jpg">
+            </div>
+          </div>
+          <div class="pull-left">
+            <h4 *ngIf="UserName" class="capitalize">{{UserName}}</h4>
+          </div>
+        </div>
+        <div class="nav flex-column nav-pills myaccount_tab" id="v-pills-tab" role="tablist"
+          aria-orientation="vertical">
+          <a class="nav-link " [routerLink]="['/ManageAddress']" routerLinkActive="router-link-active"
+            data-toggle="tab" href="#tab1" role="tab" aria-controls="Manage Addresses"><i
+              class="fas fa-address-book account_icon"></i>
+              {{'Register.ManageAddresses.ManageAddressesText'|translate}}</a>
+          <a class="nav-link" [routerLink]="['/MyProfile']" routerLinkActive="router-link-active" data-toggle="tab"
+            href="#tab2" role="tab" aria-controls="My Profile"><i class="fas fa-user account_icon"></i>
+            {{'Register.MyProfile.MyProfileText'|translate}}</a>
+
+          <a class="nav-link active" [routerLink]="['/MyOrders']" routerLinkActive="router-link-active" data-toggle="tab"
+            href="#tab3" role="tab" aria-controls="My Order"><i class="fas fa-gifts account_icon"></i>{{'Register.MyProfile.MyOrders'|translate}}</a>
+          <a class="nav-link " [routerLink]="['/wishlist']" routerLinkActive="router-link-active" data-toggle="tab"
+            href="#tab4" role="tab" aria-controls="My Wishlist"><i class="fas fa-heart account_icon"></i>
+            {{'Register.MyProfile.MyWishlist'|translate}}</a>
+            <a class="nav-link" [routerLink]="['/testimonial']" routerLinkActive="router-link-active" data-toggle="tab"
+            href="#tab5" role="tab" aria-controls="Testimonial"><i class="fas fa-heart account_icon"></i>
+            {{'Register.Testimonial'|translate}}</a>
+            <a (click)="logout()" class="nav-link"><i class="fas fa-power-off account_icon"></i>
+              {{'Register.MyProfile.Logout'|translate}}</a>
+        </div>
+      </div>
+      <div class="col-md-8 col-sm-8 col-lg-9 col-xs-12">
+
+        <div class="tab-content addres_top">
+          <!--------------------------------------------tab 1 start------------------------------------------------------>
+
+          <!--------------------------------------------tab 1 end------------------------------------------------------>
+
+
+
+
+
+          <!--------------------------------------------tab 2 start------------------------------------------------------>
+
+          <!--------------------------------------------tab 2 end------------------------------------------------------>
+
+          <div>
+
+            <h4 class="address_title">{{'Register.MyProfile.MyOrders'|translate}}</h4>
+            <div class="my-order-content">
+
+              <section class="my-orders">
+
+                <div class="order_box" *ngFor="let items of DataList">
+                  <div *ngFor="let item of items;let i=index">
+                    <div class="order_header">
+
+                      <div class="row">
+                        <div class="col-md-6 col-xs-4">
+                          <button type="button" *ngIf="i==0"
+                            class="btn btn-primary no-radius btn-sm">{{items[0].OrderNumber}}</button>
+                        </div>
+                        <div *ngIf="i==0" class="col-md-6 col-xs-8 text-right">
+                          <!-- <a class="btn btn-outline-secondary btn-sm no-radius mr-1" href="#" role="button"><i
+                              class="fas fa-question-circle"></i> {{'Register.MyOrders.NeedHelpButton'|translate}}</a> -->
+                          <a class="btn btn-outline-secondary btn-sm right no-radius" (click)="trackOrder(items[0].Id)"
+                            role="button"><i class="fas fa-map-marker-alt"></i> {{'Register.MyOrders.TrackButton'|translate}}</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="order_content">
+                      <div class="row">
+                        <div class="col-12 col-md-2 text-center"
+                          (click)="productDetail(item.ProductId,item.ProductVariantDetailId)">
+                          <img src={{item.Image}} alt="" class="img-pro">
+                        </div>
+                        <div class="col-md-10">
+                          <div class="order_list">
+                            <div class="row">
+                              <div class="col-12 col-md-6">
+                                <div class="row">
+                                  <div class="col-sm-8">
+                                    <a class="item-title"  (click)="productDetail(item.ProductId,item.ProductVariantDetailId)">{{item.Name}}</a>
+                                    <p class="brand mt-10" *ngFor="let V of item.VariantOptions">
+                                      <span *ngIf="V.varientName!='Default'">
+                                      {{V.varientName}}:
+                                      {{V.Name}}
+                                    </span></p>
+                                    <p class="brand ">{{'Register.MyOrders.Seller'|translate}}: {{item.SellerName}}</p>
+                                  </div>
+                                  <div class="col-sm-4">
+                                    <p class="productPrice"><span
+                                        class="sellingPrice">${{item.PriceAfterDiscount.toFixed(2)}} x {{item.Quantity}}</span></p>
+                                    <!-- <p class="offer_count"><span class="sellingPrice">{{'Register.MyOrders.OFFER'|translate}}:</span>1</p> -->
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-12 col-md-3">
+                                <p>{{item.OrderStatus}}</p>
+                                <p class="brand mt-1">{{'Register.MyOrders.YourItemHasBeen'|translate}} {{item.OrderStatus}}</p>
+                              </div>
+                              <div class="col-12 col-md-3 text-right" *ngIf="item.OrderStatus=='Delivered'">
+                                <a class="raterev" (click)="getproductId(item.ProductId,item.ProductVariantDetailId)"><i
+                                    class="fas fa-star mr-1 raterev"></i> {{'Register.MyOrders.RateReviews'|translate}}</a>
+                              </div>
+                              <div class="col-12 col-md-3 text-right" *ngIf="item.OrderStatus=='Delivered' && item.IsReturned==false  ">
+                                <a class="return" (click)="gotoReturn(item.ProductId,item.ProductVariantDetailId,item.checkoutItemId,item.Quantity)"><i
+                                class="return"></i>{{'Register.MyOrders.Return'|translate}}</a>
+                                </div>
+                                <div class="col-12 col-md-3 text-right"*ngIf=" item.OrderStatus=='Delivered' && item.IsReturned==true">
+                                <span>{{'Register.ReturnInitiated'|translate}}</span>
+                                </div>
+                              
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="order_footer">
+                      <div class="row">
+                        <div class="col-md-6" *ngIf="i==items.length-1">
+                          <span class="order_txt">{{'Register.MyOrders.Ordered'|translate}}</span> {{item.OrderDate | date: 'dd/MM/yyyy'}}
+                        </div>
+                        <!-- <div *ngIf="i>=0" class="col-md-6 text-right">
+                          Total<span class="totalPrice">${{item.TotalAmount}}</span>
+                        </div> -->
+                        <div *ngIf="i==items.length-1" class="col-md-6 text-right">
+                          Total<span class="totalPrice">${{item.TotalAmount.toFixed(2)}}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </section>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div *ngIf="hidemainDiv==false" class="container p-tb-2">
+    <div class="row">
+      
+      <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+
+        <div class="tab-content addres_top">
+          <!--------------------------------------------tab 1 start------------------------------------------------------>
+
+          <!--------------------------------------------tab 1 end------------------------------------------------------>
+
+
+
+
+
+          <!--------------------------------------------tab 2 start------------------------------------------------------>
+
+          <!--------------------------------------------tab 2 end------------------------------------------------------>
+
+          <div>
+
+            <h4 class="address_title">{{'Register.MyProfile.MyOrders'|translate}}</h4>
+            <div class="my-order-content">
+
+              <section class="my-orders">
+
+                <div class="order_box" *ngFor="let items of DataList">
+                  <div *ngFor="let item of items;let i=index">
+                    <div class="order_header">
+
+                      <div class="row">
+                        <div class="col-md-6 col-xs-5">
+                          <button type="button" *ngIf="i==0"
+                            class="btn btn-primary no-radius btn-sm">{{items[0].OrderNumber}}</button>
+                        </div>
+                        <div *ngIf="i==0" class="col-md-6 col-xs-7 text-right">
+                          <a class="btn btn-outline-secondary btn-sm no-radius mr-1" href="#" role="button"><i
+                              class="fas fa-question-circle"></i> {{'Register.MyOrders.NeedHelpButton'|translate}}</a>
+                          <a class="btn btn-outline-secondary btn-sm right no-radius" (click)="trackOrder(items[0].Id)"
+                            role="button"><i class="fas fa-map-marker-alt"></i>{{'Register.MyOrders.TrackButton'|translate}}</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="order_content">
+                      <div class="row">
+                        <div class="col-12 col-md-2 text-center"
+                          (click)="productDetail(item.ProductId,item.ProductVariantDetailId)">
+                          <img src={{item.Image}} alt="" class="img-pro">
+                        </div>
+                        <div class="col-md-10">
+                          <div class="order_list">
+                            <div class="row">
+                              <div class="col-12 col-md-6">
+                                <div class="row">
+                                  <div class="col-sm-8">
+                                    <a class="item-title" href="#">{{item.Name}}</a>
+                                    <p class="brand mt-10" *ngFor="let V of item.VariantOptions" >
+                                      <span *ngIf="V.varientName!='Default'">{{V.varientName}}:
+                                      {{V.Name}}
+                                    </span>
+                                    </p>
+                                    <p class="brand ">{{'Register.MyOrders.Seller'|translate}}: {{item.SellerName}}</p>
+                                  </div>
+                                  <div class="col-sm-4">
+                                    <p class="productPrice"><span
+                                        class="sellingPrice">${{item.PriceAfterDiscount}}</span></p>
+                                    <!-- <p class="offer_count"><span class="sellingPrice">{{'Register.MyOrders.OFFER'|translate}}:</span>1</p> -->
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-12 col-md-3">
+                                <p>{{item.OrderStatus}}</p>
+                                <p class="brand mt-1">{{'Register.MyOrders.YourItemHasBeen'|translate}} {{item.OrderStatus}}</p>
+                              </div>
+                              <div class="col-12 col-md-3 text-right" *ngIf="item.OrderStatus=='Delivered'">
+                                <a class="raterev" (click)="getproductId(item.ProductId,item.ProductVariantDetailId)"><i
+                                    class="fas fa-star mr-1 raterev"></i> {{'Register.MyOrders.RateReviews'|translate}}</a>
+                              </div>
+                              <!-- && item.DeliveryDate.getDate()+7<=todayDate; -->
+                              <div class="col-12 col-md-3 text-right" *ngIf="item.OrderStatus=='Delivered' && item.IsReturned==false  ">
+                                <a class="return" (click)="gotoReturn(item.ProductId,item.ProductVariantDetailId,item.checkoutItemId,item.Quantity)"><i
+                                class="return"></i>{{'Register.MyOrders.Return'|translate}}</a>
+                                </div>
+                                <div class="col-12 col-md-3 text-right"*ngIf=" item.OrderStatus=='Delivered' && item.IsReturned==true">
+                                <span> {{'Register.ReturnInitiated'|translate}}</span>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="order_footer">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <span class="order_txt">{{'Register.MyOrders.Ordered'|translate}}</span> {{item.OrderDate | date: 'dd/MM/yyyy'}}
+                        </div>
+                        <div *ngIf="i>0" class="col-md-6 text-right">
+                          Total<span class="totalPrice">${{item.TotalAmount}}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </section>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<app-footer></app-footer>

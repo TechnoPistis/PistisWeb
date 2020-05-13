@@ -1,0 +1,321 @@
+<div class="main-panel">
+    <div class="content">
+      <div class="page-inner">
+        <div class="page-header">
+          <h4 class="page-title">{{'Register.Dashboard'|translate}}</h4>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-head-row">
+                  <div class="card-tools">
+  
+                    <a class="btn btn-success btn-sm" (click)="Reload()">
+                      <span class="btn-label">
+                        <i class="fas fa-sync-alt"></i>
+                      </span>
+                      {{'Register.ReloadData'|translate}}
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="card card-stats card-round">
+                          <div class="card-body">
+                            <div class="row align-items-center">
+                              <div class="col-icon">
+                                <div class="icon-big text-center icon-success bubble-shadow-small">
+                                  <i class="far fa-chart-bar"></i>
+                                </div>
+                              </div>
+                              <div class="col col-stats ml-3 ml-sm-0">
+                                <div class="numbers">
+                                  <p class="card-category">{{'Register.LifetimeSales'|translate}}</p>
+                                  <h4 class="card-title text-success">{{lifeTimeSales}} $</h4>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="card card-stats card-round">
+                          <div class="card-body">
+                            <div class="row align-items-center">
+                              <div class="col-icon">
+                                <div class="icon-big text-center icon-primary bubble-shadow-small">
+                                  <i class="far fa-check-circle"></i>
+                                </div>
+                              </div>
+                              <div class="col col-stats ml-3 ml-sm-0">
+                                <div class="numbers">
+                                  <p class="card-category">{{'Register.AverageOrder'|translate}} </p>
+                                  <h4 class="card-title">{{averageOrder}} $</h4>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="card card-stats card-round">
+                          <div class="card-body">
+                            <div class="row align-items-center">
+                              <div class="col-icon">
+                                <div class="icon-big text-center icon-danger bubble-shadow-small">
+                                  <i class="fas fa-money-check-alt"></i>
+                                </div>
+                              </div>
+                              <div class="col col-stats ml-3 ml-sm-0">
+                                <div class="numbers">
+                                  <p class="card-category">{{'Register.Balance'|translate}}</p>
+                                  <h4 class="card-title">{{balance}} $</h4>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="card card-stats card-round">
+                          <div class="card-body">
+                            <div class="row align-items-center">
+                              <div class="col-icon">
+                                <div class="icon-big text-center icon-warning bubble-shadow-small">
+                                  <i class="fas fa-star"></i>
+                                </div>
+                              </div>
+                              <div class="col col-stats ml-3 ml-sm-0">
+                                <div class="numbers">
+                                  <p class="card-category">{{'Register.AverageRating'|translate}}</p>
+                                  <h4 class="card-title">{{averageRating}}</h4>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- <div class="col-md-12">
+                        <div class="card">
+                          <div class="card-header">
+                            <div class="card-title">Last Orders</div>
+                          </div>
+                          <div class="card-body">
+                            <div class="table-responsive">
+                              <table class="table table-hover">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Customer </th>
+                                    <th scope="col">Items</th>
+                                    <th scope="col" class="text-right">Total</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let item of orders">
+                                    <td>{{item.CustomerName}}</td>
+                                    <td>{{item.items}}</td>
+                                    <td class="text-right">{{item.Total}} $</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="card">
+                          <div class="card-header">
+                            <div class="card-title">Last Search Terms</div>
+                          </div>
+                          <div class="card-body">
+                            <div class="table-responsive">
+                              <table class="table table-hover">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Search Term </th>
+                                    <th scope="col">Results</th>
+                                    <th scope="col" class="text-right">Uses</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>gum</td>
+                                    <td>0</td>
+                                    <td class="text-right">4 </td>
+                                  </tr>
+                                  <tr>
+                                    <td>omeprazole</td>
+                                    <td>0</td>
+                                    <td class="text-right">2</td>
+                                  </tr>
+                                  <tr>
+                                    <td>gum</td>
+                                    <td>0</td>
+                                    <td class="text-right">4 </td>
+                                  </tr>
+                                  <tr>
+                                    <td>omeprazole</td>
+                                    <td>0</td>
+                                    <td class="text-right">2</td>
+                                  </tr>
+                                  <tr>
+                                    <td>gum</td>
+                                    <td>0</td>
+                                    <td class="text-right">4 </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="card">
+                          <div class="card-header">
+                            <div class="card-title">Top Search Terms</div>
+                          </div>
+                          <div class="card-body">
+                            <div class="table-responsive" id="something" >
+                              <table class="table table-hover">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Search Term </th>
+                                    <th scope="col">Results</th>
+                                    <th scope="col" class="text-right">Uses</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <div id="localTrial"></div>
+                                  </tr>
+                                  <tr>
+                                    <td>omeprazole</td>
+                                    <td>0</td>
+                                    <td class="text-right">2</td>
+                                  </tr>
+                                  <tr>
+                                    <td>gum</td>
+                                    <td>0</td>
+                                    <td class="text-right">4 </td>
+                                  </tr>
+                                  <tr>
+                                    <td>omeprazole</td>
+                                    <td>0</td>
+                                    <td class="text-right">2</td>
+                                  </tr>
+                                  <tr>
+                                    <td>gum</td>
+                                    <td>0</td>
+                                    <td class="text-right">4 </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div> -->
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="card">
+                          <div class="card-body" (click)="lowStock6Products()" >
+                            <ejs-tab id="element" heightAdjustMode='300px' overflowMode='Scrollable'>
+                              <e-tabitems>
+                                  <!-- getSales -->
+                                <e-tabitem [header]='headerText[0]'>
+                                  <ng-template #headerText>
+                                    <div>
+                                      {{'Register.TotalSales'|translate}}
+                                    </div>
+                                  </ng-template>
+                                  <ng-template #content>
+                                    <div class="row mt-3">
+                                      <div class="col-sm-12 col-md-2 col-lg-2">
+                                        <input class="form-control" bsDatepicker #yr (onShown)="onOpenCalendar($event)"
+                                          [bsConfig]="{ dateInputFormat: 'YYYY' }" [(ngModel)]="year" type="text"
+                                          autocomplete="off">
+                                      </div>
+                                      <div class="col-sm-12 col-md-4 col-lg-4">
+                                        <select class="form-control" #period name="Period">
+                                          <option value="0">{{'Register.Allyear'|translate}}</option>
+                                          <option value="1">{{'Register.Today'|translate}}</option>
+                                          <option value="2">{{'Register.Last1Hour'|translate}}</option>
+                                        </select>
+                                      </div>
+                                      <div class="col-sm-12 col-md-2 col-lg-2">
+                                        <input type="button" class="btn btn-info btn-sm" id="ProductSearch" value="{{'Register.Search'|translate}}"
+                                          (click)=getSales(yr.value,period.value) />
+                                      </div>
+                                    </div>
+                                    <div class="mt-4" id="container"></div >
+                                  </ng-template>
+                                </e-tabitem>
+                                <!-- LowStock -->
+                                <e-tabitem [header]='headerText[1]'>
+                                  <e-tabitem>
+                                    <ng-template #headerText>
+                                      <div>
+                                        {{'Register.LowStock'|translate}}
+                                      </div>
+                                    </ng-template>
+                                    <ng-template #content>
+                                      <div id="lowStock"></div>
+                                    </ng-template>
+                                  </e-tabitem>
+                                </e-tabitem>
+                              </e-tabitems>
+                            </ejs-tab>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                              <div class="card-title">{{'Register.LatestReviews'|translate}}</div>
+                            </div>
+                            <div class="card-body">
+                              <div class="table-responsive">
+                                <table class="table table-hover">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">{{'Register.Customer'|translate}} </th>
+                                      <th scope="col">{{'Register.Product'|translate}}</th>
+                                      <th scope="col">{{'Register.Rating'|translate}}</th>
+                                      <th scope="col">{{'Register.Review'|translate}}</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody >
+                                    <tr *ngFor="let item of orders">
+                                      <td>{{item.Customer}}</td>
+                                      <td>{{item.Product}}</td>
+                                      <td>{{item.Rate}}</td>
+                                      <td >{{item.Review.length>25?item.Review.substring(0,20)+"..." :item.Review}}</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- scrollabletab -->
+    </div>
+  </div>

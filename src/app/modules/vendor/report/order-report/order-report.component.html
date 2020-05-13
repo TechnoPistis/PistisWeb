@@ -1,0 +1,84 @@
+<div class="main-panel">
+   <div class="content">
+     <div class="page-inner">
+       <div class="row">
+         <div class="col-md-12">
+           <div class="card">
+             <div class="card-header">
+               <div class="card-head-row">
+                 <div class="card-title">{{'Register.MostViewed1'|translate}}</div>
+                 <div class="btn-group btn-group-page-header ml-auto"></div>
+               </div>
+             </div>
+             <div class="card-body">
+               <div class="row">
+                 <div class="col-md-3 col-sm-3">
+                   <label>{{'Register.Category'|translate}}</label>
+                   <select class="form-control" [(ngModel)]="CategoryId">
+                     <option value="0" selected="true">{{'Register.SelectOption'|translate}}</option>
+                     <option *ngFor="let item of ProductCategories" value="{{item.Id}}">
+                       {{item.Name}}</option>
+                   </select>
+                 </div>
+                 <div class="col-md-3 col-sm-3">
+                   <label>{{'Register.From'|translate}}</label>
+                   <input type="text" bsDatepicker class="form-control" [(ngModel)]="FromDate" placeholder="dd/mm/yyy">
+                 </div>
+                 <div class="col-md-3 col-sm-3">
+                   <label>{{'Register.From'|translate}}</label>
+                   <input type="text" bsDatepicker class="form-control" [(ngModel)]="ToDate" placeholder="dd/mm/yyy">
+                 </div>
+                 <div class="col-md-3 col-sm-3">
+                   <input type="submit" value="Search" name="search" class="btn btn-primary" style="margin-top: 20px;" (click)="GetOrderReport(1)">
+                 </div>
+               </div>
+             </div>
+             <div class="row pt-3">
+               <div class="col-md-12">
+                 <div class="table-responsive">
+                   <table class="table table-striped">
+                     <thead>
+                       <tr>
+                         <th>{{'Register.ProductName'|translate}}</th>
+                         <th>{{'Register.ProductCategory'|translate}}</th>
+                         <th>{{'Register.CostPrice'|translate}}</th>
+                         <th>{{'Register.SellingPrice'|translate}}</th>
+                         <th>{{'Register.Discount'|translate}}</th>
+                         <th>{{'Register.PriceAfterDiscount'|translate}}</th>
+                         <th>{{'Register.QuantityOrdered'|translate}}</th>
+                       
+                       </tr>
+                     </thead>
+                     <tbody>
+                       <tr *ngFor="let item of ProductOrderReport">
+                         <td class="ml-2">{{item.ProductName}}</td>
+                         <td>{{item.ProductCategory}}</td>
+                         <td>{{item.CostPrice}}</td>
+                         <td>{{item.SellingPrice}}</td>
+                         <td>{{item.Discount}}</td>
+                         <td>{{item.PriceAfterDiscount}}</td>
+                         <td>{{item.QuantityOrdered}}</td>
+                        
+                       </tr>
+                     </tbody>
+                   </table>
+                 </div>
+               </div>
+               <div class="col-md-12">
+                 <div class="no-left-right" *ngIf="count">
+                   <app-admin-pagination [count]="count" [page]="page" [(perPage)]="perPage" [pagesToShow]="pagesToShow"
+                     (goPrev)="prevPage()" (goNext)="nextPage()" (goPage)="goToPage($event)"
+                     (pageSize)="newPageSize($event)">
+                   </app-admin-pagination>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+   <!-- </div>
+   </div> -->
+ </div>
+ 

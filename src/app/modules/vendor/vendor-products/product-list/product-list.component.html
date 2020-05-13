@@ -1,0 +1,156 @@
+<div class="main-panel">
+  <div class="content">
+    <div class="page-inner">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-head-row">
+                <div class="card-title">{{'Register.AllProducts'|translate}} </div>
+                <div class="btn-group btn-group-page-header ml-auto">
+                  <button type="button" class="btn btn-sm btn-success" (click)="addProduct()">{{'Register.AddProduct'|translate}}</button>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group" id="adv-search">
+                        <label>{{'Register.Product'|translate}}</label>
+                      <input type="text" class="form-control" [(ngModel)]="SearchName" placeholder="Search by name" />
+                    
+                    </div>
+                  </div>
+                 <div class="col-md-2">
+                                <div class="form-group">
+                                  <label>{{'Register.Category'|translate}}</label>
+                                  <select name="ProductCategory" [(ngModel)]="CategoryId"
+                                    (change)="getSubCategoriesByCategory($event.target.value)"
+                                   id="category" #selectedcat
+                                    class="form-control" required>
+                                    <option [value]="null">{{'Register.SelectCategory'|translate}} </option>
+                                    <option *ngFor="let c of ProductCategories;" [value]="c.Id">
+                                      {{c.Name}}
+                                    </option>
+                                  </select>                                 
+                                </div>
+                              </div>
+                              <div class="col-md-2">
+                                <div class="form-group">
+                                  <label>{{'Register.SubCategory'|translate}}</label>
+                                  <select name="ProductCategoryId" [(ngModel)]="SubCategoryId"
+                                    (change)="getVariants($event.target.value)"
+                                    id="categories"  #selectedsubcat
+                                    class="form-control" required>
+                                    <option [value]="null">{{'Register.Selectsubcategory'|translate}} </option>
+                                    <option *ngFor="let c of Categories;" [value]="c.Id">
+                                      {{c.Name}}
+                                    </option>
+                                  </select>
+                                  <!-- <div class="validation-error" *ngIf="ProductCategoryId.invalid ">
+                              This field is required.
+                            </div> -->
+                                </div>
+                              </div>
+                              <div class="col-md-2">
+                                  <div class="chiller_cb">
+                                    <input *ngIf="searchFilter.variant_isDefault" id="isdefault" name="isdefault" type="checkbox" #isdefault="ngModel"
+                                      [(ngModel)]="variant_isDefault" class="custom-control-input" checked>
+                                      <input *ngIf="!searchFilter.variant_isDefault" id="isdefault" name="isdefault" type="checkbox" #isdefault="ngModel"
+                                      [(ngModel)]="variant_isDefault" class="custom-control-input" >
+                                    <label for="isdefault" class="custom-control-label">{{'Register.IsEnable'|translate}} </label>
+                                  </div>
+                                </div>
+                                <div class="col-md-2 mt-5">
+                              
+                                    <button type="button" class="btn btn-sm btn-success "  (click)="searchProduct()">{{'Register.Search'|translate}}</button>
+                                    <button type="button" class="btn btn-sm btn-success ml-1"  (click)="refresh()">{{'Register.Refresh'|translate}}</button>
+                                </div>
+                             
+
+                </div>
+                <div class="row pt-3">
+                  <div class="col-md-12">
+                    <div class="table-responsive">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <!-- <th>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" class="custom-control-input" id="all" name="all" required="">
+                              <label class="custom-control-label" for="all"></label>
+                            </div>
+                          </th> -->
+                            <!-- <th><label> {{'Common:Image'|translate}}</label></th>
+                          <th>{{'Common:Name'|translate}}</th>
+                          <th>{{'Common:Inventory'|translate}}</th>
+                          <th>{{'Common:Category'|translate}}</th>
+                         -->
+                            <th>{{'Register.Image'|translate}}</th>
+                            <th>{{'Register.Name'|translate}}</th>
+                            <th>{{'Register.Inventory'|translate}}</th>
+                            <th>{{'Register.Category'|translate}}</th>
+                            <th>{{'Register.EnableDisable'|translate}}</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+
+                          <tr *ngFor="let p of Products">
+                            <!-- <td>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" class="custom-control-input" id="check1" name="check1" required="">
+                              <label class="custom-control-label" for="check1"></label>
+                            </div>
+                          </td> -->
+                            <td>
+                              <a (click)="ViewProduct(p.Id)">
+                                <div class="pro-thumb">
+                                  <img src={{p.Image}}>
+                                </div>
+                              </a>
+                            </td>
+                            <td>{{p.Name}}</td>
+                            <td>{{p.Inventory}}</td>
+                            <td>{{p.ProductCategoryName}}</td>
+
+                            <td *ngIf="p.IsEnable==true">
+                              <button (click)="onEnable(p.Id,2)"
+                                class="btn btn-sm btn-success btn-fix-width">{{'Register.Disable'|translate}}</button>
+                            </td>
+
+                            <td *ngIf="p.IsEnable==false">
+                              <button (click)="onEnable(p.Id,1)"
+                                class="btn btn-sm btn-danger btn-fix-width">{{'Register.Enable'|translate}} </button>
+                            </td>
+                            <td>
+                              <i class="fas fa-edit mr-2" (click)="editProduct(p.Id)"></i>
+                              <button class="btn btn-sm"><i class="fa fa-trash " (click)="deleteProduct(p.Id)"></i>
+                              </button>
+                              <!-- <button class="btn btn-sm"><i class="fas fa-pencil " (click)="deleteProduct(p.Id)" ></i> </button> -->
+                            </td>
+
+                          </tr>
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="no-left-right" *ngIf="count">
+                      <app-vendor-pagination [count]="count" [page]="page" [(perPage)]="perPage"
+                        [pagesToShow]="pagesToShow" (goPrev)="prevPage()" (goNext)="nextPage()"
+                        (goPage)="goToPage($event)" (pageSize)="newPageSize($event)">
+                      </app-vendor-pagination>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

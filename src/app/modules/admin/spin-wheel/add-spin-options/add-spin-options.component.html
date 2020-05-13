@@ -1,0 +1,265 @@
+<div class="main-panel">
+    <div class="content">
+      <div class="page-inner">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-head-row">
+              <div class="card-title">{{'Spinner.AddSpinnerOptions(only 10)'|translate}}</div>
+              <div class="btn-group btn-group-page-header ml-auto">
+                 
+                    <button type="button" class="btn btn-success" [routerLink]="['/admin/SpinWheel/list']" routerLinkActive="router-link-active" >{{'Spinner.SpinnerOptions'|translate}}</button>
+                </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12">
+                <form [formGroup]="addForm" (ngSubmit)="onSubmit($event)">
+                  <div class="row mt-3">
+                    <div class="col-md-12">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="card">
+                            <div class="card-body">
+                              <div class="row">
+                                <div class="col-md-3">
+                                  <div class="form-group">
+                                    <label>{{'Spinner.Description'|translate}}</label>
+                                    <input class="form-control" type="text" placeholder="Description" formControlName="Description">
+                                    
+                                    <div *ngIf="addForm.controls['Description'].hasError('required')  && addForm.controls['Description'].touched" class="text-danger">This field is required
+                                    </div>
+                                </div>
+                                </div>
+                                <!-- <div class="col-md-3">
+                                  <div class="form-group">
+                                    <label>{{'Register.Filterurl'|translate}}</label>
+                                    <input class="form-control" type="text" placeholder="Url" formControlName="Filterurl">
+                                  </div>
+                                </div> -->
+                                <!-- <div class="col-md-3">
+                                    <div class="form-group">
+                                      <label>{{'Register.Discountprice'|translate}}</label>
+                                      <input class="form-control" type="text" placeholder="Discountprice" formControlName="DiscountPrice">
+                                    </div>
+                                  </div> -->
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                      <label>{{'Spinner.Discount'|translate}}</label>
+                                      <input class="form-control" type="text" placeholder="DiscountPercentage" formControlName="DiscountPercentage">
+                                      <!-- <div [hidden]="!addForm.controls['Name'].errors" class="text-danger">this field
+                                        is
+                                        required</div> -->
+                                    </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                      <label>{{'Spinner.DisplayMessage'|translate}}</label>
+                                     
+                                      <input class="form-control" type="text" placeholder="DisplayMessage" formControlName="DisplayMessage">
+                                      <div *ngIf="addForm.controls['DisplayMessage'].hasError('required')  && addForm.controls['DisplayMessage'].touched" class="text-danger">This field is required
+                                      </div>
+                                    </div>
+                                  </div>
+                                <div class="col-md-3">
+                                  <div class="form-group">
+                                    <label>{{'Register.Category'|translate}} (Discount on all category)</label>
+                                    <select formControlName="CategoryId" class="form-control"
+                                      (change)="getSubCategoriesByCategory($event.target.value)">
+                                      <option value="">{{'Register.SelectProductCategory'|translate}}</option>
+                                      <option *ngFor="let c of ProductCategories;" [value]="c.Id">
+                                        {{c.Name}}
+                                      </option>
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <div class="form-group">
+                                    <label>{{'Register.SubCategory'|translate}}</label>
+
+                                    <select formControlName="ProductCategoryId" name="ProductCategoryId"
+                                      (change)="GetProductCategory($event.target.value)" id="categories"
+                                      class="form-control" required>
+                                      <option value="0">{{'Register.Select'|translate}}</option>
+                                      <option *ngFor="let c of Categories;" [(value)]="c.Id">
+                                        {{c.Name}}
+                                      </option>
+                                    </select>
+                                  </div>
+                                </div>
+                               
+                                <div class="col-md-3">
+                                  <div class="form-group">
+                                    <label>{{'Register.Quantity'|translate}}</label>
+                                    <input formControlName="MaxQty" min="1" class="form-control" type="number"
+                                      placeholder="Quantity">
+                                  </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                  <div class="form-group">
+                                    <label>{{'Spinner.Mood'|translate}}</label>
+
+                                    <select formControlName="MoodId" name="MoodId"
+                                       id="MoodId"
+                                      class="form-control"  selected="MoodSelected">
+                                      <option value="">{{'Register.Select'|translate}} </option>
+                                      <option *ngFor="let c of Mood;" [value]="c.Id">
+                                        {{c.Name}}
+                                      </option>
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <div class="form-group">
+                                    <div class="row">
+                                      <div class="col-md-6">
+                                        <label>{{'Register.From'|translate}}</label>
+                                        <input class="form-control" bsDatepicker [minDate]="today"
+                                          [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" formControlName="ActiveFrom"
+                                          placeholder="YYYY-MM-DD" type="text" autocomplete="off">
+                                          <div *ngIf="addForm.controls['ActiveFrom'].hasError('required')  && addForm.controls['ActiveFrom'].touched" class="text-danger">This field is required
+                                          </div>
+                                      </div>
+                                      <!-- <div [hidden]="!addForm.controls['ActiveFrom'].errors" class="text-danger">this field
+                                          is required
+                                        </div> -->
+  
+                                      <div class="col-md-6">
+                                        <label>{{'Spinner.FromTime'|translate}}</label>
+  
+                                        <input class="form-control" [ngxTimepicker]="picker"
+                                          placeholder="Select time from.." formControlName="ActiveFromTime">
+                                          <div *ngIf="addForm.controls['ActiveFromTime'].hasError('required')  && addForm.controls['ActiveFromTime'].touched" class="text-danger">This field is required
+                                          </div>
+                                        <ngx-material-timepicker #picker></ngx-material-timepicker>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+  
+                              <div class="row">
+                               
+  
+                                <div class="col-md-3">
+                                  <div class="form-group">
+                                    <div class="row">
+                                      <div class="col-md-6">
+                                        <label>{{'Register.To'|translate}}</label>
+  
+                                        <input class="form-control" bsDatepicker [minDate]="today"
+                                          [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" formControlName="ActiveTo"
+                                          placeholder="YYYY-MM-DD" type="text" autocomplete="off">
+                                          <div *ngIf="addForm.controls['ActiveTo'].hasError('required')  && addForm.controls['ActiveTo'].touched" class="text-danger">This field is required
+                                          </div>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <label>{{'Spinner.ToTime'|translate}}</label>
+                                        <input class="form-control" [ngxTimepicker]="picker1"
+                                          placeholder="Select time to.." formControlName="ActiveToTime">
+                                          <div *ngIf="addForm.controls['ActiveToTime'].hasError('required')  && addForm.controls['ActiveToTime'].touched" class="text-danger">This field is required
+                                          </div>
+                                        <ngx-material-timepicker #picker1></ngx-material-timepicker>
+                                        <!-- <div [hidden]="!addForm.controls['ActiveTo'].errors" class="text-danger">this field is
+                                        required
+                                      </div> -->
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              
+                               
+                                
+                                <div class="col-md-3">
+                                  <div class="form-group">
+                                    <label>{{'Spinner.IsActive'|translate}}</label>
+                                    <input formControlName="IsActive" class="form-control" type="checkbox">
+                                  </div>
+                                </div>
+                              </div>
+                                 
+<!-- <div  class="row mt-2">
+    <div class="col-md-12">
+        <div class="banner-area-width">
+        <div class="row">
+            <div class="col-md-12">
+
+              <div class="upload-img-area" (click)="openFile()" >
+                <div class="image-number">
+                  Image 1
+                </div>
+                <img   class="sale-banner-full-1" [src]="!image1?'/assets/1234.jpg':image1">
+                <p class="thumb-size text-right">Size: 600x600</p>
+              </div>
+            
+              <input id="fileDialog" #Image style="visibility:hidden;" type='file' (change)="onSelectFile($event)" multiple  >
+             
+           
+            </div>
+          </div>
+  </div>
+</div>
+</div> -->
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2">
+                      <input type="hidden" formControlName="Id">
+                      <!-- [disabled]="addForm.invalid" -->
+                      <button *ngIf="save" type="submit" id="submitButton" [disabled]="addForm.invalid"
+                        class="btn btn-primary btn-block">{{'Register.SaveButton'|translate}}</button>
+                        <button type="submit" *ngIf="update" id="submitButton" [disabled]="addForm.invalid"
+                        class="btn btn-primary btn-block">{{'Register.UpdateButton'|translate}}</button>
+                    </div>
+                    <div class="col-sm-2">
+                      <button type="button" class="btn btn-danger btn-block" [routerLink]="['/admin/SpinWheel/list']" routerLinkActive="router-link-active" >{{'Register.CancelButton'|translate}}</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="card" *ngIf="Products.length >0">
+                <div class="card-head-row">
+                <div class="card-title">One product for one Spinner option</div>
+                </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Name</th>
+                      <th>Category</th>
+                      <th>SKU</th>
+                      <th>Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of Products; let i = index">
+                      <td ><input type="checkbox" [checked]="item.Id==selected" (change)="AddProdcut(item.Id,i, $event)"></td>
+                      <td>{{item.Name}}</td>
+                      <td>{{item.Category}}</td>
+                      <td>{{item.SKU}}</td>
+                      <td>{{item.Price}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  

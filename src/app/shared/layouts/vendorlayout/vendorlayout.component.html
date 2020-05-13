@@ -1,0 +1,182 @@
+<div class="wrapper">
+
+  <div class="main-header" data-background-color="purple">
+
+    <div [routerLink]="['/']" routerLinkActive="router-link-active" class="logo-header">
+
+      <a href="#" [routerLink]="['/']" routerLinkActive="router-link-active" class="logo">
+        <img src="assets/img/logo.png" alt="navbar brand" class="navbar-brand">
+      </a>
+      <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon">
+          <i class="fa fa-bars"></i>
+        </span>
+      </button>
+      <button class="topbar-toggler more"><i class="fa fa-ellipsis-v"></i></button>
+      <div class="navbar-minimize">
+        <button class="btn btn-minimize btn-rounded">
+          <i class="fa fa-bars"></i>
+        </button>
+      </div>
+    </div>
+    <!-- End Logo Header -->
+
+    <!-- Navbar Header -->
+    <nav class="navbar navbar-header navbar-expand-lg">
+      <div class="container-fluid">
+        <div class="collapse" id="search-nav">
+          <form class="navbar-left navbar-form nav-search mr-md-3">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <button type="submit" class="btn btn-search pr-1">
+                  <i class="fa fa-search search-icon"></i>
+                </button>
+              </div>
+              <input type="text" placeholder="Search ..." class="form-control">
+            </div>
+          </form>
+        </div>
+        <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+
+          <li><label>
+            <select class="form-control language-select" #languageselect
+            (change)="translate.use(languageselect.value)" *ngIf="languageValue=='espanol'">
+
+            <option value="espanol" selected>
+              espanol
+            </option>
+            <option value="english">
+              english
+            </option>
+          </select>
+          <select class="form-control language-select" #languageselect
+            (change)="translate.use(languageselect.value)" *ngIf="languageValue=='english'">
+
+            <option value="espanol">
+              espanol
+            </option>
+            <option value="english" selected>
+              english
+            </option>
+          </select>
+            </label>
+          </li>
+
+
+          <li class="nav-item dropdown hidden-caret">
+            <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
+              <div class="user">
+                <div class="avatar-sm float-left mr-2">
+                  <img src="assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
+                </div>
+                <div class="info float-left">
+                  <span>
+                    Welcome! <br>{{name}}
+
+
+                  </span>
+                </div>
+              </div>
+            </a>
+            <ul class="dropdown-menu dropdown-user animated fadeIn">
+              <li>
+                <div class="user-box">
+                  <div class="avatar-lg"><img src="assets/img/profile.jpg" alt="image profile"
+                      class="avatar-img rounded"></div>
+                  <div class="u-text">
+                    <h4>{{name}}</h4>
+                    <!-- <p class="text-muted">hello@example.com</p> -->
+
+                    <a routerLink="/vendor/profile" routerLinkActive="active"
+                      class="btn btn-rounded btn-danger btn-sm">View Profile</a>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item"routerLink="/vendor/profile" routerLinkActive="active" >My Profile</a>
+                <!-- <a class="dropdown-item" href="#">My Balance</a> -->
+                <a class="dropdown-item" routerLink="/vendor/products" routerLinkActive="active">Products</a>
+                <a class="dropdown-item" routerLink="/vendor/report/most-viewed" routerLinkActive="active">Report</a>
+                <!-- <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Account Setting</a> -->
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" (click)="logout()">Logout</a>
+              </li>
+            </ul>
+          </li>
+
+        </ul>
+      </div>
+    </nav>
+    <!-- End Navbar -->
+   
+
+  </div>
+
+  <div class="sidebar">
+    <div class="sidebar-wrapper scrollbar-inner">
+      <div class="sidebar-content">
+        <ul class="nav">
+          <li class="nav-item">
+            <a data-toggle="collapse" href="#" [routerLink]="['/vendor/dashboard']"
+              routerLinkActive="router-link-active">
+              <i class="fas fa-table"></i>
+              <p>Dashboard </p>
+
+            </a>
+
+          </li>
+          <li class="nav-item">
+            <a data-toggle="collapse" href="#" [routerLink]="['/vendor/products']"
+              routerLinkActive="router-link-active">
+              <i class="fas fa-th-list"></i>
+              <p>Products</p>
+
+            </a>
+
+          </li>
+          <li class="nav-item">
+            <a data-toggle="collapse" href="#" [routerLink]="['/vendor/stocks']" routerLinkActive="router-link-active">
+              <i class="fas fa-table"></i>
+              <p>Stock Report </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a data-toggle="collapse" href="#report">
+              <i class="fas fa-stream"></i>
+              <p>Report</p>
+              <span class="caret"></span>
+            </a>
+            <div class="collapse" id="report">
+              <ul class="nav nav-collapse">
+                <li>
+                  <a [routerLink]="['/vendor/report/most-viewed']" routerLinkActive="router-link-active">
+                    <span class="sub-item">Most Viewed</span>
+                  </a>
+                </li>
+                <li>
+                  <a [routerLink]="['/vendor/report/product-view-report']" routerLinkActive="router-link-active">
+                    <span class="sub-item">Product Review Report</span>
+                  </a>
+                </li>
+                <li>
+                  <a [routerLink]="['/vendor/report/order-report']" routerLinkActive="router-link-active">
+                    <span class="sub-item">Order Report</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <router-outlet>
+
+  </router-outlet>
+</div>

@@ -1,0 +1,405 @@
+<!-- First Page -->
+<div *ngIf="FirstDiv" class="main-panel">
+  <div class="content">
+    <div class="page-inner">
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">{{'Register.ProductReviews'|translate}}</h4>
+
+            </div>
+
+            <div class="card-body">
+              <div class="row pt-3">
+                <div class="col-md-12">
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>{{'Register.ProductName'|translate}}</th>
+                          <th>{{'Register.NumberOfReviews'|translate}}</th>
+                          <th>{{'Register.AverageRating'|translate}} </th>
+                          <th>{{'Register.LastReview'|translate}}</th>
+                          <th>{{'Register.Action'|translate}}</th>
+                          <th>Show review</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of data">
+                          <td>{{item.productId}}</td>
+                          <td>{{item.ProductName}}
+                          </td>
+                          <td>{{item.ReviewCount}}</td>
+                          <td>{{item.Rating}}
+                          </td>
+                          <td>
+                            {{item.lastreviewDate}}
+                          </td>
+                         
+                          <td *ngIf="item.ReviewStatusId==3">
+                            <button (click)="onActivate(item.productId)"
+                              class="btn btn-sm btn-success btn-fix-width">Approved</button>
+                          </td>
+
+                          <td *ngIf="item.ReviewStatusId==1">
+                            <button (click)="onActivate(item.productId)"
+                              class="btn btn-sm btn-danger btn-fix-width">Dis-Approved</button>
+                          </td>
+                          <td><a (click)="showReviews(item.UserId,item.UserName,item.productId)"
+                              class="btn btn-sm btn-success btn-fix-width">{{'Register.Showreviews'|translate}}</a></td>
+                        </tr>
+                      </tbody>
+
+                    </table>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="no-left-right" *ngIf="count">
+                    <app-admin-pagination [count]="count" [page]="page" [(perPage)]="perPage"
+                      [pagesToShow]="pagesToShow" (goPrev)="prevPage()" (goNext)="nextPage()"
+                      (goPage)="goToPage($event)" (pageSize)="newPageSize($event)">
+                    </app-admin-pagination>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Seconed Page -->
+<div *ngIf="SeconedDiv" class="main-panel">
+  <div class="content">
+    <div class="page-inner">
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header ">
+              <div class="card-head-row">
+                <div class="card-title">{{'Register.ProductReviewReport'|translate}}</div>
+                <div class="btn-group btn-group-page-header ml-auto">
+                       
+                        <button type="button" class="btn btn-success" (click)="onClick()">{{'Register.Reviewlist'|translate}}</button>
+                    </div>
+              
+              </div>
+             
+            </div>
+            <div class="card-head-row">
+              <div class="col-md-12">
+                <div class="card-title">
+                  <div class="card-title-col togather">
+                    <label>{{'Register.From'|translate}}:</label>
+                  </div>
+                  <div class="card-title-col">
+                    <input type="text" bsDatepicker class="form-control" [(ngModel)]="first" #fromDate required />
+                  </div>
+                  <div class="card-title-col togather">
+                    <label>{{'Register.To'|translate}}:</label>
+                  </div>
+                  <div class="card-title-col">
+                    <input type="text" bsDatepicker class="form-control" [(ngModel)]="scnd" #todate required />
+                  </div>
+
+                  <div class="card-title-col">
+                    <button class="btn btn-success btn-sm"
+                      (click)="getTariks(fromDate.value,todate.value)">{{'Register.Submit'|translate}}</button>
+                  </div>
+                  <!-- <div class="card-title-col togather pull-right">
+                                                  <label>Show By:</label>
+                                            </div> -->
+                  <div class="card-title-col pull-right">
+                    <label>{{'Register.ShowBy'|translate}}:</label>
+                    <select class="form-control-sm" value='0' #DOY (change)="moment(DOY.value)">
+                      <option value="0">{{'Register.SelectOption'|translate}}</option>
+
+                      <option value="1">{{'Register.Approved'|translate}}</option>
+                      <option value="2">{{'Register.Pending'|translate}}</option>
+                      <option value="3">{{'Register.NotApproved'|translate}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="col-md-5 text-right">
+                          <div class="card-title">
+                        <div class="pull-right">
+                              <div class="card-title-col togather">
+                                      <label>Export to:</label>
+                                </div>
+                                <div class="card-title-col">
+                                      <select class="form-control-sm">
+                                          <option>CSV</option>
+                                          <option>Excel XML</option>
+                                      </select>
+                                  </div>
+                                  <div class="card-title-col m-0">
+                                        <button class="btn btn-success btn-sm">Refresh</button>
+                                    </div>
+                        </div>
+                        </div>
+                    </div> -->
+            </div>
+
+            <!--<div class="card-body">
+                     <div class="row">
+                        <div class="col-md-12">
+                          <div class="input-group" id="adv-search">
+                            <input type="text" class="form-control" placeholder="Search..">
+        
+                            <div class="input-group-btn">
+                              <div class="btn-group" role="group">
+                                <div class="dropdown dropdown-lg">
+                                  <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"
+                                    aria-expanded="false">Filter</button>
+                                  <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                    <form class="form-horizontal" role="form">
+                                      <div class="form-group">
+                                        <label for="filter">Show all products where:</label>
+                                        <select class="form-control">
+                                          <option value="0" selected="">Select Option</option>
+                                          <option value="1">Featured</option>
+                                          <option value="2">Most popular</option>
+                                          <option value="3">Top rated</option>
+                                          <option value="4">Most commented</option>
+                                        </select>
+                                      </div>
+                                      <div class="form-group mb-3">
+                                        <label for="contain">is</label>
+                                        <select class="form-control">
+                                          <option value="0" selected="">Select Option</option>
+                                          <option value="1">Featured</option>
+                                          <option value="2">Most popular</option>
+                                          <option value="3">Top rated</option>
+                                          <option value="4">Most commented</option>
+                                        </select>
+                                      </div>
+                                      <button type="submit" class="btn btn-sm btn-primary">Search</button>
+                                    </form>
+                                  </div>
+                                </div>
+                                <button type="button" class="btn btn-primary"><span class="fa fa-search"
+                                    aria-hidden="true"></span></button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div> 
+                  </div>-->
+            <div class="card-body">
+              <div class="row pt-3">
+                <div class="col-md-12">
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+
+                          <th>{{'Register.Reviewdate'|translate}}</th>
+                          <th>{{'Register.Status'|translate}}</th>
+                          <!-- <th>Review By</th> -->
+                          <th>{{'Register.ProductName'|translate}}</th>
+                          <th>{{'Register.ProductDescription'|translate}}</th>
+                          <th>{{'Register.Action'|translate}}</th>
+                        </tr>
+                      </thead>
+                      <tbody *ngIf="WithoutFilter">
+                        <tr *ngFor="let item of product2">
+                          <td> {{item.ReviewDate}}</td>
+                          <td>{{item.Status}}</td>
+                          <td>{{item.Name}}</td>
+
+                          <td>
+                            <p
+                              innerHtml="{{item.Description.length > 20 ? item.Description.substring(0,30) : item.Description }}">
+                            </p>
+                          </td>
+                          <td><a class="btn btn-sm btn-success btn-fix-width"
+                              (click)="thirdDivActive(item.Id,item.Name)">{{'Register.Edit'|translate}}</a></td>
+
+                        </tr>
+                      </tbody>
+                      <tbody *ngIf="WithFilter">
+                        <tr *ngFor="let item of product2">
+
+                          <td> {{item.ReviewDate}}</td>
+                          <td>{{item.Status}}</td>
+                          <td>{{item.Name}}</td>
+
+                          <td>
+                            <p
+                              innerHtml="{{item.Description.length > 20 ? item.Description.substring(0,30) : item.Description }}">
+                            </p>
+                          </td>
+                          <td><a class="btn btn-sm btn-success btn-fix-width"
+                              (click)="thirdDivActive(item.Id,item.Name)">{{'Register.Edit'|translate}}</a></td>
+
+                        </tr>
+                      </tbody>
+
+
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Thrid Page -->
+<div *ngIf="thirdDiv" class="main-panel">
+  <div class="content">
+    <div class="page-inner">
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-head-row">
+                <div class="card-title">{{'Register.Review'|translate}}</div>
+                <!-- <div class="card-tools">
+      
+                  <a href="#" class="btn btn-default btn-xs ml-2">
+                    <span class="btn-label">
+                      <i class="fas fa-chevron-circle-left"></i>
+                    </span>
+                    Back
+                  </a>
+                  <a href="#" class="btn btn-success btn-xs ml-2">
+                    Reset
+                  </a>
+                  <a href="#" class="btn btn-success btn-xs ml-2">
+                    Convert to Plain Text
+                  </a>
+                  <a href="#" class="btn btn-success btn-xs ml-2">
+                    <span class="btn-label">
+                      <i class="fas fa-times-circle"></i>
+                    </span>
+                    Delete Template
+                  </a>
+                  <a href="#" class="btn btn-success btn-xs ml-2">
+                    <span class="btn-label">
+                      <i class="far fa-check-circle"></i>
+                    </span>
+                    Save As
+                  </a>
+                  <a href="#" class="btn btn-success btn-xs ml-2">
+                    <span class="btn-label">
+                      <i class="far fa-check-circle"></i>
+                    </span>
+                    Save Template
+                  </a>
+                </div> -->
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <!-- <div class="card-title">
+                    User review
+                  </div> -->
+
+                </div>
+                <div class="col-md-12 font-small">
+                  <div class="form-group form-show-validation row">
+                    <label for="name" class="col-lg-3 col-md-3 col-sm-4 text-right">{{'Register.Product'|translate}}:
+                    </label>
+                    <div class="col-lg-7 col-md-9 col-sm-8">
+                      <a>{{productname}}</a>
+                    </div>
+                  </div>
+                  <div class="form-group form-show-validation row">
+                    <label for="name" class="col-lg-3 col-md-3 col-sm-4  text-right">{{'Register.PostedBy'|translate}}: </label>
+                    <div class="col-lg-7 col-md-9 col-sm-8">
+                      <a>{{customerName}}</a>
+                    </div>
+                  </div>
+
+                  <div class="form-group form-show-validation row">
+                    <label for="name" class="col-lg-3 col-md-3 col-sm-4  text-right">{{'Register.ProductRating'|translate}}: <span class="required-label">*</span></label>
+                    <div class="col-lg-7 col-md-9 col-sm-8">
+                      <div class="rate">
+                        <input type="radio" id="star5" name="rate" [checked]="rate==5" #rate5 value="5"
+                          (click)="getRating(rate5.value)" />
+                        <label for="star5" title="text">{{'Register.5stars'|translate}}</label>
+                        <input type="radio" id="star4" name="rate" #rate4 [checked]="rate==4" value="4"
+                          (click)="getRating(rate4.value)" />
+                        <label for="star4" title="text">{{'Register.4stars'|translate}}</label>
+                        <input type="radio" id="star3" name="rate" #rate3 [checked]="rate==3" value="3"
+                          (click)="getRating(rate3.value)" />
+                        <label for="star3" title="text">{{'Register.3stars'|translate}}</label>
+                        <input type="radio" id="star2" name="rate" #rate2 [checked]="rate==2" value="2"
+                          (click)="getRating(rate2.value)" />
+                        <label for="star2" title="text">{{'Register.2stars'|translate}}</label>
+                        <input type="radio" id="star1" name="rate" #rate1 [checked]="rate==1" value="1"
+                          (click)="getRating(rate1.value)" />
+                        <label for="star1" title="text">{{'Register.1stars'|translate}}</label>
+                      </div>
+                      <div class="rate-link-box" *ngIf="Rating==1">
+                        {{'Register.VeryBad'|translate}}
+                      </div>
+                      <div class="rate-link-box" *ngIf="Rating==2">
+                        {{'Register.Bad'|translate}}
+                      </div>
+                      <div class="rate-link-box" *ngIf="Rating==3">
+                        {{'Register.Good'|translate}}
+                      </div>
+                      <div class="rate-link-box" *ngIf="Rating==4">
+                        {{'Register.VeryGood'|translate}}
+                      </div>
+                      <div class="rate-link-box" *ngIf="Rating==5">
+                        {{'Register.Excellent'|translate}}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group form-show-validation row">
+                    <label for="name" class="col-lg-3 col-md-3 col-sm-4  text-right">{{'Register.Reviewthisproduct'|translate}}:
+                    </label>
+                    <div class="col-lg-7 col-md-9 col-sm-8">
+
+                      <div class="write-review-form-block">
+                        <div class="row border-head mrgn-b-sm">
+                          <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 mrgn-b-sm">
+                            <label class="">{{'Register.Spinner.Description'|translate}}</label>
+                            <textarea rows="8" placeholder="Enter Description" #Description
+                              class="form-control no-border" [value]="description"></textarea>
+                          </div>
+                        </div>
+                        <!-- <div class="row">
+                                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                                <label class="">Title (optional)</label>
+                                                <input placeholder="Enter Title" type="text" class="form-control no-border">
+                                            </div>
+                                        </div> -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group form-show-validation row">
+                    <div class="col-lg-3 col-md-3 col-sm-4"></div>
+                    <div class="col-lg-7 col-md-9 col-sm-8">
+                      <button type="button" class="btn btn-primary  place-order"
+                        (click)="getDescription(Description.value)" [disabled]="validate==false">
+                        <span> {{'Register.Submit'|translate}}</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<app-header></app-header>
+<div class="container p-tb-2" >
+    <div class="confirm-order-box-1">
+        <div class="row" *ngIf="isEng">
+           
+                <div class="col-md-12 mrgn-b-md">
+                   <img src="assets/img/track-item.png">
+                </div>
+                <div class="col-md-12 mrgn-b-sm" >
+                    <h3>Track Your Order</h3>
+                    <p>
+                        Thank you for shopping at Pistis.Simply input the track number below,<br> for us to  exactly track the status of your shipment.
+                    </p>
+                     </div>
+                     <div class="col-md-12">
+                         <div class="col-md-6 col-md-offset-2 text-left">
+                             <label>Enter Track Number</label>
+                            <input type="text" placeholder="Track Number" #trackno class="form-control " [ngClass]="{'is-invalid': notExists||required}" (focusin)="notExists=false; required=false">
+                            <span class="text-danger pull-left " *ngIf="notExists">This track number is not valid</span>
+                            <span class="text-danger pull-left" *ngIf="required">Track number is required</span>
+                        </div>
+                            <div class="col-md-2 text-left">
+                                <label>&nbsp;</label>
+                                <button class="btn btn-round btn-primary" (click)="trackorder(trackno.value)">Track Order</button>
+                            </div>
+                     </div>
+            </div>
+            <div class="row" *ngIf="!isEng">
+           
+                <div class="col-md-12 mrgn-b-md">
+                   <img src="assets/img/track-item.png">
+                </div>
+                <div class="col-md-12 mrgn-b-sm" >
+                    <h3>Seguimiento de su pedido</h3>
+                    <p>
+                        Gracias por comprar en Pistis.Simply introduzca el número de pista a continuación,<br> para que nosotros pueda realizar un seguimiento exactamente del estado de su envío.
+                    </p>
+                     </div>
+                     <div class="col-md-12">
+                         <div class="col-md-6 col-md-offset-2 text-left">
+                             <label>Introduzca el número de pista</label>
+                             <input type="text" placeholder="Número de pista" #trackno class="form-control " [ngClass]="{'is-invalid': notExists||required}" (focusin)="notExists=false; required=false">
+                            <span class="text-danger pull-left" *ngIf="required">Se requiere el número de pista
+                            </span>
+                            <span class="text-danger pull-left" *ngIf="notExists">Este número de pista no es válido</span>
+                        </div>
+                            <div class="col-md-2 text-left">
+                                <label>&nbsp;</label>
+                                <button class="btn btn-round btn-primary" (click)="trackorder(trackno.value)">Orden de la pista</button>
+                            </div>
+                     </div>
+            </div>
+            
+</div>
+</div>
+<app-footer></app-footer>

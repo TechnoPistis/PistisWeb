@@ -1,0 +1,151 @@
+<div class="main-panel">
+    <div class="content">
+      <div class="page-inner">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-head-row">
+                  <div class="card-title">Dashboard logs</div>
+                 
+                  <div class="form-group mr-3">
+                    <label for="filter">Response filter :</label>
+                    <select class="form-control" (change)="Filter($event)">
+                      <option value="0" selected="">Select Option</option>
+                      <option value="1">Request</option>
+                      <option value="2">Error</option>
+                      <option value="3">Success</option>
+                      <!-- <option value="4">step-1</option>
+                      <option value="5">step-2</option>
+                      <option value="6">step-3</option> -->
+                    </select>
+
+                  </div>
+                  <div class="form-group  mr-3">
+                    <label for="filter">Response filter :</label>
+                    <label>{{'Register.From'|translate}} </label>
+                    <input class="form-control" bsDatepicker 
+                       [(ngModel)]="date" 
+                      placeholder="YYYY-MM-DD" type="text" autocomplete="off" >
+                  </div>
+                  <div class="form-group  mr-3">
+                    <label for="filter">User filter:</label>
+                    <select class="form-control" (change)="Filter2($event,date)">
+                      <option value="0" selected="">Select Option</option>
+                      <option  *ngFor="let c of Users;" [value]="c.Id">{{c.Name}}</option>
+                      <!-- <option value="4">step-1</option>
+                      <option value="5">step-2</option>
+                      <option value="6">step-3</option> -->
+                    </select>
+                  </div>
+                  
+               
+                  <div class="btn-group btn-group-page-header ml-auto">
+                    <button type="button" class="btn btn-sm btn-success" (click)="Dashboard()">Dashboard</button>
+                  </div>
+                  <!-- <div class="form-group">
+                    <label for="filter">User sessions:</label>
+                    <select class="form-control" (change)="Filter3($event)" >
+                      <option value="0" selected="">Select Option</option>
+                      <option  *ngFor="let c of sessions;" [value]="c.Guid">{{c.SessionId}}</option>
+                     
+                    
+                    </select>
+                  </div> -->
+                 
+                </div>
+              </div>
+  
+              <div class="row ">
+                <div class="col-md-12">
+                  <!-- Modal -->
+                    <div class="col-md-12">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="card">
+                              <div class="card-body" (click)="setFailedTransactions();" *ngIf="firstGraph">
+                                <div class="chart-board" >
+                                  <ejs-tab id="element" heightAdjustMode='800px' overflowMode='Scrollable'>
+                                    <e-tabitems>
+                                        <e-tabitem>
+                                          <ng-template #headerText>
+                                            <div>
+                                             Pages
+                                            </div>
+                                          </ng-template>
+                                            <ng-template #content >
+                                              <div id="transactionStatus" (click)="onClick($event)"></div>
+                                            </ng-template>
+                                        </e-tabitem>
+                                    </e-tabitems>
+                                  </ejs-tab>
+                                </div>
+                              </div>
+
+                              <!-- setmostSearchedProducts() -->
+
+                               <div class="card-body"  *ngIf="SeconedGraph">
+                                <div class="chart-board" >
+                                  <ejs-tab id="element" heightAdjustMode='800px' overflowMode='Scrollable'>
+                                    <e-tabitems>
+                                        <e-tabitem>
+                                          <ng-template #headerText>
+                                            <div>
+                                             Page
+                                            </div>
+                                          </ng-template>
+                                            <ng-template #content >
+                                              <div id="bestSellers" (click)="onClick2($event)"></div>
+                                            </ng-template>
+                                        </e-tabitem>
+                                    </e-tabitems>
+                                  </ejs-tab>
+                                </div>
+                              </div>
+                              <div class="card-body"  *ngIf="thridGraph" >
+                                  <div class="table-responsive">
+                                    <table class="table table-striped">
+                                      <thead>
+                                        <tr>
+                                          <th>Action</th>
+                                          <th>Description</th>
+                                          <th>Result</th>
+                                          <th>IpAddress</th>
+                                          <th>User</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr *ngFor="let cat of ActionData">
+                                          <td>{{cat.Action}}</td>
+                                          <td>{{cat.Description}}</td>
+                                          <!-- (click)="getValue(cat.Id)"
+                                          (click)="getValue(cat.Id)"
+                                          (click)="getValue(cat.Id)"
+                                          -->
+                                          <td *ngIf="cat.Result=='1'"> <i class="fas fa-spinner " ></i></td>
+                                          <td *ngIf="cat.Result=='Error'"><i class="fas fa-times-circle  text-danger"
+                                              ></i></td>
+                                          <td *ngIf="cat.Result!='1' && cat.Result!='Error' "><i class="fas fa-check-circle text-success"
+                                              ></i></td>
+                                          <td>{{cat.IpAddress}}</td>
+                                          <td>{{cat.User.Email}}</td>
+                                           </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                     
+                      </div>
+               
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

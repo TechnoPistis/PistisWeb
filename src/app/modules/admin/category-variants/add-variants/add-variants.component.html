@@ -1,0 +1,89 @@
+<div class="main-panel">
+  <div class="content">
+    <div class="page-inner">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-head-row">
+            <div class="card-title">Add variant</div>
+            <div class="btn-group btn-group-page-header ml-auto">
+              <button type="button" class="btn btn-sm btn-success" [routerLink]="['/admin/variants']"
+                routerLinkActive="router-link-active">All variants</button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <form [formGroup]="addForm" (ngSubmit)="onSubmit($event)">
+                <div class="row mt-3">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="card">
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <label>Category</label>
+                                  <select formControlName="CategoryId" class="form-control"
+                                    (change)="checkMainSelected($event)">
+                                    <option value="">Select category</option>
+                                    <option *ngFor="let c of Categories;" [value]="c.Id">
+                                      {{c.Name}}
+                                    </option>
+                                  </select>
+                                  <div *ngIf="addForm.controls['CategoryId'].hasError('required')  && addForm.controls['CategoryId'].touched" class="text-danger">Category is
+                                    required</div>
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <label>Variant</label>
+                                  <input formControlName="Name" class="form-control" type="text" (change)="checkExistingName()"
+                                    placeholder="size,color etc. . .">
+                                  <div *ngIf="addForm.controls['Name'].hasError('required')  && addForm.controls['Name'].touched" class="text-danger">Name is required
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-2">
+                                <div class="form-group">
+                                  <label>Search Option</label>
+                                  <input formControlName="IsSearchOption" class="form-control" type="checkbox">
+                                </div>
+                              </div>
+                              <div class="col-md-2" *ngIf="!MainSelected">
+                                <div class="form-group">
+                                  <label>Is Main</label>
+                                  <input formControlName="IsMain" class="form-control" type="checkbox">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="form-group">
+                                  <label>Variant options</label>
+                                  <input formControlName="AllOptions" class="form-control" type="text"
+                                    placeholder="option-1,option-2,option-3 etc. . .">
+                                  <div *ngIf="addForm.controls['AllOptions'].errors && addForm.controls['AllOptions'].touched" class="text-danger">Options are
+                                    required</div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group col-sm-2">
+                  <input type="hidden" formControlName="Id">
+                  <button type="submit" id="submitButton" [disabled]="addForm.invalid" class="btn btn-primary btn-block">Save</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

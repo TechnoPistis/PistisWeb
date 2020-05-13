@@ -1,0 +1,375 @@
+<div class="main-panel">
+  <div class="content">
+    <div class="page-inner">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-head-row">
+                <div class="card-title">{{'Register.AddSliderImage'|translate}}</div>
+                <div class="btn-group btn-group-page-header ml-auto">
+
+                  <button type="button" class="btn btn-success" (click)="onClick()">{{'Register.ShowSliderImages'|translate}}</button>
+                </div>
+
+              </div>
+            </div>
+            
+
+            <form *ngIf="Id == null" #form="ngForm" (submit)="onSubmit(form)" autocomplete="off">
+              <input type="hidden" name="Id" #Id="ngModel" [(ngModel)]="service.formData.Id">
+              <input type="hidden" name="Image" #Image="ngModel" [(ngModel)]="service.formData.Image">
+              <div class="form-group col-sm-12">
+
+                <!-- <div class="card">
+      <div class="card-header"> -->
+                
+
+                <div class="card-body">
+                  <div class="card-head-row mb-3">
+                    <div class="card-title">{{'Register.UploadImage'|translate}}</div>
+                    <div class="card-tools ">
+  <!-- start -->
+  
+  
+  <!-- khatam -->
+                      <label for="files" class="btn btn-info btn-border btn-round btn-sm mr-2 ">{{'Register.SelectImage'|translate}}</label>
+                      <!-- <input id="files" #Image style="visibility:hidden;" type="file" (change)="handleFileInput($event)"> -->
+                      
+                      <input id="files" #Image style="visibility:hidden;" type="file" (change)="fileChangeEvent($event)">
+  
+                    </div>
+                    <div class="validation-error" *ngIf="Image.touched">{{'Register.Thisfieldisrequired'|translate}}</div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-md-12">
+                    
+           
+            <button class="btn btn-info btn-border btn-round btn-sm mr-2 " type="button" (click)="toggleContainWithinAspectRatio()">{{containWithinAspectRatio?'Fill Aspect Ratio':'Contain Within Aspect Ratio'}}</button>
+            <button class="btn btn-info btn-border btn-round btn-sm mr-2 " type="button" (click)="resetImage()">{{'Register.ResetImage'|translate}}</button>
+            <br />
+            <br />
+            <input class="btn btn-info btn-border btn-round btn-sm mr-2 " [(ngModel)]="rotation" #Rotation placeholder="Rotation" (keyup)="updateRotation(Rotation.value)" /> 
+            <button  type="button" class="btn btn-info btn-border btn-round btn-sm mr-2 " type="button"  (click)="zoomOut()">{{'Register.Zoom'|translate}} -</button> 
+            <button   type="button" class="btn btn-info btn-border btn-round btn-sm mr-2 " type="button"  (click)="zoomIn()">{{'Register.Zoom'|translate}} +</button>
+            
+            <div>
+              <image-cropper
+                  [imageChangedEvent]="imageChangedEvent"
+                  [maintainAspectRatio]="true"
+                  [containWithinAspectRatio]="containWithinAspectRatio"
+                  [aspectRatio]="4 / 1"
+                  [resizeToWidth]="1600"
+                  [cropperMinWidth]="400"
+                  [onlyScaleDown]="true"
+                  [roundCropper]="false"
+                  [canvasRotation]="canvasRotation"
+                  [transform]="transform"
+                  [alignImage]="'left'"
+                  [style.display]="showCropper ? null : 'none'"
+                  format="png"
+                  (imageCropped)="imageCropped($event)"
+                  (imageLoaded)="imageLoaded()"
+                  (cropperReady)="cropperReady($event)"
+                  (loadImageFailed)="loadImageFailed()"
+              ></image-cropper>
+            </div>
+            
+            
+            
+            </div>
+            </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="upload-img-area">
+
+                        <!-- <img [src]="imageUrl ? imageUrl:service.formData.Image" class="upload-icon-img"> -->
+                        <img  [src]="imageUrl" *ngIf="imageUrl!='/assets/1234.png'; else elseblock" >
+                        <ng-template #elseblock >
+                          <img  [src]="imageUrl" class="upload-icon-img"   >
+                        </ng-template>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+
+                      <div class="form-group col-sm-12">
+                        <label>{{'Register.StartingDate'|translate}}</label>
+                        <input name="FromDateTime" #FromDateTime="ngModel" [(ngModel)]="service.formData.FromDateTime"
+                          type="text" bsDatepicker class="form-control" [minDate]="today" required />
+                        <div class="validation-error" *ngIf="FromDateTime.invalid && FromDateTime.touched">{{'Register.Thisfieldisrequired'|translate}}</div>
+
+                      </div>
+                     
+                      <div class="form-group col-sm-12">
+                        <label>{{'Register.Url'|translate}}</label>
+                        <input name="Url" #Url="ngModel" class="form-control" [(ngModel)]="service.formData.Url" type="text" required />
+                        <div class="validation-error" *ngIf="Url.invalid && Url.touched">{{'Register.Thisfieldisrequired'|translate}}</div>
+
+                      </div>
+                      <div class="form-group col-sm-12 mb-0">
+                        <label>{{'Register.EndingDate'|translate}}</label>
+                        <input name="ToDateTime" #ToDateTime="ngModel" [(ngModel)]="service.formData.ToDateTime"
+                          type="text" bsDatepicker class="form-control" [minDate]="FromDateTime.value" required />
+                        <div class="validation-error" *ngIf="ToDateTime.invalid && ToDateTime.touched">{{'Register.Thisfieldisrequired'|translate}}</div>
+
+                      </div>
+
+                      <!-- <div *ngIf="FormValid==false" class="form-group col-sm-4">
+                        <button type="submit" disabled="true" class="btn btn-info btn-md btn-block">SUBMIT</button>
+                      </div> -->
+                      <div  class="form-group col-sm-4">
+                        <button type="submit" 
+                          class="btn btn-info btn-md btn-block">{{'Register.Submit'|translate}}</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- </div>
+</div> -->
+                <!--<img [src]="imageUrl ? imageUrl : service.formData.Image"  style="width:250px;height:200px">
+<input type="file" #Image  (change)="handleFileInput($event.target.files)">-->
+              </div>
+
+
+
+
+            </form>
+            <!-- ////////////////////////////////////////////////////////////////////////////// -->
+            <!-- <form *ngIf="Id != null" #form="ngForm" (submit)="onSubmit(form)" autocomplete="off">
+              <input type="hidden" name="Id" #Id="ngModel" [(ngModel)]="service.formData.Id">
+              <input type="hidden" name="Image" #Image="ngModel" [(ngModel)]="service.formData.Image">
+              <div class="form-group col-sm-12">
+
+             
+                <div class="card-head-row">
+                  <div class="card-title">Upload Image</div>
+                  <div class="card-tools ">
+
+                    <label for="files" class="btn btn-info btn-border btn-round btn-sm mr-2 ">Select Image</label>
+                    <input id="files" #Image style="visibility:hidden;" type="file" (change)="handleFileInput($event)">
+                  </div>
+
+                </div>
+
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="upload-img-area">
+
+                        <img [src]="imageUrl ? imageUrl:service.formData.Image " style="width:250px;height:200px">
+
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group col-sm-12">
+                        <label>Starting Date</label>
+                        <input name="FromDateTime" #FromDateTime="ngModel" [(ngModel)]="service.formData.FromDateTime"
+                          type="text" bsDatepicker class="form-control" [minDate]="today" required />
+
+
+                      </div>
+                      <div class="form-group col-sm-12 mb-0">
+                        <label>Ending Date</label>
+                        <input name="ToDateTime" #ToDateTime="ngModel" [(ngModel)]="service.formData.ToDateTime"
+                          type="text" bsDatepicker class="form-control" [minDate]="FromDateTime.value" required />
+
+
+                      </div>
+                      <div class="form-group col-sm-12">
+                          <label>Url</label>
+                          <input name="Url" #Url="ngModel" class="form-control" [(ngModel)]="service.formData.Url" type="text" required />
+                          <div class="validation-error" *ngIf="Url.invalid && Url.touched">This field is required.</div>
+  
+                        </div>
+
+                      <div class="form-group col-sm-4">
+                        <button type="submit" class="btn btn-info btn-md btn-block">SUBMIT</button>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+         
+              </div>
+
+
+
+
+            </form> -->
+            <form *ngIf="Id != null" #form="ngForm" (submit)="onSubmit(form)" autocomplete="off">
+              <input type="hidden" name="Id" #Id="ngModel" [(ngModel)]="service.formData.Id">
+              <input type="hidden" name="Image" #Image="ngModel" [(ngModel)]="service.formData.Image">
+              <div class="form-group col-sm-12">
+
+                <!-- <div class="card">
+      <div class="card-header"> -->
+                
+
+                <div class="card-body">
+                  <div class="card-head-row mb-3">
+                    <div class="card-title">{{'Register.UploadImage'|translate}}</div>
+                    <div class="card-tools ">
+  <!-- start -->
+  
+  
+  <!-- khatam -->
+                      <label for="files" class="btn btn-info btn-border btn-round btn-sm mr-2 ">{{'Register.SelectImage'|translate}}</label>
+                      <!-- <input id="files" #Image style="visibility:hidden;" type="file" (change)="handleFileInput($event)"> -->
+                      
+                      <input id="files" #Image style="visibility:hidden;" type="file" (change)="fileChangeEvent($event)">
+  
+                    </div>
+                    <div class="validation-error" *ngIf="Image.touched">{{'Register.Thisfieldisrequired'|translate}}</div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-md-12">
+                    <p *ngIf="!showbutton" class="text-warning">{{'Register.Forcropfunctionalityneedtouploadtheoriginalimage'|translate}}</p>
+           
+            <button *ngIf="showbutton" class="btn btn-info btn-border btn-round btn-sm mr-2 " (click)="toggleContainWithinAspectRatio()">{{containWithinAspectRatio?'Fill Aspect Ratio':'Contain Within Aspect Ratio'}}</button>
+            <button *ngIf="showbutton" class="btn btn-info btn-border btn-round btn-sm mr-2 " (click)="resetImage()">{{'Register.ResetImage'|translate}}</button>
+            <br />
+            <br />
+            <input *ngIf="showbutton" class="btn btn-info btn-border btn-round btn-sm mr-2 " [(ngModel)]="rotation" #Rotation placeholder="Rotation"   (keyup)="updateRotation(Rotation.value)" /> 
+            <button *ngIf="showbutton"  class="btn btn-info btn-border btn-round btn-sm mr-2 " (click)="zoomOut()">{{'Register.Zoom'|translate}} -</button> 
+            <button *ngIf="showbutton"  class="btn btn-info btn-border btn-round btn-sm mr-2 " (click)="zoomIn()">{{'Register.Zoom'|translate}} +</button>
+            
+            <div>
+              <image-cropper
+                  [imageChangedEvent]="imageChangedEvent"
+                  [maintainAspectRatio]="true"
+                  [containWithinAspectRatio]="containWithinAspectRatio"
+                  [aspectRatio]="4 / 1"
+                  [resizeToWidth]="1600"
+                  [cropperMinWidth]="400"
+                  [onlyScaleDown]="true"
+                  [roundCropper]="false"
+                  [canvasRotation]="canvasRotation"
+                  [transform]="transform"
+                  [alignImage]="'left'"
+                  [style.display]="showCropper ? null : 'none'"
+                  format="png"
+                  (imageCropped)="imageCropped($event)"
+                  (imageLoaded)="imageLoaded()"
+                  (cropperReady)="cropperReady($event)"
+                  (loadImageFailed)="loadImageFailed()"
+              ></image-cropper>
+            </div>
+            
+            
+            
+            </div>
+            </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="upload-img-area">
+
+                        <img  [src]="imageUrl" class="upload-icon-img" *ngIf="imageUrl!='/assets/1234.png'; else elseblock" >
+<ng-template #elseblock >
+  <img  [src]="imageUrl"   >
+</ng-template>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+
+                      <div class="form-group col-sm-12">
+                        <label>{{'Register.StartingDate'|translate}}</label>
+                        <input name="FromDateTime" #FromDateTime="ngModel" [(ngModel)]="service.formData.FromDateTime"
+                          type="text" bsDatepicker class="form-control" [minDate]="today" required />
+                        <div class="validation-error" *ngIf="FromDateTime.invalid && FromDateTime.touched">{{'Register.Thisfieldisrequired'|translate}}</div>
+
+                      </div>
+                     
+                      <div class="form-group col-sm-12">
+                        <label>{{'Register.Url'|translate}}</label>
+                        <input name="Url" #Url="ngModel" class="form-control" [(ngModel)]="service.formData.Url" type="text" required />
+                        <div class="validation-error" *ngIf="Url.invalid && Url.touched">{{'Register.Thisfieldisrequired'|translate}}</div>
+
+                      </div>
+                      <div class="form-group col-sm-12 mb-0">
+                        <label>{{'Register.EndingDate'|translate}}</label>
+                        <input name="ToDateTime" #ToDateTime="ngModel" [(ngModel)]="service.formData.ToDateTime"
+                          type="text" bsDatepicker class="form-control" [minDate]="FromDateTime.value" required />
+                        <div class="validation-error" *ngIf="ToDateTime.invalid && ToDateTime.touched">{{'Register.Thisfieldisrequired'|translate}}</div>
+
+                      </div>
+
+                      <!-- <div *ngIf="FormValid==false" class="form-group col-sm-4">
+                        <button type="submit" disabled="true" class="btn btn-info btn-md btn-block">SUBMIT</button>
+                      </div> -->
+                      <div  class="form-group col-sm-4">
+                        <button type="submit" 
+                          class="btn btn-info btn-md btn-block">{{'Register.Submit'|translate}}</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- </div>
+</div> -->
+                <!--<img [src]="imageUrl ? imageUrl : service.formData.Image"  style="width:250px;height:200px">
+<input type="file" #Image  (change)="handleFileInput($event.target.files)">-->
+              </div>
+
+
+
+
+            </form>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- <div class="main-panel">
+  <div class="content">
+    <div class="page-inner">
+      <div class="row">
+        <div class="col-md-12">
+          <input type="file" (change)="fileChangeEvent($event)" />
+<br />
+<br />
+<button (click)="rotateLeft()">Rotate left</button>
+<button (click)="rotateRight()">Rotate right</button>
+<button (click)="flipHorizontal()">Flip horizontal</button>
+<button (click)="flipVertical()">Flip vertical</button>
+<br />
+<br />
+<button (click)="toggleContainWithinAspectRatio()">{{containWithinAspectRatio?'Fill Aspect Ratio':'Contain Within Aspect Ratio'}}</button>
+<button (click)="resetImage()">Reset image</button>
+<br />
+<br />
+<input [(ngModel)]="rotation" placeholder="Rotation" type="number" (keyup)="updateRotation()" /> 
+<button (click)="zoomOut()">Zoom -</button> <button (click)="zoomIn()">Zoom +</button>
+
+<div>
+  <image-cropper
+      [imageChangedEvent]="imageChangedEvent"
+      [maintainAspectRatio]="true"
+      [containWithinAspectRatio]="containWithinAspectRatio"
+      [aspectRatio]="4 / 1"
+      [resizeToWidth]="1600"
+      [cropperMinWidth]="400"
+      [onlyScaleDown]="true"
+      [roundCropper]="false"
+      [canvasRotation]="canvasRotation"
+      [transform]="transform"
+      [alignImage]="'left'"
+      [style.display]="showCropper ? null : 'none'"
+      format="png"
+      (imageCropped)="imageCropped($event)"
+      (imageLoaded)="imageLoaded()"
+      (cropperReady)="cropperReady($event)"
+      (loadImageFailed)="loadImageFailed()"
+  ></image-cropper>
+</div>
+<img [src]="imageUrl " [style.border]="croppedImage ? '1px solid black' : 'none'"  />
+
+
+</div>
+</div>
+</div>
+</div>
+</div> -->

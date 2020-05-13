@@ -1,0 +1,1176 @@
+<app-header></app-header>
+
+<section class="myaccount">
+  <div  *ngIf="hidemainDiv" class="container p-tb-2">
+    <div class="row">
+      <div class="col-md-4 col-sm-4 col-lg-3 col-xs-12">
+        <div class="sign_outsec">
+          <div class="pull-left">
+            <div class="my-account-thumb">
+                <img alt="" src="assets/defaul.jpg">
+            </div>
+          </div>
+          <div class="pull-left">
+            <h4 *ngIf="UserName" class="capitalize">{{UserName}}</h4>
+          
+          </div>
+        </div>
+        <div class="nav flex-column nav-pills myaccount_tab" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+          <a class="nav-link active" [routerLink]="['/ManageAddress']" routerLinkActive="router-link-active" data-toggle="tab" href="#tab1" role="tab" aria-controls="Manage Addresses"><i
+              class="fas fa-address-book account_icon"></i>
+              {{'Register.ManageAddresses.ManageAddressesText'|translate}}</a>
+          <a class="nav-link" [routerLink]="['/MyProfile']" routerLinkActive="router-link-active" data-toggle="tab" href="#tab2" role="tab" aria-controls="My Profile"><i class="fas fa-user account_icon"></i>
+            {{'Register.MyProfile.MyProfileText'|translate}}</a>
+
+            <a class="nav-link" [routerLink]="['/MyOrders']" routerLinkActive="router-link-active" data-toggle="tab" href="#tab3" role="tab" aria-controls="My Order"><i class="fas fa-gifts account_icon"></i>{{'Register.MyProfile.MyOrders'|translate}}</a>
+          <a class="nav-link" [routerLink]="['/wishlist']" routerLinkActive="router-link-active"  data-toggle="tab" href="#tab4" role="tab" aria-controls="My Wishlist"><i class="fas fa-heart account_icon"></i>{{'Register.MyProfile.MyWishlist'|translate}}</a>
+          <a class="nav-link" [routerLink]="['/testimonial']" routerLinkActive="router-link-active" data-toggle="tab"
+            href="#tab5" role="tab" aria-controls="Testimonial"><i class="fas fa-heart account_icon"></i>
+            {{'Register.Testimonial'|translate}}</a>
+            <a (click)="logout()" class="nav-link"><i class="fas fa-power-off account_icon"></i>
+              {{'Register.MyProfile.Logout'|translate}}</a>
+        </div>
+      </div>
+      <div class="col-md-8 col-sm-8 col-lg-9 col-xs-12">
+
+        <div class="tab-content addres_top">
+          <!--------------------------------------------tab 1 start------------------------------------------------------>
+          <div class="tab-pane active" id="tab1" role="tabpanel">
+            <div class="" *ngIf="!NewAddress">
+              <h4 class="address_title">{{'Register.ManageAddresses.ManageAddress'|translate}}</h4>
+              <button type="button" (click)="FillAddress()" class="btn btn-primary no-radius add_address mrgn-b-md">{{'Register.ManageAddresses.AddAddressButton'|translate}}</button>
+            </div>
+            <div class="address_box" *ngIf="NewAddress">
+              <h4 class="address_title">{{'Register.ManageAddresses.AddNewAddress'|translate}}</h4>
+              <!-- <button class="btn btn-primary mrgn-b-md"><i class="fas fa-crosshairs"></i> Use my current
+              Location</button> -->
+
+
+
+
+
+              <form [formGroup]="shippingRegisterForm" (ngSubmit)="onSubmitShippingRegister()">
+                  <div class="">
+                    <div class="row mrgn-b-sm">
+                      <input class="form-control" type="hidden" formControlName="Id" placeholder="Id">
+                      <div class="col-md-4">
+                        <label>{{'Register.Name'|translate}}*</label>
+                        <input class="form-control" type="text" formControlName="Name"
+                          placeholder="{{'Register.Name'|translate}}">
+                      </div>
+                      <div class="col-md-4">
+                        <label>{{'Register.Cart.PhoneNumber'|translate}}*</label>
+                        <input class="form-control" type="text" formControlName="PhoneNo"
+                          placeholder="{{'Register.Cart.PhoneNumber'|translate}}">
+                      </div>
+                      <div class="col-md-4">
+                        <label>{{'Register.Cart.Pincode'|translate}}*</label>
+                        <input type="text" placeholder="{{'Register.Cart.Pincode'|translate}}"
+                          class="form-control" formControlName="Pincode">
+                      </div>
+                    </div>
+                    <div class="row mrgn-b-sm">
+                      <!-- <div class="col-md-4">
+                        <label>Email</label>
+                        <input type="text" id="Email" placeholder="Email" formControlName="Email" #email
+                          class="form-control" autocomplete="off" (change)=CheckEmail(email.value)>
+                        <div
+                          *ngIf="shippingRegisterForm.controls['Email'].hasError('required') &&shippingRegisterForm.controls['Email'].touched"
+                          class="text-danger">{{'Register.RequiredEmail'|translate}}</div>
+                        <label class="text-danger"
+                          *ngIf="shippingRegisterForm.controls['Email'].touched && shippingRegisterForm.controls['Email'].errors?.email">Invalid
+                          Email</label>
+                        <label class="text-danger"
+                          *ngIf="IsExists">{{'Register.MyProfile.EmailExist'|translate}}.</label>
+                      </div> -->
+                      <!-- <div class="col-md-4">
+                        <label>{{'Register.Password'|translate}}</label>
+                        <input type="password" formControlName="Password"
+                          placeholder="{{'Register.Password'|translate}}" class="form-control"
+                          autocomplete="off">
+                        <label class="text-danger"
+                          *ngIf="shippingRegisterForm.controls['Password'].hasError('required') &&shippingRegisterForm.controls['Password'].touched">{{'Register.Required_Msg'|translate}}</label>
+                        <label class="text-danger"
+                          *ngIf="shippingRegisterForm.controls['Password'].errors?.minlength &&shippingRegisterForm.controls['Password'].touched">
+                          {{'Register.Password_Format_Msg'|translate}}</label>
+                      </div> -->
+
+                      <!-- <div class="col-md-4">
+                        <label>{{'Register.ConfirmPassword'|translate}}</label>
+                        <input type="password" id="ConfirmPassword"
+                          placeholder="{{'Register.ConfirmPassword'|translate}}"
+                          formControlName="ConfirmPassword" class="form-control">
+                        <label class="text-danger"
+                          *ngIf="shippingRegisterForm.controls['ConfirmPassword'].hasError('required') &&shippingRegisterForm.controls['ConfirmPassword'].touched">{{'Register.RequiredField'|translate}}</label>
+                        <label class="text-danger"
+                          *ngIf="shippingRegisterForm.controls['ConfirmPassword'].errors?.passwordConfirming && shippingRegisterForm.controls['ConfirmPassword'].touched">
+                          {{'Register.Cart.PasswordNotMatch'|translate}}</label>
+                        <label class="text-danger"
+                          *ngIf="shippingRegisterForm.get(['Password']).value != shippingRegisterForm.get(['ConfirmPassword']).value && shippingRegisterForm.get(['ConfirmPassword']).value != null && shippingRegisterForm.controls['ConfirmPassword'].touched">
+                          {{'Register.Cart.PasswordNotMatch'|translate}}</label>
+                      </div> -->
+
+                    </div>
+                    <div class="row mrgn-b-sm">
+                      <div class="col-md-4">
+                        <label>{{'Register.Cart.State'|translate}}*</label>
+                        <input type="text" placeholder="{{'Register.Cart.State'|translate}}"
+                          class="form-control" formControlName="StateName" id="StateName">
+                      </div>
+                      <div class="col-md-4">
+                        <label>{{'Register.Cart.City'|translate}}*</label>
+                        <input formControlName="City" type="text"
+                          placeholder="{{'Register.Cart.City'|translate}}" id="city" class="form-control">
+                      </div>
+                      <div class="col-md-4">
+                        <label>{{'Register.Cart.Colony'|translate}}</label>
+                        <input formControlName="Colony" type="text"
+                          placeholder="{{'Register.Cart.Colony'|translate}}" id="city" class="form-control">
+                      </div>
+                    </div>
+                    <div class="row mrgn-b-sm">
+                      <div class="col-md-4">
+                        <label>{{'Register.Cart.Street'|translate}}*</label>
+                        <input formControlName="Street" type="text" placeholder="Street" id="city"
+                          class="form-control">
+                      </div>
+                      <div class="col-md-4">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <label>{{'Register.Cart.OutsideNumber'|translate}}</label>
+                            <input formControlName="OutsideNumber" type="text"
+                              placeholder="{{'Register.Cart.OutsideNumber'|translate}}" id="city"
+                              class="form-control">
+                          </div>
+                          <div class="col-md-6">
+                            <label>{{'Register.Cart.WithoutNum'|translate}}</label><br>
+                            <input type="checkbox" (change)="WithoutNum($event.target)">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4" *ngIf="!withoutNumber">
+                        <label>{{'Register.Cart.InteriorNumber'|translate}}</label>
+                        <input formControlName="InteriorNumber" type="text"
+                          placeholder="{{'Register.Cart.InteriorNumber'|translate}}" class="form-control">
+                      </div>
+                    </div>
+
+                    <div class="row mrgn-b-sm">
+                      <div class="col-md-4">
+                        <label>{{'Register.Cart.Street'|translate}}-1</label>
+                        <input type="text" id="Street1"
+                          placeholder="{{'Register.Cart.Street'|translate}}-1({{'Register.Cart.Optional'|translate}})"
+                          formControlName="Street1" class="form-control">
+                      </div>
+                      <div class="col-md-4">
+                        <label>{{'Register.Cart.Street'|translate}}-2</label>
+                        <input type="text" id="Street2"
+                          placeholder="{{'Register.Cart.Street'|translate}}-2({{'Register.Cart.Optional'|translate}})"
+                          formControlName="Street2" class="form-control">
+                      </div>
+                      <div class="col-md-4">
+                        <label>{{'Register.Cart.Landmark'|translate}}</label>
+                        <input type="text" id="landmark"
+                          placeholder="{{'Register.Cart.Landmark'|translate}} ({{'Register.Cart.Optional'|translate}})"
+                          formControlName="LandMark" class="form-control">
+                      </div>
+                    </div>
+                    <div class="mrgn-b-sm row">
+                      <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                        <label>{{'Register.Cart.AddressType'|translate}}*</label>
+                      </div>
+                      <div class="col-md-4 col-sm-4 col-lg-4 col-xs-12">
+                        <label>
+                          <input type="radio" name="AddressType" id="optionsRadios1" value="Home"
+                            formControlName="AddressType" checked="">
+                          {{'Register.Cart.Home'|translate}}
+                        </label>
+                      </div>
+                      <div class="col-md-4 col-sm-4 col-lg-4 col-xs-12">
+                        <label>
+                          <input type="radio" name="AddressType" id="optionsRadios2" value="Work"
+                            formControlName="AddressType" checked="">
+                          {{'Register.Cart.Work'|translate}}
+                        </label>
+                      </div>
+                      <!-- <div class="col-md-4 col-sm-4 col-lg-4 col-xs-12">
+                        <label>
+                          <input type="checkbox" name="useBillTO" formControlName="asBillAddress"
+                            value="BillAdd">
+                          {{'Register.Cart.UseAsBilling'|translate}}
+                        </label>
+                      </div> -->
+                    </div>
+
+                    <div class="mrgn-b-sm row">
+                      <div class="col-md-8 col-sm-8 col-lg-8 col-xs-12">
+                        <button type="submit" class="btn btn-lg btn-primary mr-2"
+                          [disabled]="!shippingRegisterForm.valid">{{'Register.Cart.Save'|translate}}</button>
+                        <button class="btn btn-lg btn-default"
+                          (click)="NewAddress=false;shippingRegisterForm.reset()">{{'Register.Cart.Cancel'|translate}}</button>
+                      </div>
+                    </div>
+                  </div>
+
+                </form>
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+
+            <div class="address_details" *ngFor="let c of UserAddress;">
+              <br>
+              <span>{{c.AddressType}}</span>
+              <h6>{{c.Name}} {{c.PhoneNo}}</h6>
+              <!-- <h6>{{c.City}}</h6> -->
+              <p>{{c.StateName}} - <strong>{{c.Pincode}}</strong></p>
+              <p>{{c.Colony}} </p>
+              <br>
+              <div class="editdrop_down">
+                <div class="btn-group dropleft">
+                  <button type="button" class="btn_edit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis-v"></i>
+                  </button>
+                  <div class="dropdown-menu edit_address">
+                    <a (click)="editAddress(c.Id)">{{'Register.Cart.Edit'|translate}}</a>
+                    <a (click)="deleteAddress(c.Id)">{{'Register.Cart.Delete'|translate}}</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--------------------------------------------tab 1 end------------------------------------------------------>
+
+
+
+
+
+          <!--------------------------------------------tab 2 start------------------------------------------------------>
+          <!-- <div class="tab-pane" id="tab2" role="tabpanel">
+
+            <div class="row mrgn-b-lg">
+              <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 profile-tab-con">
+                <div class="row">
+                  <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                    <div class="profile-tab-head mrgn-b-xs">
+                      <span class="profile-tab-head-title">
+                        Personal Information
+                      </span>
+                      <a class="tab-head-link">Edit</a>
+                    </div>
+                  </div>
+                  <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                    <div class="row">
+                      <div class="col-md-3">
+                        <div class="form-group required">
+                          <label for="FirstName">First Name</label>
+                          <input class="form-control ng-pristine ng-invalid ng-touched"
+                            formcontrolname="FirstName" name="FirstName" ng-reflect-name="FirstName" value="Navjot" disabled>
+                         
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="placeholder" for="MiddleName">Middle Name</label>
+                          <input class="form-control ng-untouched ng-pristine ng-valid" formcontrolname="MiddleName" name="MiddleName"
+                            ng-reflect-name="MiddleName" value="Middle Name" disabled>
+                          </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="LastName">Last Name</label>
+                          <input class="form-control ng-untouched ng-pristine ng-valid"
+                            formcontrolname="LastName" name="LastName" ng-reflect-name="LastName" value="Last Name" disabled>
+                          </div>
+                      </div>
+                      <div class="col-md-3">
+                          <div class="form-group">
+                              <label for="LastName">&nbsp;</label>
+                            <button class="btn btn-lg btn-primary">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                      <div class="row">
+                        <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 mrgn-b-sm">
+                            Your Gender
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                           <div class="gender-box">
+                            <div class="custom-control custom-radio">
+                                <input id="Home" type="radio" class="custom-control-input" value="Home" formControlName="AddressType"
+                                  name="AddressType">
+                                <label class="custom-control-label" for="male">Male</label>
+                              </div>
+                           </div>
+                           <div class="gender-box">
+                            <div class="custom-control custom-radio">
+                                <input id="Home" type="radio" class="custom-control-input" value="Home" formControlName="AddressType"
+                                  name="AddressType">
+                                <label class="custom-control-label" for="male">Female</label>
+                              </div>
+                           </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mrgn-b-lg">
+                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 profile-tab-con">
+                  <div class="row">
+                    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                      <div class="profile-tab-head mrgn-b-xs">
+                        <span class="profile-tab-head-title">
+                            Email Address
+                        </span>
+                        <a class="tab-head-link">Edit</a>
+                        <a  class="tab-head-link"   data-toggle="modal" data-target="#myModal">Change Password</a>
+                       Modal 
+<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body pad-all-md">
+          <div class="row">
+              <div class="col-md-5 col-sm-5 col-lg-5 col-xs-12">
+                    <div class="model-left-con">
+                        <h5>Your new password must:</h5>
+                        <ul>
+                        <li>Be at least 4 characters in length</li>
+                        <li>Not be same as your current password</li>
+                        <li>Not contain common passwords.</li>
+                        </ul>
+                        </div>
+              </div>
+              <div class="col-md-7 col-sm-7 col-lg-7 col-xs-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                                <div class="profile-tab-head mrgn-b-xs">
+                                        <span class="profile-tab-head-title">
+                                                Change Password
+                                        </span>
+                                        <a class="tab-head-link pull-right">Resend OTP</a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                            <div class="col-md-12">
+                                   <input type="text" class="form-control" placeholder="Type Current Password">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                                <div class="col-md-12">
+                                       <input type="text" class="form-control" placeholder="Type New Password">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                    <div class="col-md-12">
+                                           <input type="text" class="form-control" placeholder="Retype New Password">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                        <div class="col-md-6">
+                                                <button _ngcontent-xqk-c1="" class="btn btn-lg btn-primary btn-block" type="submit">Change Password</button>
+                                        </div>
+                                    </div>
+                  </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                      <div class="row">
+                        <div class="col-md-3">
+                          <div class="form-group required">
+                            <label for="FirstName">Email</label>
+                            <input class="form-control ng-pristine ng-invalid ng-touched"
+                              formcontrolname="email" name="email" value="Navjot@abc.com" disabled>
+                           
+                          </div>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="LastName">&nbsp;</label>
+                              <button class="btn btn-lg btn-primary">Save</button>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row mrgn-b-lg">
+                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 profile-tab-con">
+                  <div class="row">
+                    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                      <div class="profile-tab-head mrgn-b-xs">
+                        <span class="profile-tab-head-title">
+                            Mobile Number
+                        </span>
+                        <a class="tab-head-link">Edit</a>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                      <div class="row">
+                        <div class="col-md-3">
+                          <div class="form-group required">
+                            <label for="FirstName">Phone No</label>
+                            <input class="form-control ng-pristine ng-invalid ng-touched"
+                              formcontrolname="phone" name="phone" value="9876543210" disabled>
+                           
+                          </div>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="LastName">&nbsp;</label>
+                              <button class="btn btn-lg btn-primary">Save</button>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mrgn-b-lg">
+                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 profile-tab-con">
+                    <h3>FAQs</h3>
+                    <div class="my-account-faq-block">
+                        <h5>What happens when I update my email address (or mobile number)?</h5>
+                        <p>Your login email id (or mobile number) changes, likewise. You'll receive all your account related communication on your updated email address (or mobile number).</p>
+                        <h5>When will my Pistis account be updated with the new email address (or mobile number)?</h5>
+                        <p>It happens as soon as you confirm the verification code sent to your email (or mobile) and save the changes.</p>
+                        <h5>What happens to my existing Pistis account when I update my email address (or mobile number)?</h5>
+                        <p>Updating your email address (or mobile number) doesn't invalidate your account. Your account remains fully functional. You'll continue seeing your Order history, saved information and personal details.</p>
+                        <h5>Does my Seller account get affected when I update my email address?</h5>
+                        <p>Pistis has a 'single sign-on' policy. Any changes will reflect in your Seller account also.</p>
+                        </div>
+                </div>
+            </div>
+            <div class="row">
+                    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 profile-tab-con">
+                            <a  class="tab-head-link"   data-toggle="modal" data-target="#Deactivate">Deactivate Account</a>
+                            
+    <div class="modal" id="Deactivate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body pad-all-md">
+                    <div class="row">
+                        <div class="col-md-7 col-sm-7 col-lg-7 col-xs-12">
+                              <div class="model-left-con">
+                                  <h5>When you deactivate your account</h5>
+                                  <ul>
+                                        <li> You are logged out of your Flipkart Account 
+                                        </li>
+                                        <li> Your public profile on Flipkart is no longer visible 
+                                        </li>
+                                        <li> Your reviews/ratings are still visible, while your profile information is shown as ‘unavailable’ as a result of deactivation. 
+                                        </li>
+                                        <li> Your wishlist items are no longer accessible through the associated public hyperlink. Wishlist is shown as ‘unavailable’ as a result of deactivation 
+                                        </li>
+                                        <li> You will be unsubscribed from receiving promotional emails from Flipkart 
+                                        </li>
+                                        <li> Your account data is retained and is restored in case you choose to reactivate your account 
+                                        </li>
+                                        </ul>
+                                        <div>
+                                        <h5>How do I reactivate my Flipkart account?</h5>
+                                        <p>Reactivation is easy.</p>
+                                        <p>Simply login with your registered email id or mobile number and password combination used prior to deactivation. Your account data is fully restored. Default settings are applied and you will be subscribed to receive promotional emails from Flipkart.
+                                        </p>
+                                        <p>Flipkart retains your account data for you to conveniently start off from where you left, if you decide to reactivate your account.</p>
+                                        <h5>Remember: Account Reactivation can be done on the Desktop version only.</h5>
+                                    </div>
+                                  </div>
+                        </div>
+                        <div class="col-md-5 col-sm-5 col-lg-5 col-xs-12">
+                              <div class="row">
+                                  <div class="col-md-12">
+                                          <div class="profile-tab-head mrgn-b-xs">
+                                                  <span class="profile-tab-head-title">
+                                                        Are you sure you want to leave?
+                                                  </span>
+                                                 
+                                          </div>
+                                  </div>
+                              </div>
+                              <div class="form-group row">
+                                      <div class="col-md-12">
+                                             <input type="text" class="form-control" placeholder="9876543210">
+                                      </div>
+                                  </div>
+                                  <div class="form-group row">
+                                          <div class="col-md-12">
+                                                 <input type="text" class="form-control" placeholder="Enter your Password">
+                                          </div>
+                                      </div>
+                                      
+                                          <div class="form-group row">
+                                                  <div class="col-md-12">
+                                                        <button class="btn btn-lg btn-primary btn-block" type="submit">CONFIRM DEACTIVATION</button>
+                                                  </div>
+                                              </div>
+                                              <div class="form-group row">
+                                                    <div class="col-md-12">
+                                                        <button class="btn btn-lg btn-default btn-block" type="submit">NO, LET ME STAY!</button>
+                                                    </div>
+                                                </div>
+                            </div>
+                    </div>
+                  </div>
+            
+          </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+          </div> -->
+      <!--------------------------------------------tab 2 start------------------------------------------------------>
+
+  <!--------------------------------------------tab 2 end------------------------------------------------------>
+
+
+
+
+
+
+          <!--------------------------------------------tab 3 start------------------------------------------------------>
+         
+          <!--------------------------------------------tab 3 end------------------------------------------------------>
+
+
+
+
+
+
+
+          <!--------------------------------------------tab 4 start------------------------------------------------------>
+          <!-- <div class="tab-pane" id="tab4" role="tabpanel">
+
+            
+
+<app-wish-list></app-wish-list>
+          </div> -->
+          <!--------------------------------------------tab 4 end------------------------------------------------------>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div  *ngIf="hidemainDiv==false" class="container p-tb-2">
+    <div class="row">
+      <div class="col-md-4 col-sm-4 col-lg-3 col-xs-12">
+        <div class="sign_outsec">
+          <div class="pull-left">
+            <div class="my-account-thumb">
+                <img alt="" src="assets/defaul.jpg">
+            </div>
+          </div>
+          <div class="pull-left">
+            <h4 *ngIf="UserName" class="capitalize">{{UserName}}</h4>
+          
+          </div>
+        </div>
+        <div class="nav flex-column nav-pills myaccount_tab" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+          <a class="nav-link active" [routerLink]="['/ManageAddress']" routerLinkActive="router-link-active" data-toggle="tab" href="#tab1" role="tab" aria-controls="Manage Addresses"><i
+              class="fas fa-address-book account_icon"></i>
+              {{'Register.ManageAddresses.ManageAddressesText'|translate}}</a>
+          <a class="nav-link" [routerLink]="['/MyProfile']" routerLinkActive="router-link-active" data-toggle="tab" href="#tab2" role="tab" aria-controls="My Profile"><i class="fas fa-user account_icon"></i>
+            {{'Register.MyProfile.MyProfileText'|translate}}</a>
+
+            <a class="nav-link" [routerLink]="['/MyOrders']" routerLinkActive="router-link-active" data-toggle="tab" href="#tab3" role="tab" aria-controls="My Order"><i class="fas fa-gifts account_icon"></i>{{'Register.MyProfile.MyOrders'|translate}}</a>
+          <a class="nav-link" [routerLink]="['/wishlist']" routerLinkActive="router-link-active"  data-toggle="tab" href="#tab4" role="tab" aria-controls="My Wishlist"><i class="fas fa-heart account_icon"></i>{{'Register.MyProfile.MyWishlist'|translate}}</a>
+          <a class="nav-link" [routerLink]="['/testimonial']" routerLinkActive="router-link-active" data-toggle="tab"
+            href="#tab5" role="tab" aria-controls="Testimonial"><i class="fas fa-heart account_icon"></i>
+            {{'Register.Testimonial'|translate}}</a>
+            <a (click)="logout()" class="nav-link"><i class="fas fa-power-off account_icon"></i>
+              {{'Register.MyProfile.Logout'|translate}}</a>
+        </div>
+      </div>
+      <div class="col-md-8 col-sm-8 col-lg-9 col-xs-12">
+
+        <div class="tab-content addres_top">
+          <!--------------------------------------------tab 1 start------------------------------------------------------>
+          <div class="tab-pane active" id="tab1" role="tabpanel">
+            <div class="" *ngIf="!NewAddress">
+              <h4 class="address_title">{{'Register.ManageAddresses.ManageAddress'|translate}}</h4>
+              <button type="button" (click)="FillAddress()" class="btn btn-primary no-radius add_address mrgn-b-md">{{'Register.ManageAddresses.AddAddressButton'|translate}}</button>
+            </div>
+            <div class="address_box" *ngIf="NewAddress">
+              <h4 class="address_title">{{'Register.ManageAddresses.AddNewAddress'|translate}}</h4>
+              <!-- <button class="btn btn-primary mrgn-b-md"><i class="fas fa-crosshairs"></i> Use my current
+              Location</button> -->
+
+
+
+
+
+              <form [formGroup]="shippingRegisterForm" (ngSubmit)="onSubmitShippingRegister()">
+                  <div class="">
+                    <div class="row mrgn-b-sm">
+                      <input class="form-control" type="hidden" formControlName="Id" placeholder="Id">
+                      <div class="col-md-4">
+                        <label>{{'Register.Name'|translate}}</label>
+                        <input class="form-control" type="text" formControlName="Name"
+                          placeholder="{{'Register.Name'|translate}}">
+                      </div>
+                      <div class="col-md-4">
+                        <label>{{'Register.Cart.PhoneNumber'|translate}}</label>
+                        <input class="form-control" type="text" formControlName="PhoneNo"
+                          placeholder="{{'Register.Cart.PhoneNumber'|translate}}">
+                      </div>
+                      <div class="col-md-4">
+                        <label>{{'Register.Cart.Pincode'|translate}}</label>
+                        <input type="text" placeholder="{{'Register.Cart.Pincode'|translate}}"
+                          class="form-control" formControlName="Pincode">
+                      </div>
+                    </div>
+                    <div class="row mrgn-b-sm">
+                      <div class="col-md-4">
+                        <label>Email</label>
+                        <input type="text" id="Email" placeholder="Email" formControlName="Email" #email
+                          class="form-control" autocomplete="off" (change)=CheckEmail(email.value)>
+                        <div
+                          *ngIf="shippingRegisterForm.controls['Email'].hasError('required') &&shippingRegisterForm.controls['Email'].touched"
+                          class="text-danger">{{'Register.RequiredEmail'|translate}}</div>
+                        <label class="text-danger"
+                          *ngIf="shippingRegisterForm.controls['Email'].touched && shippingRegisterForm.controls['Email'].errors?.email">Invalid
+                          Email</label>
+                        <label class="text-danger"
+                          *ngIf="IsExists">{{'Register.MyProfile.EmailExist'|translate}}.</label>
+                      </div>
+                      <div class="col-md-4">
+                        <label>{{'Register.Password'|translate}}</label>
+                        <input type="password" formControlName="Password"
+                          placeholder="{{'Register.Password'|translate}}" class="form-control"
+                          autocomplete="off">
+                        <label class="text-danger"
+                          *ngIf="shippingRegisterForm.controls['Password'].hasError('required') &&shippingRegisterForm.controls['Password'].touched">{{'Register.Required_Msg'|translate}}</label>
+                        <label class="text-danger"
+                          *ngIf="shippingRegisterForm.controls['Password'].errors?.minlength &&shippingRegisterForm.controls['Password'].touched">
+                          {{'Register.Password_Format_Msg'|translate}}</label>
+                      </div>
+
+                      <div class="col-md-4">
+                        <label>{{'Register.ConfirmPassword'|translate}}</label>
+                        <input type="password" id="ConfirmPassword"
+                          placeholder="{{'Register.ConfirmPassword'|translate}}"
+                          formControlName="ConfirmPassword" class="form-control">
+                        <label class="text-danger"
+                          *ngIf="shippingRegisterForm.controls['ConfirmPassword'].hasError('required') &&shippingRegisterForm.controls['ConfirmPassword'].touched">{{'Register.RequiredField'|translate}}</label>
+                        <label class="text-danger"
+                          *ngIf="shippingRegisterForm.controls['ConfirmPassword'].errors?.passwordConfirming && shippingRegisterForm.controls['ConfirmPassword'].touched">
+                          {{'Register.Cart.PasswordNotMatch'|translate}}</label>
+                        <label class="text-danger"
+                          *ngIf="shippingRegisterForm.get(['Password']).value != shippingRegisterForm.get(['ConfirmPassword']).value && shippingRegisterForm.get(['ConfirmPassword']).value != null && shippingRegisterForm.controls['ConfirmPassword'].touched">
+                          {{'Register.Cart.PasswordNotMatch'|translate}}</label>
+                      </div>
+
+                    </div>
+                    <div class="row mrgn-b-sm">
+                      <div class="col-md-4">
+                        <label>{{'Register.Cart.State'|translate}}</label>
+                        <input type="text" placeholder="{{'Register.Cart.State'|translate}}"
+                          class="form-control" formControlName="State">
+                      </div>
+                      <div class="col-md-4">
+                        <label>{{'Register.Cart.City'|translate}}</label>
+                        <input formControlName="City" type="text"
+                          placeholder="{{'Register.Cart.City'|translate}}" id="city" class="form-control">
+                      </div>
+                      <div class="col-md-4">
+                        <label>{{'Register.Cart.Colony'|translate}}</label>
+                        <input formControlName="Colony" type="text"
+                          placeholder="{{'Register.Cart.Colony'|translate}}" id="city" class="form-control">
+                      </div>
+                    </div>
+                    <div class="row mrgn-b-sm">
+                      <div class="col-md-4">
+                        <label>{{'Register.Cart.Street'|translate}}</label>
+                        <input formControlName="Street" type="text" placeholder="Street" id="city"
+                          class="form-control">
+                      </div>
+                      <div class="col-md-4">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <label>{{'Register.Cart.OutsideNumber'|translate}}</label>
+                            <input formControlName="OutsideNumber" type="text"
+                              placeholder="{{'Register.Cart.OutsideNumber'|translate}}" id="city"
+                              class="form-control">
+                          </div>
+                          <div class="col-md-6">
+                            <label>{{'Register.Cart.WithoutNum'|translate}}</label><br>
+                            <input type="checkbox" (change)="WithoutNum($event.target)">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4" *ngIf="!withoutNumber">
+                        <label>{{'Register.Cart.InteriorNumber'|translate}}</label>
+                        <input formControlName="InteriorNumber" type="text"
+                          placeholder="{{'Register.Cart.InteriorNumber'|translate}}" class="form-control">
+                      </div>
+                    </div>
+
+                    <div class="row mrgn-b-sm">
+                      <div class="col-md-4">
+                        <label>{{'Register.Cart.Street'|translate}}-1</label>
+                        <input type="text" id="Street1"
+                          placeholder="{{'Register.Cart.Street'|translate}}-1({{'Register.Cart.Optional'|translate}})"
+                          formControlName="Street1" class="form-control">
+                      </div>
+                      <div class="col-md-4">
+                        <label>{{'Register.Cart.Street'|translate}}-2</label>
+                        <input type="text" id="Street2"
+                          placeholder="{{'Register.Cart.Street'|translate}}-2({{'Register.Cart.Optional'|translate}})"
+                          formControlName="Street2" class="form-control">
+                      </div>
+                      <div class="col-md-4">
+                        <label>{{'Register.Cart.Landmark'|translate}}</label>
+                        <input type="text" id="landmark"
+                          placeholder="{{'Register.Cart.Landmark'|translate}} ({{'Register.Cart.Optional'|translate}})"
+                          formControlName="LandMark" class="form-control">
+                      </div>
+                    </div>
+                    <div class="mrgn-b-sm row">
+                      <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                        {{'Register.Cart.AddressType'|translate}}
+                      </div>
+                      <div class="col-md-4 col-sm-4 col-lg-4 col-xs-12">
+                        <label>
+                          <input type="radio" name="AddressType" id="optionsRadios1" value="Home"
+                            formControlName="AddressType" checked="">
+                          {{'Register.Cart.Home'|translate}}
+                        </label>
+                      </div>
+                      <div class="col-md-4 col-sm-4 col-lg-4 col-xs-12">
+                        <label>
+                          <input type="radio" name="AddressType" id="optionsRadios2" value="Work"
+                            formControlName="AddressType" checked="">
+                          {{'Register.Cart.Work'|translate}}
+                        </label>
+                      </div>
+                      <!-- <div class="col-md-4 col-sm-4 col-lg-4 col-xs-12">
+                        <label>
+                          <input type="checkbox" name="useBillTO" formControlName="asBillAddress"
+                            value="BillAdd">
+                          {{'Register.Cart.UseAsBilling'|translate}}
+                        </label>
+                      </div> -->
+                    </div>
+
+                    <div class="mrgn-b-sm row">
+                      <div class="col-md-8 col-sm-8 col-lg-8 col-xs-12">
+                        <button type="submit" class="btn btn-lg btn-primary mr-2"
+                          [disabled]="!shippingRegisterForm.valid">{{'Register.Cart.Save'|translate}}</button>
+                        <button class="btn btn-lg btn-default"
+                          (click)="NewAddress=false;shippingRegisterForm.reset()">{{'Register.Cart.Cancel'|translate}}</button>
+                      </div>
+                    </div>
+                  </div>
+
+                </form>
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+
+            <div class="address_details" *ngFor="let c of UserAddress;">
+              <br>
+              <span>{{c.AddressType}}</span>
+              <h6>{{c.Name}} {{c.PhoneNo}}</h6>
+              <!-- <h6>{{c.City}}</h6> -->
+              <p>{{c.Address}},{{c.State.Name}},{{c.Country.Name}} - <strong>{{c.Pincode}}</strong></p>
+              <p>{{c.LandMark}} {{c.AlternatePhoneNo}}</p>
+              <br>
+              <div class="editdrop_down">
+                <div class="btn-group dropleft">
+                  <button type="button" class="btn_edit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis-v"></i>
+                  </button>
+                  <div class="dropdown-menu edit_address">
+                    <a (click)="editAddress(c.Id)">{{'Register.Cart.Edit'|translate}}</a>
+                    <a (click)="deleteAddress(c.Id)">{{'Register.Cart.Delete'|translate}}</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--------------------------------------------tab 1 end------------------------------------------------------>
+
+
+
+
+
+          <!--------------------------------------------tab 2 start------------------------------------------------------>
+          <!-- <div class="tab-pane" id="tab2" role="tabpanel">
+
+            <div class="row mrgn-b-lg">
+              <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 profile-tab-con">
+                <div class="row">
+                  <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                    <div class="profile-tab-head mrgn-b-xs">
+                      <span class="profile-tab-head-title">
+                        Personal Information
+                      </span>
+                      <a class="tab-head-link">Edit</a>
+                    </div>
+                  </div>
+                  <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                    <div class="row">
+                      <div class="col-md-3">
+                        <div class="form-group required">
+                          <label for="FirstName">First Name</label>
+                          <input class="form-control ng-pristine ng-invalid ng-touched"
+                            formcontrolname="FirstName" name="FirstName" ng-reflect-name="FirstName" value="Navjot" disabled>
+                         
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="placeholder" for="MiddleName">Middle Name</label>
+                          <input class="form-control ng-untouched ng-pristine ng-valid" formcontrolname="MiddleName" name="MiddleName"
+                            ng-reflect-name="MiddleName" value="Middle Name" disabled>
+                          </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="LastName">Last Name</label>
+                          <input class="form-control ng-untouched ng-pristine ng-valid"
+                            formcontrolname="LastName" name="LastName" ng-reflect-name="LastName" value="Last Name" disabled>
+                          </div>
+                      </div>
+                      <div class="col-md-3">
+                          <div class="form-group">
+                              <label for="LastName">&nbsp;</label>
+                            <button class="btn btn-lg btn-primary">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                      <div class="row">
+                        <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 mrgn-b-sm">
+                            Your Gender
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                           <div class="gender-box">
+                            <div class="custom-control custom-radio">
+                                <input id="Home" type="radio" class="custom-control-input" value="Home" formControlName="AddressType"
+                                  name="AddressType">
+                                <label class="custom-control-label" for="male">Male</label>
+                              </div>
+                           </div>
+                           <div class="gender-box">
+                            <div class="custom-control custom-radio">
+                                <input id="Home" type="radio" class="custom-control-input" value="Home" formControlName="AddressType"
+                                  name="AddressType">
+                                <label class="custom-control-label" for="male">Female</label>
+                              </div>
+                           </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mrgn-b-lg">
+                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 profile-tab-con">
+                  <div class="row">
+                    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                      <div class="profile-tab-head mrgn-b-xs">
+                        <span class="profile-tab-head-title">
+                            Email Address
+                        </span>
+                        <a class="tab-head-link">Edit</a>
+                        <a  class="tab-head-link"   data-toggle="modal" data-target="#myModal">Change Password</a>
+                       Modal 
+<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body pad-all-md">
+          <div class="row">
+              <div class="col-md-5 col-sm-5 col-lg-5 col-xs-12">
+                    <div class="model-left-con">
+                        <h5>Your new password must:</h5>
+                        <ul>
+                        <li>Be at least 4 characters in length</li>
+                        <li>Not be same as your current password</li>
+                        <li>Not contain common passwords.</li>
+                        </ul>
+                        </div>
+              </div>
+              <div class="col-md-7 col-sm-7 col-lg-7 col-xs-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                                <div class="profile-tab-head mrgn-b-xs">
+                                        <span class="profile-tab-head-title">
+                                                Change Password
+                                        </span>
+                                        <a class="tab-head-link pull-right">Resend OTP</a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                            <div class="col-md-12">
+                                   <input type="text" class="form-control" placeholder="Type Current Password">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                                <div class="col-md-12">
+                                       <input type="text" class="form-control" placeholder="Type New Password">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                    <div class="col-md-12">
+                                           <input type="text" class="form-control" placeholder="Retype New Password">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                        <div class="col-md-6">
+                                                <button _ngcontent-xqk-c1="" class="btn btn-lg btn-primary btn-block" type="submit">Change Password</button>
+                                        </div>
+                                    </div>
+                  </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                      <div class="row">
+                        <div class="col-md-3">
+                          <div class="form-group required">
+                            <label for="FirstName">Email</label>
+                            <input class="form-control ng-pristine ng-invalid ng-touched"
+                              formcontrolname="email" name="email" value="Navjot@abc.com" disabled>
+                           
+                          </div>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="LastName">&nbsp;</label>
+                              <button class="btn btn-lg btn-primary">Save</button>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row mrgn-b-lg">
+                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 profile-tab-con">
+                  <div class="row">
+                    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                      <div class="profile-tab-head mrgn-b-xs">
+                        <span class="profile-tab-head-title">
+                            Mobile Number
+                        </span>
+                        <a class="tab-head-link">Edit</a>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                      <div class="row">
+                        <div class="col-md-3">
+                          <div class="form-group required">
+                            <label for="FirstName">Phone No</label>
+                            <input class="form-control ng-pristine ng-invalid ng-touched"
+                              formcontrolname="phone" name="phone" value="9876543210" disabled>
+                           
+                          </div>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="LastName">&nbsp;</label>
+                              <button class="btn btn-lg btn-primary">Save</button>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mrgn-b-lg">
+                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 profile-tab-con">
+                    <h3>FAQs</h3>
+                    <div class="my-account-faq-block">
+                        <h5>What happens when I update my email address (or mobile number)?</h5>
+                        <p>Your login email id (or mobile number) changes, likewise. You'll receive all your account related communication on your updated email address (or mobile number).</p>
+                        <h5>When will my Pistis account be updated with the new email address (or mobile number)?</h5>
+                        <p>It happens as soon as you confirm the verification code sent to your email (or mobile) and save the changes.</p>
+                        <h5>What happens to my existing Pistis account when I update my email address (or mobile number)?</h5>
+                        <p>Updating your email address (or mobile number) doesn't invalidate your account. Your account remains fully functional. You'll continue seeing your Order history, saved information and personal details.</p>
+                        <h5>Does my Seller account get affected when I update my email address?</h5>
+                        <p>Pistis has a 'single sign-on' policy. Any changes will reflect in your Seller account also.</p>
+                        </div>
+                </div>
+            </div>
+            <div class="row">
+                    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 profile-tab-con">
+                            <a  class="tab-head-link"   data-toggle="modal" data-target="#Deactivate">Deactivate Account</a>
+                            
+    <div class="modal" id="Deactivate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body pad-all-md">
+                    <div class="row">
+                        <div class="col-md-7 col-sm-7 col-lg-7 col-xs-12">
+                              <div class="model-left-con">
+                                  <h5>When you deactivate your account</h5>
+                                  <ul>
+                                        <li> You are logged out of your Flipkart Account 
+                                        </li>
+                                        <li> Your public profile on Flipkart is no longer visible 
+                                        </li>
+                                        <li> Your reviews/ratings are still visible, while your profile information is shown as ‘unavailable’ as a result of deactivation. 
+                                        </li>
+                                        <li> Your wishlist items are no longer accessible through the associated public hyperlink. Wishlist is shown as ‘unavailable’ as a result of deactivation 
+                                        </li>
+                                        <li> You will be unsubscribed from receiving promotional emails from Flipkart 
+                                        </li>
+                                        <li> Your account data is retained and is restored in case you choose to reactivate your account 
+                                        </li>
+                                        </ul>
+                                        <div>
+                                        <h5>How do I reactivate my Flipkart account?</h5>
+                                        <p>Reactivation is easy.</p>
+                                        <p>Simply login with your registered email id or mobile number and password combination used prior to deactivation. Your account data is fully restored. Default settings are applied and you will be subscribed to receive promotional emails from Flipkart.
+                                        </p>
+                                        <p>Flipkart retains your account data for you to conveniently start off from where you left, if you decide to reactivate your account.</p>
+                                        <h5>Remember: Account Reactivation can be done on the Desktop version only.</h5>
+                                    </div>
+                                  </div>
+                        </div>
+                        <div class="col-md-5 col-sm-5 col-lg-5 col-xs-12">
+                              <div class="row">
+                                  <div class="col-md-12">
+                                          <div class="profile-tab-head mrgn-b-xs">
+                                                  <span class="profile-tab-head-title">
+                                                        Are you sure you want to leave?
+                                                  </span>
+                                                 
+                                          </div>
+                                  </div>
+                              </div>
+                              <div class="form-group row">
+                                      <div class="col-md-12">
+                                             <input type="text" class="form-control" placeholder="9876543210">
+                                      </div>
+                                  </div>
+                                  <div class="form-group row">
+                                          <div class="col-md-12">
+                                                 <input type="text" class="form-control" placeholder="Enter your Password">
+                                          </div>
+                                      </div>
+                                      
+                                          <div class="form-group row">
+                                                  <div class="col-md-12">
+                                                        <button class="btn btn-lg btn-primary btn-block" type="submit">CONFIRM DEACTIVATION</button>
+                                                  </div>
+                                              </div>
+                                              <div class="form-group row">
+                                                    <div class="col-md-12">
+                                                        <button class="btn btn-lg btn-default btn-block" type="submit">NO, LET ME STAY!</button>
+                                                    </div>
+                                                </div>
+                            </div>
+                    </div>
+                  </div>
+            
+          </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+          </div> -->
+      <!--------------------------------------------tab 2 start------------------------------------------------------>
+
+  <!--------------------------------------------tab 2 end------------------------------------------------------>
+
+
+
+
+
+
+          <!--------------------------------------------tab 3 start------------------------------------------------------>
+         
+          <!--------------------------------------------tab 3 end------------------------------------------------------>
+
+
+
+
+
+
+
+          <!--------------------------------------------tab 4 start------------------------------------------------------>
+          <!-- <div class="tab-pane" id="tab4" role="tabpanel">
+
+            
+
+<app-wish-list></app-wish-list>
+          </div> -->
+          <!--------------------------------------------tab 4 end------------------------------------------------------>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<app-footer></app-footer>

@@ -1,0 +1,51 @@
+<app-header></app-header>
+<div class="container p-tb-2">
+  <div class="cart-page-con-area mrgn-b-md">
+    <div class="row mrgn-b-sm">
+      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+        <!-- <h3>Your Notifications</h3> -->
+      </div>
+    </div>
+
+    <div class="notification-block pad-all-md" *ngIf="!spanish">
+      <div class="row mrgn-b-sm border-top" *ngFor="let noti of Notifications; let i=index">
+        <div class="col-md-10 col-xs-12">
+          <div class="compare-dd-thumb">
+            <div class="col-md-8">
+              <a (click)="watchNotification(noti.Id)"><strong>{{noti.Title}}</strong></a>
+              <p>{{noti.Description}}</p>
+            </div>
+            <div class="col-md-2">
+              <p> {{noti.CreatedDate|date}}</p>
+            </div>
+            <div class="col-md-2">
+                <p> <i class="fa fa-trash" (click)="onDelete(noti.Id)"></i></p>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notification-block pad-all-md" *ngIf="spanish">
+      <div class="row mrgn-b-sm border-top" *ngFor="let noti of Notifications; let i=index">
+        <div class="col-md-10 col-xs-12">
+          <div class="compare-dd-thumb">
+            <div class="col-md-8">
+              <a (click)="watchNotification(noti.Id)"><strong>{{noti.SpanishTitle}}</strong></a>
+              <p>{{noti.SpanishDescription}}</p>
+            </div>
+            <div class="col-md-2">
+              <p> {{noti.CreatedDate|date}}</p>
+            </div>
+            <div class="col-md-2">
+                <p> <i class="fa fa-trash" (click)="onDelete(noti.Id)"></i></p>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+<app-footer></app-footer>

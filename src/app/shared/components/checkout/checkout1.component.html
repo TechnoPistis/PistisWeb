@@ -1,0 +1,1340 @@
+<app-header></app-header>
+
+<div class="container p-tb-2">
+  <div class="row">
+
+    <div class="col-md-8 col-sm-8 col-lg-8  col-xs-12">
+      <!-- Step 1  Login-->
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-lg-12  col-xs-12 checkout-wizard">
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-lg-12  col-xs-12 checkout-wizard-head" (click)="changeLogin()"
+              [ngClass]="{active: openLoginDiv}">
+              <span class="step-box">1</span> {{'Register.Cart.CheckoutMethod'|translate}}
+              <!-- <button *ngIf="!openLoginDiv" class="btn btn-default btn-xs pull-right"
+                (click)="changeLogin()">{{'Register.Cart.Change'|translate}}</button> -->
+            </div>
+            <div class="col-md-12 col-sm-12 col-lg-12  col-xs-12 checkout-wizard-con" *ngIf="!loggedIn">
+              <div class="row" *ngIf="!(UserId && CurrentUser)">
+                <div class="col-md-6">
+                  <h3>{{'Register.Cart.CheckoutGuestRegister'|translate}}</h3>
+                  <p>{{'Register.Cart.RegisterForFuture'|translate}}</p>
+                  <ul class="form-list">
+                    <li class="control">
+                      <input *ngIf="method=='guest'; else elsemethod" type="radio" name="method" id="login:guest"
+                        (click)="getValue('guest')" value="guest" class="radio" checked>
+                      <ng-template #elsemethod>
+                        <input type="radio" name="method" id="login:guest" (click)="getValue('guest')" value="guest"
+                          class="radio">
+                      </ng-template>
+                      <label for="login:guest">{{'Register.Cart.CheckoutAsGuest'|translate}}</label>
+                    </li>
+                    <!-- <li class="control">
+                      <input *ngIf="method=='register'; else elsemeth" type="radio" name="method" id="login:register"
+                        (click)="getValue('register')" value="register" class="radio" checked>
+                      <ng-template #elsemeth> <input type="radio" name="method" id="login:register"
+                          (click)="getValue('register')" value="register" class="radio"></ng-template>
+                      <label for="login:register">{{'Register.Header.HelloGuest.Register'|translate}}</label>
+                    </li> -->
+                  </ul>
+                  <!-- <h4>{{'Register.Cart.RegisterSaveTime'|translate}}</h4>
+                  <p>{{'Register.Cart.RegisterForFuture'|translate}}</p>
+                  <ul class="ul">
+                    <li>{{'Register.Cart.FastAndEasy'|translate}}</li>
+                    <li>{{'Register.Cart.EasyAccess'|translate}}</li>
+                  </ul> -->
+
+                  <div class="buttons-set">
+                    <p class="required">&nbsp;</p>
+                    <button id="onepage-guest-register-button" type="button" class="btn btn-primary btn-lg"
+                      [disabled]="SelectedValue==''"
+                      (click)="setMethod()"><span><span>{{'Register.Cart.ContinueButton'|translate}}</span></span></button>
+                  </div>
+
+                </div>
+                <!-- login form -->
+                <div class="col-md-6">
+                  <h3>Login</h3>
+                  <form id="login-form" action="" method="post" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                    <fieldset class="login-checkout">
+                      <div class="required-star">* {{'Register.Cart.RequiredFields'|translate}}</div>
+                      <input name="form_key" type="hidden" value="ujNJA7EpkQenY1AG">
+                      <h4>{{'Register.Cart.AlreadyRegistered'|translate}}</h4>
+                      <p>{{'Register.Cart.PleaseLoginBelow'|translate}}</p>
+                      <ul class="form-list">
+                        <li>
+                          <label for="login-email"
+                            class="required"><em>*</em>{{'Register.EmailPlaceholder'|translate}}</label>
+                          <div class="input-box form-group">
+                            <!-- <input type="text" class="input-text required-entry validate-email form-control"
+                              id="login-email" name="login[username]" value=""> -->
+                            <input type="text" formControlName="username" class="form-control"
+                              [ngClass]="{ 'is-invalid': submitted && f.username.errors }" autocomplete="on" required />
+                            <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                              <div class="text-danger" *ngIf="f.username.errors.required">
+                                {{'Register.RequiredField'|translate}}.</div>
+                            </div>
+                            <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+
+                              <div class="text-danger" *ngIf="f.username.errors.email">
+                                {{'Register.ValidEmail'|translate}}.</div>
+
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <label for="login-password"
+                            class="required"><em>*</em>{{'Register.Password'|translate}}</label>
+                          <div class="input-box form-group">
+                            <input type="password" formControlName="password" class="form-control"
+                              [ngClass]="{ 'is-invalid': submitted && f.password.errors }" autocomplete="off" />
+                               <!-- forgot pass -->
+                            <a class="tab-head-link" data-toggle="modal" data-target="#myModal" (click)="resetPass()" >Forgot password</a>
+                            <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                              <div class="modal-dialog modal-lg forgot-password-modal" role="document">
+
+                                <div class="modal-content ">
+                                  <!-- <div class="modal-header pad-all-xs">
+                                    <button type="button" class="close pull-right" data-dismiss="modal"
+                                      aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                      <h4> {{'Register.PasswordAssistance'|translate}}</h4>
+                                  </div> -->
+                                  <div class="modal-body">	
+                                    <button type="button" class="close pull-right" data-dismiss="modal"	
+                                    aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                     
+                                     <div class="row">
+                                       <div class="col-md-5">
+                                          <div class="news-pop-tumb">
+                                              <img alt="newsletter" src="assets/img/forgot-password.png">
+                                             
+                                              </div>
+                                       </div>
+                                      <div class="col-md-7 col-sm-7 col-lg-7 col-xs-12">
+                                        <div class="row">
+                                          <div class="col-md-12 ">
+                                            <h4 class="forgot-pass-modal-head"> {{'Register.PasswordAssistance'|translate}}</h4>	
+                                            
+                                            <div >
+                                              <span *ngIf="EmailFirst && !otpFirst" class="mrgn-b-xs email-title">
+                                                <strong>{{'Register.AuthenticationRequired'|translate}}</strong>
+                                                <p>{{'Register.AuthenticationRequiredMsg'|translate}}</p>
+                                                <!-- {{'Register.Cart.ChangePassword'|translate}} -->
+                                              </span>
+                                              <span *ngIf="otpFirst" class="mrgn-b-xs email-title">
+                                               <strong>{{'Register.Cart.ChangePassword'|translate}}</strong> 
+                                              </span>
+                                              <span *ngIf="!EmailFirst" class="mrgn-b-xs email-title">
+                                                {{'Register.CurrentEmail'|translate}}
+                                              </span><br>
+                                              <span *ngIf="!EmailFirst" class="email-title">
+                                                <strong>{{'Register.EnterEmail'|translate}}</strong>
+                                              </span>
+                                             
+                                              
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div *ngIf="!EmailFirst" class="form-group row">
+                                          <div class="col-md-12">
+                                            <input type="text" class="form-control" #pass1 [(ngModel)]="CurrentEmail"
+                                              (focusout)="takeEmail(pass1.value)" placeholder=" {{'Register.EnterEmail'|translate}}">
+                                           
+                                          </div>
+                                        </div>
+
+                                        <div *ngIf="EmailFirst && !otpFirst"  class="form-group row">
+
+                                          <div class="col-md-12">
+                                            <input type="text" class="form-control" #pass [(ngModel)]="Currentpass"
+                                              (focusout)="takeTheSalt(pass.value)" placeholder="{{'Register.EnterOtp'|translate}}">
+                                            <div *ngIf="passwordCheck" class="text-danger">{{'Register.EnterValidOtp'|translate}}</div>
+                                          </div>
+                                        </div>
+                                        <div *ngIf="otpFirst"  class="form-group row">
+
+                                          <div class="col-md-12">
+                                            <input type="password" #newSalt class="form-control" [(ngModel)]="Newpass"
+                                              placeholder="{{'Register.Cart.TypeNewPass'|translate}}" (focusout)="Salt(newSalt.value)">
+                                            <div *ngIf="passlen" class="text-danger">{{'Register.Cart.PasswordMinimum'|translate}}</div>
+                                          </div>
+                                        </div>
+                                        <div *ngIf="otpFirst"  class="form-group row">
+                                          <div class="col-md-12">
+                                            <input type="password" #againSalt class="form-control" [(ngModel)]="ConfirmPass"
+                                              placeholder="{{'Register.Cart.RetypeNewPass'|translate}}" (focusout)="saltMixture(againSalt.value)">
+                                            <div *ngIf="confirmPass" class="text-danger">{{'Register.Cart.PasswordNotMatch'|translate}}</div>
+                                            <div *ngIf="enterPassAgain" class="text-danger">{{'Register.Cart.PasswordNotMatch'|translate}}</div>
+      
+                                          </div>
+                                        </div>
+                                        <div *ngIf="otpFirst"  class="form-group row">
+                                          <div class="col-md-12">
+                                            <button _ngcontent-xqk-c1="" class="btn btn-lg btn-primary"
+                                              [disabled]="passwordCheck" type="button"
+                                              >{{'Register.Cart.ChangePassword'|translate}}</button>
+                                          </div>
+                                        </div>
+                                        <div *ngIf="!EmailFirst"  class="form-group row">
+                                          <div class="col-md-6">
+                                            <button _ngcontent-xqk-c1="" class="btn btn-lg btn-primary"
+                                               type="button"
+                                              > {{'Register.SubmitButotn'|translate}}   </button>
+                                          </div>
+                                        </div>
+                                        <div *ngIf="otpbutton"  class="form-group row">
+                                          <div class="col-md-6">
+                                            <button _ngcontent-xqk-c1="" class="btn btn-lg btn-primary"
+                                             type="button"
+                                              >{{'Register.SubmitButotn'|translate}}</button>
+                                          </div>
+                                        </div>
+                                       
+                                      </div>
+                                    </div>
+                                   
+                                  </div>
+      
+                                </div>
+                              </div>
+                            </div>
+                            <!-- forgot end -->
+                            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                           
+                              <div class="text-danger" *ngIf="f.password.errors.required">
+                                {{'Register.RequiredField'|translate}}</div>
+                            </div>
+                            <div class="show-password">
+                              <i class="flaticon-interface"></i>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                      <input name="context" type="hidden" value="checkout">
+                    </fieldset>
+                    <div class="buttons-set mt-25">
+                      <!-- <a href="#" class="f-left">Forgot your password?</a> -->
+                      <button type="submit" class="form-group  btn btn-primary btn-lg"
+                        ><span><span>Login</span></span></button>
+                    </div>
+                  </form>
+                </div>
+                <!-- end of login form -->
+              </div>
+              <div class="row" *ngIf="UserId && CurrentUser">
+                <div class="col-md-12">
+                  <h4>
+                    {{'Register.YouAreLogged'|translate}} {{CurrentUser}}, {{'Register.YouNeedToLogout'|translate}}.
+                  </h4>
+                </div>
+                <div class="col-md-12">
+                  <button type="button" (click)="setMethod()"
+                    class="form-group  btn btn-primary btn-lg"><strong><span>{{'Register.SignInDifferent'|translate}}</span></strong></button>
+                  &nbsp;&nbsp;
+                  <button type="button" (click)="cancel()"
+                    class="form-group  btn btn-default btn-lg"><strong><span>{{'Register.CancelButton'|translate}}</span></strong></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+     <!-- Step 2 Shipping Address -->
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-lg-12  col-xs-12 checkout-wizard">
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-lg-12  col-xs-12 checkout-wizard-head" (click)="changeAddress()"
+              [ngClass]="{active: openBillingDiv}">
+              <span class="step-box">2</span>{{'Register.Cart.DeliveryAddress'|translate}}
+              <button *ngIf="(!openBillingDiv) && billingVisited && shipping.length>0"
+                class="btn btn-default btn-xs pull-right"
+                (click)="changeAddress()">{{'Register.Cart.Change'|translate}}</button>
+            </div>
+            <div class="col-md-12 col-sm-12 col-lg-12  col-xs-12 checkout-wizard-con"
+              *ngIf="openBillingDiv && shipping.length>0">
+              <div class="row" *ngFor="let s of shipping">
+                <div class="col-md-12 col-sm-12 col-lg-12  col-xs-12 address-block-checkout border-bottom">
+                  <div class="add-radio pull-left">
+                    <input *ngIf="s.IsDefault" type="radio" class="" name="address" checked>
+                    <input *ngIf="!s.IsDefault" type="radio" class="" name="address"
+                      (click)="ChangeDefaultAddress(s.Id)">
+                  </div>
+                  <div class="add-box pull-left">
+                    <div class="row">
+                      <div class="col-md-7">
+                        <p class="add-box-detail">
+                          <span class="add-box-name">{{s.Name}}</span>
+                          <span class="add-box-place">{{s.AddressType}}</span>
+                          <span class="add-box-mobile">{{s.Phone}}</span>
+                        </p>
+                        <p class="mrgn-b-md">
+                          {{s.Colony}},{{s.Street}},{{s.City}},{{s.StateName}} <strong>{{s.Pincode}}</strong>
+                        </p>
+                        <button *ngIf="s.IsDefault && !ShipAddressAsBillAddress" class="btn btn-success" 
+                          (click)="deliverHere(s.Id,'')">{{'Register.Cart.DeliverHereButton'|translate}}</button>
+                          <button *ngIf="s.IsDefault && ShipAddressAsBillAddress" class="btn btn-success" 
+                          (click)="deliverHere(s.Id,'skip')">{{'Register.Cart.DeliverHereButton'|translate}}</button>
+                        &nbsp; &nbsp;
+                        <label *ngIf="selectedBillAddressData && s.Id==selectedBillAddressData.ShippingId">
+                          <input type="radio" name="useBillTO" id="checkBill" value="BillAdd" [checked]=checkedbill>
+                          {{'Register.Cart.UseAsBilling'|translate}}
+                        </label>
+                        <label *ngIf="!(selectedBillAddressData) || (s.Id!=selectedBillAddressData.ShippingId)">
+                          <input type="radio" name="useBillTO" (change)="checkAsBill($event,s.Id)" id="checkBill"
+                            value="BillAdd" [checked]=checkedbill >
+                          {{'Register.Cart.UseAsBilling'|translate}}
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="loggedIn||( UserId && CurrentUser)">
+            <div class="col-md-12 col-sm-12 col-lg-12  col-xs-12">
+              <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12  col-xs-12 checkout-wizard-head" *ngIf="!addAddressForm">
+                  <a *ngIf="loggedIn==true"
+                    (click)="AddAddress();shippingRegisterForm.reset();shippingForm.reset()"><span class="step-box"><i
+                        class="fa fa-plus"></i></span>
+                    {{'Register.Cart.AddANewAddressButton'|translate}}</a>
+                  <a *ngIf="loggedIn==false"><span class="step-box"><i class="fa fa-plus"></i></span>
+                    {{'Register.Cart.AddANewAddressButton'|translate}}</a>
+                </div>
+                <div *ngIf="addAddressRegisterForm"
+                  class="col-md-12 col-sm-12 col-lg-12  col-xs-12 checkout-wizard-con">
+                  <div class="row">
+                    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 ">
+                      <div class="add-radio pull-left">
+                        <input type="radio" checked class="" name="address">
+                      </div>
+                      <div class="add-box pull-left">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <h4>{{'Register.Cart.AddANewAddressButton'|translate}}</h4>
+                            <!-- <div class="form-group row">
+                              <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                <button class="btn btn-lg btn-info">Use my current location</button>
+                              </div>
+                            </div> -->
+
+                            <!-- Add adress with registeration -->
+                            <form [formGroup]="shippingRegisterForm" (ngSubmit)="onSubmitShippingRegister()">
+                              <div class="">
+                                <div class="row mrgn-b-sm">
+                                  <input class="form-control" type="hidden" formControlName="Id" placeholder="Id">
+                                  <div class="col-md-4">
+                                    <label>{{'Register.Name'|translate}}</label>
+                                    <input class="form-control" type="text" formControlName="Name"
+                                      placeholder="{{'Register.Name'|translate}}">
+                                  </div>
+                                  <div class="col-md-4">
+                                    <label>{{'Register.Cart.PhoneNumber'|translate}}</label>
+                                    <input class="form-control" type="text" formControlName="PhoneNo"
+                                      placeholder="{{'Register.Cart.PhoneNumber'|translate}}">
+                                  </div>
+                                  <div class="col-md-4">
+                                    <label>{{'Register.Cart.Pincode'|translate}}</label>
+                                    <input type="text" placeholder="{{'Register.Cart.Pincode'|translate}}"
+                                      class="form-control" formControlName="Pincode">
+                                  </div>
+                                </div>
+                                <div class="row mrgn-b-sm">
+                                  <div class="col-md-4">
+                                    <label>Email</label>
+                                    <input type="text" id="Email" placeholder="Email" formControlName="Email" #email
+                                      class="form-control" autocomplete="off" (change)=CheckEmail(email.value)>
+                                    <div
+                                      *ngIf="shippingRegisterForm.controls['Email'].hasError('required') &&shippingRegisterForm.controls['Email'].touched"
+                                      class="text-danger">{{'Register.RequiredEmail'|translate}}</div>
+                                    <label class="text-danger"
+                                      *ngIf="shippingRegisterForm.controls['Email'].touched && shippingRegisterForm.controls['Email'].errors?.email">Invalid
+                                      Email</label>
+                                    <label class="text-danger"
+                                      *ngIf="IsExists">{{'Register.MyProfile.EmailExist'|translate}}.</label>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <label>{{'Register.Password'|translate}}</label>
+                                    <input type="password" formControlName="Password"
+                                      placeholder="{{'Register.Password'|translate}}" class="form-control"
+                                      autocomplete="off">
+                                    <label class="text-danger"
+                                      *ngIf="shippingRegisterForm.controls['Password'].hasError('required') &&shippingRegisterForm.controls['Password'].touched">{{'Register.Required_Msg'|translate}}</label>
+                                    <label class="text-danger"
+                                      *ngIf="shippingRegisterForm.controls['Password'].errors?.minlength &&shippingRegisterForm.controls['Password'].touched">
+                                      {{'Register.Password_Format_Msg'|translate}}</label>
+                                  </div>
+
+                                  <div class="col-md-4">
+                                    <label>{{'Register.ConfirmPassword'|translate}}</label>
+                                    <input type="password" id="ConfirmPassword"
+                                      placeholder="{{'Register.ConfirmPassword'|translate}}"
+                                      formControlName="ConfirmPassword" class="form-control">
+                                    <label class="text-danger"
+                                      *ngIf="shippingRegisterForm.controls['ConfirmPassword'].hasError('required') &&shippingRegisterForm.controls['ConfirmPassword'].touched">{{'Register.RequiredField'|translate}}</label>
+                                    <label class="text-danger"
+                                      *ngIf="shippingRegisterForm.controls['ConfirmPassword'].errors?.passwordConfirming && shippingRegisterForm.controls['ConfirmPassword'].touched">
+                                      {{'Register.Cart.PasswordNotMatch'|translate}}</label>
+                                    <label class="text-danger"
+                                      *ngIf="shippingRegisterForm.get(['Password']).value != shippingRegisterForm.get(['ConfirmPassword']).value && shippingRegisterForm.get(['ConfirmPassword']).value != null && shippingRegisterForm.controls['ConfirmPassword'].touched">
+                                      {{'Register.Cart.PasswordNotMatch'|translate}}</label>
+                                  </div>
+
+                                </div>
+                                <div class="row mrgn-b-sm">
+                                  <div class="col-md-4">
+                                    <label>{{'Register.Cart.State'|translate}}</label>
+                                    <input type="text" placeholder="{{'Register.Cart.State'|translate}}"
+                                      class="form-control" formControlName="State">
+                                  </div>
+                                  <div class="col-md-4">
+                                    <label>{{'Register.Cart.City'|translate}}</label>
+                                    <input formControlName="City" type="text"
+                                      placeholder="{{'Register.Cart.City'|translate}}" id="city" class="form-control">
+                                  </div>
+                                  <div class="col-md-4">
+                                    <label>{{'Register.Cart.Colony'|translate}}</label>
+                                    <input formControlName="Colony" type="text"
+                                      placeholder="{{'Register.Cart.Colony'|translate}}" id="city" class="form-control">
+                                  </div>
+                                </div>
+                                <div class="row mrgn-b-sm">
+                                  <div class="col-md-4">
+                                    <label>{{'Register.Cart.Street'|translate}}</label>
+                                    <input formControlName="Street" type="text" placeholder="Street" id="city"
+                                      class="form-control">
+                                  </div>
+                                  <div class="col-md-4">
+                                    <div class="row">
+                                      <div class="col-md-6">
+                                        <label>{{'Register.Cart.OutsideNumber'|translate}}</label>
+                                        <input formControlName="OutsideNumber" type="text"
+                                          placeholder="{{'Register.Cart.OutsideNumber'|translate}}" id="city"
+                                          class="form-control">
+                                      </div>
+                                      <div class="col-md-6">
+                                        <label>{{'Register.Cart.WithoutNum'|translate}}</label><br>
+                                        <input type="checkbox" (change)="WithoutNum($event.target)">
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-4" *ngIf="!withoutNumber">
+                                    <label>{{'Register.Cart.InteriorNumber'|translate}}</label>
+                                    <input formControlName="InteriorNumber" type="text"
+                                      placeholder="{{'Register.Cart.InteriorNumber'|translate}}" class="form-control">
+                                  </div>
+                                </div>
+
+                                <div class="row mrgn-b-sm">
+                                  <div class="col-md-4">
+                                    <label>{{'Register.Cart.Street'|translate}}-1</label>
+                                    <input type="text" id="Street1"
+                                      placeholder="{{'Register.Cart.Street'|translate}}-1({{'Register.Cart.Optional'|translate}})"
+                                      formControlName="Street1" class="form-control">
+                                  </div>
+                                  <div class="col-md-4">
+                                    <label>{{'Register.Cart.Street'|translate}}-2</label>
+                                    <input type="text" id="Street2"
+                                      placeholder="{{'Register.Cart.Street'|translate}}-2({{'Register.Cart.Optional'|translate}})"
+                                      formControlName="Street2" class="form-control">
+                                  </div>
+                                  <div class="col-md-4">
+                                    <label>{{'Register.Cart.Landmark'|translate}}</label>
+                                    <input type="text" id="landmark"
+                                      placeholder="{{'Register.Cart.Landmark'|translate}} ({{'Register.Cart.Optional'|translate}})"
+                                      formControlName="LandMark" class="form-control">
+                                  </div>
+                                </div>
+                                <div class="mrgn-b-sm row">
+                                  <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                    {{'Register.Cart.AddressType'|translate}}
+                                  </div>
+                                  <div class="col-md-4 col-sm-4 col-lg-4 col-xs-12">
+                                    <label>
+                                      <input type="radio" name="AddressType" id="optionsRadios1" value="Home"
+                                        formControlName="AddressType" checked="">
+                                      {{'Register.Cart.HomeAllDayDelivery'|translate}}
+                                    </label>
+                                  </div>
+                                  <div class="col-md-4 col-sm-4 col-lg-4 col-xs-12">
+                                    <label>
+                                      <input type="radio" name="AddressType" id="optionsRadios2" value="Work"
+                                        formControlName="AddressType" checked="">
+                                      {{'Register.Cart.WorkDelivery'|translate}}
+                                    </label>
+                                  </div>
+                                  <div class="col-md-4 col-sm-4 col-lg-4 col-xs-12">
+                                    <label>
+                                      <input type="checkbox" name="useBillTO" formControlName="asBillAddress"
+                                        value="BillAdd" (click)="changeBillAdd($event)">
+                                      {{'Register.Cart.UseAsBilling'|translate}}
+                                    </label>
+                                  </div>
+                                </div>
+
+                                <div class="mrgn-b-sm row">
+                                  <div class="col-md-8 col-sm-8 col-lg-8 col-xs-12">
+                                    <button type="submit" class="btn btn-lg btn-primary mr-2" *ngIf="!ShipAddressAsBillAddress" (click)="changeBillAddressDiv('')"
+                                      [disabled]="!shippingRegisterForm.valid">{{'Register.Cart.SaveAndDeliverHere'|translate}}</button>
+                                      <button type="submit" class="btn btn-lg btn-primary mr-2" *ngIf="ShipAddressAsBillAddress" (click)="changeBillAddressDiv('skip')"
+                                      [disabled]="!shippingRegisterForm.valid">{{'Register.Cart.SaveAndDeliverHere'|translate}}</button>
+                                    <button class="btn btn-lg btn-default"
+                                      (click)="changeAddress();shippingRegisterForm.reset()">{{'Register.Cart.Cancel'|translate}}</button>
+                                  </div>
+                                </div>
+                              </div>
+
+                            </form>
+                          </div>
+                          <div class="col-md-5 text-right">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Addnew Address -->
+                <div *ngIf="addAddressForm" class="col-md-12 col-sm-12 col-lg-12  col-xs-12 checkout-wizard-con">
+                  <div class="row">
+                    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 address-block-checkout">
+                      <div class="add-radio pull-left">
+                        <input type="radio" checked class="" name="address">
+                      </div>
+                      <div class="add-box pull-left">
+
+                        <div class="row">
+                          <div class="col-md-12">
+                            <h4>{{'Register.ManageAddresses.AddNewAddress'|translate}}</h4>
+                            <form [formGroup]="shippingForm" (ngSubmit)="onSubmitShipping()">
+                              <div class="">
+                                <div class="row mrgn-b-sm" *ngIf="guestUser">
+                                  <div class="col-md-12">
+                                    <div class="border-box">
+                                      <div class="row" >
+                                        <div class="col-md-12 mrgn-b-xs" >
+                                          <strong>For guest user</strong>
+                                        </div>
+                                        <div class="col-md-12">
+                                          <div class="row" >
+                                            <div class="col-md-2">
+                                             <label>{{'Register.EmailPlaceholder'|translate}}</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                              <input type="text"  placeholder="Email"  #email
+                                                class="form-control" autocomplete="off" (change)=CheckEmail(email.value) (focusout)="getmail(email.value)">
+                                              <div class="text-danger"
+                                                *ngIf="emailRequired">{{'Register.RequiredEmail'|translate}}</div>
+                                              <label class="text-danger"
+                                                *ngIf="IsExists && guestUser">{{'Register.MyProfile.EmailExist'|translate}}.</label>
+                                            </div>
+                                          </div>
+                                         </div>
+                                      </div>
+                                    </div>
+                                    
+                                  </div>
+                                  
+                                 
+                                </div>
+                                <div class="row mrgn-b-sm">
+                                  <input class="form-control" type="hidden" formControlName="Id" placeholder="Id">
+                                  <div class="col-md-4">
+                                    <label>{{'Register.Cart.Name'|translate}}</label>
+                                    <input class="form-control" type="text" formControlName="Name"
+                                      placeholder="{{'Register.Cart.Name'|translate}}">
+                                  </div>
+                                  <div class="col-md-4">
+                                    <label>{{'Register.Cart.PhoneNumber'|translate}}</label>
+                                    <input class="form-control" type="text" formControlName="PhoneNo"
+                                      placeholder="{{'Register.Cart.PhoneNumber'|translate}}">
+                                  </div>
+                                  <div class="col-md-4">
+                                    <label>{{'Register.Cart.Pincode'|translate}}</label>
+                                    <input type="text" placeholder="{{'Register.Cart.Pincode'|translate}}"
+                                      class="form-control" formControlName="Pincode">
+                                  </div>
+                                </div>
+                                <div class="row mrgn-b-sm">
+                                  <div class="col-md-4">
+                                    <label>{{'Register.Cart.State'|translate}}</label>
+                                    <input type="text" placeholder="{{'Register.Cart.State'|translate}}"
+                                      class="form-control" formControlName="State">
+                                  </div>
+                                  <div class="col-md-4">
+                                    <label>{{'Register.Cart.City'|translate}}</label>
+                                    <input formControlName="City" type="text"
+                                      placeholder="{{'Register.Cart.City'|translate}}" id="city" class="form-control">
+                                  </div>
+                                  <div class="col-md-4">
+                                    <label>{{'Register.Cart.Colony'|translate}}</label>
+                                    <input formControlName="Colony" type="text"
+                                      placeholder="{{'Register.Cart.Colony'|translate}}" id="city" class="form-control">
+                                  </div>
+                                </div>
+
+                                <div class="row mrgn-b-sm">
+                                  <div class="col-md-4">
+                                    <label>{{'Register.Cart.Street'|translate}}</label>
+                                    <input formControlName="Street" type="text"
+                                      placeholder="{{'Register.Cart.Street'|translate}}" id="city" class="form-control">
+                                  </div>
+                                  <div class="col-md-4">
+                                    <div class="row">
+                                      <div class="col-md-6">
+                                        <label>{{'Register.Cart.OutsideNumber'|translate}}</label>
+                                        <input formControlName="OutsideNumber" type="text"
+                                          placeholder="{{'Register.Cart.OutsideNumber'|translate}}" id="city"
+                                          class="form-control">
+                                      </div>
+                                      <div class="col-md-6">
+                                        <label>{{'Register.Cart.WithoutNum'|translate}}</label><br>
+                                        <input type="checkbox" (change)="WithoutNum($event.target)">
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-4" *ngIf="!withoutNumber">
+                                    <label>{{'Register.Cart.InteriorNumber'|translate}}</label>
+                                    <input formControlName="InteriorNumber" type="text"
+                                      placeholder="{{'Register.Cart.InteriorNumber'|translate}}" class="form-control">
+                                  </div>
+                                </div>
+
+                                <div class="row mrgn-b-sm">
+                                  <div class="col-md-4">
+                                    <label>{{'Register.Cart.Street'|translate}}-1</label>
+                                    <input type="text" id="Street1"
+                                      placeholder="{{'Register.Cart.Street'|translate}}-1({{'Register.Cart.Optional'|translate}})"
+                                      formControlName="Street1" class="form-control">
+                                  </div>
+                                  <div class="col-md-4">
+                                    <label>{{'Register.Cart.Street'|translate}}-2</label>
+                                    <input type="text" id="Street2"
+                                      placeholder="{{'Register.Cart.Street'|translate}}-2({{'Register.Cart.Optional'|translate}})"
+                                      formControlName="Street2" class="form-control">
+                                  </div>
+                                  <div class="col-md-4">
+                                    <label>{{'Register.Cart.Landmark'|translate}}</label>
+                                    <input type="text" id="landmark"
+                                      placeholder="{{'Register.Cart.Landmark'|translate}}({{'Register.Cart.Optional'|translate}})"
+                                      formControlName="LandMark" class="form-control">
+                                  </div>
+                                </div>
+                                <div class="mrgn-b-sm row">
+                                  <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                    {{'Register.Cart.AddressType'|translate}}
+                                  </div>
+                                  <div class="col-md-4 col-sm-4 col-lg-4 col-xs-12">
+                                    <label>
+                                      <input type="radio" name="AddressType" id="optionsRadios1" value="Home"
+                                        formControlName="AddressType" checked="">
+                                      {{'Register.Cart.HomeAllDayDelivery'|translate}}
+                                    </label>
+                                  </div>
+                                  <div class="col-md-4 col-sm-4 col-lg-4 col-xs-12">
+                                    <label>
+                                      <input type="radio" name="AddressType" id="optionsRadios2" value="Work"
+                                        formControlName="AddressType" checked="">
+                                      {{'Register.Cart.WorkDelivery'|translate}}
+                                    </label>
+                                  </div>
+                                  <div class="col-md-4 col-sm-4 col-lg-4 col-xs-12">
+                                    <label>
+                                      <input type="checkbox" name="useBillTO" formControlName="asBillAddress"
+                                        value="BillAdd" (click)="changeBillAdd($event)">
+                                      {{'Register.Cart.UseAsBilling'|translate}}
+                                    </label>
+                                  </div>
+                                </div>
+
+                                <div class="mrgn-b-sm row">
+                                  <div class="col-md-8 col-sm-8 col-lg-8 col-xs-12">
+                                    <button type="submit" class="btn btn-lg btn-primary mr-2" 
+                                      [disabled]="!shippingForm.valid">{{'Register.Cart.SaveAndDeliverHere'|translate}}</button>
+                                      <!-- <button type="submit" class="btn btn-lg btn-primary mr-2" *ngIf="ShipAddressAsBillAddress" (click)="changeBillAddressDiv('skip')"
+                                      [disabled]="!shippingForm.valid">{{'Register.Cart.SaveAndDeliverHere'|translate}}</button> -->
+                                    <button class="btn btn-lg btn-default"
+                                      (click)="changeAddress();shippingForm.reset()">{{'Register.CancelButton'|translate}}</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                          <div class="col-md-5 text-right">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Step 3 Billing Address -->
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-lg-12  col-xs-12 checkout-wizard">
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-lg-12  col-xs-12 checkout-wizard-head"
+              (click)="changeBillAddressDiv('')" [ngClass]="{active: openBillingAddDiv}">
+              <span class="step-box">3</span> {{'Register.BillingAddress'|translate}}
+            </div>
+            <div class="col-md-12 col-sm-12 col-lg-12  col-xs-12 checkout-wizard-con"
+              *ngIf="openBillingAddDiv && UserBillAddress.length>0 && UserId && UserId>0">
+              <div class="row" *ngFor="let s of UserBillAddress">
+                <div class="col-md-12 col-sm-1 col-lg-12  col-xs-12 address-block-checkout border-bottom">
+                  <div class="add-radio pull-left">
+                    <input *ngIf="s.IsDefault" type="radio" class="" name="address" checked>
+                    <input *ngIf="!s.IsDefault" type="radio" class="" name="address"
+                      (change)="selectBillAddress($event.target,s.Id)">
+                  </div>
+                  <div class="add-box pull-left">
+                    <div class="row">
+                      <div class="col-md-7">
+                        <p class="add-box-detail">
+                          <span class="add-box-name">{{s.Name}}</span>
+                          <!-- <span class="add-box-place">{{s.AddressType}}</span> -->
+                          <span class="add-box-mobile">{{s.Phone}}</span>
+                        </p>
+                        <p class="mrgn-b-md">
+                          {{s.Colony}},{{s.Street}},{{s.City}},{{s.State}} <strong>{{s.Pincode}}</strong>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="openBillingAddDiv">
+            <div class="col-md-12 col-sm-12 col-lg-12  col-xs-12">
+              <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12  col-xs-12 checkout-wizard-head" (click)="AddBillingAddress()"
+                  *ngIf="!addBillAddressForm">
+                  <a  (click)="AddBillingAddress()"><span class="step-box"><i
+                        class="fa fa-plus"></i></span>
+                    {{'Register.Cart.AddANewAddressButton'|translate}}</a>
+                  <!-- <a *ngIf="loggedIn==false"><span class="step-box"><i class="fa fa-plus"></i></span>
+                    {{'Register.Cart.AddANewAddressButton'|translate}}</a> -->
+                </div>
+                <!-- Addnew Address -->
+                <div *ngIf="addBillAddressForm" class="col-md-12 col-sm-12 col-lg-12  col-xs-12 checkout-wizard-con">
+                  <div class="row">
+                    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 address-block-checkout">
+                      <div class="add-radio pull-left">
+                        <input type="radio" checked class="" name="address">
+                      </div>
+                      <div class="add-box pull-left">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <h4>{{'Register.ManageAddresses.AddNewAddress'|translate}}</h4>
+                            <form [formGroup]="billForm" (ngSubmit)="onSubmitBillAddress()">
+                              <div class="">
+                                <div class="row mrgn-b-sm">
+                                  <input class="form-control" type="hidden" formControlName="Id" placeholder="Id">
+                                  <div class="col-md-4">
+                                    <label>{{'Register.Cart.Name'|translate}}</label>
+                                    <input class="form-control" type="text" formControlName="Name"
+                                      placeholder="{{'Register.Cart.Name'|translate}}">
+                                  </div>
+                                  <div class="col-md-4">
+                                    <label>{{'Register.Cart.PhoneNumber'|translate}}</label>
+                                    <input class="form-control" type="text" formControlName="PhoneNo"
+                                      placeholder="{{'Register.Cart.PhoneNumber'|translate}}">
+                                  </div>
+                                  <div class="col-md-4">
+                                    <label>{{'Register.Cart.Pincode'|translate}}</label>
+                                    <input type="text" placeholder="{{'Register.Cart.Pincode'|translate}}"
+                                      class="form-control" formControlName="Pincode">
+                                  </div>
+                                </div>
+                                <div class="row mrgn-b-sm">
+                                  <div class="col-md-4">
+                                    <label>{{'Register.Cart.State'|translate}}</label>
+                                    <input type="text" placeholder="State" class="form-control" formControlName="State">
+                                  </div>
+                                  <div class="col-md-4">
+                                    <label>{{'Register.Cart.City'|translate}}</label>
+                                    <input formControlName="City" type="text"
+                                      placeholder="{{'Register.Cart.City'|translate}}" id="city" class="form-control">
+                                  </div>
+                                  <div class="col-md-4">
+                                    <label>{{'Register.Cart.Colony'|translate}}</label>
+                                    <input formControlName="Colony" type="text"
+                                      placeholder="{{'Register.Cart.Colony'|translate}}" id="city" class="form-control">
+                                  </div>
+                                </div>
+
+                                <div class="row mrgn-b-sm">
+                                  <div class="col-md-4">
+                                    <label>{{'Register.Cart.Street'|translate}}</label>
+                                    <input formControlName="Street" type="text" placeholder="Street" id="city"
+                                      class="form-control">
+                                  </div>
+                                  <div class="col-md-4">
+                                    <div class="row">
+                                      <div class="col-md-6">
+                                        <label>{{'Register.Cart.OutsideNumber'|translate}}</label>
+                                        <input formControlName="OutsideNumber" type="text"
+                                          placeholder="{{'Register.Cart.OutsideNumber'|translate}}" id="city"
+                                          class="form-control">
+                                      </div>
+                                      <div class="col-md-6">
+                                        <label>{{'Register.Cart.WithoutNum'|translate}}</label><br>
+                                        <input type="checkbox" (change)="WithoutNum($event.target)">
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-4" *ngIf="!withoutNumber">
+                                    <label>{{'Register.Cart.InteriorNumber'|translate}}</label>
+                                    <input formControlName="InteriorNumber" type="text"
+                                      placeholder="{{'Register.Cart.OutsideNumber'|translate}}" class="form-control">
+                                  </div>
+                                </div>
+                                <div class="row mrgn-b-sm">
+                                  <div class="col-md-4">
+                                    <label>{{'Register.Cart.Street'|translate}}-1</label>
+                                    <input type="text" id="Street1"
+                                      placeholder="{{'Register.Cart.Street'|translate}}-1({{'Register.Cart.Optional'|translate}})"
+                                      formControlName="Street1" class="form-control">
+                                  </div>
+                                  <div class="col-md-4">
+                                    <label>{{'Register.Cart.Street'|translate}}-2</label>
+                                    <input type="text" id="Street2"
+                                      placeholder="{{'Register.Cart.Street'|translate}}-2({{'Register.Cart.Optional'|translate}})"
+                                      formControlName="Street2" class="form-control">
+                                  </div>
+                                  <div class="col-md-4">
+                                    <label>{{'Register.Cart.Landmark'|translate}}</label>
+                                    <input type="text" id="landmark"
+                                      placeholder="{{'Register.Cart.Landmark'|translate}}({{'Register.Cart.Optional'|translate}})"
+                                      formControlName="LandMark" class="form-control">
+                                  </div>
+                                </div>
+                                <div class="mrgn-b-sm row">
+                                  <div class="col-md-8 col-sm-8 col-lg-8 col-xs-12">
+                                    <button type="submit" class="btn btn-lg btn-primary mr-2"
+                                      [disabled]="!billForm.valid">{{'Register.SaveButton'|translate}}</button>
+                                    <button class="btn btn-lg btn-default"
+                                      (click)="CancelBillingAddress();billForm.reset()">{{'Register.CancelButton'|translate}}</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                          <div class="col-md-5 text-right">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Step 4 Shipping Charges -->
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-lg-12  col-xs-12 checkout-wizard">
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-lg-12  col-xs-12 checkout-wizard-head" (click)="openShipDivfn()"
+              [ngClass]="{active: openShipDiv}">
+              <span class="step-box">4</span>{{'Register.Cart.ShippingCharges'|translate}}
+              <button *ngIf="(!openShipDiv)&& shippingVisited" class="btn btn-default btn-xs pull-right"
+                (click)="openShipDivfn()">{{'Register.Cart.Change'|translate}}</button>
+            </div>
+            <div class="col-md-12 col-sm-12 col-lg-12  col-xs-12 checkout-wizard-con" *ngIf="openShipDiv">
+              <div class="form-group col-sm-12">
+                <div *ngFor="let item of ShippingCharges;let i=index">
+                  <label>
+                    <!-- [checked]="oneShipcost" -->
+                    <input type="radio" id="ShipCost_{{i}}" name="DeliveryAddress"  (change)="setShipAddress($event.target,i)"
+                      >
+                    {{'Register.Cart.DeliveryBy'|translate}}
+                    {{item.DeliveryDate | date:'fullDate'}} |
+                    <span *ngIf="0 >= item.ShipPrice" style="color:green">
+                      {{'Register.Cart.Free'|translate}} ({{item.DeliveryType}})
+                    </span>
+                    <span *ngIf="item.ShipPrice > 0" class="success">
+                      ${{item.ShipPrice}} ({{item.DeliveryType}})
+                    </span>
+                  </label>
+                </div>
+                <div *ngIf="ShippingError && isShipError==true">
+                  <label *ngIf="ShippingError.Message" style="color: red">{{ShippingError.Message}}
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                <div class="row">
+                  <hr>
+                  <!-- <div class="col-md-8 col-sm-8 col-lg-8 col-xs-12">{{'Register.ChoosePaymentMethod'|translate}}<span class="bg-email"></span> </div> -->
+                  <div class="col-md-4 col-sm-4 col-lg-4 col-xs-12 ">
+                    <button class="btn btn-lg btn-primary mr-2" [ngClass]="{'disabled':isSelected}"
+                      (click)="Continueship()">{{'Register.ConfirmOrder'|translate}}</button></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+<!-- Step 5 Order Summary -->
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-lg-12  col-xs-12 checkout-wizard">
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-lg-12  col-xs-12 checkout-wizard-head" (click)="changeOrder()"
+              [ngClass]="{active: openOrderDiv}">
+              <span class="step-box">5</span>{{'Register.ConfirmOrder'|translate}}
+              <button *ngIf="!openOrderDiv && orderVisited" class="btn btn-xs btn-default pull-right"
+                (click)="changeOrder()">{{'Register.Cart.Change'|translate}}</button>
+            </div>
+            <div class="col-md-12 col-sm-12 col-lg-12  col-xs-12 checkout-wizard-con" *ngIf="(openOrderDiv)">
+              <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                  <section class="cart-main" *ngFor="let c of cartItem">
+                    <div class="row mrgn-b-md">
+                      <div class="col-md-2 col-lg-2 col-sm-2 col-xs-4">
+                        <div class="cart-thumb">
+                          <img class="img-responsive" style="width: 140px;height: 140px;" src={{c.Image150}} />
+                        </div>
+                      </div>
+                      <div class="col-md-10">
+                        <div class="row">
+                          <div class="col-md-8 col-lg-8 col-sm-8 col-xs-12">
+                            <span class="cart-product-title" >{{c.Name}}</span>
+                            <div class="size-seller-text" *ngFor="let v of c.VariantOptions">
+                              <span *ngIf="v.varientName!='Default'">
+                                {{v.varientName}}: {{v.Name}}
+    
+                              </span>
+                            </div>
+                            <div class="size-seller-text mrgn-b-md">
+                              Seller: {{c.VendorName}}
+                            </div>
+                            <div class="cart-delevery-info" *ngIf="DeliveryDetail">
+                                {{'Register.Cart.DeliveryBy'|translate}} {{DeliveryDetail.DeliveryDate | date:'fullDate'}}
+                              </div>
+                          </div>
+                          <div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
+                            <div class="cart-price-row text-right">
+                              <div class="d-block" >
+                                  <span class="cart-offer" *ngIf="c.Discount>0">{{(c.Discount)}}% Off</span>
+                                  <span class="cart-price-accual" *ngIf="c.Discount>0">${{c.SellingPrice.toFixed(2)  * c.Quantity}}</span>
+                              </div>
+                              <div class="d-block deal" *ngIf="c.DealQuantityPerUser>0">{{'Register.DealValidon'|translate}} {{c.DealQuantityPerUser}} {{'Register.lessprocuts'|translate}}</div>
+                              <span class="cart-price">${{c.Amount.toFixed(2)}}</span>
+                            </div>
+                           
+                          </div>
+                        </div>
+                      </div>
+                   
+
+                    </div>
+                    
+                  </section>
+                </div>
+                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                    <div class="row" *ngIf="Promotiondiv">
+                        <div  class="col-md-12 col-lg-12 col-sm-12 col-xs-12"  >
+  
+                            <div *ngIf="!appliedSpinner" class="check-box-option">
+                              <input (change)="handleSelected($event)" type="checkbox"> <label>{{'Register.ApplySpinnerDiscount'|translate}}</label>
+                            </div>
+                            <div  *ngIf="appliedSpinner" class="check-box-option">
+                              <label>Applied spinner discount.</label>
+                            </div>
+                          </div>
+                    </div>
+                  <div class="row">
+                    <div class="col-md-8 col-sm-8 col-lg-8 col-xs-12">
+                      <!-- {{'Register.Cart.OrderConfirmationEmail'|translate}}
+                      .<span class="bg-email">{{this.shippEmail}}</span> -->
+                       <div>
+                  <input type="checkbox" (change)="fun($event)" [(ngModel)]="AcceptTC"  id="agree" />
+                  <span> {{'Register.Cart.IHaveReadAndAgreeToThe'|translate}}<a
+                      (click)="goTOTermsAndConditions()"><u>{{'Register.Cart.TermsConditionsPrivacy'|translate}}</u></a>.</span>
+                </div>
+                    </div> 
+                    <!-- (click)="openTc()" -->
+                    <div class="col-md-4 col-sm-4 col-lg-4 col-xs-12 text-right" >
+                      <button class="btn btn-lg btn-primary mr-2" [ngClass]="{'disabled':!terms}"(click)="acceptTC()"
+                        >{{'Register.PayNow'|translate}}</button>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 6 Terma&Cond -->
+
+      <!-- <div class="row">
+        <div class="col-md-12 col-sm-12 col-lg-12  col-xs-12 checkout-wizard">
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-lg-12  col-xs-12 checkout-wizard-head" (click)="openTc()"
+              [ngClass]="{active: openTCDiv}">
+              <span class="step-box">6</span>{{'Register.Cart.TermsAndConditions'|translate}}
+            </div>
+            <div class="col-md-12 col-sm-12 col-lg-12  col-xs-12  checkout-wizard-con" *ngIf="(openTCDiv)">
+              <div class="form-group col-sm-12">
+                <div>
+                  <input type="checkbox" [(ngModel)]="AcceptTC" (click)="acceptTC($event)" id="agree" />
+                  <span> {{'Register.Cart.IHaveReadAndAgreeToThe'|translate}}<a
+                      (click)="goTOTermsAndConditions()"><u>{{'Register.Cart.TermsConditionsPrivacy'|translate}}</u></a>.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+<!-- Step 7 Payment -->
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 checkout-wizard">
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 checkout-wizard-head" [ngClass]="{active: openPayDiv}">
+              <span class="step-box">6</span>{{'Register.Cart.PaymentOptions'|translate}}
+            </div>
+            <!-- *ngIf="openPayDiv" -->
+            <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 p-0 checkout-wizard-con" >
+              <div class="row" *ngIf="openPayDiv"  >
+                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 payment-option-block">
+                  <div class="payment-option-block-head">
+                    <div class="add-radio pull-left">
+                      <input class="" name="address" type="radio" checked>
+                    </div>
+                    {{'Register.Cart.CreditDebitATM'|translate}}
+                    <p style="margin-left: 28px;margin-top: 15px;">
+                      <img alt="payment" src="assets/img/payment-logos-credit-card.png">
+                    </p>
+                  </div>
+                  <form [formGroup]="paymentForm" (ngSubmit)="onPaymentSubmit(paymentForm.value)">
+                    <div class="payment-option-block-con">
+                      <div class="row mrgn-b-sm">
+                        <div class="col-md-4 col-sm-6 col-lg-4 col-xs-12">
+                          <label>{{'Register.Cart.CardHolderName'|translate}}</label>
+                          <input class="form-control" formControlName="cardholderName"
+                            placeholder="{{'Register.Cart.CardHolderName'|translate}}" type="text">
+                          <label class="text-danger"
+                            *ngIf="paymentForm.controls['cardholderName'].touched && paymentForm.controls['cardholderName'].hasError('required')">
+                            {{'Register.RequiredField'|translate}}.</label>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-lg-4 col-xs-12">
+                          <label>Email</label>
+                          <input class="form-control" formControlName="email" placeholder="Email" type="text">
+                          <label class="text-danger"
+                            *ngIf="paymentForm.controls['email'].touched && paymentForm.controls['email'].errors?.email">{{'Register.EnterValidEmail'|translate}}</label>
+                          <label class="text-danger"
+                            *ngIf="paymentForm.controls['email'].touched && paymentForm.controls['email'].hasError('required')">{{'Register.RequiredField'|translate}}.</label>
+                        </div>
+
+                      </div>
+                      <div class="row mrgn-b-sm">
+                        <div class="col-md-4 col-sm-12 col-lg-4 col-xs-12">
+                          <label>{{'Register.Cart.CreditCardNumber'|translate}}</label>
+                          <!-- <input class="form-control" formControlName="cardNumber" type="hidden"> -->
+                          <input class="form-control" (focusout)="callength(cardno.value)" id="cardNumber"
+                            formControlName="cardNumber" #cardno minlength="12" maxlength="16"
+                            placeholder="{{'Register.Cart.CreditCardNumber'|translate}}" type="password">
+                          <label class="text-danger"
+                            *ngIf="paymentForm.controls['cardNumber'].touched && paymentForm.controls['cardNumber'].hasError('required')">{{'Register.RequiredField'|translate}}.</label>
+                          <label class="text-danger" *ngIf="cardlength">{{'Register.Cart.CardNumberNotCorrect'|translate}}</label>
+        </div>
+        <div class="col-md-4 col-sm-4 col-lg-4 col-xs-12">
+        <label>{{'Register.Cart.ExpiryDate'|translate}}</label>
+
+                          <div class="row">
+                            <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6">
+                              <select class="form-control" formControlName="cardExpirationMonth" #mnth
+                                (focusout)="checkExpiry()" [(ngModel)]="ExpirationMonth">
+                                <option value="">-MM-</option>
+                                <option value="1">01</option>
+                                <option value="2">02</option>
+                                <option value="3">03</option>
+                                <option value="4">04</option>
+                                <option value="5">05</option>
+                                <option value="6">06</option>
+                                <option value="7">07</option>
+                                <option value="8">08</option>
+                                <option value="9">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                              </select>
+                              <label class="text-danger"
+                                *ngIf="paymentForm.controls['cardExpirationMonth'].touched && paymentForm.controls['cardExpirationMonth'].hasError('required')">{{'Register.RequiredField'|translate}}.</label>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6">
+                              <input class="form-control" bsDatepicker #yr [minDate]="today" (focusout)="checkExpiry()"
+                                (onShown)="onOpenCalendar($event)" [bsConfig]="{ dateInputFormat: 'YYYY' }"
+                                [(ngModel)]="CurrentYear" formControlName="cardExpirationYear" placeholder="-YYYY-"
+                                type="text" autocomplete="off">
+                              <!-- <select class="form-control" formControlName="cardExpirationYear" >
+        <option value="" >-YY-</option>
+        </select> -->
+                              <label class="text-danger"
+                                *ngIf="paymentForm.controls['cardExpirationYear'].touched && paymentForm.controls['cardExpirationYear'].hasError('required')">{{'Register.RequiredField'|translate}}.</label>
+                              <label class="text-danger"
+                                *ngIf="dateError">{{'Register.Cart.InvalidYear'|translate}}</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
+                          <label>CVV</label>
+                          <input class="form-control" formControlName="securityCode"
+                            (focusout)="cvvcallength(cvvno.value)" #cvvno placeholder="CVV" type="password">
+                          <label class="text-danger"
+                            *ngIf="cvvlength">{{'Register.Cart.IncorrectCvv'|translate}}</label>
+                          <label class="text-danger"
+                            *ngIf="paymentForm.controls['securityCode'].touched && paymentForm.controls['securityCode'].hasError('required')">{{'Register.RequiredField'|translate}}.</label>
+                        </div>
+
+                      </div>
+                      <div class="row">
+                        <input type="hidden" name="paymentMethodId" value="visa" />
+                        <input type="hidden" name="CartId" value="" />
+                        <input type="hidden" name="UserId" value="" />
+                        <input *ngIf="cartItem.length>0" type="hidden" formControlName="Amount" name="paymentMethodId"
+                          value={{cartItem[0].TotalAmount}} />
+                        <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                          <button class="btn btn-lg btn-primary mr-2" type="submit"
+                            [disabled]="paymentForm.invalid" *ngIf="cartItem.length>0">
+                            {{'Register.Cart.PayButton'|translate}}
+                            ${{(totoalPrice.toFixed(2))}}</button>
+                            <button  class="link btn btn-default mr-2" [disabled]="paymentForm.invalid" *ngIf="totoalPrice>499" (click)="onEmiSubmit(paymentForm.value)" >{{'Register.CheckEMI'|translate}}</button>
+                            <span  class="link mr-2" [class.disabled]="true" *ngIf="totoalPrice<=499" title="{{'Register.EMI499'|translate}}" >{{'Register.EMIUnavailable'|translate}}</span>
+                            <!-- <a data-toggle="popover"placement="right"
+                            ngbPopover="Please check your order value is more than $499 for EMI." popoverTitle="Why EMI is not available?">Why?</a> -->
+                      
+                           
+                          <ngx-loading [show]="loading1" [config]="{ backdropBorderRadius: '3px' }" [template]="">
+                          </ngx-loading>
+                          <!-- customLoadingTemplate -->
+                        </div> 
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <div class="row">
+                  <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 payment-option-block"
+                  [ngClass]="{
+                    'v-visible': openPayDiv,
+                    'v-hidden': !openPayDiv
+                  }"
+                  >
+                    <div class="payment-option-block-head">
+                      <div class="add-radio pull-left"><input class="" name="address" type="radio"></div> PayPal
+                    </div>
+                    <div class="payment-option-block-con">
+                      <div class="row">
+                        <!-- <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+          <a href="#"><img src="assets/img/paypal-button.png"></a>
+          </div> -->
+                        <!-- <input type="number" disabled [(ngModel)]="cartItem[0].TotalAmount" style="padding-bottom: 10px;"> -->
+                        <h5>{{'Register.Cart.YouWillBeRedirected'|translate}}</h5>
+                        <h2 *ngIf="paypalLoad">{{'Register.Cart.PaypalLoading'|translate}}</h2>
+                        <div id="paypal-checkout-btn"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            
+          </div>
+          
+        </div>
+      </div>
+      <!-- Emi Plans -->
+      <div class="row" *ngIf="lastStep==true">
+        <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 checkout-wizard">
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 checkout-wizard-head"
+              [ngClass]="{active: openEMIDiv}">
+              <span class="step-box">8</span>{{'Register.EMIPlans'|translate}}
+
+            </div>
+            <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 checkout-wizard-con"
+              *ngIf="openEMIDiv && emiPlans.length>0">
+              <div class="row" *ngFor="let s of emiPlans;let i = index">
+                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 address-block-checkout border-bottom">
+                  <div class="add-radio pull-left">
+                    <input type="radio" class="" name="plan" (click)="getSelectedIndex(i)">
+                  </div>
+                  <div class="add-box pull-left">
+                    <div class="row">
+                      <div class="col-md-7">
+                        <p class="add-box-detail">
+                          <span class="add-box-name">{{s.recommended_message}}</span><br />
+                          <!-- <span class="add-box-name">{{'Register.InstallmentRate'|translate}}: {{s.installment_rate}}%</span> -->
+                        </p>
+
+
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-4 col-lg-4 col-xs-12">
+            <button class="btn btn-lg btn-primary mrgn-b-md" (click)="selectedPlan()">{{'Register.OptPay'|translate}}</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div  class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
+        <div *ngIf="scroll"  class="row">
+          <div class="col-sm-12">
+            <div class="right-deal-wheel-box">
+              
+              <div  class="scroll-box">
+                <div class="row" *ngFor="let item of promotionProducts">
+                  <div class="col-md-12 col-xs-12"><!---->
+                    <div class="row mrgn-b-sm ng-star-inserted">
+                      <div class="col-md-2 col-xs-2">
+                        <div class="compare-dd-thumb">
+                          <a><img  src={{item.Image150}}></a>
+                        </div>
+                      </div>
+                      <div class="col-md-10 col-xs-10"><!---->
+                        <p><a  class="ng-star-inserted">{{item.Name}}</a><p>{{item.Quantity}}x ${{item.PriceAfterDiscount}}</p>
+                        <p><strong class="text-danger">{{item.Discount}}% OFF</strong></p>
+                        <p>{{'Register.CouponApplied'|translate}}</p>
+                      </div>
+                       
+                      </div>
+                    </div>
+                  </div>
+                 
+              </div>
+            </div>
+            <!--  -->
+          </div>
+        </div>
+       
+    
+      <section class="cart-right sidebar-sticky">
+        <div class="cart-right-bar">
+          <div class="row">
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+              <div class="cart-right-heading">
+              <h4>{{'Register.Cart.PRICEDETAILS'|translate}}</h4>
+            </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+              <div class="cart-right-price-detail pad-all-md">
+                <div class="cart-right-price-row">{{'Register.Price'|translate}} ({{cartItem.length}})
+                  <span *ngIf="cartItem.length>0">$ {{cartItem[0].TotalAmount.toFixed(2)}}</span>
+                </div>
+                <div class="cart-right-price-row" *ngIf="DeliveryDetail && DeliveryDetail.ShipPrice > 0">{{'Register.Cart.DeliveryCharges'|translate}}
+                  <span *ngIf="!DeliveryDetail || 0 >= DeliveryDetail.ShipPrice" style="color:green">
+                    {{'Register.Cart.Free'|translate}}
+                  </span>
+                  <span *ngIf="DeliveryDetail && DeliveryDetail.ShipPrice > 0" class="success">
+                    $ {{DeliveryDetail.ShipPrice.toFixed(2)}}
+                  </span>
+                </div>
+                <div class="ammout-payable">
+                  <div class="cart-right-price-row">{{'Register.Cart.AmountPayable'|translate}}
+                    <!-- <span *ngIf="cartItem.length>0 && DeliveryDetail">$ {{(cartItem[0].PriceAfterDiscount * 1) + (DeliveryDetail.ShipPrice.toFixed(2) * 1)}}</span> -->
+                    <!-- <span *ngIf="cartItem.length>0 && !DeliveryDetail">$ {{(cartItem[0].PriceAfterDiscount)}}</span> -->
+                    <span *ngIf="cartItem.length>0">$ {{(totoalPrice.toFixed(2))}}</span>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="cart-total-saving-row">
+                            Your Total Savings on this order $2,054
+                    </div> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class="col-sm-12" *ngIf="ShippingAddress">
+            <div class="sequre-payment-box">
+              <strong>
+                <span>
+                  {{'Register.ShippingAddress'|translate}}:
+                </span>
+              </strong>
+              <p>
+                <span class="add-box-name">{{ShippingAddress.Name}}</span><br>
+                <span>
+                  {{ShippingAddress.Colony}},{{ShippingAddress.Street}},{{ShippingAddress.City}},{{ShippingAddress.StateName}}
+                  -
+                  {{(ShippingAddress.Pincode)}}</span><br>
+                <span>{{ShippingAddress.PhoneNo}}</span>
+              </p>
+            </div>
+            <!--  -->
+          </div>
+          <div class="col-sm-12 " *ngIf="this.selectedBillAddressData">
+            <div class="sequre-payment-box">
+              <strong>
+                <span>
+                  {{'Register.BillingAddress'|translate}}:
+                </span>
+              </strong>
+              <p>
+                <span class="add-box-name">{{selectedBillAddressData.Name}}</span><br>
+                <span> {{selectedBillAddressData.Colony}},{{selectedBillAddressData.Street}}
+                  ,{{selectedBillAddressData.City}},{{selectedBillAddressData.State}} -
+                  {{(selectedBillAddressData.Pincode)}}
+                </span><br>
+                <span>{{selectedBillAddressData.PhoneNo}}</span>
+              </p>
+            </div>
+            <!--  -->
+          </div>
+          <div class="col-sm-12 " *ngIf="this.DeliveryDetail">
+            <div class="sequre-payment-box">
+              <strong>
+                <span>
+                  <!-- {{'Register.ShippingAddress'|translate}}: -->
+                  {{'Register.DeliveryDetail'|translate}}:
+                </span>
+              </strong><br>
+              <span>
+                {{'Register.Cart.DeliveryBy'|translate}} :
+                {{DeliveryDetail.DeliveryDate | date:'fullDate'}}
+              </span>
+              <p>
+                <span *ngIf="0 >= DeliveryDetail.ShipPrice" style="color:green"> {{'Register.Cart.Free'|translate}}
+                  ({{DeliveryDetail.DeliveryType}})</span>
+                <span *ngIf="DeliveryDetail.ShipPrice>0"> ${{DeliveryDetail.ShipPrice.toFixed(2)}}
+                  ({{DeliveryDetail.DeliveryType}}) </span>
+              </p>
+            </div>
+            <!--  -->
+          </div>
+          <div class="col-sm-12">
+            <div class="sequre-payment-box">
+              <img src="assets/img/shield_icon.png">
+              <strong> <span class="sequre-text">{{'Register.Cart.SafeandSecure'|translate}}</span></strong>
+            </div>
+            <!-- <img class="text-right" style="margin-left: 6%;" src="assets/img/sectigo_trust_seal_lg_140x54.png"> -->
+          </div>
+        </div>
+        <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+          <p style="font-size: 20px; color:#fff">{{'Register.LoadingWait'|translate}}</p>
+        </ngx-spinner>
+      </section>
+    </div>
+    
+  </div>
+</div>
+
+<app-footer></app-footer>

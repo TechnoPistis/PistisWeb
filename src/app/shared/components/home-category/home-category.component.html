@@ -1,0 +1,274 @@
+<div class="main-panel" *ngIf="firstDiv">
+  <div class="content">
+    <div class="page-inner">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-head-row">
+                <div class="card-title">Add product list</div>
+                <div class="ml-auto">
+                  <button (click)="showList()" class="btn btn-md btn-success">
+                    Show list
+
+                  </button>
+                </div>
+
+              </div>
+            </div>
+            <div class="form-group col-md-12">
+              <div class="row">
+                <div class=" col-md-4">
+                  <label>List Name</label>
+                  <input id="Name" name="name" class="form-control" [(ngModel)]="listName" (focusout)="getValue1()"
+                    required>
+                  <div class="validation-error" *ngIf="invalid">
+                    This list name is already added</div>
+                  <div class="validation-error" *ngIf="listNameValidation">
+                    List name is mandatory.</div>
+                </div>
+
+
+                <div class=" col-md-4">
+
+                  <label>Order number of list</label>
+                  <select name="ProductId" #productId class="form-control" selected
+                    (change)="getValue(productId.value)">
+                    <option value="0">{{'Register.SelectOption'|translate}}</option>
+                    <option *ngFor="let c of count ;" [value]="c">
+                      {{c}}
+                    </option>
+
+                  </select>
+                </div>
+
+                <div class="col-md-2 mb-2">
+                  <div class="chiller_cb">
+                    <input id="isdefault" name="isdefault" type="checkbox" class="custom-control-input"
+                      [(ngModel)]="IsEnable" (change)="onCheckboxChagen($event)">
+                    <label for="isdefault" class="custom-control-label">Is Enable </label>
+                  </div>
+                </div>
+                <div class="col-md-2 mt-3 ">
+
+                  <button type="button" class="btn btn-sm btn-success" [disabled]="invalid"
+                    (click)="getListData()">Save</button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- seconed div -->
+
+<div class="main-panel" *ngIf="seconedDive==true">
+  <div class="content">
+    <div class="page-inner">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-head-row">
+                <div class="card-title">Lists name</div>
+                <div class=" ml-auto">
+                  <button (click)="AddddList()" class="btn btn-md btn-success ">
+                    Add list
+
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="input-group" id="adv-search">
+                    <input type="text" class="form-control" [(ngModel)]="searchhh"
+                      placeholder="{{'Register.SearchPlaceholder'|translate}}">
+
+
+                    <button type="button" class="btn btn-primary" (click)="search()"><span class="fa fa-search"
+                        aria-hidden="true"></span></button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="row pt-3">
+              <div class="col-md-12">
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+
+                        <th>List name</th>
+                        <th>Order number</th>
+                        <th> Acivate/Deactivate</th>
+                        <th>Add product</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of list">
+                        <td>{{item.Name}}</td>
+                        <td>{{item.OrderNumber}}</td>
+                        <td *ngIf="item.IsActive==true">
+                          <button (click)="onActivate(item.Id,2)"
+                            class="btn btn-sm btn-success btn-fix-width">{{'Register.DeactivateButton'|translate}}</button>
+                        </td>
+
+                        <td *ngIf="item.IsActive==false">
+                          <button (click)="onActivate(item.Id,1)"
+                            class="btn btn-sm btn-danger btn-fix-width">{{'Register.Activate'|translate}} </button>
+                        </td>
+                        <td><button *ngIf="item.IsActive==true " (click)="addProducts(item.Name,item.Id)"
+                            class="btn btn-primary">Add products</button>
+                          <button *ngIf="item.IsActive==false " (click)="addProducts(item.Name,item.Id)" disabled
+                            class="btn btn-primary">Add products</button></td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- <div class="col-md-12">
+                  <div class="row no-left-right" *ngIf="count">
+                    <app-admin-pagination [count]="count" [page]="page" [(perPage)]="perPage" [pagesToShow]="pagesToShow"
+                      (goPrev)="prevPage()" (goNext)="nextPage()" (goPage)="goToPage($event)"
+                      (pageSize)="newPageSize($event)">
+                    </app-admin-pagination>
+                  </div>
+                </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- </div>
+  </div> -->
+</div>
+<!-- thrid div -->
+<div class="main-panel" *ngIf="thirdDiv==true">
+  <div class="content">
+    <div class="page-inner">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-head-row">
+                <div class="card-title">{{ListName}}</div>
+                <div class="btn-group btn-group-page-header ml-auto">
+
+                  <button (click)="showList()" class="btn btn-md btn-success">
+                    Show list
+
+                  </button>
+                  <button (click)="AddddList()" class="btn btn-md btn-success ml-1">
+                    Add list
+
+                  </button>
+                </div>
+              </div>
+
+
+
+
+
+
+
+            </div>
+            <div class="card-body">
+              <div class="col-md-12">
+                <div class="row">
+
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>Category</label>
+                      <select name="ProductCategory" [(ngModel)]="CategoryId"
+                        (change)="getSubCategoriesByCategory($event.target.value)" id="category" class="form-control"
+                        required>
+                        <option [value]="null">Select Category</option>
+                        <option *ngFor="let c of ProductCategories;" [value]="c.Id">
+                          {{c.Name}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>Sub-Category</label>
+                      <select name="ProductCategoryId" [(ngModel)]="SubCategoryId"
+                        (change)="getVariants($event.target.value)" id="categories" class="form-control" required>
+                        <option [value]="null">Select Sub-Category</option>
+                        <option *ngFor="let c of Categories;" [value]="c.Id">
+                          {{c.Name}}
+                        </option>
+                      </select>
+                      <!-- <div class="validation-error" *ngIf="ProductCategoryId.invalid ">
+                                This field is required.
+                              </div> -->
+                    </div>
+                  </div>
+                  <div class="col-md-3 mt-1">
+                    <mat-form-field>
+                      <mat-label>Products</mat-label>
+                      <mat-select name="selectedCustomers" #selectedCustomer="ngModel" [(ngModel)]="selectedCustomers"
+                        class="form-control" multiple>
+                        <mat-option *ngFor="let data of products" [value]="data.Id">{{data.name}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-2 mt-5">
+
+                    <button type="button" *ngIf="!HomeCategoryProducts || HomeCategoryProducts.length<=12" class="btn btn-sm btn-success" (click)="onclick(selectedCustomer.value)">Add
+                      products</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row pt-3">
+              <div class="col-md-12">
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+
+                        <th>Product name</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of HomeCategoryProducts">
+                        <td>{{item.name}}</td>
+                        <td><button (click)="onDelete(item.Id)" class="btn btn-sm btn-outline-danger"><i
+                              class="fas fa-trash"></i></button></td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- <div class="col-md-12">
+                  <div class="row no-left-right" *ngIf="count">
+                    <app-admin-pagination [count]="count" [page]="page" [(perPage)]="perPage" [pagesToShow]="pagesToShow"
+                      (goPrev)="prevPage()" (goNext)="nextPage()" (goPage)="goToPage($event)"
+                      (pageSize)="newPageSize($event)">
+                    </app-admin-pagination>
+                  </div>
+                </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- </div>
+  </div> -->
+</div>

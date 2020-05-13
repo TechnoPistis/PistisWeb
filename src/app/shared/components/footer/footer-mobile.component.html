@@ -1,0 +1,36 @@
+<footer>
+    <div class="container-fluid footer">
+      <div class="">
+        
+        <div class="row">
+          <div class="col-sm-3 col-md-3 col-xs-6" *ngFor="let cat of footer ">
+            <h1>{{cat.Name}}</h1>
+            <ul class="footer-ul">
+  
+              <li *ngFor="let item of cat.FooterUrls "><a (click)="getFooterData(item.Id,item.Name)">{{item.Name}}</a>
+              </li>
+  
+  
+            </ul>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+    <div class="container-fluid copyright">
+      <div class="">
+        <div class="row">
+  
+          <div class="col-sm-7 col-md-6 col-xs-12 copyright-text">
+            copyright - {{'Register.CopyRightSection.CopyRightDescp'|translate}} <a class="product-by-link"
+              target="_blank" href="#"></a>
+          </div>
+  
+          <div class="col-sm-5 col-md-6 col-xs-12 text-right copyright-img">
+  
+            <img src="assets/img/payment-footer.png" alt="payment">
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>

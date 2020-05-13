@@ -1,0 +1,408 @@
+<app-header></app-header>
+<!-------------CART SECTION START----------->
+
+
+
+<div class="conatiner-fluid ">
+  <div class="container p-tb-2 ">
+
+
+    <div *ngIf="emptyCart" class="cart-page-con-area empty-cart-con">
+      <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 ">
+          <h4>{{'Register.Cart.MyCart'|translate}}</h4>
+        </div>
+      </div>
+      <div class="row" *ngIf="cartItem.length==0">
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 text-center">
+          <img src="assets/emptyCart.png">
+        </div>
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 text-center">
+          <h3>{{'Register.Cart.EmptyCart'|translate}}</h3>
+          <p>{{'Register.Cart.GoodDay'|translate}}</p>
+          <button class="btn btn-outline btn-primary" type="button" [routerLink]="['/']" routerLinkActive="router-link-active">{{'Register.Cart.ContinueShoppingButton'|translate}}
+            <i class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- New cart start -->
+    <div class="row mrgn-b-md" *ngIf="!emptyCart">
+      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+        <div class="cart-page-con-area pad-all-sm">
+          <div class="row sticky-top">
+            <div class="col-xs-12">
+              <section class="cart-top-action-row ">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="cart-sub-total"> {{'Register.Subtotal'|translate}} ({{cartItem.length}}
+                      {{'Register.Products1'|translate}}): <span class="price">${{cartItem[0].TotalAmount.toFixed(2)|number}}</span></div>
+                    <div class="cart-button-block">
+                      <button type="button" class="btn place-order" [disabled]="disablebtn" [routerLink]="['/checkout']"
+                        routerLinkActive="router-link-active">
+                        <span> {{'Register.Cart.PlaceOrder'|translate}}</span>
+                      </button>
+                    </div>
+                  </div>
+
+
+                </div>
+              </section>
+            </div>
+          </div>
+          <div class="row ">
+            <div class="col-xs-12">
+              <section class="cart-main m-view" *ngFor="let c of cartItem">
+                <div class="row">
+                  <div class="col-xs-4">
+                    <div class="cart-thumb">
+                      <a (click)="passTheSalt(c.ProductId,c.ProductVariantDetailId,$event)">
+                        <img class="img-responsive" src={{c.Image150}} />
+                      </a>
+                    </div>
+
+                  </div>
+                  <div class="col-xs-8 pad-l-0">
+
+
+                    <a class="cart-product-title" (click)="passTheSalt(c.ProductId,c.ProductVariantDetailId,$event)">{{c.Name}}</a>
+                    <div class="size-seller-text" *ngFor="let v of c.VariantOptions;let i = index">
+                      <span *ngIf="v.varientName!='Default'">
+                        {{v.varientName}}: {{v.Name}}
+
+                      </span>
+                    </div>
+                    <div class="size-seller-text">
+                      {{'Register.MyOrders.Seller'|translate}}: {{c.VendorName}}
+                    </div>
+
+
+
+
+
+                    <div class="cart-price-row">
+                      <div class="d-block"> <span class="cart-price-accual" *ngIf="c.Discount>0">${{c.SellingPrice.toFixed(2)}}</span>
+                        <span class="cart-offer" *ngIf="c.Discount>0">{{c.Discount}}% Off</span></div>
+                      <div class="d-block deal" *ngIf="c.DealQuantityPerUser>0">{{'Register.DealValidon'|translate}}
+                        {{c.DealQuantityPerUser}} {{'Register.lessprocuts'|translate}} </div>
+                      <span class="cart-price">${{c.Amount.toFixed(2)}}</span>
+                      <span *ngIf="c.InStock<=0" style="color: red">
+                        {{'Register.Cart.OutOfStockItem'|translate}}</span>
+
+                    </div>
+
+
+
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                    <div class="qty-block">
+                      <div class="input-group">
+                        <span class="input-group-btn">
+                          <button type="button" class="btn btn-default btn-number" data-type="minus" data-field="quant[2]"
+                            (click)="decrement(c.Quantity,c.CartItemId)">
+                            <i class="fa fa-minus"></i>
+                          </button>
+                        </span>
+                        <input type="text" readonly name="quant[2]" class="form-control input-number" #quant value={{c.Quantity}}
+                          min="1" (change)="quantityChange(quant.value,c.CartItemId)">
+                        <span class="input-group-btn">
+                          <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[2]"
+                            (click)="increment(c.Quantity,c.CartItemId)">
+                            <i class="fa fa-plus"></i>
+                          </button>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                      <div class="cart-action-row">
+                          <span>
+                            <a (click)="saveForLater(c.ProductVariantDetailId,c.CartItemId)">{{'Register.Cart.SaveForLater'|translate}}</a>
+                          </span>
+                          <span>
+                            <a (click)="removeItem(c.CartItemId)">{{'Register.Cart.Remove'|translate}}</a>
+                          </span>
+                        </div>
+                  </div>
+                </div>
+              </section>
+             
+            </div>
+            <div class="col-xs-12 cart-right-m-view">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="cart-right-box price-bg">
+                    <div class="row">
+                      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <div class="cart-right-price-detail">
+                          <div class="cart-right-price-row">{{'Register.Products1'|translate}} ({{cartItem.length}})
+                            <span *ngIf="cartItem.length>0"> ${{cartItem[0].TotalAmount.toFixed(2)|number}}</span>
+                          </div>
+                          <div class="delivery-charge">
+                            <a href="#">{{'Register.ImportFees'|translate}} </a> {{'Register.ApplyEnd'|translate}} .
+                          </div>
+                          <div class="ammout-payable">
+                            <div class="cart-right-price-row">{{'Register.MyOrders.Total'|translate}}
+                              <span *ngIf="cartItem.length>0">${{cartItem[0].TotalAmount.toFixed(2)|number}}</span>
+                            </div>
+                          </div>
+                          
+                        </div>
+                       
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12 ">
+                  <div class="cart-right-box">
+                    <div class="dilevery-charge-block">
+
+                      <h4> {{'Register.Cart.DeliveryCharges'|translate}} :</h4>
+
+                      <p class="cart-right-price-row" *ngIf="!ShippingCharges && slanguage=='english'">
+                        Please enter pincode to know shipping charges
+                      </p>
+                      <p class="cart-right-price-row" *ngIf="!ShippingCharges && slanguage=='espanol'">
+                        Ingrese el código de pin para conocer los gastos de envío.
+                      </p>
+                      <div class="pincode-box">
+                        <span class="location-icon">
+                          <i class="fas fa-map-marker-alt"></i>
+                        </span>
+                        <div class="pincode">
+                          <input id="pincodeInputId" maxlength="6" placeholder="{{'Register.Cart.Pincode'|translate}}"
+                            [(ngModel)]="PostalCode" type="text" value="">
+                        </div>
+                        <span class="pull-right"><a (click)="calculateCharges()" class="text-link">{{'Register.Cart.Check'|translate}}</a></span>
+
+
+                      </div>
+                      <div *ngIf="isShipError==true" class="pull-right">
+                        <label style="color: red">{{errMsg}}
+                        </label>
+                      </div>
+
+                      <ul *ngIf="isShipError==false">
+                        <li class="cart-right-price-row" *ngFor="let item of ShippingCharges">
+                          <span>{{item.DeliveryDate | date:'mediumDate'}} |
+                            ({{item.DeliveryType}})
+                          </span>
+                          <span *ngIf="0 >= item.ShipPrice" class="delivery-free">
+                            Free
+                          </span>
+                          <span *ngIf="item.ShipPrice > 0" class="delivery-free">
+                            ${{item.ShipPrice.toFixed(2)}}
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="cart-right-box">
+                    <div class="sequre-pay-block">
+                      <img src="assets/img/shield_icon.png">
+                      <span class="sequre-text">{{'Register.Cart.SafeandSecure'|translate}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+
+    <!-- New cart end -->
+
+
+
+    <!-- <div class="row" *ngIf="cartItem.length>0">
+      <div class="col-md-8 col-lg-8 col-sm-8 col-xs-12">
+        <div class="cart-page-con-area">
+          <div class="row">
+            <div class="cart-page-heading">
+              <div class="col-md-6 col-lg-6 col-sm-5 col-xs-12">
+                <h4 *ngIf="cartItem.length>=1">{{'Register.Cart.noEmptyCart'|translate}} ({{cartItem.length}})</h4>
+              </div>
+              <div class="col-md-6 col-lg-6 col-sm-7 col-xs-12">
+                <div class="pincode-box pull-right">
+                  <span class="location-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                  </span>
+                  <div class="pincode">
+                    <input id="pincodeInputId" maxlength="6" placeholder="{{'Register.Cart.Pincode'|translate}}"
+                      [(ngModel)]="PostalCode" type="text" value="">
+                  </div>
+                  <span class="pull-right"><a (click)="calculateCharges()"
+                      class="text-link">{{'Register.Cart.Check'|translate}}</a></span>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12" class="pull-right">
+                <div *ngIf="isShipError==true" class="pull-right">
+                  <label style="color: red">{{errMsg}}
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <section class="cart-main" *ngFor="let c of cartItem">
+            <div class="row">
+              <div class="col-md-2 col-lg-2 col-sm-3 col-xs-4">
+                <div class="cart-thumb">
+                    <a  (click)="passTheSalt(c.ProductId,c.ProductVariantDetailId,$event)">
+                  <img class="img-responsive" src={{c.Image}} />
+                  </a>
+                </div>
+                <div class="qty-block">
+                  <div class="input-group">
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-default btn-number" data-type="minus" data-field="quant[2]" (click)="decrement(c.Quantity,c.CartItemId)">
+                        <i class="fa fa-minus" ></i>
+                      </button>
+                    </span>
+                    <input type="text" readonly name="quant[2]" class="form-control input-number" #quant
+                      value={{c.Quantity}} min="1" (change)="quantityChange(quant.value,c.CartItemId)">
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[2]" (click)="increment(c.Quantity,c.CartItemId)">
+                        <i class="fa fa-plus" ></i>
+                      </button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-6 col-sm-6 col-xs-8">
+                <a class="cart-product-title" (click)="passTheSalt(c.ProductId,c.ProductVariantDetailId,$event)">{{c.Name}}</a>
+                <div class="size-seller-text" *ngFor="let v of c.VariantOptions">
+                  <span *ngIf="v.varientName!='Default'">
+                    {{v.varientName}}: {{v.Name}}
+
+                  </span>
+                </div>
+                <div class="size-seller-text">
+                  {{'Register.MyOrders.Seller'|translate}}: {{c.VendorName}}
+                </div>
+                <div class="cart-price-row">
+                  <span class="cart-price">${{c.PriceAfterDiscount.toFixed(2)}}</span>
+                  <span class="cart-price-accual" *ngIf="c.Discount>0">${{c.SellingPrice.toFixed(2)}}</span>
+                  <span class="cart-offer" *ngIf="c.Discount>0">{{c.Discount}}% Off</span>
+                  <span *ngIf="c.InStock<=0" style="color: red">
+                    {{'Register.Cart.OutOfStockItem'|translate}}</span>
+                 
+                </div>
+              </div>
+
+              <div class="col-md-8">
+                <div class="cart-action-row">
+                  <span>
+                    <a
+                      (click)="saveForLater(c.ProductVariantDetailId,c.CartItemId)">{{'Register.Cart.SaveForLater'|translate}}</a>
+                  </span>
+                  <span>
+                    <a (click)="removeItem(c.CartItemId)">{{'Register.Cart.Remove'|translate}}</a>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="cart-bottom-action-row">
+            <div class="row">
+              <button type="button" class="continue-shopping">
+                <span [routerLink]="['/']" routerLinkActive="router-link-active"><i
+                    class="fas fa-chevron-left"></i> {{'Register.Cart.ContinueShoppingButton'|translate}}</span>
+              </button>
+              <button type="button" class="btn place-order" [disabled]="disablebtn" [routerLink]="['/checkout']"
+                routerLinkActive="router-link-active">
+                <span> {{'Register.Cart.PlaceOrder'|translate}}</span>
+              </button>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
+        <section class="cart-right sidebar-sticky">
+          <div class="cart-right-bar">
+            <div class="row cart-right-heading">
+              <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                <h4>{{'Register.Cart.PRICEDETAILS'|translate}}</h4>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                <div class="cart-right-price-detail">
+                  <div class="cart-right-price-row">{{'Register.Cart.Price'|translate}} ({{cartItem.length}})
+                    <span *ngIf="cartItem.length>0"> {{cartItem[0].TotalAmount.toFixed(2)|number}}</span>
+                  </div>
+                  <div class="ammout-payable">
+                    <div class="cart-right-price-row">{{'Register.Cart.AmountPayable'|translate}}
+                      <span *ngIf="cartItem.length>0">${{cartItem[0].TotalAmount.toFixed(2)|number}}</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12 " *ngIf="isShipError==false">
+              <div class="sequre-payment-box">
+                <strong>
+                  <span>
+                    <strong> {{'Register.Cart.DeliveryCharges'|translate}} : </strong>
+                  </span>
+                </strong><br>
+                <p class="cart-right-price-row" *ngIf="!ShippingCharges && slanguage=='english'">
+                  Please enter pincode to know shipping charges
+                </p>
+                <p class="cart-right-price-row" *ngIf="!ShippingCharges && slanguage=='espanol'">
+                    Ingrese el código de pin para conocer los gastos de envío.
+                </p>
+                <ul>
+                  <li class="cart-right-price-row" *ngFor="let item of ShippingCharges">
+                    <span>{{item.DeliveryDate | date:'mediumDate'}} |
+                      ({{item.DeliveryType}})
+                    </span>
+                    <span *ngIf="0 >= item.ShipPrice" class="delivery-free">
+                      Free
+                    </span>
+                    <span *ngIf="item.ShipPrice > 0" class="delivery-free">
+                      ${{item.ShipPrice.toFixed(2)}}
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="sequre-payment-box">
+                <img src="assets/img/shield_icon.png">
+                <span class="sequre-text">{{'Register.Cart.SafeandSecure'|translate}}</span>
+              </div>
+            </div>
+          </div>
+
+        </section>
+      </div>
+    </div> -->
+    <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+      <p style="font-size: 20px; color:#fff">{{'Register.LoadingWait'|translate}}</p>
+    </ngx-spinner>
+  </div>
+</div>
+
+<app-footer></app-footer>

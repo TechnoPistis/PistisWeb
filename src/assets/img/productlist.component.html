@@ -1,0 +1,448 @@
+<app-header></app-header>
+<div class="conatiner-fluid main-content">
+
+  <div class="row mrgn-b-sm">
+    <div class="col-md-12 header-bellow-bar">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="header-bellow-bar-colums">
+            <ul class="breadcrumbs">
+              <li><a href="#" (click)="getProductsByMainCat()">{{Cat}}</a></li>
+              <!-- <li *ngIf="subCat!=null"><a href="#">&nbsp;&nbsp;»</a></li>
+            <li><a href="#">{{subCat}}</a></li> -->
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-2 text-right">
+            <div class="view-as">
+                View as:
+                <a href="#" id="grid" class="active"><i class="fas fa-th-large"></i></a>
+                    <a href="#" id="list" class="">
+                      <i class="fa fa-th-list"></i>
+                    </a> 
+            </div>
+        </div>
+        <div class="col-md-2 text-right">
+          <div class="sort-by-box">
+            <span class="sort-by">Sort by</span>
+            <span class="sort-dropdown">
+              <select class="sort-select" #sortBy [(ngModel)]="SortData" (change)="SortBy(sortBy.value)">
+                <!-- <option>Featured</option> -->
+                <option value="HighToLow">Price: High to Low</option>
+                <option value="LowToHigh">Price: Low to High</option>
+                <option selected value="NewArrival">New Arrivals</option>
+              </select>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-3 col-lg-3 col-sm-4 col-xs-12">
+
+      <section class="filter-sidebar">
+        <div class="cat-heading">
+          categories
+        </div>
+        <div class="cat-section">
+          <i class="fa fa-chevron-left" aria-hidden="true"></i><a
+            [ngClass]="{'active': selectedCategory == maincat.Idlevel1}" href="#"
+            (click)="getProducts(maincat.Idlevel1,page,perPage)" value="maincat.Idlevel1">{{maincat.Namelevel1}}</a>
+        </div>
+        <div class="cat-sub-section">
+          <a [ngClass]="{'active': selectedCategory == maincat.Idlevel2}" href="#"
+            (click)="getProducts(maincat.Idlevel2,page,perPage)" value="maincat.Idlevel2">{{maincat.Namelevel2}}</a>
+        </div>
+        <div class="cat-sub-section-inner" *ngFor="let item of maincat.Children">
+          <label [ngClass]="{'active': selectedCategory == item.Id}"
+            (click)="getProducts(item.Id,page,perPage)">{{item.Name}}</label>
+        </div>
+      </section>
+      <section class="filter-sidebar" *ngIf="pricelist.length>1">
+        <div class="cat-heading">
+          Price
+        </div>
+        <div class="cat-section">
+          <div class="price-filter">
+            <ul class="list-unstyled">
+              <li *ngFor="let p of pricelist;let i=index;">
+                <a [ngClass]="{'active': selectedItem == p}" (click)="getFilterPrice(p,-1)">
+                  {{p}}
+                </a>
+              </li>
+              <li *ngIf="minPrice.value||maxPrice.value">
+                <a (click)="getFilterPrice(0,0)">Any Price</a>
+              </li>
+            </ul>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="min-max-price">
+                  <span class="price-icon">$</span>
+                  <input type="text" class="form-control" placeholder="Min" [(ngModel)]=minPriceBox #minPrice>
+                </div>
+                <div class="min-max-price gap">
+                  <span class="price-icon">$</span>
+                  <input type="text" class="form-control" placeholder="Max" [(ngModel)]=maxPriceBox #maxPrice>
+                </div>
+                <div class="min-max-btn">
+                  <button class="btn btn-sm btn-primary"
+                    (click)="getFilterPrice(minPrice.value,maxPrice.value)">Go</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="filter-sidebar">
+        <div class="cat-heading">
+          Avg. Customer Review
+        </div>
+        <div class="cat-section">
+          <div class="star-rating-filter">
+            <ul class="list-unstyled">
+              <li>
+                <a [ngClass]="{'active': selectedReview == 4}" (click)="getFilterReview(4)">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="far fa-star"></i>
+                  & Up
+                </a>
+              </li>
+              <li>
+                <a [ngClass]="{'active': selectedReview == 3}" (click)="getFilterReview(3)">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="far fa-star"></i>
+                  <i class="far fa-star"></i>
+                  & Up
+                </a>
+              </li>
+              <li>
+                <a [ngClass]="{'active': selectedReview == 2}" (click)="getFilterReview(2)">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="far fa-star"></i>
+                  <i class="far fa-star"></i>
+                  <i class="far fa-star"></i>
+                  & Up
+                </a>
+              </li>
+              <li>
+                <a [ngClass]="{'active': selectedReview == 1}" (click)="getFilterReview(1)">
+                  <i class="fas fa-star"></i>
+                  <i class="far fa-star"></i>
+                  <i class="far fa-star"></i>
+                  <i class="far fa-star"></i>
+                  <i class="far fa-star"></i>
+                  & Up
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+
+
+      <section class="filter-sidebar" *ngFor="let v of Variants">
+        <div class="cat-heading">
+          {{v.Name}}
+        </div>
+        <div class="cat-section"
+          *ngIf="v.Name.toLowerCase()==='color'||v.Name.toLowerCase()==='colour'; else elseblock">
+          <div class="custom-radios">
+            <div *ngFor="let o of v.VariantOptions; let i = index;let last=last">
+              <div *ngIf="o.Name.toLowerCase()==='black'">
+                <input type="checkbox" id="black" name="color" [value]="o.Id" #black>
+                <label for="black">
+                  <span (change)="getFilterData(!black.checked,v.Id,o.Id)">
+                  </span>
+                </label>
+              </div>
+
+
+              <div *ngIf="o.Name.toLowerCase()==='grey'">
+                <input type="checkbox" id="grey" name="color" [value]="o.Id" #grey>
+                <label for="grey">
+                  <span (click)="getFilterData(!grey.checked,v.Id,o.Id)">
+                  </span>
+                </label>
+              </div>
+              <div *ngIf="o.Name.toLowerCase()==='white'">
+                <input type="checkbox" id="white" name="color" [value]="o.Id" #white>
+                <label for="white">
+                  <span (click)="getFilterData(!white.checked,v.Id,o.Id)">
+                  </span>
+                </label>
+              </div>
+              <div *ngIf="o.Name.toLowerCase()==='brown'">
+                <input type="checkbox" id="brown" name="color" [value]="o.Id" #brown>
+                <label for="brown">
+                  <span (click)="getFilterData(!brown.checked,v.Id,o.Id)">
+                  </span>
+                </label>
+              </div>
+              <div *ngIf="o.Name.toLowerCase()==='beige'">
+                <input type="checkbox" id="beige" name="color" [value]="o.Id" #beige>
+                <label for="color-4">
+                  <span (change)="getFilterData(!beige.checked,v.Id,o.Id)">
+                  </span>
+                </label>
+              </div>
+              <div *ngIf="o.Name.toLowerCase()==='red'">
+                <input type="checkbox" id="red" name="color" [value]="o.Id" #red>
+                <label for="red">
+                  <span (click)="getFilterData(!red.checked,v.Id,o.Id)">
+                  </span>
+                </label>
+              </div>
+              <div *ngIf="o.Name.toLowerCase()==='pink'">
+                <input type="checkbox" id="pink" name="color" [value]="o.Id" #check>
+                <label for="pink">
+                  <span (click)="getFilterData(!check.checked,v.Id,o.Id)">
+                  </span>
+                </label>
+              </div>
+              <div *ngIf="o.Name.toLowerCase()==='orange'">
+                <input type="checkbox" id="orange" name="color" [value]="o.Id" #orange>
+                <label for="orange">
+                  <span (click)="getFilterData(!orange.checked,v.Id,o.Id)">
+                  </span>
+                </label>
+              </div>
+              <div *ngIf="o.Name.toLowerCase()==='yellow'">
+                <input type="checkbox" id="yellow" name="color" [value]="o.Id" #yellow>
+                <label for="yellow">
+                  <span (click)="getFilterData(!yellow.checked,v.Id,o.Id)">
+                  </span>
+                </label>
+              </div>
+              <div *ngIf="o.Name.toLowerCase()==='offwhite'">
+                <input type="checkbox" id="offwhite" name="color" [value]="o.Id" #offwhite>
+                <label for="offwhite">
+                  <span (click)="getFilterData(!offwhite.checked,v.Id,o.Id)">
+                  </span>
+                </label>
+              </div>
+              <div *ngIf="o.Name.toLowerCase()==='green'">
+                <input type="checkbox" id="green" name="color" [value]="o.Id" #green>
+                <label for="green">
+                  <span (click)="getFilterData(!green.checked,v.Id,o.Id)">
+                  </span>
+                </label>
+              </div>
+              <div *ngIf="o.Name.toLowerCase()==='turquoise'">
+                <input type="checkbox" id="turquoise" name="color" [value]="o.Id" #turquoise>
+                <label for="turquoise">
+                  <span (click)="getFilterData(!turquoise.checked,v.Id,o.Id)">
+                  </span>
+                </label>
+              </div>
+              <div *ngIf="o.Name.toLowerCase()==='blue'">
+                <input type="checkbox" id="blue" name="color" [value]="o.Id" #blue>
+                <label for="blue">
+                  <span (click)="getFilterData(!blue.checked,v.Id,o.Id)">
+                  </span>
+                </label>
+              </div>
+              <div *ngIf="o.Name.toLowerCase()==='purple'">
+                <input type="checkbox" id="purple" name="color" [value]="o.Id" #purple>
+                <label for="purple">
+                  <span (click)="getFilterData(!purple.checked,v.Id,o.Id)">
+                  </span>
+                </label>
+              </div>
+              <div *ngIf="o.Name.toLowerCase()==='gold'">
+                <input type="checkbox" id="gold" name="color" [value]="o.Id" #gold>
+                <label for="gold">
+                  <span (click)="getFilterData(!gold.checked,v.Id,o.Id)">
+                  </span>
+                </label>
+              </div>
+              <div *ngIf="o.Name.toLowerCase()==='silver'">
+                <input type="checkbox" id="silver" name="color" [value]="o.Id" #silver>
+                <label for="silver">
+                  <span (click)="getFilterData(!silver.checked,v.Id,o.Id)">
+                  </span>
+                </label>
+              </div>
+              <div *ngIf="o.Name.toLowerCase()==='multicolor'">
+                <input type="checkbox" id="multicolor" name="color" [value]="o.Id" #multicolor>
+                <label for="multicolor">
+                  <span (click)="getFilterData(!multicolor.checked,v.Id,o.Id)">
+                  </span>
+                </label>
+              </div>
+              <div *ngIf="o.Name.toLowerCase()==='transparent'">
+                <input type="checkbox" id="transparent" name="color" [value]="o.Id" #transparent>
+                <label for="transparent">
+                  <span (click)="getFilterData(!transparent.checked,v.Id,o.Id)">
+                  </span>
+                </label>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+        <ng-template #elseblock>
+          <div class="cat-section" *ngIf="v.Name.toLowerCase()==='size'; else innerElse">
+            <div class="sizes-block">
+              <ul class="list-unstyled sizes">
+                <li *ngFor="let o of v.VariantOptions; let i = index;">
+                  <button class="btn-sizes" type="button" [ngClass]="{'active': selectedSizeArray.includes(o.Id)}"
+                    [value]="o.Id" [(ngModel)]="selectedSize" (click)="getFilterData(o.Id,v.Id,o.Id)"
+                    id="a-autoid-26-announce">
+                    {{o.Name}}
+                  </button>
+                </li>
+
+              </ul>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template #innerElse>
+          <div class="size-section" *ngFor="let o of v.VariantOptions; let i = index;">
+            <span class="size"><input type="checkbox" [value]="o.Id" (change)="getFilterData($event,v.Id,o.Id)" />&nbsp;
+              &nbsp;{{o.Name}}</span>
+          </div>
+        </ng-template>
+      </section>
+    </div>
+
+    <div class="col-md-9 col-lg-9 col-sm-8 col-xs-12 filter-products">
+      <div class="filter-products-inner">
+
+        <div class="row">
+          <app-pagination [count]="count" [page]="page" [(perPage)]="perPage" [pagesToShow]="pagesToShow"
+            (goPrev)="prevPage()" (goNext)="nextPage()" (goPage)="goToPage($event)" (pageSize)="newPageSize($event)">
+          </app-pagination>
+        </div>
+        <div class="row" *ngIf="Products.length>0;else elseBlock">
+          <div class="col-sm-3 col-xs-12 text-center" *ngFor="let p of Products">
+
+
+            <a [routerLink]="" (click)="passTheSalt(p.Id,p.VariantDetailId)">
+
+              <div class="bestseller-box">
+                <div class="bestseller-sale">-{{p.Discount}}%</div>
+                <div class="bestseller-img">
+
+                  <img src={{p.Image}} />
+
+                </div>
+                <div class="bestseller-text">{{p.Name.length > 45 ? p.Name.substring(0,45)+"..." : p.Name}}</div>
+                <div class="bestseller-stars">
+                  <i class="far fa-star" aria-hidden="true"></i>
+                  <i class="far fa-star" aria-hidden="true"></i>
+                  <i class="far fa-star" aria-hidden="true"></i>
+                  <i class="far fa-star" aria-hidden="true"></i>
+                  <i class="far fa-star" aria-hidden="true"></i>
+                </div>
+                <div class="bestseller-price">
+                  <span class="price-off">${{p.SellingPrice}}</span>
+                  <span class="price-now">${{p.PriceAfterDiscount}}</span>
+                </div>
+
+              </div>
+            </a>
+
+          </div>
+        </div>
+        <ng-template #elseBlock>
+          <div class="row">
+            <div class="col-sm-3 col-xs-12 text-center">
+              <h4>No Item Found!!</h4>
+            </div>
+          </div>
+        </ng-template>
+
+        <!-- Detail view -->
+
+        <div class="row" *ngIf="Products.length>0;else elseBlock">
+          <div class="col-sm-12 col-xs-12" *ngFor="let p of Products">
+            <div class="product-box list-view">
+
+              <div class="row">
+
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-12">
+                  <!-- <span class="wishlist-icon-box">
+                    <div class="heart-box">
+                      <div class="heart"></div>
+                    </div>
+                  </span> -->
+                  <div class="cart-thumb-list">
+                      <a [routerLink]="" (click)="passTheSalt(p.Id,p.VariantDetailId)">
+                    <img src={{p.Image}} />
+                    </a>
+                  </div>
+                </div>
+                <div class="col-md-9 col-lg-9 col-sm-9 col-xs-12">
+
+                  <div class="row">
+                    <div class="col-md-12">
+                        <a [routerLink]="" (click)="passTheSalt(p.Id,p.VariantDetailId)">
+                      <span class="company-name">{{p.Name}}</span>
+</a>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="bestseller-stars">
+                            <i class="far fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>
+                          </div>
+
+                    </div>
+                    <div class="col-md-12">
+                        <a [routerLink]="" (click)="passTheSalt(p.Id,p.VariantDetailId)">
+                      <span class="price">${{p.PriceAfterDiscount}}</span>
+                      </a>
+                      <span class="discount">${{p.SellingPrice}}</span>
+                      <span class="discount-percentage">{{p.Discount}}%</span>
+                      <p>No cost EMI availableNo cost EMI available</p>
+                    </div>
+                    <div class="col-md-12 mb-2">
+                      Get it by <strong>Friday, September 20</strong>
+                      <p>
+                        FREE Delivery by Amazon
+                      </p>
+                    </div>
+                    <div class="col-md-12">
+                      <button type="button" class="btn add-to-cart-1">
+                        Add to Cart
+                      </button>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ENd Detail view -->
+      </div>
+      <div class="no-left-right">
+        <app-pagination [count]="count" [page]="page" [(perPage)]="perPage" [pagesToShow]="pagesToShow"
+          (goPrev)="prevPage()" (goNext)="nextPage()" (goPage)="goToPage($event)" (pageSize)="newPageSize($event)">
+        </app-pagination>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+</div>
+
+<app-footer></app-footer>
+<!-- vvvvvvvv -->

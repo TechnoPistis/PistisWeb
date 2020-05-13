@@ -1,0 +1,74 @@
+<div class="main-panel">
+    <div class="content">
+      <div class="page-inner">
+       
+        <div class="row mt-3">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">
+                    <div class="card-head-row">
+                      <div class="card-title">{{'Register.Addnewsletterinformation'|translate}} </div>
+                    
+                    </div>
+                  </div>
+<div class="card-body">
+   
+<div  class="row mt-2">
+    <div class="col-md-12">
+        <div class="banner-area-width">
+        <div class="row">
+            <div class="col-md-12">
+
+              <div class="upload-img-area" (click)="openFile()" >
+                <div class="image-number">
+                  {{'Register.AddImage'|translate}} 
+                </div>
+                <img   class="sale-banner-full-1" [src]="!image1?'/assets/1234.jpg':image1">
+                <p class="thumb-size text-right">{{'Register.Size'|translate}}: 600x600</p>
+              </div>
+            
+              <input id="fileDialog" #Image style="visibility:hidden;" type='file' (change)="onSelectFile($event)" multiple  >
+            
+           
+            </div>
+          </div>
+      
+            <div class="row">
+              <div class="col-md-12">
+            <div class="form-group col-md-6">
+              <label>{{'Register.AddheaderName'|translate}}</label>
+              <input name="Name" #Name="ngModel" [(ngModel)]="HeaderName" class="form-control" required>
+            </div>
+  
+<div class="col-md-6">
+  <label>{{'Register.Adddescription'|translate}}</label>
+  <input name="Name" #Name="ngModel" [(ngModel)]="Description" class="form-control" required>
+</div>
+</div>
+</div>
+<div class="row">
+  <div class="col-md-12 text-right">
+  <hr>
+  <button type="button" (click)="saveImage()" [disabled]="image1==''" class="btn btn-success">{{'Register.Cart.Save'|translate}}</button>
+  </div>
+  </div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+
+
+</div>
+</div>
+
+</div>

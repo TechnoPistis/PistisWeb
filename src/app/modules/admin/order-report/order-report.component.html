@@ -1,0 +1,220 @@
+<div class="main-panel">
+  <div class="content">
+    <div class="page-inner">
+<div class="container p-tb-2">
+<div class="order-details-wrap">
+  <div class="row mrgn-b-xs">
+    <div class="col-md-12">
+      <div class="order-details-head-block">
+        <div class="row">
+          <div class="col-md-12">
+            <h2>Order Details</h2>
+          </div>
+        </div>
+          <div class="row">
+          <div class="col-md-12">
+            <span class="divider-block">Order on 1 {{order.PurchasedOn}}</span>
+            <span class="divider-block">Order#  {{order.OrderNo}}</span>
+          </div>
+          <!-- <div class="col-md-3 text-right">
+            <a href="#" class="head-right-link">Invoice <i class="fas fa-chevron-down"></i></a>
+          </div> -->
+        </div>
+        <div class="row mrgn-b-md">
+          <div class="col-md-12">
+            <div class="radio-block">
+              <div class="row">
+                <div class="col-md-2">
+                  <label><input type="checkbox" [(ngModel)]="isChecked1" (change)="checkValue('Processing')"  >Processing</label>
+                </div>
+                <div class="col-md-2">
+                  <label><input type="checkbox" [(ngModel)]="isChecked2" (change)="checkValue('Shipped')"   >Shipped</label>
+                </div>
+                <div class="col-md-2">
+                  <label><input type="checkbox" [(ngModel)]="isChecked3"  (change)="checkValue('Pending')"  >Pending </label>
+                </div>
+                <div class="col-md-2">
+                  <label><input type="checkbox" [(ngModel)]="isChecked4" (change)="checkValue('Completed')"  >Completed</label>
+                </div>
+                <div class="col-md-2">
+                  <label><input type="checkbox" [(ngModel)]="isChecked5"  (change)="checkValue('Rejected')"  >Rejected</label>
+                </div>
+                <div class="col-md-2">
+                  <label><input type="checkbox"  [(ngModel)]="isChecked6" (change)="checkValue('Refunded')"  >Refunded </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="order-details-box">
+        <div class="order-details-box-con">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="o-d-shipping-ad-box">
+                <h4>Shipping Address</h4>
+                <p>{{order.ShiptoName}}</p>
+                <p>{{order.ShipAddress}}</p>
+                <tr *ngIf="order.ShipStreets!=''">
+                  <td>{{order.ShipStreets}}</td>
+                </tr>
+
+                  <p *ngIf="order.ShipColony!=''">{{order.ShipColony}}</p>
+
+
+                  <p>{{order.ShipCity}}<span *ngIf="order.ShipCity!=''">,</span>{{order.ShipState}}</p>
+
+
+                  <p>{{order.ShipPin}}</p>
+                  <p *ngIf="order.ShipLandmark!=''">{{order.ShipLandmark}}</p>
+                  <p>{{order.ShipPhoneNo}}</p>
+                  <p *ngIf="order.UserEmailId!=''">{{order.UserEmailId}}</p>
+              </div>
+              <div class="o-d-payment-method-box">
+                <h4>Payment Method</h4>
+               <span class="divider-block">
+                 <!-- <img src="assets/img/master-card-icon.png"> -->
+                 {{order.PaymentMethod}}
+               </span>
+               <!-- <span class="divider-block">**** 7744</span> -->
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="summary-box payment">
+                <div class="row">
+                  <div class="col-md-12 col-lg-12 col-xl-12 col-sm-12 col-xs-12">
+                    <h4>Order Summary</h4>
+                </div>
+                     <div class="col-md-8 col-lg-8 col-xl-8 col-sm-8 col-xs-8">
+                      Item(s) Subtotal:
+                     </div>
+                     <div class="col-md-4 col-lg-4 col-xl-4 col-sm-4 col-xs-4 text-right">
+                      ${{order.BasePrice}}
+                     </div>
+                </div>
+                <div class="row">
+                     <div class="col-md-8 col-lg-8 col-xl-8 col-sm-8 col-xs-8">
+                      Shipping:
+                     </div>
+                     <div class="col-md-4 col-lg-4 col-xl-4 col-sm-4 col-xs-4 text-right">
+                      ${{order.ShippingPrice}}
+                     </div>
+                 </div>
+                 <!-- <div class="row">
+                     <div class="col-md-8 col-lg-8 col-xl-8 col-sm-8 col-xs-8">
+                      Promotion Applied
+                     </div>
+                     <div class="col-md-4 col-lg-4 col-xl-4 col-sm-4 col-xs-4 text-right">
+                         $ 8260.56
+                     </div>
+                 </div> -->
+                 <div class="row">
+                     <div class="col-md-12 col-lg-12 col-xl-12 col-sm-12 col-xs-12">
+                         <div class="summary-total-box">
+                             <div class="row">
+                                 <div class="col-md-8 col-lg-8 col-xl-8 col-sm-8 col-xs-8">
+                                     Total
+                                 </div>
+                                 <div class="col-md-4 col-lg-4 col-xl-4 col-sm-4 col-xs-4 text-right">
+                                  ${{order.PurchasePrice}}
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="row">
+                     <div class="col-md-12 col-lg-12 col-xl-12 col-sm-12 col-xs-12">
+                         <div class="summary-total-pay-box">
+                             <div class="row">
+                                 <div class="col-md-8 col-lg-8 col-xl-8 col-sm-8 col-xs-8">
+                                  Grand Total:
+                                 </div>
+                                 <div class="col-md-4 col-lg-4 col-xl-4 col-sm-4 col-xs-4 text-right">
+                                     <span class="sub-total">${{order.PurchasePrice}}</span>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+            </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="order-details-box-footer">
+          <a href="#" class="head-right-link footer"><i class="fas fa-chevron-down"></i> Transactions</a>
+        </div> -->
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="order-details-box">
+        <div class="order-details-box-con">
+          <div class="row mrgn-b-sm">
+            <div class="col-md-12">
+              <div class="o-d-shipping-ad-box delever">
+                <h3>Delivery date:{{order.DeliveryDate}}</h3>
+                <!-- <p>Package was handed directly to the customer.</p>
+                <p>Signed by: Navjot Kaur.</p> -->
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <section class="cart-main ">
+                <div class="row" *ngFor="let item of order.items">
+                  <div class="col-md-2 col-lg-2 col-sm-3 col-xs-4">
+                    <div class="cart-thumb">
+                      <a>
+                        <img class="img-responsive" src={{item.ProductVariantDetail.Product.ProductImages[0].ImagePath}}></a>
+                      </div>
+                    </div>
+                    <div class="col-md-10 col-xs-8">
+                      <div class="row" >
+                        <div class="col-md-8 col-lg-8 col-sm-8 col-xs-12">
+                        <a class="cart-product-title">{{item.ProductVariantDetail.Product.Name}}</a>
+                         <div class="size-seller-text  "> </div>
+                        <div class="size-seller-text"> Seller: {{order.VenderName}} </div>
+                        <!-- <button class="btn buy-now buy-again" type="button">
+                          <i aria-hidden="true" class="fa fa-shopping-cart"></i> Buy it Again
+                        </button> -->
+                    </div>
+
+                    <div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
+                      <div class="cart-price-row text-right">
+                        <div class="d-block">
+                        </div>
+                        <span class="cart-price">${{item.Amount}}</span>
+
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </section>
+            </div>
+            <!-- <div class="col-md-4">
+             <div class="o-d-deleverd-btn-block">
+
+               <button class="btn btn-primary btn-block">
+                Write a product review
+               </button>
+
+               </div>
+            </div> -->
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+</div>
+</div>
+</div>

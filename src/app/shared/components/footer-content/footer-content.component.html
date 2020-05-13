@@ -1,0 +1,20 @@
+<app-header></app-header>
+<div class="conatiner-fluid main-content">
+<div class="container">
+
+
+                <div *ngIf="val && content && content.Data" class="footer-containt pad-all-md">
+                        <!-- <h1>{{val}}</h1> -->
+
+                       <span> <div *ngIf="content.Data" innerHTML="{{content.Data}}"></div></span>
+                    </div>
+
+                <div *ngIf="!(val && content && content.Data)" class="footer-containt pad-all-md">
+                        <h1>Oops,This page is under contruction.</h1>
+
+
+                    </div>
+
+</div>
+</div>
+<app-footer></app-footer>

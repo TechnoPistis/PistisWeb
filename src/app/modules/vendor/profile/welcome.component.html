@@ -1,0 +1,970 @@
+<div class="main-panel">
+    <div class="content">
+        <div class="page-inner">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-head-row">
+                                <div class="card-title">{{'Register.Stocks'|translate}}</div>
+                                <div class="btn-group btn-group-page-header ml-auto"></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <section class="myaccount">
+                                <div class="container p-tb-2">
+                                    <div class="row">
+
+                                        <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+
+                                            <div class="tab-content addres_top">
+                                                <!--------------------------------------------tab 1 start------------------------------------------------------>
+
+                                                <!--------------------------------------------tab 1 end------------------------------------------------------>
+
+
+
+
+
+                                                <!--------------------------------------------tab 2 start------------------------------------------------------>
+                                                <div class="tab-pane active" i role="tabpanel">
+
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 profile-tab-con">
+                                                            <div class="row">
+                                                                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                                                    <div class="profile-tab-head mrgn-b-xs">
+                                                                        <span class="profile-tab-head-title">
+                                                                            {{'Register.MyProfile.PersonalInformation'|translate}}
+                                                                        </span>
+                                                                        <a class="tab-head-link" (click)="onEdit()">{{'Register.Cart.Edit'|translate}}</a>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group required">
+                                                                                <label for="FirstName">{{'Register.MyProfile.FirstName'|translate}}</label>
+                                                                                <input class="form-control ng-pristine ng-invalid ng-touched"
+                                                                                    name="FirstName" ng-reflect-name="FirstName"
+                                                                                    #FName [value]="FirstName"
+                                                                                    placeholder="{{'Register.MyProfile.FirstName'|translate}}"
+                                                                                    [disabled]="Name">
+                                                                                <div *ngIf="name" class="text-danger">{{'Register.MyProfile.Required_Msg'|translate}}</div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <label class="placeholder" for="MiddleName">{{'Register.MyProfile.MiddleName'|translate}}</label>
+                                                                                <input class="form-control ng-untouched ng-pristine ng-valid"
+                                                                                    #MName name="MiddleName"
+                                                                                    ng-reflect-name="MiddleName"
+                                                                                    [value]="MiddleName" placeholder="{{'Register.MyProfile.MiddleName'|translate}}"
+                                                                                    [disabled]="Name">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <label for="LastName">{{'Register.MyProfile.LastName'|translate}}</label>
+                                                                                <input class="form-control ng-untouched ng-pristine ng-valid"
+                                                                                    #LName name="LastName"
+                                                                                    ng-reflect-name="LastName" [value]="LastName"
+                                                                                    placeholder="{{'Register.MyProfile.LastName'|translate}}"
+                                                                                    [disabled]="Name">
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-3">
+                                                                            <div class="form-group required">
+                                                                                <label>City</label>
+                                                                                <input class="form-control" name="FirstName"
+                                                                                    placeholder="City">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <div class="form-group required">
+                                                                                <label>State</label>
+                                                                                <input class="form-control" name="FirstName"
+                                                                                    placeholder="State">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <div class="form-group required">
+                                                                                <label>Country</label>
+                                                                                <select class="form-control">
+                                                                                    <option>Country 1</option>
+                                                                                    <option>Country 2</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <div class="form-group required">
+                                                                                <label>Display Name</label>
+                                                                                <input class="form-control" name="FirstName"
+                                                                                    placeholder="Display Name">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+
+                                                                        <div class="col-md-12">
+                                                                            <div class="company-info-box">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group required">
+                                                                                            <label>Company Name</label>
+                                                                                            <input class="form-control"
+                                                                                                name="CompanyName"
+                                                                                                placeholder="Company Name">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-3">
+                                                                                        <div class="vendor-logo-box mt-10">
+                                                                                            <img src="/assets/img/dummy-logo.jpg">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-2 mt-25">
+                                                                                        <button class="btn  btn-sm btn-primary">Upload
+                                                                                            Logo</button>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-3" *ngIf="!Name">
+                                                                            <div class="form-group">
+                                                                                <label for="LastName">&nbsp;</label>
+                                                                                <button class="btn  btn-sm btn-primary"
+                                                                                    (click)="onSave(FName.value,MName.value,LName.value)">{{'Register.Cart.Save'|translate}}</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 profile-tab-con">
+                                                            <div class="row">
+                                                                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                                                    <div class="profile-tab-head mrgn-b-xs">
+                                                                        <span class="profile-tab-head-title">
+                                                                            {{'Register.Email'|translate}}
+                                                                        </span>
+                                                                        <a class="tab-head-link" (click)="onEdit1()">{{'Register.Cart.Edit'|translate}}</a>
+                                                                        <a class="tab-head-link" data-toggle="modal"
+                                                                            data-target="#myModal" (click)="resetPass()">{{'Register.Cart.ChangePassword'|translate}}</a>
+
+                                                                        <div class="modal" id="myModal" tabindex="-1"
+                                                                            role="dialog" aria-labelledby="myModalLabel">
+                                                                            <div class="modal-dialog modal-lg" role="document">
+                                                                                <div class="modal-content">
+
+                                                                                    <div class="modal-body pad-all-md">
+                                                                                        <div class="row">
+
+                                                                                            <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                                                                                <div class="row">
+                                                                                                    <div class="col-md-12">
+                                                                                                        <div class="profile-tab-head mrgn-b-xs">
+                                                                                                            <span class="profile-tab-head-title">
+                                                                                                                {{'Register.Cart.ChangePassword'|translate}}
+                                                                                                            </span>
+                                                                                                            <button
+                                                                                                                type="button"
+                                                                                                                class="close pull-right"
+                                                                                                                data-dismiss="modal"
+                                                                                                                aria-label="Close"><span
+                                                                                                                    aria-hidden="true">&times;</span></button>
+                                                                                                            <!-- <a class="tab-head-link pull-right">Resend OTP</a> -->
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="form-group row">
+                                                                                                    <div class="col-md-12">
+                                                                                                        <input type="password"
+                                                                                                            class="form-control"
+                                                                                                            #pass
+                                                                                                            [(ngModel)]="Currentpass"
+                                                                                                            (focusout)="takeTheSalt(pass.value)"
+                                                                                                            placeholder="{{'Register.Cart.TypeCurrentPass'|translate}}">
+                                                                                                        <div *ngIf="passwordCheck"
+                                                                                                            class="text-danger">{{'Register.Cart.PasswordIncorrect'|translate}}</div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="form-group row">
+                                                                                                    <div class="col-md-12">
+                                                                                                        <input type="password"
+                                                                                                            #newSalt
+                                                                                                            class="form-control"
+                                                                                                            [(ngModel)]="Newpass"
+                                                                                                            placeholder="{{'Register.Cart.TypeNewPass'|translate}}"
+                                                                                                            (focusout)="Salt(newSalt.value)">
+                                                                                                        <div *ngIf="passlen"
+                                                                                                            class="text-danger">{{'Register.Cart.PasswordMinimum'|translate}}</div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="form-group row">
+                                                                                                    <div class="col-md-12">
+                                                                                                        <input type="password"
+                                                                                                            #againSalt
+                                                                                                            class="form-control"
+                                                                                                            [(ngModel)]="ConfirmPass"
+                                                                                                            placeholder="{{'Register.Cart.RetypeNewPass'|translate}}">
+                                                                                                        <div *ngIf="confirmPass"
+                                                                                                            class="text-danger">{{'Register.Cart.PasswordNotMatch'|translate}}</div>
+                                                                                                        <div *ngIf="enterPassAgain"
+                                                                                                            class="text-danger">{{'Register.Cart.PasswordNotMatch'|translate}}</div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="form-group row">
+                                                                                                    <div class="col-md-6">
+                                                                                                        <button
+                                                                                                            _ngcontent-xqk-c1=""
+                                                                                                            class="btn  btn-sm btn-primary btn-block"
+                                                                                                            [disabled]="passwordCheck"
+                                                                                                            type="button"
+                                                                                                            (click)="saltMixture(newSalt.value,againSalt.value)">{{'Register.Cart.ChangePassword'|translate}}</button>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+
+
+
+                                                                        <!-- yaha paste -->
+
+                                                                        <div class="modal" tabindex="-1" role="dialog"
+                                                                             [ngStyle]="{'display':display}">
+                                                                            <div class="modal-dialog modal-lg" role="document">
+                                                                                <div class="modal-content">
+
+                                                                                    <div class="modal-body pad-all-md">
+                                                                                        <div class="row">
+
+                                                                                            <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                                                                                <div class="row">
+                                                                                                    <div class="col-md-12">
+                                                                                                        <div class="profile-tab-head mrgn-b-xs">
+                                                                                                            <span class="profile-tab-head-title">
+                                                                                                                {{'Register.Cart.EnterOtp'|translate}}
+                                                                                                            </span>
+                                                                                                            <button
+                                                                                                                type="button"
+                                                                                                                class="close pull-right"
+                                                                                                                data-dismiss="modal"
+                                                                                                                aria-label="Close"
+                                                                                                                (click)="onCloseHandled()"><span
+                                                                                                                    aria-hidden="true">&times;</span></button>
+
+                                                                                                            <a *ngIf="emailClick"
+                                                                                                                class="tab-head-link pull-right"
+                                                                                                                (click)="saveEmail(email.value)">{{'Register.Cart.EnterOtp'|translate}}</a>
+                                                                                                            <a *ngIf="phoneClick"
+                                                                                                                class="tab-head-link pull-right"
+                                                                                                                (click)="savePhone(phone.value)">{{'Register.Cart.ResendOtp'|translate}}</a>
+
+
+
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="form-group row">
+                                                                                                    <div class="col-md-12">
+                                                                                                        <input type="text"
+                                                                                                            class="form-control"
+                                                                                                            #otp
+                                                                                                            [(ngModel)]="typeOtp"
+                                                                                                            placeholder="{{'Register.Cart.EnterOtp'|translate}}">
+                                                                                                        <div *ngIf="otpValid"
+                                                                                                            class="text-danger">{{'Register.Cart.OtpRequired'|translate}}</div>
+                                                                                                    </div>
+                                                                                                </div>
+
+                                                                                                <div class="form-group row">
+                                                                                                    <div class="col-md-3">
+                                                                                                        <button
+                                                                                                            _ngcontent-xqk-c1=""
+                                                                                                            class="btn  btn-sm btn-primary btn-block"
+                                                                                                            (click)="changeEmail(email.value,otp.value,phone.value)"
+                                                                                                            type="button">{{'Register.Cart.Save'|translate}}</button>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                                                    <div class="row">
+                                                                        <div class="col-md-3">
+                                                                            <div class="form-group required">
+                                                                                <label for="FirstName">Email</label>
+                                                                                <input class="form-control ng-pristine ng-invalid ng-touched"
+                                                                                    #email name="email" [(value)]="EmailId"
+                                                                                    placeholder="{{'Register.MiddleSection.EmailPlaceHolder'|translate}}"
+                                                                                    [disabled]="Email" [(ngModel)]="EmailId">
+                                                                                <div *ngIf="EmailValidLenght" class="text-danger">{{'Register.MiddleSection.EmailPlaceHolder'|translate}}</div>
+                                                                                <div *ngIf="EmailValid" class="text-danger">{{'Register.ValidEmail'|translate}}</div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-md-3" *ngIf="!Email">
+                                                                            <div class="form-group">
+                                                                                <label for="LastName">&nbsp;</label>
+                                                                                <button class="btn  btn-sm btn-primary"
+                                                                                    data-toggle="modal" data-target="#emailModel"
+                                                                                    (click)="saveEmail(email.value)">{{'Register.Cart.Save'|translate}}</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <hr>
+
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 profile-tab-con">
+                                                            <div class="row">
+                                                                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                                                    <div class="profile-tab-head mrgn-b-xs">
+                                                                        <span class="profile-tab-head-title">
+                                                                            {{'Register.Cart.MobilePlaceholder'|translate}}
+                                                                        </span>
+                                                                        <a class="tab-head-link" (click)="onEdit3()">{{'Register.Cart.Edit'|translate}}</a>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                                                    <div class="row">
+                                                                        <div class="col-md-3">
+                                                                            <div class="form-group required">
+                                                                                <label for="FirstName">{{'Register.Cart.PhoneNumber'|translate}}</label>
+                                                                                <input class="form-control ng-pristine ng-invalid ng-touched"
+                                                                                    #phone name="phone" [value]="PhoneNo"
+                                                                                    placeholder="{{'Register.MyProfile.PhoneNoPlaceholder'|translate}}"
+                                                                                    [disabled]="Phone">
+                                                                                <div *ngIf="phonelenght" class="text-danger">{{'Register.Cart.PhoneRequired'|translate}}</div>
+                                                                                <div *ngIf="phoneValid" class="text-danger">{{'Register.Cart.PhoneValid'|translate}}</div>
+
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-md-3" *ngIf="!Phone">
+                                                                            <div class="form-group">
+                                                                                <label for="LastName">&nbsp;</label>
+                                                                                <button class="btn  btn-sm btn-primary"
+                                                                                    data-toggle="modal" data-target="#phoneModel"
+                                                                                    (click)="savePhone(phone.value)"
+                                                                                    [disabled]="Phone">{{'Register.Cart.Save'|translate}}</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 profile-tab-con">
+                                                            <div class="row">
+                                                                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                                                    <div class="profile-tab-head mrgn-b-xs">
+                                                                        <span class="profile-tab-head-title">
+                                                                            Upload ID
+                                                                        </span>
+                                                                        <a class="tab-head-link" (click)="onEdit3()">{{'Register.Cart.Edit'|translate}}</a>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                                                    <div class="row">
+                                                                        <div class="col-md-3">
+                                                                            upload id block
+                                                                        </div>
+
+                                                                        <div class="col-md-3" *ngIf="!Phone">
+                                                                            <div class="form-group">
+                                                                                <label for="LastName">&nbsp;</label>
+                                                                                <button class="btn  btn-sm btn-primary"
+                                                                                    data-toggle="modal" data-target="#phoneModel"
+                                                                                    (click)="savePhone(phone.value)"
+                                                                                    [disabled]="Phone">{{'Register.Cart.Save'|translate}}</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 profile-tab-con">
+                                                            <div class="row">
+                                                                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                                                    <div class="profile-tab-head mrgn-b-xs">
+                                                                        <span class="profile-tab-head-title">
+                                                                            Upload Documents
+                                                                        </span>
+                                                                        <a class="tab-head-link" (click)="onEdit3()">{{'Register.Cart.Edit'|translate}}</a>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                                                    <div class="row">
+                                                                        <div class="col-md-3">
+                                                                            upload block
+                                                                        </div>
+
+                                                                        <div class="col-md-3" *ngIf="!Phone">
+                                                                            <div class="form-group">
+                                                                                <label for="LastName">&nbsp;</label>
+                                                                                <button class="btn  btn-sm btn-primary"
+                                                                                    data-toggle="modal" data-target="#phoneModel"
+                                                                                    (click)="savePhone(phone.value)"
+                                                                                    [disabled]="Phone">{{'Register.Cart.Save'|translate}}</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            uploaded documents block
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                                <!--------------------------------------------tab 2 start------------------------------------------------------>
+
+                                                <!--------------------------------------------tab 2 end------------------------------------------------------>
+
+
+
+
+
+
+                                                <!--------------------------------------------tab 3 start------------------------------------------------------>
+
+                                                <!--------------------------------------------tab 3 end------------------------------------------------------>
+
+
+
+
+
+
+
+                                                <!--------------------------------------------tab 4 start------------------------------------------------------>
+                                                <!-- <div class="tab-pane" id="tab4" role="tabpanel">
+                  
+                              
+                  
+                  <app-wish-list></app-wish-list>
+                            </div> -->
+                                                <!--------------------------------------------tab 4 end------------------------------------------------------>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div *ngIf="hidemainDiv==false" class="container p-tb-2">
+                                    <div class="row">
+
+                                        <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+
+                                            <div class="tab-content addres_top">
+                                                <!--------------------------------------------tab 1 start------------------------------------------------------>
+
+                                                <!--------------------------------------------tab 1 end------------------------------------------------------>
+
+
+
+
+
+                                                <!--------------------------------------------tab 2 start------------------------------------------------------>
+                                                <div class="tab-pane active" i role="tabpanel">
+
+                                                    <div class="row mrgn-b-lg">
+                                                        <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 profile-tab-con">
+                                                            <div class="row">
+                                                                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                                                    <div class="profile-tab-head mrgn-b-xs">
+                                                                        <span class="profile-tab-head-title">
+                                                                            {{'Register.MyProfile.PersonalInformation'|translate}}
+                                                                        </span>
+                                                                        <a class="tab-head-link" (click)="onEdit()">Edit</a>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                                                    <div class="row">
+                                                                        <div class="col-md-3">
+                                                                            <div class="form-group required">
+                                                                                <label for="FirstName">{{'Register.MyProfile.FirstName'|translate}}</label>
+                                                                                <input class="form-control ng-pristine ng-invalid ng-touched"
+                                                                                    name="FirstName" ng-reflect-name="FirstName"
+                                                                                    #FName [value]="FirstName"
+                                                                                    placeholder="{{'Register.MyProfile.FirstName'|translate}}"
+                                                                                    [disabled]="Name">
+                                                                                <div *ngIf="name" class="text-danger">{{'Register.RequiredField'|translate}}</div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <div class="form-group">
+                                                                                <label class="placeholder" for="MiddleName">{{'Register.MiddleName'|translate}}</label>
+                                                                                <input class="form-control ng-untouched ng-pristine ng-valid"
+                                                                                    #MName name="MiddleName"
+                                                                                    ng-reflect-name="MiddleName"
+                                                                                    [value]="MiddleName" placeholder="{{'Register.MiddleName'|translate}}"
+                                                                                    [disabled]="Name">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <div class="form-group">
+                                                                                <label for="LastName">{{'Register.LastName'|translate}}</label>
+                                                                                <input class="form-control ng-untouched ng-pristine ng-valid"
+                                                                                    #LName name="LastName"
+                                                                                    ng-reflect-name="LastName" [value]="LastName"
+                                                                                    placeholder="{{'Register.LastName'|translate}}"
+                                                                                    [disabled]="Name">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-3" *ngIf="!Name">
+                                                                            <div class="form-group">
+                                                                                <label for="LastName">&nbsp;</label>
+                                                                                <button class="btn  btn-sm btn-primary"
+                                                                                    (click)="onSave(FName.value,MName.value,LName.value)">{{'Register.Cart.Save'|translate}}</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mrgn-b-lg">
+                                                        <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 profile-tab-con">
+                                                            <div class="row">
+                                                                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                                                    <div class="profile-tab-head mrgn-b-xs">
+                                                                        <span class="profile-tab-head-title">
+                                                                            {{'Register.Email'|translate}}
+                                                                        </span>
+                                                                        <a class="tab-head-link" (click)="onEdit1()">{{'Register.Cart.Edit'|translate}}</a>
+                                                                        <a class="tab-head-link" data-toggle="modal"
+                                                                            data-target="#myModal" (click)="resetPass()">{{'Register.Cart.ChangePassword'|translate}}</a>
+
+                                                                        <div class="modal" id="myModal" tabindex="-1"
+                                                                            role="dialog" aria-labelledby="myModalLabel">
+                                                                            <div class="modal-dialog modal-lg" role="document">
+                                                                                <div class="modal-content">
+
+                                                                                    <div class="modal-body pad-all-md">
+                                                                                        <div class="row">
+
+                                                                                            <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                                                                                <div class="row">
+                                                                                                    <div class="col-md-12">
+                                                                                                        <div class="profile-tab-head mrgn-b-xs">
+                                                                                                            <span class="profile-tab-head-title">
+                                                                                                                {{'Register.Cart.ChangePassword'|translate}}
+                                                                                                            </span>
+                                                                                                            <button
+                                                                                                                type="button"
+                                                                                                                class="close pull-right"
+                                                                                                                data-dismiss="modal"
+                                                                                                                aria-label="Close"><span
+                                                                                                                    aria-hidden="true">&times;</span></button>
+                                                                                                            <!-- <a class="tab-head-link pull-right">Resend OTP</a> -->
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="form-group row">
+                                                                                                    <div class="col-md-12">
+                                                                                                        <input type="password"
+                                                                                                            class="form-control"
+                                                                                                            #pass
+                                                                                                            [(ngModel)]="Currentpass"
+                                                                                                            (focusout)="takeTheSalt(pass.value)"
+                                                                                                            placeholder="{{'Register.Cart.TypeCurrentPass'|translate}}">
+                                                                                                        <div *ngIf="passwordCheck"
+                                                                                                            class="text-danger">{{'Register.Cart.PasswordIncorrect'|translate}}</div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="form-group row">
+                                                                                                    <div class="col-md-12">
+                                                                                                        <input type="password"
+                                                                                                            #newSalt
+                                                                                                            class="form-control"
+                                                                                                            [(ngModel)]="Newpass"
+                                                                                                            placeholder="{{'Register.Cart.TypeNewPass'|translate}}"
+                                                                                                            (focusout)="Salt(newSalt.value)">
+                                                                                                        <div *ngIf="passlen"
+                                                                                                            class="text-danger">{{'Register.Cart.PasswordMinimum'|translate}}</div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="form-group row">
+                                                                                                    <div class="col-md-12">
+                                                                                                        <input type="password"
+                                                                                                            #againSalt
+                                                                                                            class="form-control"
+                                                                                                            [(ngModel)]="ConfirmPass"
+                                                                                                            placeholder="{{'Register.Cart.TypeNewPass'|translate}}">
+                                                                                                        <div *ngIf="confirmPass"
+                                                                                                            class="text-danger">{{'Register.Cart.PasswordNotMatch'|translate}}</div>
+                                                                                                        <div *ngIf="enterPassAgain"
+                                                                                                            class="text-danger">{{'Register.Cart.PasswordNotMatch'|translate}}</div>
+
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="form-group row">
+                                                                                                    <div class="col-md-6">
+                                                                                                        <button
+                                                                                                            _ngcontent-xqk-c1=""
+                                                                                                            class="btn  btn-sm btn-primary btn-block"
+                                                                                                            [disabled]="passwordCheck"
+                                                                                                            type="button"
+                                                                                                            (click)="saltMixture(newSalt.value,againSalt.value)">{{'Register.Cart.ChangePassword'|translate}}</button>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                        <div class="modal" tabindex="-1" role="dialog"
+                                                                             [ngStyle]="{'display':display}">
+                                                                            <div class="modal-dialog modal-lg" role="document">
+                                                                                <div class="modal-content">
+
+                                                                                    <div class="modal-body pad-all-md">
+                                                                                        <div class="row">
+
+                                                                                            <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                                                                                <div class="row">
+                                                                                                    <div class="col-md-12">
+                                                                                                        <div class="profile-tab-head mrgn-b-xs">
+                                                                                                            <span class="profile-tab-head-title">
+                                                                                                                {{'Register.Cart.EnterOtp'|translate}}
+                                                                                                            </span>
+                                                                                                            <button
+                                                                                                                type="button"
+                                                                                                                class="close pull-right"
+                                                                                                                data-dismiss="modal"
+                                                                                                                aria-label="Close"
+                                                                                                                (click)="onCloseHandled()"><span
+                                                                                                                    aria-hidden="true">&times;</span></button>
+
+                                                                                                            <a *ngIf="emailClick"
+                                                                                                                class="tab-head-link pull-right"
+                                                                                                                (click)="saveEmail(email.value)">{{'Register.Cart.ResendOtp'|translate}}</a>
+                                                                                                            <a *ngIf="phoneClick"
+                                                                                                                class="tab-head-link pull-right"
+                                                                                                                (click)="savePhone(phone.value)">{{'Register.Cart.ResendOtp'|translate}}</a>
+
+
+
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="form-group row">
+                                                                                                    <div class="col-md-12">
+                                                                                                        <input type="text"
+                                                                                                            class="form-control"
+                                                                                                            #otp
+                                                                                                            [(ngModel)]="typeOtp"
+                                                                                                            placeholder="{{'Register.Cart.EnterOtp'|translate}}.">
+                                                                                                        <div *ngIf="otpValid"
+                                                                                                            class="text-danger">{{'Register.Cart.OtpRequired'|translate}}</div>
+                                                                                                    </div>
+                                                                                                </div>
+
+                                                                                                <div class="form-group row">
+                                                                                                    <div class="col-md-3">
+                                                                                                        <button
+                                                                                                            _ngcontent-xqk-c1=""
+                                                                                                            class="btn  btn-sm btn-primary btn-block"
+                                                                                                            (click)="changeEmail(email.value,otp.value,phone.value)"
+                                                                                                            type="button">{{'Register.Cart.Save'|translate}}</button>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                                                    <div class="row">
+                                                                        <div class="col-md-3">
+                                                                            <div class="form-group required">
+                                                                                <label for="FirstName">Email</label>
+                                                                                <input class="form-control ng-pristine ng-invalid ng-touched"
+                                                                                    #email name="email" [(value)]="EmailId"
+                                                                                    placeholder="{{'Register.MiddleSection.EmailPlaceHolder'|translate}}"
+                                                                                    [disabled]="Email" [(ngModel)]="EmailId">
+                                                                                <div *ngIf="EmailValidLenght" class="text-danger">{{'Register.MiddleSection.RequiredEmail'|translate}}</div>
+                                                                                <div *ngIf="EmailValid" class="text-danger">{{'Register.MiddleSection.ValidEmail'|translate}}</div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-md-3" *ngIf="!Email">
+                                                                            <div class="form-group">
+                                                                                <label for="LastName">&nbsp;</label>
+                                                                                <button class="btn  btn-sm btn-primary"
+                                                                                    data-toggle="modal" data-target="#emailModel"
+                                                                                    (click)="saveEmail(email.value)">{{'Register.Cart.Save'|translate}}</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="row mrgn-b-lg">
+                                                        <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 profile-tab-con">
+                                                            <div class="row">
+                                                                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                                                    <div class="profile-tab-head mrgn-b-xs">
+                                                                        <span class="profile-tab-head-title">
+                                                                            {{'Register.Cart.MobilePlaceholder'|translate}}
+                                                                        </span>
+                                                                        <a class="tab-head-link" (click)="onEdit3()">Edit</a>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                                                    <div class="row">
+                                                                        <div class="col-md-3">
+                                                                            <div class="form-group required">
+                                                                                <label for="FirstName">{{'Register.Cart.PhoneNumber'|translate}}</label>
+                                                                                <input class="form-control ng-pristine ng-invalid ng-touched"
+                                                                                    #phone name="phone" [value]="PhoneNo"
+                                                                                    placeholder="Enter phone number"
+                                                                                    [disabled]="Phone">
+                                                                                <div *ngIf="phonelenght" class="text-danger">{{'Register.Cart.PhoneRequired'|translate}}.</div>
+                                                                                <div *ngIf="phoneValid" class="text-danger">{{'Register.Cart.PhoneValid'|translate}}..</div>
+
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-md-3" *ngIf="!Phone">
+                                                                            <div class="form-group">
+                                                                                <label for="LastName">&nbsp;</label>
+                                                                                <button class="btn  btn-sm btn-primary"
+                                                                                    data-toggle="modal" data-target="#phoneModel"
+                                                                                    (click)="savePhone(phone.value)"
+                                                                                    [disabled]="Phone">{{'Register.Cart.Save'|translate}}</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mrgn-b-lg">
+                                                        <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 profile-tab-con">
+                                                            <h3>{{'Register.MyProfile.FAQs'|translate}}</h3>
+                                                            <div class="my-account-faq-block">
+                                                                <h5>{{'Register.MyProfile.Q1'|translate}}</h5>
+                                                                <p>{{'Register.MyProfile.A1'|translate}}</p>
+                                                                <h5>{{'Register.MyProfile.Q2'|translate}}</h5>
+                                                                <p>{{'Register.MyProfile.A2'|translate}}</p>
+                                                                <h5>{{'Register.MyProfile.Q3'|translate}}</h5>
+                                                                <p>{{'Register.MyProfile.A3'|translate}}</p>
+                                                                <h5>{{'Register.MyProfile.Q4'|translate}}</h5>
+                                                                <p>{{'Register.MyProfile.A4'|translate}}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 profile-tab-con">
+                                                            <a class="tab-head-link" (click)="Deactivate()">{{'Register.MyProfile.Deactivate'|translate}}</a>
+
+                                                            <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display1}">
+                                                                <div class="modal-dialog modal-lg" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <button type="button" class="close" (click)="Deactivate1()"><span
+                                                                                    aria-hidden="true">&times;</span></button>
+                                                                            <h4 class="modal-title" id="myModalLabel">{{'Register.MyProfile.Deactivate'|translate}}</h4>
+                                                                        </div>
+                                                                        <div class="modal-body pad-all-md">
+                                                                            <div class="row">
+                                                                                <div class="col-md-7 col-sm-7 col-lg-7 col-xs-12">
+                                                                                    <div class="model-left-con">
+                                                                                        <h5>{{'Register.MyProfile.WhenDeactivate'|translate}}</h5>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                {{'Register.MyProfile.YouAreLoggedout'|translate}}
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                {{'Register.MyProfile.PublicProfileNoLonger'|translate}}
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                {{'Register.MyProfile.ReviewRatingsVisible'|translate}}
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                {{'Register.MyProfile.WishListNotAccessible'|translate}}
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                {{'Register.MyProfile.YouWillUnsubscribe'|translate}}
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                {{'Register.MyProfile.AccountDataRetained'|translate}}
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                        <div>
+                                                                                            <h5>{{'Register.MyProfile.HowIReactivate'|translate}}</h5>
+                                                                                            <p>{{'Register.MyProfile.ReactivationEasy'|translate}}</p>
+                                                                                            <p>{{'Register.MyProfile.SimplyLogin'|translate}}
+                                                                                            </p>
+                                                                                            <p>{{'Register.MyProfile.PistisRetains'|translate}}</p>
+                                                                                            <h5>{{'Register.MyProfile.RememberAccount'|translate}}</h5>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-5 col-sm-5 col-lg-5 col-xs-12">
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12">
+                                                                                            <div class="profile-tab-head mrgn-b-xs">
+                                                                                                <span class="profile-tab-head-title">
+                                                                                                    {{'Register.MyProfile.AreYouSure'|translate}}
+                                                                                                </span>
+
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group row">
+                                                                                        <div class="col-md-12">
+                                                                                            <input type="text" class="form-control"
+                                                                                                [value]="PhoneNo"
+                                                                                                placeholder="{{'Register.MyProfile.PhoneNoPlaceholder'|translate}}..">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group row">
+                                                                                        <div class="col-md-12">
+                                                                                            <input type="password"
+                                                                                                class="form-control"
+                                                                                                #checkpass placeholder="{{'Register.Cart.TypeCurrentPass'|translate}}">
+                                                                                            <div *ngIf="passwordCheck"
+                                                                                                class="text-danger">{{'Register.Cart.PasswordIncorrect'|translate}}</div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="form-group row">
+                                                                                        <div class="col-md-12">
+                                                                                            <button class="btn  btn-sm btn-primary btn-block"
+                                                                                                type="button"
+                                                                                                data-dismiss="modal1"
+                                                                                                (click)="takeTheSalt1(checkpass.value)">{{'Register.MyProfile.ConfirmDeactivate'|translate}}</button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group row">
+                                                                                        <div class="col-md-12">
+
+                                                                                            <button type="button" class="btn  btn-sm btn-default btn-block"
+                                                                                                (click)="Deactivate1()">
+                                                                                                {{'Register.MyProfile.NoLetMe'|translate}}
+                                                                                            </button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </section>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-head-row">
+                                <div class="card-title">Upload ID</div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-4">
+                                <div class="col-lg-12 col-xs-12">
+                                    <div class="table-style">
+                                        <div class="row">
+                                            <div class="col-lg-8 col-xs-12">
+                                                <dropzone ng-reflect-message="Drag and Drop Images here">
+                                                    <div class="dz-wrapper dz-multiple dz-clickable dropzone"
+                                                        ng-reflect-disabled="false">
+                                                        <div class="dz-message">
+                                                            <div class="dz-text">Drag and Drop Images here</div>
+                                                            <!--bindings={
+            "ng-reflect-ng-if": ""
+          }-->
+                                                        </div>
+                                                    </div>
+                                                </dropzone>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--bindings={
+            "ng-reflect-ng-if": "false"
+          }-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- </div>
+    </div> -->
+</div>

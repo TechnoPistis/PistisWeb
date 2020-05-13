@@ -1,0 +1,54 @@
+<div class="main-panel">
+        <div class="content">
+          <div class="page-inner">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">
+                    <div class="card-head-row">
+                      <div class="card-title">{{'Spinner.SpinnerOptions'|translate}}</div>
+                      <div class="btn-group btn-group-page-header ml-auto">
+                        <button type="button" class="btn btn-success"  (click)="check()">{{'Spinner.AddSpinnerOption'|translate}}
+                          </button>
+                      </div>
+                    </div>
+      
+                  </div>
+                  <div class="row pt-3">
+                    <div class="col-md-12">
+                      <div class="table-responsive">
+                        <table class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>{{'Spinner.Description'|translate}}</th>
+                              <th>{{'Spinner.ActiveFrom'|translate}}</th>
+                              <th>{{'Spinner.ActiveTo'|translate}}</th>
+                              <th>{{'Register.Actions'|translate}}</th>
+      
+                            </tr>
+                          </thead>
+                          <tbody>
+      
+                            <tr *ngFor="let d of data">
+                                <td>{{d.Description}}</td>
+                                <td>{{d.ActiveFrom}}{{d.ActiveFromTime}}</td>
+                                <td>{{d.ActiveTo}}{{d.ActiveToTime}}</td>
+                              <td>
+                                <button (click)="edit(d.Id)" class="btn btn-sm btn-outline-danger"><i
+                                    class="fas fa-edit"></i></button>
+                                <button (click)="delete(d.Id)" class="btn btn-sm btn-outline-danger mr-2"><i
+                                    class="fas fa-trash"></i></button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      

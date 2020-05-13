@@ -1,0 +1,78 @@
+<div class="main-panel">
+    <div class="content">
+      <div class="page-inner">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-head-row">
+                  <div class="card-title">{{'Register.Commission'|translate}} </div>
+                  <div class="btn-group btn-group-page-header ml-auto">
+                    <button type="button" class="btn btn-success" [routerLink]="['/admin/commission/add']">{{'Register.Add'|translate}}
+                      </button>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <!-- <div class="row">
+                  <div class="col-md-12">
+                    <div class="input-group" id="adv-search">
+                      <input type="text" class="form-control" [(ngModel)]="SearchName" placeholder="Search..">
+                      <div class="input-group-btn">
+                        <div class="btn-group" role="group">
+                           <button type="button" class="btn btn-primary" (click)="search()"><span class="fa fa-search"
+                              aria-hidden="true"></span></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+                <div class="row pt-3">
+                  <div class="col-md-12">
+                    <div class="table-responsive">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>{{'Register.CategoryName'|translate}}</th>
+                            <th>{{'Register.Commission'|translate}}</th>
+                            <th>{{'Register.Action'|translate}}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let cat of dataList; let i = index">
+                           
+                            <td >{{cat.CategoryName}}</td>
+                            
+                            <td *ngIf="!Edit[i]">{{cat.Commission}}</td>
+                            <td *ngIf="Edit[i]">
+                                <input class="form-control col-md-3" #commission type="number"  value="{{cat.Commission}}" (focusout)=getValue(commission.value)>
+                              </td>
+                           
+                            <td>
+                              <button *ngIf="!Edit[i]" (click)="onEdit(cat.Id,i)" class="btn btn-sm btn-outline-danger"><i
+                                  class="fas fa-edit"></i></button>
+                                  <button *ngIf="Edit[i]" (click)="Save()" class="btn btn-sm btn-outline-danger">Save</button>
+                              <button (click)="onDelete(cat.Id)" class="btn btn-sm btn-outline-danger"><i
+                                  class="fas fa-trash"></i></button></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <!-- <div class="col-md-12">
+                    <div class="row no-left-right" *ngIf="count">
+                      <app-admin-pagination [count]="count" [page]="page" [(perPage)]="perPage" [pagesToShow]="pagesToShow"
+                        (goPrev)="prevPage()" (goNext)="nextPage()" (goPage)="goToPage($event)"
+                        (pageSize)="newPageSize($event)">
+                      </app-admin-pagination>
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

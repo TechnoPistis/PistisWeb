@@ -1,0 +1,60 @@
+<div class="container-login-wrapper vendor">
+    <div class="login-wrapper-inner">
+      <div class="login-bg">
+        <div class="row">
+          <div class="col-md-5">
+            <div class="login-text-area">
+              <img alt="" class="login-icon" src="assets/img/vendor-icon.png">
+              <h5>{{'Register.WelcomeToPistis'|translate}}</h5>
+              <h1>{{'Register.FillForm'|translate}}</h1>
+              <h4>{{'Register.ToLoginYourAccount'|translate}}</h4>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="container-login-form-new">
+              <h3>{{'Register.VendorLogin'|translate}}</h3>
+              <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <div class="login-form">
+                  <div class="form-group">
+                    <label for="username"
+                      class="placeholder"><b>{{'Register.Cart.EmailAddress'|translate}}</b></label>
+                    <input type="text" formControlName="username" class="form-control"
+                      [ngClass]="{ 'is-invalid': submitted && f.username.errors }" autocomplete="on" required />
+                    <!-- <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                      <div *ngIf="f.username.errors.required">{{'Register.RequiredField'|translate}}</div>
+                    </div> -->
+                    <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                      <div *ngIf="f.username.errors.required">{{'Register.RequiredField'|translate}}</div>
+                      <div *ngIf="f.username.errors.email">{{'Register.ValidEmail'|translate}}</div>
+                    </div>
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="password" class="placeholder"><b>{{'Register.Password'|translate}}</b></label>
+                    <a [routerLink]="['/customer/forgotpassword']" routerLinkActive="router-link-active"
+                      class="link float-right">{{'Register.ForgotPassword'|translate}}</a>
+                    <input type="password" formControlName="password" class="form-control"
+                      [ngClass]="{ 'is-invalid': submitted && f.password.errors }" autocomplete="off" />
+                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                      <div *ngIf="f.password.errors.required">{{'Register.RequiredField'|translate}}</div>
+                    </div>
+                    <div class="show-password">
+                      <i class="flaticon-interface"></i>
+                    </div>
+                  </div>
+                  <div class="form-group form-action-d-flex mb-3">
+                    <button [disabled]="loading"
+                      class="btn btn-success col-md-5 float-right mt-3 mt-sm-0 fw-bold">Login</button>
+                  </div>
+                  <div class="login-account mt-5">
+                    <span class="msg">{{'Register.NewUser'|translate}}</span>
+                    <a [routerLink]="['/user/registervendor']"
+                      class="btn btn-link">{{'Register.Register'|translate}}</a>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

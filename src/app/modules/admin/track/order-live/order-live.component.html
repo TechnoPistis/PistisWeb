@@ -1,0 +1,70 @@
+<div class="main-panel">
+    <div class="content">
+      <div class="page-inner">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-head-row">
+                  <div class="card-title">Report</div>
+
+
+                </div>
+              </div>
+
+
+
+                    <div class="row">
+
+                    <div class="col-md-6 mt-3" >
+                      <div class="col-md-12">
+                        <div class="table-responsive">
+                          <h1>Sales </h1>
+                          <a  (click)="sales('H')">H</a> | <a  (click)="sales('W')">W</a> |<a  (click)="sales('M')" > M</a> |<a  (click)="sales('Y')"> Y</a>
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+                                  <th>Sale amount</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>{{data | number : '1.2-2'}} %</td>
+                                 </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                    </div>
+                    </div>
+                    <div class="col-md-6 mt-3" >
+                      <div class="col-md-12">
+                        <div class="table-responsive">
+                          <h1>Orders</h1>
+                          <a  (click)="order('H')">H</a> | <a  (click)="order('W')">W</a> |<a  (click)="order('M')" > M</a> |<a  (click)="order('Y')"> Y</a>
+
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+                                  <th>Orders total</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+
+                                <tr>
+                                  <td>{{orders| number : '1.2-2'  }} %</td>
+                                 </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                    </div>
+                    </div>
+
+
+                    </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

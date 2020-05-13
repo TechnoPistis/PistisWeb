@@ -1,0 +1,206 @@
+<app-header></app-header>
+
+<div class="container p-tb-2" *ngIf="message.Status=='accredited';else elseblock">
+    <div class="cart-page-con-area mrgn-b-md">
+        <div class="row" >
+           <div class="col-md-4 col-sm-4 col-lg-4 col-xs-12">
+               <div class="pad-all-md pull-left">
+                   <div class="order-place-box">
+                        <div class="order-place-icon pull-left">
+                            <img src="assets/img/order-icon.png">
+                        </div>
+                        
+                        <div class="order-place-con pull-left" >
+                            <h2>{{'Register.MyOrders.OrderPlacedFor'|translate}} ${{message.TotalPrice.toFixed(2)}}!</h2>
+                            <p>Your{{message.Cart.count}} {{'Register.MyOrders.ItemDeliveredBy'|translate}} <span>{{message.DeliveryDate|date: 'EEEE, MMMM d, y'}}.</span></p>
+                        </div>
+                   </div>
+               </div>
+           </div>
+           <div class="col-md-4 col-sm-4 col-lg-4 col-xs-12">
+            <div class="why-call-box pad-all-md border-left pull-left">
+                <div class="why-call-box-con pull-left">
+                    <h4>{{'Register.Cart.DeliveryAddress'|translate}}</h4>
+                   
+                    <!-- <p><strong>{{message.Shipping.Name}}</strong></p> -->
+                    <p><strong><span *ngIf="message.Shipping.Name">{{message.Shipping.Name}}</span> </strong></p>
+                    <p *ngIf="message.Shipping.Street   || message.Shipping.Street!=''  ">
+                        {{message.Shipping.Street}}
+                        <span *ngIf="message.Shipping.Street1">{{message.Shipping.Street1}}</span>
+                                  <span *ngIf="message.Shipping.Street2">&nbsp;{{message.Shipping.Street2}}</span>
+                            </p>
+                            <p *ngIf="message.Shipping.Colony || message.Shipping.Colony!='' ">{{message.Shipping.Colony}}</p>
+                            <p>
+                                <span *ngIf="message.Shipping.City || message.Shipping.City!='' ">{{message.Shipping.City}}</span>
+                                <span *ngIf="message.Shipping.StateName || message.Shipping.StateName!=''">&nbsp;{{message.Shipping.StateName}}</span>
+                              </p>
+                              <p *ngIf="message.Shipping.Pincode || message.Shipping.Pincode!=''"> {{message.Shipping.Pincode}}</p>
+                              <p *ngIf="message.Shipping.LandMark || message.Shipping.LandMark!=''"> {{message.Shipping.LandMark}}</p>
+                             <p *ngIf="message.Shipping.PhoneNo || message.Shipping.PhoneNo!=''"> <strong>Phone number</strong><span>{{message.Shipping.PhoneNo}}</span></p>
+
+                    <!-- <span>
+                        {{message.Shipping.Colony}},{{message.Shipping.Street}},{{message.Shipping.City}},{{message.Shipping.StateName}}
+                        -
+                        {{(message.Shipping.Pincode)}}</span>
+                    <p><strong>Phone number</strong> {{message.Shipping.PhoneNo}}</p> -->
+                </div>
+                
+            </div>
+    </div>
+           <div class="col-md-4 col-sm-4 col-lg-4 col-xs-12">
+                <div class="why-call-box pad-all-md border-left pull-left">
+                    <div class="why-call-box-con pull-left">
+                        <h3 *ngIf="noUser" >{{'Register.Cart.WhyCall'|translate}}</h3>
+                        <p *ngIf="noUser">{{'Register.Cart.EasilyTrack'|translate}}</p>
+                        <button class="btn btn-primary" (click)="sendTotrak()" *ngIf="noUser" >{{'Register.Cart.TrackOrder'|translate}}</button>
+                  <span *ngIf="!noUser" >{{'Register.GuestUserTrack'|translate}}.</span>
+                    </div>
+                    <div class="why-call-box-icon pull-right">
+                        <img src="assets/img/order-track-icon.png">
+                    </div>
+                </div>
+        </div>
+        </div>
+    </div>
+    <div class="cart-page-con-area">
+        <section class="my-orders">
+            <div class="order_box1">
+                <div class="order_content">
+                    <div class="row" *ngFor="let item of message.Cart">
+                        <div class="col-md-1 col-sm-1 col-lg-1 col-xs-12 text-center thumb-size">
+                            <img src={{item.Image150}} alt="" class="img-pro">
+                        </div>
+                        <div class="col-md-11 col-sm-11 col-lg-11 col-xs-12">
+                            <div class="order_list">
+                                <div class="row">
+                                    <div class="col-md-5 col-sm-5 col-lg-5 col-xs-12">
+                                        <div class="row">
+                                            <div class="col-md-7 col-sm-7 col-lg-7 col-xs-12">
+                                                <a class="item-title" href="#">{{item.Name}}</a>
+                                                <p class="brand mt-10" *ngFor="let v of item.VariantOptions"><span *ngIf="v.varientName!='Default'">
+                                                    {{v.varientName}}: {{v.Name}}
+                                                </span></p>
+                                                <p class="brand " *ngIf="item.VendorName">{{'Register.MyOrders.Seller'|translate}}: {{item.VendorName}}</p>
+                                            </div>
+                                            <div class="col-md-5 col-sm-5 col-lg-5 col-xs-12">
+                                                <p class="productPrice"><span class="sellingPrice"><strong>${{item.PriceAfterDiscount.toFixed(2)}} x {{item.Quantity}}</strong></span></p>
+                                                <!-- <p class="offer_count"><span class="sellingPrice">{{'Register.MyOrders.OFFER'|translate}}:</span>1</p> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-lg-4 col-xs-12">
+                                        <i class="fas fa-truck delivery-icon"></i> {{'Register.Cart.DeliveryExpected'|translate}} {{message.DeliveryDate|date:'MMM d, y'}}
+                                    </div>
+                                    <!-- <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12 ">
+                                        <p><a class="raterev" href="#"><i class="fas fa-times-circle mr-1"></i> Cancel Item</a></p>
+                                        <p><a class="raterev" href="#"><i class="fas fa-question-circle mr-1"></i> Need Help</a></p>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="order_footer">
+                    <div class="row">
+                        
+                        <div class="col-md-8 col-sm-8 col-lg-8 col-xs-12">
+                            Total<span class="totalPrice"> ${{message.TotalPrice.toFixed(2)}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<ng-template #elseblock>
+
+
+    <div class="container p-tb-2" *ngIf="englang && noUser">
+        <div class="confirm-order-box-1">
+                <div class="row">
+                        <div class="col-md-12 mrgn-b-md">
+                           <img src="assets/img/payment-confirm-icon.png">
+                        </div>
+                        <div class="col-md-12 mrgn-b-sm">
+                                <h4 class="order-head">Your order is confirmed.</h4>
+                                <p class="order-sub-head">to view your order details  click on below button</p>
+                             </div>
+                             <div class="col-md-12 mrgn-b-md">
+                                    <a class="btn btn-sm btn-round btn-primary" [routerLink]="['/MyOrders']" routerLinkActive="router-link-active"  > My Orders </a>
+                                 </div>
+                    </div>
+        </div>
+        <!-- <h4>your order is confirmed ,to view your orders details  click on below button <br><a class="btn btn-round btn-primary" [routerLink]="['/MyOrders']" routerLinkActive="router-link-active"  > My Orders </a></h4> -->
+
+    </div>
+    <div class="container p-tb-2" *ngIf="SpanishLanguage && noUser">
+        <div class="confirm-order-box-1">
+            <div class="row">
+                    <div class="col-md-12 mrgn-b-md">
+                       <img src="assets/img/payment-confirm-icon.png">
+                    </div>
+                    <div class="col-md-12 mrgn-b-sm">
+                            <h4 class="order-head">su pedido se confirma.</h4>
+                            <p class="order-sub-head"> para ver los detalles de sus pedidos haga clic en botón inferior</p>
+                         </div>
+                         <div class="col-md-12 mrgn-b-md">
+                                <a class="btn btn-sm btn-round btn-primary" [routerLink]="['/MyOrders']" routerLinkActive="router-link-active"  > Mis órdenes </a>
+                             </div>
+                </div>
+    </div>
+    </div>
+    <div class="container p-tb-2" *ngIf="englang && !noUser">
+        <div class="confirm-order-box-1">
+            <div class="row">
+                    <div class="col-md-12 mrgn-b-md">
+                       <img src="assets/img/payment-confirm-icon.png">
+                    </div>
+                    <div class="col-md-12 mrgn-b-sm">
+                <h4 class="order-head">Your order details will be send to your email.</h4>
+                            <p class="order-sub-head"> Moreover,you will also get updates of this order on your email.</p>
+                         </div>
+                </div>
+    </div>
+    </div>
+    <div class="container p-tb-2" *ngIf="SpanishLanguage && !noUser">
+        <div class="confirm-order-box-1">
+            <div class="row">
+                    <div class="col-md-12 mrgn-b-md">
+                       <img src="assets/img/payment-confirm-icon.png">
+                    </div>
+                    <div class="col-md-12 mrgn-b-sm">
+                            <!-- <h4 class="order-head">su pedido se confirma.</h4> -->
+                            <p class="order-sub-head"> Los detalles de su pedido serán enviados a su correo electrónico. Además, también recibirá actualizaciones de este pedido en su correo electrónico.</p>
+                         </div>
+                </div>
+    </div>
+    </div>
+
+</ng-template>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<app-footer></app-footer>

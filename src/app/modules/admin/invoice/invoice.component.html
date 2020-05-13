@@ -1,0 +1,232 @@
+<div class="main-panel">
+  <div class="content">
+      
+    <div class="page-inner" >
+     <div class="row mb-3">
+        <div class="col-md-12"><button class="btn btn-sm btn-success" (click)="print()"><i class="fas fa-print"></i> print</button></div>
+     </div>
+        <div class="row" >
+            <div class="col-md-12">
+              <div class="card">
+      <div style="width: 100%; height: auto;" class="invoice" id="PrintDiv" *ngIf="order">
+        <table width="100%" class="table" cellspacing="0"
+          style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 18px;">
+          <tr>
+            <td style="border-bottom: 1px solid #ccc; padding-bottom: 20px;">
+              <table width="100%" cellspacing="0" class="table">
+                <tr>
+                  <td>
+                    <table width="100%" class="table">
+                      <tr>
+                        <td style="text-transform: uppercase; font-weight: bold;">
+                          {{'Register.ShippingAddress'|translate}}:
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>{{order.ShiptoName}}</td>
+                      </tr>
+                      <tr>
+                        <td>{{order.ShipAddress}}</td>
+                      </tr>
+                      <tr *ngIf="order.ShipStreets!=''">
+                        <td>{{order.ShipStreets}}</td>
+                      </tr>
+                      <tr *ngIf="order.ShipColony!=''">
+                        <td>{{order.ShipColony}}</td>
+                      </tr>
+                      <tr>
+                        <td>{{order.ShipCity}}<span *ngIf="order.ShipCity!=''">,</span>{{order.ShipState}}</td>
+                      </tr>
+                      <tr>
+                        <td>{{order.ShipPin}}</td>
+                      </tr>
+                      <tr *ngIf="order.ShipLandmark!=''">
+                        <td>{{order.ShipLandmark}}</td>
+                      </tr>
+                      <tr>
+                        <td>{{order.ShipPhoneNo}}</td>
+                      </tr>
+                      <tr *ngIf="order.UserEmailId!=''">
+                        <td>{{order.UserEmailId}}</td>
+                      </tr>
+
+                    </table>
+                  </td>
+                  <td align="right" valign="top"><img src="assets/img/logo-invoice.png"></td>
+                </tr>
+
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-top: 20px;">
+              <table width="100%" class="table" cellspacing="0">
+                <tr>
+                  <td>
+                    <table width="100%" class="table">
+                      <tr>
+                        <td style="text-transform: uppercase; font-weight: bold;">
+                          {{'Register.BillingAddress'|translate}}:
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>{{order.billtoName}}</td>
+                      </tr>
+                      <tr>
+                        <td>{{order.billAddress}}</td>
+                      </tr>
+                      <tr *ngIf="order.billStreets!=''">
+                        <td>{{order.billStreets}}</td>
+                      </tr>
+                      <tr *ngIf="order.billColony!=''">
+                        <td>{{order.billColony}}</td>
+                      </tr>
+                      <tr>
+                        <td>{{order.billCity}}<span *ngIf="order.billCity!=''">,</span>{{order.billState}}</td>
+                      </tr>
+                      <tr>
+                        <td>{{order.billPin}}</td>
+                      </tr>
+                      <tr *ngIf="order.billLandmark!=''">
+                        <td>{{order.billLandmark}}</td>
+                      </tr>
+                      <tr>
+                        <td>{{order.billPhoneNo}}</td>
+                      </tr>
+                      <!-- <tr>
+                        <td>akashasdfsd@Pistis.com</td>
+                      </tr> -->
+
+                    </table>
+                  </td>
+                  <td align="right" valign="top">
+                    <table cellspacing="0" width="70%" border="0" class="table">
+                      <tr>
+                        <td style="text-transform: uppercase; font-weight: bold;">
+                          {{'Register.Invoice'|translate}} #
+                        </td>
+                        <td align="right">
+                         {{order.OrderNo}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="text-transform: uppercase; font-weight: bold;">
+                          {{'Register.InvoiceDate'|translate}}
+                                                </td>
+                        <td align="right">
+                          {{order.PurchasedOn}}
+                        </td>
+                      </tr>
+
+                      <tr style="background-color: #cfd5d5;">
+                        <td style="text-transform: uppercase; font-weight: bold;">
+                          {{'Register.Paid'|translate}}
+                        </td>
+                        <td align="right">
+                          ${{order.PurchasePrice}}
+                        </td>
+                      </tr>
+
+                    </table>
+                  </td>
+                </tr>
+
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-bottom: 20px; padding-top: 20px;">
+              <table cellspacing="0" width="100%" class="table">
+                <thead style="background-color: #cfd5d5;">
+                  <tr>
+                    <th align="left">{{'Register.Item'|translate}} </th>
+                    <!-- <th align="left">Description </th> -->
+                    <th >{{'Register.Quantity'|translate}}</th>
+                    <th >{{'Register.UnitCost'|translate}}</th>
+                    <th >{{'Register.Discount'|translate}}</th>
+                    <th >{{'Register.LineTotal'|translate}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of order.items">
+                    <td>{{item.ProductVariantDetail.Product.Name}} </td>
+                    <!-- <td>{{item.Product.Description}}</td> -->
+                    <td >{{item.Quantity}}</td>
+                    <td >${{item.UnitPrice}}</td>
+                    <td>{{item.ProductVariantDetail.Discount}}%</td>
+                    <td>${{item.Amount}} </td>
+                  </tr>
+                  
+
+                </tbody>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td style="border-bottom: 1px solid #ccc; padding-bottom: 20px;">
+              <table width="100%" class="table" cellspacing="0">
+                <tr>
+                  <td>
+                    <table width="100%" class="table">
+                      <tr>
+                        <td style="text-transform: uppercase; font-weight: bold;">
+                          {{'Register.Notes/Memo'|translate}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                            {{'Register.FreeShipping'|translate}} {{order.DeliveryDate}} <span></span></td>
+                      </tr>
+
+
+                    </table>
+                  </td>
+                  <td align="right" valign="top">
+                    <table cellspacing="0" width="70%" border="0" class="table">
+                      <tr>
+                        <td style="text-transform: uppercase; font-weight: bold;">
+                            {{'Register.Subtotal'|translate}}
+                        </td>
+                        <td align="right">
+                          ${{order.BasePrice}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="text-transform: uppercase; font-weight: bold;">
+                            {{'Register.Cart.ShippingCharges'|translate}}
+                        </td>
+                        <td align="right">
+                          ${{order.ShippingPrice}}
+                        </td>
+                      </tr>
+
+                      <tr style="background-color: #cfd5d5;">
+                        <td style="text-transform: uppercase; font-weight: bold;">
+                            {{'Register.MyOrders.Total'|translate}}
+                        </td>
+                        <td align="right">
+                          ${{order.PurchasePrice}}
+                        </td>
+                      </tr>
+
+                    </table>
+                  </td>
+                </tr>
+
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td align="center" style="padding-top: 20px;"><img src="assets/img/logo-invoice-f.png"></td>
+          </tr>
+          <tr>
+            <td style="color: #a1a1a1;" align="center">Invoice powered by Pistis</td>
+          </tr>
+        </table>
+      </div>
+      </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>

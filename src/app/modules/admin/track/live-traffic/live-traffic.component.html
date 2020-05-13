@@ -1,0 +1,77 @@
+<div class="main-panel">
+    <div class="content">
+      <div class="page-inner">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-head-row">
+                  <div class="card-title">Live user track</div>
+                 
+               
+                  <div class="form-group col-md-2">
+                    <label for="filter">Country:</label>
+                    <!-- (change)="Filter3($event)" -->
+                    <select class="form-control" (change)="Filter3($event)" >
+                      <option value="0" selected="">Select Option</option>
+                      <option  *ngFor="let c of country;" [value]="c">{{c}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group  col-md-2">
+                    <label for="filter">Response filter :</label>
+                    <label>{{'Register.From'|translate}} </label>
+                    <input class="form-control" bsDatepicker 
+                       [(ngModel)]="date" 
+                      placeholder="YYYY-MM-DD" type="text" autocomplete="off" >
+                  </div>
+                  <div class="form-group  col-md-2">
+                    <label for="filter">Response filter :</label>
+                    <label>To </label>
+                    <input class="form-control" bsDatepicker 
+                       [(ngModel)]="date2" 
+                      placeholder="YYYY-MM-DD" type="text" autocomplete="off" >
+                  </div>
+                  <div class="form-group  col-md-2">
+                    <button class="btn-btn-success " (click)='getDates(date,date2)'>Submit</button>
+                  </div>
+                  <!-- <div class="form-group  col-md-2">
+                    <label for="filter">User sessions:</label>
+                    <select class="form-control" (change)="Filter3($event)" >
+                      <option value="0" selected="">Select Option</option>
+                      <option  *ngFor="let c of sessions;" [value]="c.Guid">{{c.SessionId}}</option>
+                    </select>
+                  </div> -->
+                
+                </div>
+              </div>
+  
+              <div class="row pt-3">
+                <div class="col-md-12">
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+  
+                          <th>Traffic</th>
+                          <th>Device</th>
+                          <th>ActiveUsers</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+  
+                        <tr *ngFor="let cat of data">
+                          <td>{{cat.Country}}</td>
+                          <td>{{cat.Device}}</td>
+                          <td>{{cat.Users}}</td>
+                          </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,45 @@
+<app-header></app-header>
+<section  class="testimonial-list">
+    <div class="container p-tb-2">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                <div class="addres_top">
+                    
+
+                    <div class="row">
+                            <div class="col-sm-12 col-xs-12 text-center bestseller-heading mrgn-b-md">
+                                <h1><span>Testimonials</span></h1>
+                            </div>
+                        <div class="col-sm-4" *ngFor="let cat of data">
+                            <div id="tb-testimonial" class="testimonial testimonial-default">
+                                <div class="testimonial-section">
+                                  {{cat.Description.length > 70 ? cat.Description.substring(0,140)+'...': cat.Description}}
+                                    <a class="btn btn-xs btn-primary testi-link">Read More </a>
+                                    <!-- <button mat-button (click)="openDialog(cat.Description)">Read More</button> -->
+                                </div>
+                                <div class="testimonial-desc">
+                                    <img src="assets/img/profile.jpg" alt="" />
+                                    <div class="testimonial-writer">
+                                        <div class="testimonial-writer-name">{{cat.UserName}}</div>
+                                        <div class="testimonial-writer-designation"><h4>Rating</h4></div>
+                                        <div class="testimonial-stars">
+                                                <i [ngClass]="(cat.Rating >= 1)?'fas fa-star fill':'fas fa-star'"></i>
+                                                <i [ngClass]="(cat.Rating >= 2)?'fas fa-star fill':'fas fa-star'"></i>
+                                                <i [ngClass]="(cat.Rating >= 3)?'fas fa-star fill':'fas fa-star'"></i>
+                                                <i [ngClass]="(cat.Rating >= 4)?'fas fa-star fill':'fas fa-star'"></i>
+                                                <i [ngClass]="(cat.Rating == 5)?'fas fa-star fill':'fas fa-star'"></i>
+                                                
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>   
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>

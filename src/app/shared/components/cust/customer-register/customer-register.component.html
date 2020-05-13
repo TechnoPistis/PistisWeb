@@ -1,0 +1,124 @@
+<div class="container-login-wrapper">
+  <div class="login-wrapper-inner">
+    <div class="login-bg">
+      <div class="row">
+        <div class="col-md-5">
+          <div class="login-text-area">
+            <h5>{{'Register.WelcomeToPistis'|translate}}</h5>
+            <h1>{{'Register.FillForm'|translate}}</h1>
+            <h4>{{'Register.ToRegister'|translate}}</h4>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="container-login-form-new">
+            <h3>{{'Register.Title'|translate}}</h3>
+            <form [formGroup]="service.formModel" autocomplete="off" (submit)=onSubmit()>
+              <div class="login-form mt-3">
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group required">
+
+                      <label for="FirstName"><b>{{'Register.FirstName'|translate}}</b></label>
+                      <input name="FirstName" class="form-control" formControlName="FirstName">
+                      <label class="text-danger"
+                        *ngIf="service.formModel.get('FirstName').touched && service.formModel.get('FirstName').errors?.required">{{'Register.Required_Msg'|translate}}</label>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="MiddleName" class="placeholder"><b>{{'Register.MiddleName'|translate}}</b></label>
+                      <input name="MiddleName" class="form-control" formControlName="MiddleName">
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="LastName"><b>{{'Register.LastName'|translate}}</b></label>
+                      <input name="LastName" class="form-control" formControlName="LastName">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+
+                      <label for="Email"><b>{{'Register.Email'|translate}}</b></label>
+                      <input name="Email" class="form-control" formControlName="Email">
+                      <label class="text-danger" *ngIf="service.formModel.get('Email').touched && service.formModel.get('Email').errors?.required">{{'Register.Required_Msg'|translate}}</label>
+                      <label class="text-danger"
+                        *ngIf="service.formModel.get('Email').touched && service.formModel.get('Email').errors?.email">{{'Register.ValidEmail'|translate}}</label>
+
+
+
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="Phone"><b>{{'Register.Phone'|translate}}</b></label>
+                      <input name="Phone" class="form-control" formControlName="Phone">
+                    </div>
+
+                  </div>
+                </div>
+                <div class="row">
+
+                  <div class="col-md-6">
+
+                    <div class="form-group required">
+                      <label For="Password"><b>{{'Register.Password'|translate}}</b></label>
+                      <input name="Password" type="password" class="form-control" formControlName="Password">
+                      <label class="text-danger"
+                        *ngIf="service.formModel.get('Password').touched && service.formModel.get('Password').errors?.required">{{'Register.Required_Msg'|translate}}</label>
+                      <label class="text-danger"
+                        *ngIf="service.formModel.get('Password').touched && service.formModel.get('Password').errors?.minlength">
+                        {{'Register.Password_Format_Msg'|translate}}</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+
+                    <div class="form-group required">
+                      <label for="ConfirmPassword"><b>{{'Register.ConfirmPassword'|translate}}</b></label>
+                      <input Id="ConfirmPassword" type="password" class="form-control"
+                        formControlName="ConfirmPassword">
+                      <label class="text-danger"
+                        *ngIf="service.formModel.get('ConfirmPassword').touched && service.formModel.get('ConfirmPassword').errors?.required">This
+                        field is required</label>
+                      <label class="text-danger"
+                        *ngIf="service.formModel.get('ConfirmPassword').touched && service.formModel.get('ConfirmPassword').errors?.passwordMismatch">
+                        {{'Register.ConfirmPassword_Password_Match_Msg'|translate}}</label>
+                    </div>
+
+
+                  </div>
+
+                </div>
+
+                <div class="row form-sub m-0 mt-2 ">
+                  <div class="custom-control custom-checkbox">
+                    <!-- (change)="toggleVisibility($event)" -->
+                    <input type="checkbox" class="custom-control-input" name="agree" id="agree" >
+                    <label class="custom-control-label " for="agree"><a [routerLink]="['/terms']"
+                        routerLinkActive="router-link-active">{{'Register.IAgreeTerms'|translate}}</a></label>
+                        <br>
+                        <label class="text-danger" *ngIf="TermCond" >{{'Register.Required_Msg'|translate}}</label>
+                  </div>
+                </div>
+
+                <div class="row form-action">
+                  <!-- <div class="col-md-6">
+                                <a href="#" id="show-signin" class="btn btn-danger btn-link w-100 fw-bold">Cancel</a>
+                              </div> -->
+                  <div class="col-md-6">
+
+                    <button type="submit" class="btn btn-success btn-block w-100 fw-bold"
+                      [disabled]="!service.formModel.valid">{{'Register.SignUp'|translate}}</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

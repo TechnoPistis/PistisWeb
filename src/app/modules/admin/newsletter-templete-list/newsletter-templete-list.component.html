@@ -1,0 +1,83 @@
+<div class="main-panel">
+  <div class="content">
+    <div class="page-inner">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-head-row">
+                <div class="card-title">{{'Register.NewsLetterCustomers'|translate}}</div>
+                <div class="btn-group btn-group-page-header ml-auto">
+                       
+                        <button type="button" class="btn btn-success" [routerLink]="['/admin/newsTemp']" routerLinkActive="router-link-active">{{'Register.AddNewsletterButton'|translate}}</button>
+                    </div>
+              
+              </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                      <!-- <div class="input-group" id="adv-search">
+                        <input type="text" class="form-control" placeholder="{{'Register.SearchPlaceholder'|translate}}">
+    
+                        <div class="input-group-btn">
+                          <div class="btn-group" role="group">
+                           
+                            <button type="button" class="btn btn-primary" (click)="searchnews()" [(ngModel)]="search"><span class="fa fa-search"
+                                aria-hidden="true"></span></button>
+                          </div>
+                        </div>
+                      </div> -->
+                    </div>
+                  </div>
+              </div>
+              <div class="row pt-3">
+                <div class="col-md-12">
+                  <div class="table-responsive">
+                    <table  class="table table-striped">
+                      <thead>
+                        <tr>
+                         
+                          <th>{{'Register.TemplateType'|translate}}</th>
+                          <th>{{'Register.TemplateSubject'|translate}}</th>
+                          <th>{{'Register.SenderName'|translate}}</th>
+                          <th>{{'Register.SenderEmail'|translate}}</th>
+                          <th>{{'Register.TemplateContent'|translate}}</th>
+                          <th>{{'Register.SentEmail'|translate}}</th>
+                          <th>{{'Register.Action'|translate}}</th>
+                        </tr>
+                      </thead>
+                      <tbody >
+                        <tr  *ngFor="let cat of dataList ">
+                          
+                          <td>{{cat.Templatetype}} </td>
+                          <td>{{cat.TemplateSubject}}</td>
+                          <td>{{cat.SenderName}} </td>
+                          <td>{{cat.SenderEmail}}</td>
+                          <td> <div [innerHTML]="cat.TemplateContent  | slice:0:7 "></div></td>
+                          <!-- <td *ngIf="cat.IsSubscribed==true" >
+                                <button  (click)="onActivate(cat.Id,1)" class="btn btn-sm btn-success btn-fix-width">Unsubscribe</button></td>
+                         
+                          <td *ngIf="cat.IsSubscribed==false" >
+                                <button  (click)="onActivate(cat.Id,0)" class="btn btn-sm btn-danger btn-fix-width">Subscribe</button>   
+                          </td> -->
+                          <td ><button (click)="SentEmail(cat.Id)" class="btn btn-primary">{{'Register.SendAll'|translate}}</button> </td>
+                          <td>
+                            <button  (click)="onEdit(cat.Id)" class="btn btn-sm btn-outline-danger"><i class="fas fa-edit"></i></button>
+                            <button  (click)="onDelete(cat.Id)" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>      
+                      </td>
+                        </tr>
+                      </tbody>
+                      
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+

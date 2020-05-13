@@ -1,0 +1,68 @@
+<!-- <div  *ngFor="let item of dataList">
+        {{item.Name}}
+        <div *ngIf="ProductList">
+                <div *ngFor="let Child of item.ProductCategory1"> 
+
+                        {{Child.Name}}
+                </div>
+             </div>
+
+
+</div> -->
+
+<!-- class="collapse navbar-collapse" -->
+        <div  id="myNavbar">
+               
+            <ul class="nav navbar-nav">
+    
+   
+              <div  *ngFor="let item of dataList">
+                    <li class="dropdown-nav mega-menu">
+                        <a class="dropdown-toggle parent" data-toggle="dropdown" href="#">{{item.Name}} <span class="caret"></span></a>
+                           <div *ngIf="ProductList">
+                              <ul class="dropdown-menu">
+    
+                            <div class="site-nav-dropdown">
+                                <div class="container style_4">
+                                    <div class="row">
+                                        <div class="col-12 parent-mega-menu">
+                                            <div *ngFor="let Child of item.ProductCategory1">
+                                            
+                                                <div class="inner col-xs-12 col">
+                                                        <a>  <!-- href="/productcatalogue/fetch/@Child.Id?Name=@Child.Name" class="child"> -->
+                                                        {{Child.Name}}
+                                                    </a>
+                                                   
+                                                    <div *ngIf="child">
+                                                   
+                                                        <ul class="dropdown">
+                                                            <!-- @foreach (var subChild in Child.ProductCategory1)
+                                                            {
+                                                                <li>
+                                                                    <a data-id="@Child.Id" class="subchild">
+                                                                        @subChild.Name
+                                                                    </a>
+                                                                </li>
+                                                            } -->
+                                                        </ul>
+    
+                                                    
+                                                </div>
+    
+                                            
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                              </div>
+                          </ul>
+                        </div>
+    
+                    </li>
+                </div>
+            </ul>
+        </div>
+  
+    
+    

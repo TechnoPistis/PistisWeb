@@ -1,0 +1,161 @@
+<div class="main-panel">
+  <div class="content">
+    <div class="page-inner">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-head-row">
+                <div class="card-title">{{'Register.AddFooterUrlData'|translate}}</div>
+                
+                <div class="btn-group btn-group-page-header ml-auto">
+                  <hr>
+                  <button type="button" class="btn btn-success"
+                    (click)="onClick()">{{'Register.ShowUrlDataButton'|translate}}
+                  </button>
+                </div>
+
+              </div>
+            </div>
+            <!-- start -->
+            <!-- strat -->
+            <div class="card-body">
+              <div class="card-head-row mb-3">
+                <div class="card-title">{{'Register.UploadImage'|translate}}</div>
+                <div class="form-group col-md-4">
+                  <label for="filter">original or  Cropped (Image):</label>
+                  <!-- <div class="card-title">Enable / Disable logs</div> -->
+                 
+                  <div class="form-group col-md-4">
+                    <!-- <label for="filter">Enable / Disable</label> -->
+                    <input type="checkbox" (change)="handleSelected($event)">
+                   
+                  </div>
+                </div>
+               
+                <div *ngIf="enableCrop" class="form-group col-md-4">
+                  <label for="filter">Croper shape :</label>
+                  <select class="form-control" (change)="Filter($event)">
+                    <option value="0" selected="">Select Option</option>
+                    <option value="1">Rectangle</option>
+                    <option value="2">Square</option>
+                    <!-- <option value="4">step-1</option>
+                    <option value="5">step-2</option>
+                    <option value="6">step-3</option> -->
+                  </select>
+                </div>
+              
+                <div class="card-tools ">
+                  <!-- start -->
+
+
+                  <!-- khatam -->
+                  <label *ngIf="enableCrop" for="files"
+                    class="btn btn-info btn-border btn-round btn-sm mr-2 ">{{'Register.SelectImage'|translate}}</label>
+                  <!-- <input id="files" #Image style="visibility:hidden;" type="file" (change)="handleFileInput($event)"> -->
+
+                  <input id="files" #Image style="visibility:hidden;" type="file" (change)="fileChangeEvent($event)">
+             <div *ngIf="!enableCrop" class="col-md-8" >
+                  <dropzone (success)="onProfilePicUpload($event)" [config]="config"
+                                        [message]="'UploadImage'"></dropzone>
+                                      </div>
+                </div>
+                <div class="validation-error" *ngIf="Image.touched">{{'Register.Thisfieldisrequired'|translate}}</div>
+              </div>
+              <div *ngIf="enableCrop" class="row mb-3">
+                <div class="col-md-12">
+                  <p *ngIf="!showbutton" class="text-warning">
+                    {{'Register.Forcropfunctionalityneedtouploadtheoriginalimage'|translate}}</p>
+
+                  <button *ngIf="showbutton" class="btn btn-info btn-border btn-round btn-sm mr-2 "
+                    (click)="toggleContainWithinAspectRatio()">{{containWithinAspectRatio?'Fill Aspect Ratio':'Contain Within Aspect Ratio'}}</button>
+                  <button *ngIf="showbutton" class="btn btn-info btn-border btn-round btn-sm mr-2 "
+                    (click)="resetImage()">{{'Register.ResetImage'|translate}}</button>
+                  <br />
+                  <br />
+                  <input *ngIf="showbutton" class="btn btn-info btn-border btn-round btn-sm mr-2 "
+                    [(ngModel)]="rotation" #Rotation placeholder="Rotation" (keyup)="updateRotation(Rotation.value)" />
+                  <button *ngIf="showbutton" class="btn btn-info btn-border btn-round btn-sm mr-2 "
+                    (click)="zoomOut()">{{'Register.Zoom'|translate}} -</button>
+                  <button *ngIf="showbutton" class="btn btn-info btn-border btn-round btn-sm mr-2 "
+                    (click)="zoomIn()">{{'Register.Zoom'|translate}} +</button>
+
+                  <div *ngIf="shape"  >
+                    <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+                      [containWithinAspectRatio]="containWithinAspectRatio" [aspectRatio]="4 / 1" [resizeToWidth]="1600"
+                      [cropperMinWidth]="400" [onlyScaleDown]="true" [roundCropper]="false"
+                      [canvasRotation]="canvasRotation" [transform]="transform" [alignImage]="'left'"
+                      [style.display]="showCropper ? null : 'none'" format="png" (imageCropped)="imageCropped($event)"
+                      (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady($event)"
+                      (loadImageFailed)="loadImageFailed()"></image-cropper>
+                  </div>
+                  <div *ngIf="!shape"  >
+                    <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+                      [containWithinAspectRatio]="containWithinAspectRatio" [aspectRatio]="4 / 3" [resizeToWidth]="1600"
+                      [cropperMinWidth]="400" [onlyScaleDown]="true" [roundCropper]="false"
+                      [canvasRotation]="canvasRotation" [transform]="transform" [alignImage]="'left'"
+                      [style.display]="showCropper ? null : 'none'" format="png" (imageCropped)="imageCropped($event)"
+                      (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady($event)"
+                      (loadImageFailed)="loadImageFailed()"></image-cropper>
+                  </div>
+
+
+
+
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="upload-img-area">
+
+                    <img [src]="imageUrl" class="upload-icon-img" *ngIf="imageUrl!='/assets/1234.png'; else elseblock">
+                    <ng-template #elseblock>
+                      <img [src]="imageUrl" class="upload-icon-img" >
+                      
+                    </ng-template>
+                  </div>
+                </div>
+                <div class="col-md-12">
+
+                 
+                  <div class="form-group col-sm-4">
+                    <button type="button" (click)="getImageUrl()" class="btn btn-info btn-md btn-block">Get
+                      link</button>
+                  </div>
+
+                  <div *ngIf="linkCol" class="form-group col-sm-12">
+                    <label>Link</label>
+                    <input name="FromDateTime" [(ngModel)]="imageUrl1" type="text" class="form-control" />
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <form #form="ngForm" (submit)="onSubmit(form)" autocomplete="off">
+              <!-- <input type="hidden" name="Id" #Id="ngModel" [(ngModel)]="formData.Id"> -->
+              <div class="form-group col-sm-4">
+                <label>{{'Register.FooterUrl'|translate}}</label>
+                <select name="FooterUrlId" #FooterUrlId="ngModel" [(ngModel)]="formData.FooterUrlId"
+                  class="form-control">
+                  <option [selected]="true == true" [ngValue]="0">{{'Register.SelectOption'|translate}}</option>
+                  <option *ngFor="let c of dataList ;" [value]="c.Id">
+                    {{c.Name}}
+                  </option>
+                </select>
+
+              </div>
+              <div class="form-group col-sm-12">
+                <label>{{'Register.FooterUrlDataText'|translate}}</label>
+                <ckeditor name="Data" #Data="ngModel" [(ngModel)]="formData.Data"></ckeditor>
+              </div>
+              <div class="form-group col-sm-2">
+                <button type="submit" class="btn btn-primary btn-block">{{'Register.SubmitButton'|translate}}</button>
+              </div>
+            </form>
+
+
+          </div>
+        </div>
+      </div>

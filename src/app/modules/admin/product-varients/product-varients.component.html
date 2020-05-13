@@ -1,0 +1,112 @@
+<div class="main-panel">
+  <div class="content">
+    <div class="page-inner">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-head-row">
+                <div class="card-title">{{'Register.HommeProducts'|translate}}</div>
+                <div class="btn-group btn-group-page-header ml-auto">
+
+                  <button *ngIf="!OpenAll" type="button" class="btn btn-success"
+                    (click)="onClick()">{{'Register.Changeall'|translate}}</button>
+                  <button *ngIf="OpenAll" type="button" class="btn btn-success"
+                    (click)="onClick1()">{{'Register.SaveAll'|translate}}</button>
+
+                </div>
+
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group" id="adv-search">
+                        <label>{{'Register.Productname'|translate}}</label>
+                        <input type="text" class="form-control" [(ngModel)]="SearchName"
+                          placeholder="{{'Register.SearchPlaceholder'|translate}}">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label>{{'Register.SelectVendor'|translate}}</label>
+                        <select name="ProductCategory" [(ngModel)]="vendorId" id="category" #selectedcat
+                          class="form-control">
+                          <option [value]="0">{{'Register.SelectVendor'|translate}}</option>
+                          <option *ngFor="let c of vendors;" [value]="c.VendorId">
+                            {{c.vendorName}}
+                          </option>
+                        </select>
+                      </div>
+
+
+                    </div>
+                    <div class="col-md-4">
+                      <button type="button" class="btn btn-sm btn-success mt-25"
+                        (click)="search()">{{'Register.Search'|translate}}</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row pt-3">
+                <div class="col-md-12">
+                  <div class="table-responsive" *ngFor="let items of dataList">
+                    <h3>{{'Register.Productname'|translate}}: {{items[0].Productname}}</h3>
+                    <hr>
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+
+                          <th>{{'Register.Productvariants'|translate}}</th>
+                          <th>{{'Register.Price'|translate}}</th>
+                          <th>{{'Register.Discount'|translate}}</th>
+                          <th>{{'Register.Edit'|translate}}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of items; let i = index">
+                          <td>{{item.VarientOptnName}}</td>
+                          <!-- <td>{{item.Price}}</td> -->
+                          <td *ngIf="!Edit[item.ProductVarientdetailId] && !OpenAll">{{item.Price}}</td>
+                          <td *ngIf="Edit[item.ProductVarientdetailId] || OpenAll">
+                            <input class="form-control col-md-3" #commission type="number" value="{{item.Price}}"
+                              (focusout)="getprice(item.ProductVarientdetailId,commission.value)">
+                            <!-- (focusout)=getValue(commission.value) -->
+                          </td>
+                          <td>{{item.Discount}}</td>
+                          <!-- <td><button (click)="onEdit(item.ProductVarientdetailId)" class="btn btn-sm btn-outline-danger">
+          <i class="fas fa-edit" ></i></button></td> -->
+                          <td>
+                            <button *ngIf="!Edit[item.ProductVarientdetailId]"
+                              (click)="onEdit(item.ProductVarientdetailId,item.ProductVarientdetailId)"
+                              class="btn btn-sm btn-outline-danger"><i class="fas fa-edit"></i></button>
+                            <button *ngIf="Edit[item.ProductVarientdetailId]" (click)="Save()"
+                              class="btn btn-sm btn-outline-danger">{{'Register.Save'|translate}}</button>
+                            <!-- <button (click)="onDelete(cat.Id)" class="btn btn-sm btn-outline-danger"><i
+                class="fas fa-trash"></i></button> -->
+                          </td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="no-left-right" *ngIf="count!=0">
+                  <app-admin-pagination [count]="count" [page]="page" [(perPage)]="perPage" [pagesToShow]="pagesToShow"
+                    (goPrev)="prevPage()" (goNext)="nextPage()" (goPage)="goToPage($event)"
+                    (pageSize)="newPageSize($event)">
+                  </app-admin-pagination>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

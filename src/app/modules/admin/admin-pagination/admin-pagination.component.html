@@ -1,0 +1,10 @@
+<hr class="display-no" style="clear:both;">
+<div class="pagination" *ngIf="count > 0">
+  <div class="col-md-12 text-center mrgn-b-md">
+    <button class="page-item" (click)="onPrev()" [disabled]="page === 1"
+      [ngClass]="{'prev-btn active': page != 1}">&laquo; </button>
+    <button class="page-item" *ngFor="let pageNum of getPages()" (click)="onPage(pageNum)"
+      [class.currentPage]="page==pageNum">{{pageNum}}</button>
+    <button class="page-item" (click)="onNext()" [disabled]="lastPage()" class="next-btn"> &raquo;</button> 
+  </div>
+</div>

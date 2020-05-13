@@ -1,0 +1,57 @@
+
+
+      
+
+<div class="main-panel">
+    <div class="content">
+      
+        <div class="page-inner">
+          
+          
+          <div class="row mt-3">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-head-row">
+                    <div class="card-title">{{'Register.EditSearchTerm'|translate}} </div>
+  
+                  </div>
+                </div>
+               
+                 
+                <div class="card-body">
+                  
+                  <div class="row mt-3">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label>{{'Register.SearchQuery'|translate}}</label>
+                        <input class="form-control" type="text" #name [(ngModel)]="data.Name" (change)="removeerr()">
+                        <label *ngIf="this.err==true" class="text-danger">{{'Register.Thisfieldisrequired'|translate}}</label>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label>{{'Register.DisplayonSuggestedTerms'|translate}}</label>
+                        <div *ngIf="data.IsDisplay==true">
+                            <input type="checkbox" [(ngModel)]="data.IsDisplay" checked>
+                        </div>
+                        <div *ngIf="data.IsDisplay==false">
+                            <input type="checkbox" [(ngModel)]="data.IsDisplay"  >
+
+                        </div>
+                      </div>
+                    </div>
+                     
+                    <div class="col-md-4">
+                        <button type="submit" (click)="update($event)" class="btn btn-primary mt-4">{{'Register.Submit'|translate}}</button>
+                    </div>
+                  </div>
+                </div>
+               
+              </div>
+            </div>
+          </div>
+        </div>
+     
+    </div>
+  </div>

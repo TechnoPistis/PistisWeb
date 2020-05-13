@@ -1,0 +1,64 @@
+<div class="main-panel">
+  <div class="content">
+    <div class="page-inner">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-head-row">
+                <div class="card-title">{{'Register.AllFooterHeader'|translate}}</div>
+                <div class="btn-group btn-group-page-header ml-auto">
+
+                  <button type="button" class="btn btn-success" (click)="onClick()">{{'Register.AddFooterHeader'|translate}}</button>
+                </div>
+
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                
+              </div>
+              <div class="row pt-3">
+                <div class="col-md-12">
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+
+                          <th>{{'Register.FooterHeaderName'|translate}}</th>
+                          <th>{{'Register.Actions'|translate}}</th>
+                          <!-- <th>Footer Header Url</th>
+                                                            <th>Footer Url Name</th> -->
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                        <tr *ngFor="let cat of dataList">
+                          <td>{{cat.Name}}</td>
+                          <!-- <td>{{cat.CostPrice}}</td>
+                                                        <td>{{cat.SellingPrice}}</td>
+                                                        <td>{{cat.PriceAfterdiscount}}</td> -->
+                          <!-- <td><select  name="ParentId" #ParentId   class="form-control">
+                                                        <option *ngFor="let c of dataList;" [value]="c.Id">
+                                                        {{c.Name}}
+                                                      </option>
+                                                         </select> </td> -->
+
+                          <!-- <td><div class="pro-thumb"><img  style="height: 50px;" src={{cat.Icon}}/></div></td> -->
+                          <td><button (click)="onDelete(cat.Id)" class="btn btn-sm btn-outline-danger"><i
+                                class="fas fa-trash mr-2"></i></button>
+                            <button (click)="onEdit(cat.Id)" class="btn btn-sm btn-outline-danger"><i
+                                class="fas fa-edit"></i></button></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,178 @@
+  <div class="main-panel">
+    <div class="content">
+      <div class="page-inner">
+        <div class="page-header">
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-head-row">
+                  <div class="col-md-12">
+                    <div class="card-title">
+                      <h4 class="page-title">{{'Register.OrderReport'|translate}}</h4>
+                      <div class="card-title-col togather">
+                        <label>{{'Register.From'|translate}}:</label>
+                      </div>
+                      <div class="card-title-col">
+                        <input type="text" bsDatepicker class="form-control" [(ngModel)]="first" #fromDate required />
+                      </div>
+                      <div class="card-title-col togather">
+                        <label>{{'Register.To'|translate}}:</label>
+                      </div>
+                      <div class="card-title-col">
+                        <input type="text" bsDatepicker class="form-control" [(ngModel)]="scnd" #todate required />
+                      </div>
+
+                      <div class="card-title-col">
+                        <button class="btn btn-success btn-sm"
+                          (click)="getTariks(fromDate.value,todate.value)">{{'Register.Submit'|translate}}</button>
+                      </div>
+                      <!-- <div class="card-title-col togather pull-right">
+                                                <label>Show By:</label>
+                                          </div> -->
+                      <div class="card-title-col pull-right">
+                        <label>{{'Register.ShowBy'|translate}}:</label>
+                        <select class="form-control-sm" [value]='spot' #DOY (change)="moment(DOY.value)">
+                          <option value="option">{{'Register.SelectOption'|translate}}</option>
+
+                          <option value="day">{{'Register.Today'|translate}}</option>
+                          <option value="month">{{'Register.ThisMonth'|translate}}</option>
+                          <option value="year">{{'Register.ThisYear'|translate}}</option>
+                        </select>
+                      </div>
+                      <div class="card-title-col pull-right">
+                        <label>Filter by:</label>
+                        <select class="form-control-sm" [value]='spot' #Status (change)="getOrderStatus(Status.value)">
+                          <option value="option">{{'Register.SelectOption'|translate}}</option>
+                          <option value="Preparing">Preparing</option>
+
+                          <option value="Packed">Packed</option>
+                          <option value="Shipped">Shipped</option>
+                          <option value="Delivered">Delivered</option>
+                          <option value="Pending ">Pending </option>
+                          <option value="Rejected">Rejected  </option>
+                          <option value="Refunded">Refunded</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--<div class="card-body">
+                   <div class="row">
+                      <div class="col-md-12">
+                        <div class="input-group" id="adv-search">
+                          <input type="text" class="form-control" placeholder="Search..">
+
+                          <div class="input-group-btn">
+                            <div class="btn-group" role="group">
+                              <div class="dropdown dropdown-lg">
+                                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"
+                                  aria-expanded="false">Filter</button>
+                                <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                  <form class="form-horizontal" role="form">
+                                    <div class="form-group">
+                                      <label for="filter">Show all products where:</label>
+                                      <select class="form-control">
+                                        <option value="0" selected="">Select Option</option>
+                                        <option value="1">Featured</option>
+                                        <option value="2">Most popular</option>
+                                        <option value="3">Top rated</option>
+                                        <option value="4">Most commented</option>
+                                      </select>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                      <label for="contain">is</label>
+                                      <select class="form-control">
+                                        <option value="0" selected="">Select Option</option>
+                                        <option value="1">Featured</option>
+                                        <option value="2">Most popular</option>
+                                        <option value="3">Top rated</option>
+                                        <option value="4">Most commented</option>
+                                      </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-sm btn-primary">Search</button>
+                                  </form>
+                                </div>
+                              </div>
+                              <button type="button" class="btn btn-primary"><span class="fa fa-search"
+                                  aria-hidden="true"></span></button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>-->
+              <div class="card-body">
+                <div class="row pt-3">
+                  <div class="col-md-12">
+                    <div class="table-responsive">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+
+                            <th>{{'Register.OrderNo'|translate}}</th>
+                            <th>{{'Register.PurchasedOn'|translate}}</th>
+                            <th>{{'Register.BillTo'|translate}}</th>
+                            <th>{{'Register.ShipTo'|translate}}</th>
+                            <th>{{'Register.BasePrice'|translate}}</th>
+                            <th>{{'Register.PurchasedPrice'|translate}}</th>
+                            <th>{{'Register.Status'|translate}}</th>
+                            <th>{{'Register.PaymentMethod'|translate}}</th>
+                            <th>{{'Register.Quantity'|translate}}</th>
+                            <!-- <th>Vender Id</th> -->
+                            <th>{{'Register.Vendor'|translate}} {{'Register.Name'|translate}}</th>
+                            <th>{{'Register.TrackingNumber'|translate}}</th>
+                            <th>{{'Register.Action'|translate}}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of data">
+                            <td> {{item.OrederNo}}</td>
+                            <td> {{item.PurchasedOn}}</td>
+                            <td>{{item.billtoName}}</td>
+                            <td>{{item.ShiptoName}}</td>
+                            <td>{{item.BasePrice}}</td>
+                            <td>{{item.PurchasePrice}}</td>
+                            <td *ngIf="item.OrderStatus=='Rejected'" [ngStyle]="{'background-color': item.OrderStatus=='Rejected'? 'red' : ''}" >{{item.OrderStatus}}</td>
+                            <td *ngIf="item.OrderStatus== 'Preparing'" [ngStyle]="{'background-color': item.OrderStatus=='Preparing'? 'yellow' : ''}" >{{item.OrderStatus}}</td>
+                            <td *ngIf="item.OrderStatus== 'Delivered'" [ngStyle]="{'background-color': item.OrderStatus=='Delivered'? 'greeen' : ''}" >{{item.OrderStatus}}</td>
+                            <td *ngIf="(item.OrderStatus !=  'Preparing') && (item.OrderStatus !=  'Rejected') &&(item.OrderStatus !=  'Delivered')  " >{{item.OrderStatus}}</td>
+
+                            <td>{{item.PaymentMethod}}</td>
+                            <td>{{item.Quantity}}</td>
+                            <!-- <td>{{item.VenderId}}</td> -->
+                            <td>{{item.VenderName}}</td>
+                            <td>{{item.TrackingNumber}}</td>
+                            <td><a [routerLink]="['/admin/invoice']" routerLinkActive="router-link-active"
+                                (click)="goToInvoice(item.PaymentTransactionId)">{{'Register.View'|translate}}</a>/
+
+                              <a [routerLink]="['/admin/invoice']" routerLinkActive="router-link-active"
+                                (click)="goToOrder(item.PaymentTransactionId)">Order Report</a>
+
+                              </td>
+
+
+                          </tr>
+                        </tbody>
+
+                      </table>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="no-left-right" *ngIf="count">
+                      <app-admin-pagination [count]="count" [page]="page" [(perPage)]="perPage"
+                        [pagesToShow]="pagesToShow" (goPrev)="prevPage()" (goNext)="nextPage()"
+                        (goPage)="goToPage($event)" (pageSize)="newPageSize($event)">
+                      </app-admin-pagination>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

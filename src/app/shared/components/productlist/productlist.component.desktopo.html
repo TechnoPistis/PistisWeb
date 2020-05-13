@@ -1,0 +1,1056 @@
+<app-header></app-header>
+<div  class="modal modal-newsletter-main" [ngStyle]="{'display':'block'}" >
+  <div class="modal-dialog modal-newsletter">
+  <div class="modal-content">
+  <div class="modal-header">
+
+    <h4 class="modal-title">{{adult}}</h4>
+  </div>
+  <div class="modal-body text-center">
+    <p>{{adultMessage}}</p>
+  </div>
+  <div class="modal-footer">
+    <input type="hidden" id="RowId" value="">
+    <button class="btn btn-default" type="button" (click)="remove()">Confirm</button>
+    <button class="btn btn-danger"  type="button" [routerLink]="['/']" routerLinkActive="router-link-active" >Cancel</button>
+</div>
+ 
+  </div>
+  </div>
+  </div>  
+<div class="conatiner-fluid main-content">
+
+  <div class="row mrgn-b-sm row-m-r-0">
+    <div class="col-md-12">
+      <div class="header-bellow-bar">
+              <div class="row">
+        <div class="col-md-7 col-xs-12">
+          <div class="header-bellow-bar-colums">
+            <ul class="breadcrumbs" *ngIf="slanguage=='english';else elsblock">
+              <li><a [ngClass]="{'active': myViewModel.selectedCategory == myViewModel.abovecat.Idlevel1}" href="#"
+                  (click)="getProducts(myViewModel.abovecat.Idlevel1,myViewModel.page,myViewModel.perPage)"
+                  value="myViewModel.abovecat.Idlevel1">{{myViewModel.abovecat.Namelevel1}}</a>
+              </li>
+              <li *ngIf="myViewModel.abovecat.Namelevel2">
+                <a [ngClass]="{'active': myViewModel.selectedCategory == myViewModel.maincat.Idlevel2}" href="#"
+                  (click)="getProducts(myViewModel.maincat.Idlevel2,myViewModel.page,myViewModel.perPage)"
+                  value="myViewModel.abovecat.Idlevel2">>>{{myViewModel.abovecat.Namelevel2}}</a></li>
+              <!-- <li *ngIf="subCat!=null"><a href="#">&nbsp;&nbsp;»</a></li>
+            <li><a href="#">{{subCat}}</a></li> -->
+              <li *ngFor="let item of myViewModel.abovecat.Children">
+                  <a [ngClass]="{'active': myViewModel.selectedCategory ==  item.Id}" href="#"
+                  (click)="getProducts(item.Id,myViewModel.page,myViewModel.perPage)"
+                  >>>{{item.Name}}</a>
+                <!-- <label *ngIf="myViewModel.selectedCategory == item.Id" [ngClass]="{'active': myViewModel.selectedCategory == item.Id ,
+              'hide': myViewModel.selectedCategory != item.Id}" (click)="getProducts(item.Id,myViewModel.page,myViewModel.perPage)">{{item.Name}}</label> -->
+              </li>
+            </ul>
+            <ng-template #elsblock>
+                <ul class="breadcrumbs">
+                    <li><a [ngClass]="{'active': myViewModel.selectedCategory == myViewModel.abovecat.Idlevel1}" href="#"
+                        (click)="getProducts(myViewModel.abovecat.Idlevel1,myViewModel.page,myViewModel.perPage)"
+                        value="myViewModel.abovecat.Idlevel1">{{myViewModel.abovecat.SpanishNamelevel1}}>></a>
+                    </li>
+                    <li *ngIf="myViewModel.abovecat.Namelevel2">
+                      <a [ngClass]="{'active': myViewModel.selectedCategory == myViewModel.abovecat.Idlevel2}" href="#"
+                        (click)="getProducts(myViewModel.abovecat.Idlevel2,myViewModel.page,myViewModel.perPage)"
+                        value="myViewModel.abovecat.Idlevel2">{{myViewModel.abovecat.SpanishNamelevel2}}>></a></li>
+                    <!-- <li *ngIf="subCat!=null"><a href="#">&nbsp;&nbsp;»</a></li>
+                  <li><a href="#">{{subCat}}</a></li> -->
+                    <li *ngFor="let item of myViewModel.abovecat.Children">
+                        <a [ngClass]="{'active': myViewModel.selectedCategory ==  item.Id}" href="#"
+                        (click)="getProducts(item.Id,myViewModel.page,myViewModel.perPage)"
+                        >{{item.SpanishName}}</a>
+                      <!-- <label *ngIf="myViewModel.selectedCategory == item.Id" [ngClass]="{'active': myViewModel.selectedCategory == item.Id ,
+                    'hide': myViewModel.selectedCategory != item.Id}"
+                        (click)="getProducts(item.Id,myViewModel.page,myViewModel.perPage)">{{item.SpanishName}}</label> -->
+                    </li>
+                  </ul>
+            </ng-template>
+            
+          </div>
+        </div>
+
+        <div class="col-md-5 col-xs-12 text-right">
+
+          <div class="sort-by-box pull-right">
+            <span class="sort-by">Sort by</span>
+            <span class="sort-dropdown">
+              <select class="sort-select" #sortBy ngDefaultControl [(ngModel)]="myViewModel.SortData" (change)="SortBy(sortBy.value)">
+                <!-- <option>Featured</option> -->
+                <option value="HighToLow">{{'Register.PriceHighToLow'|translate}}</option>
+                <option value="LowToHigh">{{'Register.PriceLowToHigh'|translate}}</option>
+                <option selected value="NewArrival">{{'Register.NewArrivals'|translate}}</option>
+              </select>
+            </span>
+          </div>
+          <div class="view-as pull-right hidden-xs">
+            View as:
+            <a (click)="ActiveGrid(1)" id="grid" [ngClass]="{active: myViewModel.IsGrid==true}"><i class="fas fa-th-large"></i></a>
+            <a (click)="ActiveGrid(0)" id="list" [ngClass]="{active: myViewModel.IsGrid==false}"><i class="fa fa-th-list"></i></a>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+ <div class="row row-m-r-0">
+   <div class="col-md-12">
+      <mat-toolbar color="default" class="mat-default mat-elevation-z1 hidden-sm hidden-lg  hidden-md visible-xs">
+          <button mat-icon-button id="menu" (click)="myservice.openNav()">
+            <i class="fas fa-filter"></i> {{'Register.Filter'|translate}}
+          </button>
+          <!-- <span>Filter</span> -->
+        </mat-toolbar>
+        <mat-sidenav-container>
+          <mat-sidenav #appDrawer mode="over" opened="false">
+            <div class="left-sidebar">
+      
+              <section class="filter-sidebar" *ngIf="slanguage=='english'">
+                <div class="cat-heading">
+                  {{'Register.Categories'|translate}}
+                </div>
+                <div class="cat-section">
+                  <i class="fa fa-chevron-left" aria-hidden="true"></i><a
+                    [ngClass]="{'active': myViewModel.selectedCategory == myViewModel.maincat.Idlevel1}" href="#"
+                    (click)="getProducts(myViewModel.maincat.Idlevel1,myViewModel.page,myViewModel.perPage)" value="myViewModel.maincat.Idlevel1">{{myViewModel.maincat.Namelevel1}}</a>
+                </div>
+                <div class="cat-sub-section">
+      
+                  <a [ngClass]="{'active': myViewModel.selectedCategory == myViewModel.maincat.Idlevel2}" href="#"
+                    (click)="getProducts(myViewModel.maincat.Idlevel2,myViewModel.page,myViewModel.perPage)" value="myViewModel.maincat.Idlevel2">{{myViewModel.maincat.Namelevel2}}</a>
+                </div>
+                <div class="cat-sub-section-inner" *ngFor="let item of myViewModel.maincat.Children">
+                    <a [ngClass]="{'active': myViewModel.selectedCategory ==  item.Id}" href="#"
+                    (click)="getProducts(item.Id,myViewModel.page,myViewModel.perPage)"
+                   >{{item.Name}}</a>
+                  <!-- <label [ngClass]="{'active': myViewModel.selectedCategory == item.Id}"
+                    (click)="getProducts(item.Id,myViewModel.page,myViewModel.perPage)">{{item.Name}}</label> -->
+                </div>
+              </section>
+      
+              <section class="filter-sidebar" *ngIf="slanguage=='espanol'">
+                <div class="cat-heading">
+                  {{'Register.Categories'|translate}}
+                </div>
+                <div class="cat-section">
+                  <i class="fa fa-chevron-left" aria-hidden="true"></i><a
+                    [ngClass]="{'active': myViewModel.selectedCategory == myViewModel.maincat.Idlevel1}" href="#"
+                    (click)="getProducts(myViewModel.maincat.Idlevel1,myViewModel.page,myViewModel.perPage)"
+                    value="myViewModel.maincat.Idlevel1">{{myViewModel.maincat.SpanishNamelevel1}}</a>
+                </div>
+                <div class="cat-sub-section">
+      
+                  <a [ngClass]="{'active': myViewModel.selectedCategory == myViewModel.maincat.Idlevel2}" href="#"
+                    (click)="getProducts(myViewModel.maincat.Idlevel2,myViewModel.page,myViewModel.perPage)"
+                    value="myViewModel.maincat.Idlevel2">{{myViewModel.maincat.SpanishNamelevel2}}</a>
+                </div>
+                <div class="cat-sub-section-inner" *ngFor="let item of myViewModel.maincat.Children">
+                    <a [ngClass]="{'active': myViewModel.selectedCategory ==  item.Id}" href="#"
+                    (click)="getProducts(item.Id,myViewModel.page,myViewModel.perPage)"
+                  >{{item.SpanishName}}</a>
+                  <!-- <label [ngClass]="{'active': myViewModel.selectedCategory == item.Id}"
+                    (click)="getProducts(item.Id,myViewModel.page,myViewModel.perPage)">{{item.SpanishName}}</label> -->
+                </div>
+              </section>
+              
+			  <section class="filter-sidebar" *ngIf="myViewModel.pricelist.length>1">
+      
+                <div class="cat-heading">
+                  {{'Register.Cart.Price'|translate}}
+                </div>
+                <div class="cat-section">
+                  <div class="price-filter">
+                    <ul class="list-unstyled">
+                      <li *ngFor="let p of myViewModel.pricelist;let i=index;">
+                        <a [ngClass]="{'active': myViewModel.selectedItem == p}" (click)="getFilterPrice(p,-1)">
+                          {{p}}
+                        </a>
+                      </li>
+                      <li *ngIf="minPrice.value||maxPrice.value">
+                        <a (click)="getFilterPrice(0,0)">{{'Register.AnyPrice'|translate}}</a>
+                      </li>
+                    </ul>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="min-max-price">
+                          <span class="price-icon">$</span>
+                          <input type="text" class="form-control" placeholder="Min" ngDefaultControl [(ngModel)]=myViewModel.minPriceBox #minPrice>
+                        </div>
+                        <div class="min-max-price gap">
+                          <span class="price-icon">$</span>
+                          <input type="text" class="form-control" placeholder="Max" ngDefaultControl [(ngModel)]=myViewModel.maxPriceBox #maxPrice>
+                        </div>
+                        <div class="min-max-btn">
+                          <button class="btn btn-sm btn-primary"
+                            (click)="getFilterPrice(minPrice.value,maxPrice.value)">Go</button>
+                        </div>
+                      </div>
+      
+                    </div>
+                  </div>
+                </div>
+              </section>
+      
+              <section class="filter-sidebar">
+                <div class="cat-heading">
+                  {{'Register.AvgCustomerReview'|translate}}
+                </div>
+                <div class="cat-section">
+                  <div class="star-rating-filter">
+                    <ul class="list-unstyled">
+                      <li>
+                        <a [ngClass]="{'active': myViewModel.selectedReview == 4}" (click)="getFilterReview(4)">
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="far fa-star"></i>
+                          & Up
+                        </a>
+                      </li>
+                      <li>
+                        <a [ngClass]="{'active': myViewModel.selectedReview == 3}" (click)="getFilterReview(3)">
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="far fa-star"></i>
+                          <i class="far fa-star"></i>
+                          & Up
+                        </a>
+                      </li>
+                      <li>
+                        <a [ngClass]="{'active': myViewModel.selectedReview == 2}" (click)="getFilterReview(2)">
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="far fa-star"></i>
+                          <i class="far fa-star"></i>
+                          <i class="far fa-star"></i>
+                          & Up
+                        </a>
+                      </li>
+                      <li>
+                        <a [ngClass]="{'active': myViewModel.selectedReview == 1}" (click)="getFilterReview(1)">
+                          <i class="fas fa-star"></i>
+                          <i class="far fa-star"></i>
+                          <i class="far fa-star"></i>
+                          <i class="far fa-star"></i>
+                          <i class="far fa-star"></i>
+                          & Up
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </section>
+      
+      
+      
+              <section class="filter-sidebar" *ngFor="let v of myViewModel.Variants">
+                <div class="cat-heading">
+                  {{v.Name}}
+                </div>
+                <div class="cat-section"
+                  *ngIf="v.Name.toLowerCase()==='color'||v.Name.toLowerCase()==='colour'; else elseblock">
+                  <div class="custom-radios">
+                    <div *ngFor="let o of v.VariantOptions; let i = index;let last=last">
+                      <div *ngIf="o.Name.toLowerCase()==='black'">
+                        <input type="checkbox" id="black" name="color" [value]="o.Id" #black>
+                        <label for="black">
+                          <span (click)="getFilterData(!black.checked,v.Id,o.Id)">
+                          </span>
+                        </label>
+                      </div>
+      
+                      <div *ngIf="o.Name.toLowerCase()==='grey'">
+                        <input type="checkbox" id="grey" name="color" [value]="o.Id" #grey>
+                        <label for="grey">
+                          <span (click)="getFilterData(!grey.checked,v.Id,o.Id)">
+                          </span>
+                        </label>
+                      </div>
+      
+                      <div *ngIf="o.Name.toLowerCase()==='white'">
+                        <input type="checkbox" id="white" name="color" [value]="o.Id" #white>
+                        <label for="white">
+                          <span (click)="getFilterData(!white.checked,v.Id,o.Id)">
+                          </span>
+                        </label>
+                      </div>
+                      <div *ngIf="o.Name.toLowerCase()==='brown'">
+                        <input type="checkbox" id="brown" name="color" [value]="o.Id" #brown>
+                        <label for="brown">
+                          <span (click)="getFilterData(!brown.checked,v.Id,o.Id)">
+                          </span>
+                        </label>
+                      </div>
+                      <div *ngIf="o.Name.toLowerCase()==='beige'">
+                        <input type="checkbox" id="beige" name="color" [value]="o.Id" #beige>
+                        <label for="color-4">
+                          <span (change)="getFilterData(!beige.checked,v.Id,o.Id)">
+                          </span>
+                        </label>
+                      </div>
+                      <div *ngIf="o.Name.toLowerCase()==='red'">
+                        <input type="checkbox" id="red" name="color" [value]="o.Id" #red>
+                        <label for="red">
+                          <span (click)="getFilterData(!red.checked,v.Id,o.Id)">
+                          </span>
+                        </label>
+                      </div>
+                      <div *ngIf="o.Name.toLowerCase()==='pink'">
+                        <input type="checkbox" id="pink" name="color" [value]="o.Id" #check>
+                        <label for="pink">
+                          <span (click)="getFilterData(!check.checked,v.Id,o.Id)">
+                          </span>
+                        </label>
+                      </div>
+                      <div *ngIf="o.Name.toLowerCase()==='orange'">
+                        <input type="checkbox" id="orange" name="color" [value]="o.Id" #orange>
+                        <label for="orange">
+                          <span (click)="getFilterData(!orange.checked,v.Id,o.Id)">
+                          </span>
+                        </label>
+                      </div>
+                      <div *ngIf="o.Name.toLowerCase()==='yellow'">
+                        <input type="checkbox" id="yellow" name="color" [value]="o.Id" #yellow>
+                        <label for="yellow">
+                          <span (click)="getFilterData(!yellow.checked,v.Id,o.Id)">
+                          </span>
+                        </label>
+                      </div>
+                      <div *ngIf="o.Name.toLowerCase()==='offwhite'">
+                        <input type="checkbox" id="offwhite" name="color" [value]="o.Id" #offwhite>
+                        <label for="offwhite">
+                          <span (click)="getFilterData(!offwhite.checked,v.Id,o.Id)">
+                          </span>
+                        </label>
+                      </div>
+                      <div *ngIf="o.Name.toLowerCase()==='green'">
+                        <input type="checkbox" id="green" name="color" [value]="o.Id" #green>
+                        <label for="green">
+                          <span (click)="getFilterData(!green.checked,v.Id,o.Id)">
+                          </span>
+                        </label>
+                      </div>
+                      <div *ngIf="o.Name.toLowerCase()==='turquoise'">
+                        <input type="checkbox" id="turquoise" name="color" [value]="o.Id" #turquoise>
+                        <label for="turquoise">
+                          <span (click)="getFilterData(!turquoise.checked,v.Id,o.Id)">
+                          </span>
+                        </label>
+                      </div>
+                      <div *ngIf="o.Name.toLowerCase()==='blue'">
+                        <input type="checkbox" id="blue" name="color" [value]="o.Id" #blue>
+                        <label for="blue">
+                          <span (click)="getFilterData(!blue.checked,v.Id,o.Id)">
+                          </span>
+                        </label>
+                      </div>
+                      <div *ngIf="o.Name.toLowerCase()==='purple'">
+                        <input type="checkbox" id="purple" name="color" [value]="o.Id" #purple>
+                        <label for="purple">
+                          <span (click)="getFilterData(!purple.checked,v.Id,o.Id)">
+                          </span>
+                        </label>
+                      </div>
+                      <div *ngIf="o.Name.toLowerCase()==='gold'">
+                        <input type="checkbox" id="gold" name="color" [value]="o.Id" #gold>
+                        <label for="gold">
+                          <span (click)="getFilterData(!gold.checked,v.Id,o.Id)">
+                          </span>
+                        </label>
+                      </div>
+                      <div *ngIf="o.Name.toLowerCase()==='silver'">
+                        <input type="checkbox" id="silver" name="color" [value]="o.Id" #silver>
+                        <label for="silver">
+                          <span (click)="getFilterData(!silver.checked,v.Id,o.Id)">
+                          </span>
+                        </label>
+                      </div>
+                      <div *ngIf="o.Name.toLowerCase()==='multicolor'">
+                        <input type="checkbox" id="multicolor" name="color" [value]="o.Id" #multicolor>
+                        <label for="multicolor">
+                          <span (click)="getFilterData(!multicolor.checked,v.Id,o.Id)">
+                          </span>
+                        </label>
+                      </div>
+                      <div *ngIf="o.Name.toLowerCase()==='transparent'">
+                        <input type="checkbox" id="transparent" name="color" [value]="o.Id" #transparent>
+                        <label for="transparent">
+                          <span (click)="getFilterData(!transparent.checked,v.Id,o.Id)">
+                          </span>
+                        </label>
+                      </div>
+      
+      
+                    </div>
+                  </div>
+                </div>
+                <ng-template #elseblock>
+                  <div class="cat-section" *ngIf="v.Name.toLowerCase()==='size'; else innerElse">
+                    <div class="sizes-block">
+                      <ul class="list-unstyled sizes">
+                        <li *ngFor="let o of v.VariantOptions; let i = index;">
+                          <button class="btn-sizes" type="button" [ngClass]="{'active': myViewModel.selectedSizeArray.includes(o.Id)}" ngDefaultControl
+                            [value]="o.Id" [(ngModel)]="myViewModel.selectedSize" (click)="getFilterData(o.Id,v.Id,o.Id)"
+                            id="a-autoid-26-announce">
+                            {{o.Name}}
+                          </button>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template #innerElse>
+                  <div class="size-section" *ngFor="let o of v.VariantOptions; let i = index;">
+                    <span class="size"><input type="checkbox" [value]="o.Id" (change)="getFilterData1($event ,v.Id,o.Id)" />
+                      {{o.Name}}</span>
+                  </div>
+                </ng-template>
+              </section>
+            </div>
+          </mat-sidenav>
+      
+          <div class="row row-m-r-0">
+      
+            <div class="col-md-12">
+              <div class="custome-listing-container">
+                <div class="custome-listing-container-inner">
+                  <div class="left-sidebar hidden-xs">
+                    <section class="filter-sidebar" *ngIf="slanguage=='english'">
+                      <div class="cat-heading">
+                        {{'Register.Categories'|translate}}
+                      </div>
+                      <div class="cat-section">
+                        <i class="fa fa-chevron-left" aria-hidden="true"></i><a
+                          [ngClass]="{'active': myViewModel.selectedCategory == myViewModel.maincat.Idlevel1}" href="#"
+                          (click)="getProducts(myViewModel.maincat.Idlevel1,myViewModel.page,myViewModel.perPage)"
+                          value="myViewModel.maincat.Idlevel1">{{myViewModel.maincat.Namelevel1}}</a>
+                      </div>
+                      <div class="cat-sub-section">
+      
+                        <a [ngClass]="{'active': myViewModel.selectedCategory == myViewModel.maincat.Idlevel2}" href="#"
+                          (click)="getProducts(myViewModel.maincat.Idlevel2,myViewModel.page,myViewModel.perPage)"
+                          value="myViewModel.maincat.Idlevel2">{{myViewModel.maincat.Namelevel2}}</a>
+                      </div>
+                      <div class="cat-sub-section-inner" *ngFor="let item of myViewModel.maincat.Children">
+                          <a [ngClass]="{'active': myViewModel.selectedCategory ==  item.Id}" href="#"
+                          (click)="getProducts(item.Id,myViewModel.page,myViewModel.perPage)"
+                          >{{item.Name}}</a>
+                        <!-- <label [ngClass]="{'active': myViewModel.selectedCategory == item.Id}"
+                          (click)="getProducts(item.Id,myViewModel.page,myViewModel.perPage)">{{item.Name}}</label> -->
+                      </div>
+                      <div class="cat-sub-section" *ngFor="let o of myViewModel.maincat.OtherIdlevel2">
+                          <a [ngClass]="{'active': myViewModel.selectedCategory ==  o.Id}" href="#"
+                          (click)="getProducts(o.Id,myViewModel.page,myViewModel.perPage)"
+                          >{{o.Name}}</a>
+                      </div>
+                    </section>
+                    <section class="filter-sidebar" *ngIf="slanguage=='espanol'">
+                      <div class="cat-heading">
+                        {{'Register.Categories'|translate}}
+                      </div>
+                      <div class="cat-section">
+                        <i class="fa fa-chevron-left" aria-hidden="true"></i><a
+                          [ngClass]="{'active': myViewModel.selectedCategory == myViewModel.maincat.Idlevel1}" href="#"
+                          (click)="getProducts(myViewModel.maincat.Idlevel1,myViewModel.page,myViewModel.perPage)"
+                          value="myViewModel.maincat.Idlevel1">{{myViewModel.maincat.SpanishNamelevel1}}</a>
+                      </div>
+                      <div class="cat-sub-section">
+      
+                        <a [ngClass]="{'active': myViewModel.selectedCategory == myViewModel.maincat.Idlevel2}" href="#"
+                          (click)="getProducts(myViewModel.maincat.Idlevel2,myViewModel.page,myViewModel.perPage)"
+                          value="myViewModel.maincat.Idlevel2">{{myViewModel.maincat.SpanishNamelevel2}}</a>
+                      </div>
+                      <div class="cat-sub-section" *ngFor="let item of myViewModel.maincat.Children">
+                          <a [ngClass]="{'active': myViewModel.selectedCategory ==  item.Id}" href="#"
+                          (click)="getProducts(item.Id,myViewModel.page,myViewModel.perPage)"
+                          >{{item.SpanishName}}</a>
+                        <!-- <label [ngClass]="{'active': myViewModel.selectedCategory == item.Id}"
+                          (click)="getProducts(item.Id,myViewModel.page,myViewModel.perPage)">{{item.SpanishName}}</label> -->
+                      </div>
+                      <div class="cat-sub-section-inner" *ngFor="let o of myViewModel.maincat.OtherIdlevel2">
+                          <a [ngClass]="{'active': myViewModel.selectedCategory ==  o.Id}" href="#"
+                          (click)="getProducts(o.Id,myViewModel.page,myViewModel.perPage)"
+                          >{{o.SpanishName}}</a>
+                      </div>
+                    </section>
+      
+                    <section class="filter-sidebar" *ngIf="myViewModel.pricelist.length>1">
+      
+                      <div class="cat-heading">
+                        {{'Register.Cart.Price'|translate}}
+                      </div>
+                      <div class="cat-section">
+                        <div class="price-filter">
+                          <ul class="list-unstyled">
+                            <li *ngFor="let p of myViewModel.pricelist;let i=index;">
+                              <a [ngClass]="{'active': myViewModel.selectedItem == p}" (click)="getFilterPrice(p,-1)">
+                                {{p}}
+                              </a>
+                            </li>
+                            <li *ngIf="minPrice.value||maxPrice.value">
+                              <a (click)="getFilterPrice(0,0)">Any Price</a>
+                            </li>
+                          </ul>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="min-max-price">
+                                <span class="price-icon">$</span>
+                                <input type="text" class="form-control" placeholder="Min" ngDefaultControl [(ngModel)]=myViewModel.minPriceBox #minPrice>
+                              </div>
+                              <div class="min-max-price gap">
+                                <span class="price-icon">$</span>
+                                <input type="text" class="form-control" placeholder="Max" ngDefaultControl [(ngModel)]=myViewModel.maxPriceBox #maxPrice>
+                              </div>
+                              <div class="min-max-btn">
+                                <button class="btn btn-sm btn-primary"
+                                  (click)="getFilterPrice(minPrice.value,maxPrice.value)">{{'Register.Go'|translate}}</button>
+                              </div>
+                            </div>
+      
+                          </div>
+                        </div>
+                      </div>
+                    </section>
+      
+                    <section class="filter-sidebar">
+                      <div class="cat-heading">
+                        {{'Register.AvgCustomerReview'|translate}}
+                      </div>
+                      <div class="cat-section">
+                        <div class="star-rating-filter">
+                          <ul class="list-unstyled">
+                            <li>
+                              <a [ngClass]="{'active': myViewModel.selectedReview == 4}" (click)="getFilterReview(4)">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                & {{'Register.Up'|translate}}
+                              </a>
+                            </li>
+                            <li>
+                              <a [ngClass]="{'active': myViewModel.selectedReview == 3}" (click)="getFilterReview(3)">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                & {{'Register.Up'|translate}}
+                              </a>
+                            </li>
+                            <li>
+                              <a [ngClass]="{'active': myViewModel.selectedReview == 2}" (click)="getFilterReview(2)">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                & {{'Register.Up'|translate}}
+                              </a>
+                            </li>
+                            <li>
+                              <a [ngClass]="{'active': myViewModel.selectedReview == 1}" (click)="getFilterReview(1)">
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                & {{'Register.Up'|translate}}
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </section>
+      
+      
+      
+                    <section class="filter-sidebar" *ngFor="let v of myViewModel.Variants">
+                      <div class="cat-heading">
+                        {{v.Name}}
+                      </div>
+                      <div class="cat-section"
+                        *ngIf="v.Name.toLowerCase()==='color'||v.Name.toLowerCase()==='colour'; else elseblock">
+                        <div class="custom-radios">
+                          <div *ngFor="let o of v.VariantOptions; let i = index;let last=last">
+                            <div *ngIf="o.Name.toLowerCase()==='black'">
+                              <input type="checkbox" id="black" name="color" [value]="o.Id" #black>
+                              <label for="black">
+                                <span (click)="getFilterData(!black.checked,v.Id,o.Id)">
+                                </span>
+                              </label>
+                            </div>
+      
+                            <div *ngIf="o.Name.toLowerCase()==='grey'">
+                              <input type="checkbox" id="grey" name="color" [value]="o.Id" #grey>
+                              <label for="grey">
+                                <span (click)="getFilterData(!grey.checked,v.Id,o.Id)">
+                                </span>
+                              </label>
+                            </div>
+      
+                            <div *ngIf="o.Name.toLowerCase()==='white'">
+                              <input type="checkbox" id="white" name="color" [value]="o.Id" #white>
+                              <label for="white">
+                                <span (click)="getFilterData(!white.checked,v.Id,o.Id)">
+                                </span>
+                              </label>
+                            </div>
+                            <div *ngIf="o.Name.toLowerCase()==='brown'">
+                              <input type="checkbox" id="brown" name="color" [value]="o.Id" #brown>
+                              <label for="brown">
+                                <span (click)="getFilterData(!brown.checked,v.Id,o.Id)">
+                                </span>
+                              </label>
+                            </div>
+                            <div *ngIf="o.Name.toLowerCase()==='beige'">
+                              <input type="checkbox" id="beige" name="color" [value]="o.Id" #beige>
+                              <label for="color-4">
+                                <span (change)="getFilterData(!beige.checked,v.Id,o.Id)">
+                                </span>
+                              </label>
+                            </div>
+                            <div *ngIf="o.Name.toLowerCase()==='red'">
+                              <input type="checkbox" id="red" name="color" [value]="o.Id" #red>
+                              <label for="red">
+                                <span (click)="getFilterData(!red.checked,v.Id,o.Id)">
+                                </span>
+                              </label>
+                            </div>
+                            <div *ngIf="o.Name.toLowerCase()==='pink'">
+                              <input type="checkbox" id="pink" name="color" [value]="o.Id" #check>
+                              <label for="pink">
+                                <span (click)="getFilterData(!check.checked,v.Id,o.Id)">
+                                </span>
+                              </label>
+                            </div>
+                            <div *ngIf="o.Name.toLowerCase()==='orange'">
+                              <input type="checkbox" id="orange" name="color" [value]="o.Id" #orange>
+                              <label for="orange">
+                                <span (click)="getFilterData(!orange.checked,v.Id,o.Id)">
+                                </span>
+                              </label>
+                            </div>
+                            <div *ngIf="o.Name.toLowerCase()==='yellow'">
+                              <input type="checkbox" id="yellow" name="color" [value]="o.Id" #yellow>
+                              <label for="yellow">
+                                <span (click)="getFilterData(!yellow.checked,v.Id,o.Id)">
+                                </span>
+                              </label>
+                            </div>
+                            <div *ngIf="o.Name.toLowerCase()==='offwhite'">
+                              <input type="checkbox" id="offwhite" name="color" [value]="o.Id" #offwhite>
+                              <label for="offwhite">
+                                <span (click)="getFilterData(!offwhite.checked,v.Id,o.Id)">
+                                </span>
+                              </label>
+                            </div>
+                            <div *ngIf="o.Name.toLowerCase()==='green'">
+                              <input type="checkbox" id="green" name="color" [value]="o.Id" #green>
+                              <label for="green">
+                                <span (click)="getFilterData(!green.checked,v.Id,o.Id)">
+                                </span>
+                              </label>
+                            </div>
+                            <div *ngIf="o.Name.toLowerCase()==='turquoise'">
+                              <input type="checkbox" id="turquoise" name="color" [value]="o.Id" #turquoise>
+                              <label for="turquoise">
+                                <span (click)="getFilterData(!turquoise.checked,v.Id,o.Id)">
+                                </span>
+                              </label>
+                            </div>
+                            <div *ngIf="o.Name.toLowerCase()==='blue'">
+                              <input type="checkbox" id="blue" name="color" [value]="o.Id" #blue>
+                              <label for="blue">
+                                <span (click)="getFilterData(!blue.checked,v.Id,o.Id)">
+                                </span>
+                              </label>
+                            </div>
+                            <div *ngIf="o.Name.toLowerCase()==='purple'">
+                              <input type="checkbox" id="purple" name="color" [value]="o.Id" #purple>
+                              <label for="purple">
+                                <span (click)="getFilterData(!purple.checked,v.Id,o.Id)">
+                                </span>
+                              </label>
+                            </div>
+                            <div *ngIf="o.Name.toLowerCase()==='gold'">
+                              <input type="checkbox" id="gold" name="color" [value]="o.Id" #gold>
+                              <label for="gold">
+                                <span (click)="getFilterData(!gold.checked,v.Id,o.Id)">
+                                </span>
+                              </label>
+                            </div>
+                            <div *ngIf="o.Name.toLowerCase()==='silver'">
+                              <input type="checkbox" id="silver" name="color" [value]="o.Id" #silver>
+                              <label for="silver">
+                                <span (click)="getFilterData(!silver.checked,v.Id,o.Id)">
+                                </span>
+                              </label>
+                            </div>
+                            <div *ngIf="o.Name.toLowerCase()==='multicolor'">
+                              <input type="checkbox" id="multicolor" name="color" [value]="o.Id" #multicolor>
+                              <label for="multicolor">
+                                <span (click)="getFilterData(!multicolor.checked,v.Id,o.Id)">
+                                </span>
+                              </label>
+                            </div>
+                            <div *ngIf="o.Name.toLowerCase()==='transparent'">
+                              <input type="checkbox" id="transparent" name="color" [value]="o.Id" #transparent>
+                              <label for="transparent">
+                                <span (click)="getFilterData(!transparent.checked,v.Id,o.Id)">
+                                </span>
+                              </label>
+                            </div>
+      
+      
+                          </div>
+                        </div>
+                      </div>
+                      <ng-template #elseblock>
+                        <div class="cat-section" *ngIf="v.Name.toLowerCase()==='size'; else innerElse">
+                          <div class="sizes-block">
+                            <ul class="list-unstyled sizes">
+                              <li *ngFor="let o of v.VariantOptions; let i = index;">
+                                <button class="btn-sizes" type="button"
+                                  [ngClass]="{'active': myViewModel.selectedSizeArray.includes(o.Id)}" [value]="o.Id" ngDefaultControl
+                                  [(ngModel)]="myViewModel.selectedSize" (click)="getFilterData(o.Id,v.Id,o.Id)"
+                                  id="a-autoid-26-announce">
+                                  {{o.Name}}
+                                </button>
+                              </li>
+      
+                            </ul>
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template #innerElse>
+                        <div class="size-section" *ngFor="let o of v.VariantOptions; let i = index;">
+                          <span class="size"><input type="checkbox" [value]="o.Id"
+                              (change)="getFilterData1($event ,v.Id,o.Id)" />
+                            {{o.Name}}</span>
+                        </div>
+                      </ng-template>
+                    </section>
+                  </div>
+      
+                  <div class="listing-right-container filter-products">
+                    <div class="filter-products-inner">
+      
+                      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <div class="row">
+                          <app-pagination [count]="myViewModel.count" [page]="myViewModel.page" [(perPage)]="myViewModel.perPage" [pagesToShow]="myViewModel.pagesToShow"
+                            (goPrev)="prevPage()" (goNext)="nextPage()" (goPage)="goToPage($event)"
+                            (pageSize)="newPageSize($event)">
+                          </app-pagination>
+                        </div>
+                        <div class="listing-custome" *ngIf="myViewModel.IsGrid==true">
+                          <div class="row" *ngIf="myViewModel.Products.length>0 && myViewModel.Products[0].Id!=0;else elseBlock">
+                            <div class="col-sm-3 col-lg-3 col-md-3 col-xl-3 col-xs-12 text-center" *ngFor="let p of myViewModel.Products">
+      
+      
+                              <a    (click)="passTheSalt(p.Id,p.VariantDetailId,$event)">
+      
+                                <div class="bestseller-box" *ngIf="p.InStock>0;else elseblock">
+                                  <div class="bestseller-sale" *ngIf="p.Discount>0">{{p.Discount}}%</div>
+                                  <div class="sale-tag" *ngIf="p.Discount>0"><img src="assets/img/sale-tag-img.png"></div>
+                                  <div class="bestseller-img"*ngIf="p.Image!=null">
+      
+                                    <img src={{p.Image150}} />
+                                    <div class="countdown-time-box-product-list" *ngIf="p.ActiveTo"><i class="far fa-clock"></i>  <countdown-timer [end]="p.ActiveTo"></countdown-timer></div>
+      
+                                  </div>
+                                  <div class="bestseller-img"*ngIf="p.Image==null">
+      
+                                    <img src= "assets/img/dummy-image.jpg"/>
+                                    <div class="countdown-time-box-product-list" *ngIf="p.ActiveTo"><i class="far fa-clock"></i>  <countdown-timer [end]="p.ActiveTo"></countdown-timer></div>
+                                  </div>
+                                  <div class="bestseller-text">{{p.Name.length > 15 ? p.Name.substring(0,15)+"..." : p.Name}}
+                                  </div>
+                                  <div class="bestseller-stars" *ngIf="p.Rating==0">
+                                    <i class="far fa-star" aria-hidden="true"></i>
+                                    <i class="far fa-star" aria-hidden="true"></i>
+                                    <i class="far fa-star" aria-hidden="true"></i>
+                                    <i class="far fa-star" aria-hidden="true"></i>
+                                    <i class="far fa-star" aria-hidden="true"></i>
+                                  </div>
+                                  <div class="bestseller-stars" *ngIf="p.Rating==1">
+                                   <i class="fa fa-star" aria-hidden="true"></i>
+                                   <i class="far fa-star" aria-hidden="true"></i>
+                                   <i class="far fa-star" aria-hidden="true"></i>
+                                   <i class="far fa-star" aria-hidden="true"></i>
+                                   <i class="far fa-star" aria-hidden="true"></i>
+                                 </div>
+                                 <div class="bestseller-stars" *ngIf="p.Rating==2">
+                                   <i class="fa fa-star" aria-hidden="true"></i>
+                                   <i class="fa fa-star" aria-hidden="true"></i>
+                                   <i class="far fa-star" aria-hidden="true"></i>
+                                   <i class="far fa-star" aria-hidden="true"></i>
+                                   <i class="far fa-star" aria-hidden="true"></i>
+                                 </div>
+                                 <div class="bestseller-stars" *ngIf="p.Rating==3">
+                                   <i class="fa fa-star" aria-hidden="true"></i>
+                                   <i class="fa fa-star" aria-hidden="true"></i>
+                                   <i class="fa fa-star" aria-hidden="true"></i>
+                                   <i class="far fa-star" aria-hidden="true"></i>
+                                   <i class="far fa-star" aria-hidden="true"></i>
+                                 </div>
+                                 <div class="bestseller-stars" *ngIf="p.Rating==4">
+                                   <i class="fa fa-star" aria-hidden="true"></i>
+                                   <i class="fa fa-star" aria-hidden="true"></i>
+                                   <i class="fa fa-star" aria-hidden="true"></i>
+                                   <i class="fa fa-star" aria-hidden="true"></i>
+                                   <i class="far fa-star" aria-hidden="true"></i>
+                                 </div>
+                                 <div class="bestseller-stars" *ngIf="p.Rating==5">
+                                   <i class="fa fa-star" aria-hidden="true"></i>
+                                   <i class="fa fa-star" aria-hidden="true"></i>
+                                   <i class="fa fa-star" aria-hidden="true"></i>
+                                   <i class="fa fa-star" aria-hidden="true"></i>
+                                   <i class="fa fa-star" aria-hidden="true"></i>
+                                 </div>
+                                  <div class="bestseller-price" *ngIf="p.Discount>0">
+                                    <span class="price-off">${{p.SellingPrice.toFixed(2)}}</span>
+                                    <span class="price-now">${{p.PriceAfterDiscount.toFixed(2)}}</span>
+                                  </div>
+                                  <div class="bestseller-price" *ngIf="p.Discount==0">
+                                    <span class="price-now">${{p.PriceAfterDiscount.toFixed(2)}}</span>
+                                  </div>
+                                </div>
+                                <ng-template #elseblock>
+                                  <div class="bestseller-box">
+                                    <div class="bestseller-sale" *ngIf="p.Discount>0">{{p.Discount}}%</div>
+                                    <div class="bestseller-out-of-stock">Out of Stock</div>
+                                    <div class="bestseller-img out-of-stock" *ngIf="p.Image!=null">
+      
+                                      <img src={{p.Image150}} />
+        
+                                    </div>
+                                    <div class="bestseller-img out-of-stock" *ngIf="p.Image==null">
+        
+                                      <img src= "assets/img/dummy-image.jpg"/>
+        
+                                    </div>
+                                    <div class="bestseller-text">
+                                      {{p.Name.length > 15 ? p.Name.substring(0,15)+"..." : p.Name}}
+                                    </div>
+                                    <div class="bestseller-stars" *ngIf="p.Rating==0">
+                                      <i class="far fa-star" aria-hidden="true"></i>
+                                      <i class="far fa-star" aria-hidden="true"></i>
+                                      <i class="far fa-star" aria-hidden="true"></i>
+                                      <i class="far fa-star" aria-hidden="true"></i>
+                                      <i class="far fa-star" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="bestseller-stars" *ngIf="p.Rating==1">
+                                     <i class="fa fa-star" aria-hidden="true"></i>
+                                     <i class="far fa-star" aria-hidden="true"></i>
+                                     <i class="far fa-star" aria-hidden="true"></i>
+                                     <i class="far fa-star" aria-hidden="true"></i>
+                                     <i class="far fa-star" aria-hidden="true"></i>
+                                   </div>
+                                   <div class="bestseller-stars" *ngIf="p.Rating==2">
+                                     <i class="fa fa-star" aria-hidden="true"></i>
+                                     <i class="fa fa-star" aria-hidden="true"></i>
+                                     <i class="far fa-star" aria-hidden="true"></i>
+                                     <i class="far fa-star" aria-hidden="true"></i>
+                                     <i class="far fa-star" aria-hidden="true"></i>
+                                   </div>
+                                   <div class="bestseller-stars" *ngIf="p.Rating==3">
+                                     <i class="fa fa-star" aria-hidden="true"></i>
+                                     <i class="fa fa-star" aria-hidden="true"></i>
+                                     <i class="fa fa-star" aria-hidden="true"></i>
+                                     <i class="far fa-star" aria-hidden="true"></i>
+                                     <i class="far fa-star" aria-hidden="true"></i>
+                                   </div>
+                                   <div class="bestseller-stars" *ngIf="p.Rating==4">
+                                     <i class="fa fa-star" aria-hidden="true"></i>
+                                     <i class="fa fa-star" aria-hidden="true"></i>
+                                     <i class="fa fa-star" aria-hidden="true"></i>
+                                     <i class="fa fa-star" aria-hidden="true"></i>
+                                     <i class="far fa-star" aria-hidden="true"></i>
+                                   </div>
+                                   <div class="bestseller-stars" *ngIf="p.Rating==5">
+                                     <i class="fa fa-star" aria-hidden="true"></i>
+                                     <i class="fa fa-star" aria-hidden="true"></i>
+                                     <i class="fa fa-star" aria-hidden="true"></i>
+                                     <i class="fa fa-star" aria-hidden="true"></i>
+                                     <i class="fa fa-star" aria-hidden="true"></i>
+                                   </div>
+                                    <div class="bestseller-price" *ngIf="p.Discount>0">
+                                      <span class="price-off">${{p.SellingPrice.toFixed(2)}}</span>
+                                      <span class="price-now">${{p.PriceAfterDiscount.toFixed(2)}}</span>
+                                    </div>
+                                    <div class="bestseller-price" *ngIf="p.Discount==0">
+                                      <span class="price-now">${{p.PriceAfterDiscount.toFixed(2)}}</span>
+                                    </div>
+                                  </div>
+                                </ng-template>
+                              </a>
+      
+                            </div>
+                          </div>
+                          <ng-template #elseBlock>
+                            
+                              <div class="row ng-star-inserted" *ngIf="emptyProductsList==true"><div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 text-center"><img src="assets/emptyCart.png"></div><div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 text-center"><h3 >{{'Register.NoItemFound'|translate}}</h3></div></div>
+                            
+                          </ng-template>
+                        </div>
+      
+      
+      
+                        <!-- Detail view -->
+                        <div *ngIf="myViewModel.IsGrid==false">
+                          <div class="row" *ngIf="myViewModel.Products.length>0 && myViewModel.Products[0].Id!=0 ;else elseBlock">
+                            <div class="col-sm-12 col-xs-12">
+                              <div *ngFor="let p of myViewModel.Products" class="row">
+                                <div class="col-sm-12">
+                                  <div class="product-box list-view">
+      
+                                    <div class="row display-flex">
+      
+                                      <div class="col-md-3 col-lg-3 col-sm-3 col-xs-12">
+                                        <!-- <span class="wishlist-icon-box">
+                                      <div class="heart-box">
+                                        <div class="heart"></div>
+                                      </div>
+                                    </span> -->
+                                        <div class="cart-thumb-list">
+                                          <a *ngIf="p.Image!=null"  (click)="passTheSalt(p.Id,p.VariantDetailId,$event)">
+                                            <img src={{p.Image150}} />
+                                          </a>
+                                          <a *ngIf="p.Image==null"  (click)="passTheSalt(p.Id,p.VariantDetailId,$event)">
+                                            <img src="assets/img/dummy-image.jpg"/>
+                                          </a>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-9 col-lg-9 col-sm-9 col-xs-12">
+      
+                                        <div class="row">
+                                          <div class="col-md-12">
+                                            <a (click)="passTheSalt(p.Id,p.VariantDetailId,$event)">
+                                              <span class="company-name">{{p.Name}}</span>
+                                            </a>
+                                          </div>
+                                          <div class="col-md-12">
+                                            <div class="bestseller-stars" *ngIf="p.Rating==0">
+                                              <i class="far fa-star" aria-hidden="true"></i>
+                                              <i class="far fa-star" aria-hidden="true"></i>
+                                              <i class="far fa-star" aria-hidden="true"></i>
+                                              <i class="far fa-star" aria-hidden="true"></i>
+                                              <i class="far fa-star" aria-hidden="true"></i>
+                                            </div>
+                                            <div class="bestseller-stars" *ngIf="p.Rating==1">
+                                             <i class="fa fa-star" aria-hidden="true"></i>
+                                             <i class="far fa-star" aria-hidden="true"></i>
+                                             <i class="far fa-star" aria-hidden="true"></i>
+                                             <i class="far fa-star" aria-hidden="true"></i>
+                                             <i class="far fa-star" aria-hidden="true"></i>
+                                           </div>
+                                           <div class="bestseller-stars" *ngIf="p.Rating==2">
+                                             <i class="fa fa-star" aria-hidden="true"></i>
+                                             <i class="fa fa-star" aria-hidden="true"></i>
+                                             <i class="far fa-star" aria-hidden="true"></i>
+                                             <i class="far fa-star" aria-hidden="true"></i>
+                                             <i class="far fa-star" aria-hidden="true"></i>
+                                           </div>
+                                           <div class="bestseller-stars" *ngIf="p.Rating==3">
+                                             <i class="fa fa-star" aria-hidden="true"></i>
+                                             <i class="fa fa-star" aria-hidden="true"></i>
+                                             <i class="fa fa-star" aria-hidden="true"></i>
+                                             <i class="far fa-star" aria-hidden="true"></i>
+                                             <i class="far fa-star" aria-hidden="true"></i>
+                                           </div>
+                                           <div class="bestseller-stars" *ngIf="p.Rating==4">
+                                             <i class="fa fa-star" aria-hidden="true"></i>
+                                             <i class="fa fa-star" aria-hidden="true"></i>
+                                             <i class="fa fa-star" aria-hidden="true"></i>
+                                             <i class="fa fa-star" aria-hidden="true"></i>
+                                             <i class="far fa-star" aria-hidden="true"></i>
+                                           </div>
+                                           <div class="bestseller-stars" *ngIf="p.Rating==5">
+                                             <i class="fa fa-star" aria-hidden="true"></i>
+                                             <i class="fa fa-star" aria-hidden="true"></i>
+                                             <i class="fa fa-star" aria-hidden="true"></i>
+                                             <i class="fa fa-star" aria-hidden="true"></i>
+                                             <i class="fa fa-star" aria-hidden="true"></i>
+                                           </div>
+      
+                                          </div>
+                                          <div class="col-md-12">
+                                            <a  (click)="passTheSalt(p.Id,p.VariantDetailId,$event)">
+                                              <span class="price">${{p.PriceAfterDiscount.toFixed(2)}}</span>
+                                            </a>
+                                            <span class="discount" *ngIf="p.Discount>0">${{p.SellingPrice.toFixed(2)}}</span>
+                                            <span class="discount-percentage" *ngIf="p.Discount>0">{{p.Discount}}%</span>
+                                            <p
+                                              [innerHTML]="p.Description.length > 70 ? p.Description.substring(0,70)+'...': p.Description">
+                                            </p>
+                                            <span *ngIf="p.InStock<=0"
+                                              style="color: red">{{'Register.Cart.OutOfStockItem'|translate}}</span>
+                                          </div>
+                                          <!-- <div class="col-md-12 mb-2">
+                                        Get it by <strong>Friday, September 20</strong>
+                                        <p>
+                                          FREE Delivery by Amazon
+                                        </p>
+                                      </div> -->
+                                          <div class="col-md-12">
+                                            <button type="button" *ngIf="!p.ShipmentVendor" [disabled]="p.InStock<=0?true:false"
+                                              class="btn add-to-cart-1 btn-primary"
+                                              (click)="addToCart(p.Id,p.VariantDetailId)">
+                                              {{'Register.Compare.AddToCartButton'|translate}}
+                                            </button>
+                                            <button type="button" *ngIf="p.ShipmentVendor"  [disabled]="p.InStock<=0?true:false"
+                                            class="btn add-to-cart-1 btn-primary"
+                                            (click)="addToCart(p.Id,p.VariantDetailId)">
+                                            {{'Register.Compare.BuyNowButton'|translate}}
+                                          </button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <ng-template #elseBlock>
+                              <div class="row ng-star-inserted" *ngIf="emptyProductsList==true"><div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 text-center"><img src="assets/emptyCart.png"></div><div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 text-center"><h3 >{{'Register.NoItemFound'|translate}}</h3></div></div>
+                          </ng-template>
+                        </div>
+                        <!-- ENd Detail view -->
+                      </div>
+                    </div>
+                    <div class="no-left-right">
+                      <app-pagination [count]="myViewModel.count" [page]="myViewModel.page" [(perPage)]="myViewModel.perPage" [pagesToShow]="myViewModel.pagesToShow"
+                        (goPrev)="prevPage()" (goNext)="nextPage()" (goPage)="goToPage($event)"
+                        (pageSize)="newPageSize($event)">
+                      </app-pagination>
+                    </div>
+      
+      
+                  </div>
+                </div>
+              </div>
+            </div>
+            <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+              <p style="font-size: 20px; color:#fff">{{'Register.LoadingWait'|translate}}</p>
+            </ngx-spinner>
+      
+          </div>
+      
+          <div fxFlex></div>
+      
+        </mat-sidenav-container>
+   </div>
+ </div>
+
+
+
+
+<app-footer></app-footer>
+</div>
+<!-- vvvvvvvv -->

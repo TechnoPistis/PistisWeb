@@ -1,0 +1,138 @@
+<app-header></app-header>
+<div class="container ratting">
+    <div class="row mrgn-b-sm">
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+            <div class="rate-review-top-bar">
+                    <div class="row">
+                            <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+                                <h2>{{'Register.RatingReview'|translate}}</h2>
+                            </div>
+                            <div  (click)="passTheSalt()" class="col-md-6 col-lg-6 col-sm-6 col-xs-12 text-right">
+                                   <div class="rating-product-box">
+                                       <div class="rating-product-box-img">
+                                            <img class="img-responsive" src={{product.LandingImage}}>
+                                       </div>
+                                       <div class="rating-product-box-con">
+                                          {{product.Name}}
+                                           <p><span class="star-rating-text small">
+                                                <span>{{product.RatingAvg}} <i class="fa fa-star" aria-hidden="true"></i></span>
+                                            </span> ({{product.RatingCount}})</p>
+                                        </div>
+                                   </div>
+                            </div>
+                        </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        <!-- <div class="col-md-3 col-lg-3 col-sm-4 col-xs-12">
+           
+
+           
+
+           
+
+            <section class="filter-sidebar">
+                
+                        <span class="product-section-heading">What makes good Review</span>
+                
+            </section>
+            <section class="filter-sidebar">
+                    <div class="border-head mrgn-b-sm">
+                            <span class="product-section-heading mrgn-b-xs">Have you used this product?</span>
+                            <p>sfsad fds fdfdasa d sfd adsf sd sd sdfdasfdssfadsf asdfsdfsdaf asd dsa </p>
+                    </div>
+                    <div class="border-head mrgn-b-sm">
+                            <span class="product-section-heading mrgn-b-xs">Have you used this product?</span>
+                            <p>sfsad fds fdfdasa d sfd adsf sd sd sdfdasfdssfadsf asdfsdfsdaf asd dsa </p>
+                    </div>
+                </section>
+        </div> -->
+        
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+            <div class="filter-products-inner">
+                <div class="row mrgn-b-sm">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <span class="product-section-heading p-t-10">Rate This Product</span>
+                    </div>  
+
+                </div>
+                <div class="row border-head mrgn-b-sm">
+                    <div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
+                        <div class="rate">
+                            <input type="radio" id="star5" name="rate" [checked]="rate==5" #rate5 value="5"(click)="getRating(rate5.value)" />
+                            <label for="star5" title="text">5 stars</label>
+                            <input type="radio" id="star4" name="rate" #rate4 [checked]="rate==4" value="4"  (click)="getRating(rate4.value)"/>
+                            <label for="star4" title="text">4 stars</label>
+                            <input type="radio" id="star3" name="rate" #rate3 [checked]="rate==3" value="3" (click)="getRating(rate3.value)"/>
+                            <label for="star3" title="text">3 stars</label>
+                            <input type="radio" id="star2" name="rate"  #rate2  [checked]="rate==2" value="2" (click)="getRating(rate2.value)" />
+                            <label for="star2" title="text">2 stars</label>
+                            <input type="radio" id="star1" name="rate" #rate1 [checked]="rate==1" value="1" (click)="getRating(rate1.value)" />
+                            <label for="star1" title="text">1 star</label>
+                          </div>
+                          <div class="rate-link-box" *ngIf="this.Rating==1">
+                           Very Bad
+                        </div>
+                        <div class="rate-link-box" *ngIf="this.Rating==2">
+                               Bad
+                             </div>
+                             <div class="rate-link-box" *ngIf="this.Rating==3">
+                                   Good
+                                  </div>
+                                  <div class="rate-link-box" *ngIf="this.Rating==4">
+                                       Very Good
+                                       </div>
+                                       <div class="rate-link-box" *ngIf="this.Rating==5">
+                                            Excellent
+                                            </div>
+                    </div>
+                    <div class="col-md-8 col-lg-8 col-sm-8 col-xs-12 text-right text-danger" *ngIf="message==true">
+                        Please enter the rating.
+                    </div>
+                   
+                </div>
+
+                <div class="row mrgn-b-lg">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 mrgn-b-sm">
+                        <span class="product-section-heading">Review this product</span>
+                    </div>
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        
+                                    <div class="write-review-form-block">
+                                            <div class="row border-head mrgn-b-sm">
+                                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 mrgn-b-sm">
+                                                    <label class="">Description</label>
+                                                    <textarea rows="8" placeholder="Enter Description" #Description class="form-control no-border"  (focus)="focusFunction()" [value]="description"></textarea>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="row">
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                                        <label class="">Title (optional)</label>
+                                                        <input placeholder="Enter Title" type="text" class="form-control no-border">
+                                                    </div>
+                                                </div> -->
+                                        </div>
+                           
+                    </div>    
+
+                </div>
+                <!-- <div class="row">
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                            <a href="#" class="image-upload-icon"><i class="fa fa-camera" aria-hidden="true"></i></a>
+                        </div>
+                </div> -->
+                <div class="row">
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 text-right">
+                                <button type="button" class="  place-order pull-right" (click)="getDescription(Description.value)"   [disabled]="validate==false">
+                                        <span> Submit</span>
+                                    </button>
+                        </div>
+                </div>
+            </div>
+        </div>
+    <!-- </form> -->
+    </div>
+</div>
+<app-footer></app-footer>

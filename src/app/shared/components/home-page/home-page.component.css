@@ -1,0 +1,70 @@
+.rounded-circle{
+    border-radius: 50%;
+    }
+    
+    .img-fluid{
+    max-width: 100px !important;
+    }
+    
+    
+    
+    .card-img-top{
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    left: 170px; 
+    }
+    
+    .card-body {
+    padding-top: 110px;
+    }
+    
+    .mb-2{
+    text-align: center;
+    }
+    
+    .card {
+    
+    background-color: #f1f3f6 !important;
+    background-clip: border-box;
+    border:none;
+    }
+    
+    a.btn-floating {
+    background: #4285f4;
+    }
+    
+    .carousel-multi-item .controls-top {
+    margin-bottom: 1.88rem;
+    text-align: center;
+    }
+    
+    .btn-floating {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    padding: 0;
+    margin: 10px;
+    overflow: hidden;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15);
+    transition: all .2s ease-in-out;
+    width: 47px;
+    height: 47px;
+    }
+    
+    .btn-floating i {
+    display: inline-block;
+    width: inherit;
+    color: #fff;
+    text-align: center;
+    font-size: 1.25rem;
+    line-height: 47px;
+    }
+    p.card-text {
+    font-size: 11px;
+    }
+    

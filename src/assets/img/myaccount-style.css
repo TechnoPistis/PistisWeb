@@ -1,0 +1,358 @@
+.myaccount{
+  padding: 20px 0;
+  background: #f2f2f2;
+}
+
+.myaccount .nav-pills .nav-link.active, .myaccount .nav-pills .show>.nav-link {
+    color: #000;
+    background-color: #fff;
+    box-shadow: 0 7px 13px -6px rgba(0,0,0,0.15);
+    border-radius: 0;
+}
+
+.myaccount .nav a:hover, .myaccount .nav li.active > a {
+  color: #000;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.15);
+}
+
+.myaccount_tabcon{
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 15px;
+}
+
+.order_box{
+  background: #fff;
+  border: 1px solid #ddd;
+  margin-bottom: 15px;
+}
+.order_header{
+  padding: 10px;
+  background: #fcfbf4;
+  border-bottom: 1px solid #ddd;
+}
+.no-radius{
+  border-radius: 0; 
+}
+
+.order_content{
+  padding: 10px;
+}
+.order_list {
+  border-bottom: 1px dashed #ddd;
+  padding: 10px 0;
+}
+.raterev{
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.img-pro {
+  width: 80px;
+}
+.offer_count {
+  margin: 0;
+}
+.offer_count span {
+  color:#1ed760;
+  font-weight: 500;
+  font-size: 12px;
+  margin-right: 2px;
+  display: inline-block;
+}
+.order_footer {
+  padding: 10px;
+  border-top: 1px solid #ddd;
+}
+.order_txt {
+  color: #8c8c8c;
+  margin-right: 5px;
+}
+.totalPrice{
+  font-weight: 600;
+  margin-left: 5px;
+}
+
+/*==========================================*/
+/*============== ADDRESSES =================*/
+/*==========================================*/
+
+.address_box{
+  padding: 15px;
+  background: #fcfbf4;
+  border: 1px solid #ddd;
+  margin-bottom:10px;
+}
+h4.address_title {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 17px;
+  color: #1ed760;
+}
+
+
+.form_box {
+  position: relative;
+  margin-bottom: 10px;
+}
+.form_box textarea {
+  height: 100px !important;
+  line-height: normal !important;
+  padding-top: 10px !important;
+}
+
+.form_box .form-control {
+  display: block;
+  width: 100%;
+  height: calc(2em + 1rem + 2px);
+  padding: 0.90rem .75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 2;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.form_box .form-control-placeholder {
+  position: absolute;
+  top: 9px;
+  padding: 7px 0 0 13px;
+  transition: all 200ms;
+  opacity: 0.5;
+  font-weight: 600;
+}
+
+.form-control:focus + .form-control-placeholder,
+.form-control:valid + .form-control-placeholder {
+  font-size:12px;
+  transform: translate3d(0, -58%, 0);
+  opacity: 1;
+}
+.form_box .form-control:focus{
+  border-color: #1ed760 !important;
+}
+
+.btn:focus {
+  outline: none !important;
+  box-shadow: none;
+}
+.form-control:focus{
+  outline: none !important;
+  box-shadow: none;
+}
+
+.account_icon {
+    width: 22px;
+    height: 22px;
+    background: #fff;
+    text-align: center;
+    line-height: 22px !important;
+    border-radius: 50%;
+    color: #bfbebe;
+}
+
+.myaccount_tab .nav-link {
+    margin-bottom: 8px;
+    padding: 14px;
+	color: #afafaf;
+}
+.addres_top {
+    padding: 10px;
+    background: #fcfbf4;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+
+.address_details {
+    padding: 10px;
+    border: 1px solid #ddd;
+	position:relative;
+}
+
+.address_details span {
+    background: #f2f2f2;
+    padding: 5px 10px;
+    display: inline-block;
+    font-size: 12px;
+}
+.address_details h6 {
+    font-weight: 600;
+    margin: 6px 0 0 0;
+    padding: 0;
+}
+
+.address_details p {
+    margin: 10px 0 0 0;
+}
+.add_addresshide{
+	border:none;
+}
+.editdrop_down {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+button.btn_edit {
+    padding: 5px;
+    background: none;
+    color: #707070;
+}
+
+.edit_address {
+    width: 80px !important;
+    min-width: 80px;
+    padding: 3px 0;
+}
+
+.edit_address a {
+    font-size: 14px;
+    width: 100%;
+    display: block;
+    padding: 1px 7px;
+    color: #000;
+}
+.sign_outsec {
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+}
+
+.sign_outsec h4 {
+    margin: 0;
+    font-weight: 600;
+    font-size: 17px;
+}
+
+.sign_outsec a {
+    color: #666;
+}
+/*==========================================*/
+/*============== PROFILE =================*/
+/*==========================================*/
+.profile-form-block input,select{
+	border:0;
+	border-bottom:1px solid #ccc;
+	width:100%;
+	}
+.profile-form-block label{
+	font-size:0.8rem;
+	color:rgb(126, 133, 155);
+	}
+	
+	
+.profile-form-block .wrap-drop {
+	cursor: pointer;
+	padding: 8px 0px;
+	position: relative;
+	width: 100%;
+	z-index: 3;
+	max-width: 100%;
+	border: 0;
+	border-bottom: 1px solid #ccc;
+}
+
+.profile-form-block .wrap-drop::after {
+	border-color: #495057 transparent;
+	border-style: solid;
+	border-width: 5px 5px 0;
+	content: "";
+	height: 0;
+	margin-top: -4px;
+	position: absolute;
+	right: 1rem;
+	top: 50%;
+	width: 0;
+}
+
+.profile-form-block .wrap-drop .drop {
+background:#e7ded5;
+box-shadow:3px 3px 3px rgba(0,0,0,.2);
+display:none;
+left:0;
+list-style:none;
+margin-top:0;
+opacity:0;
+padding-left:0;
+pointer-events:none;
+position:absolute;
+right:0;
+top:100%;
+z-index:2;
+}
+
+.profile-form-block .wrap-drop .drop li a {
+color:#695d52;
+display:block;
+padding:1rem;
+text-decoration:none;
+}
+
+.profile-form-block .wrap-drop span {
+	color: #495057;
+	font-size: 14px;
+	font-weight: normal;
+}
+
+.profile-form-block .wrap-drop .drop li:hover a {
+background-color:#695d52;
+color:#e7ded5;
+}
+
+.profile-form-block .wrap-drop.active::after {
+border-width:0 5px 5px;
+}
+
+.profile-form-block .wrap-drop.active .drop {
+display:block;
+opacity:1;
+pointer-events:auto;
+}
+
+button.save{
+	background-color: #3866df;
+	color: #fff;
+	text-transform: uppercase;
+	font-weight: bold;
+	height: 43px;
+	-webkit-transition: opacity ease-in 0.2s;
+	transition: opacity ease-in 0.2s;
+	width:auto;
+	padding:5px 40px;
+	border-radius:2px;
+}
+button.save:hover {
+	box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 2px 0px;
+}
+p.label{
+	font-size: 0.8;
+	color: rgb(126, 133, 155);
+	margin-bottom: 6px;
+}
+.profile-form-block p{
+	margin:0;
+	}
+p.password{
+	color: rgb(126, 133, 155);
+	font-weight: 600;
+}
+button.transparent {
+	display: block;
+	border: 1px solid;
+	color: #3866df;
+	background-color: #fff;
+	border-radius: 2px;
+	font-weight: bold;
+	text-transform: uppercase;
+	padding: 10px 30px;
+	font-size: 0.6rem;
+	margin-top: 5px;
+}
+p.profile-sub-title{
+	font-size:0.8erm;
+	margin:0;
+	margin-bottom:20px;
+	}

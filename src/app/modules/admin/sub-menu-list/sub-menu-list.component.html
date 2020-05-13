@@ -1,0 +1,100 @@
+<div class="main-panel">
+    <div class="content">
+      <div class="page-inner">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-head-row">
+                    <div class="card-title">Menus</div>
+                    <div class="btn-group btn-group-page-header ml-auto">
+    
+                      <button type="button" class="btn btn-success" (click)="onClick()">Add Menu</button>
+                    </div>
+    
+                  </div>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="input-group" id="adv-search">
+                      <input type="text" class="form-control" placeholder="Search..">
+  
+                      <div class="input-group-btn">
+                        <div class="btn-group" role="group">
+                          <div class="dropdown dropdown-lg">
+                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"
+                              aria-expanded="false">Filter</button>
+                            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                              <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                  <label for="filter">Show all products where:</label>
+                                  <select class="form-control">
+                                    <option value="0" selected="">Select Option</option>
+                                    <option value="1">Featured</option>
+                                    <option value="2">Most popular</option>
+                                    <option value="3">Top rated</option>
+                                    <option value="4">Most commented</option>
+                                  </select>
+                                </div>
+                                <div class="form-group mb-2">
+                                  <label for="contain">is</label>
+                                  <select class="form-control">
+                                    <option value="0" selected="">Select Option</option>
+                                    <option value="1">Featured</option>
+                                    <option value="2">Most popular</option>
+                                    <option value="3">Top rated</option>
+                                    <option value="4">Most commented</option>
+                                  </select>
+                                </div>
+                             
+                              <div class="form-group">
+                                <button type="submit"
+                                 class="btn btn-sm btn-primary">Search</button>
+                              </div>
+                              </form>
+                            </div>
+                            </div>
+                          </div>
+                          <button type="button" class="btn btn-primary"><span class="fa fa-search"
+                              aria-hidden="true"></span></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row pt-3">
+                  <div class="col-md-12">
+                    <div *ngIf="hasChild"class="table-responsive">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+  
+                           
+                            <th>Sub Menu</th>
+                            
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+  
+                          <tr *ngFor="let cat of List">
+                            <td>[{{cat.Name}}]</td>
+                            
+                            
+                            <td><button (click)="onDelete(cat.Id)" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash" ></i></button>
+                             </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div *ngIf="hasChild==false">No sub Menu !</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+ 

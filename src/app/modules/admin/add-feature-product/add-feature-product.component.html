@@ -1,0 +1,83 @@
+
+<div class="main-panel">
+  <div class="content">
+          <div class="page-inner">
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+    <div class="card-header">
+        <div class="card-head-row">
+          <div class="card-title">{{'Register.AddFeatureProductButton'|translate}}</div>
+          <div class="btn-group btn-group-page-header ml-auto">
+                 
+                  <button type="button" class="btn btn-success" (click)="onClick()">{{'Register.ShowFeatureProductsButton'|translate}}</button>
+              </div>
+        
+        </div>
+      </div>
+      
+<form #form="ngForm"  autocomplete="off">
+<input type="hidden" name="Id" #Id="ngModel" [(ngModel)]="service.formData.Id">
+<div class="card-body">
+
+<div class="row">
+    <div class="col-md-4">
+                   <div class="form-group">
+                     <label>{{'Register.Category'|translate}}</label>
+                     <select name="ProductCategory" [(ngModel)]="CategoryId"
+                       (change)="getSubCategoriesByCategory($event.target.value)"
+                      id="category"
+                       class="form-control" required>
+                       <option [value]="null">{{'Register.SelectCategory'|translate}} </option>
+                       <option *ngFor="let c of ProductCategories;" [value]="c.Id">
+                         {{c.Name}}
+                       </option>
+                     </select>                                 
+                   </div>
+                 </div>
+                 <div class="col-md-4">
+                   <div class="form-group">
+                     <label>{{'Register.SubCategory'|translate}}</label>
+                     <select name="ProductCategoryId" [(ngModel)]="SubCategoryId"
+                        (change)="getVariants($event.target.value)"
+                        id="categories"
+                        class="form-control" required>
+                        <option [value]="null">{{'Register.Selectsubcategory'|translate}} </option>
+                        <option *ngFor="let c of Categories;" [value]="c.Id">
+                          {{c.Name}}
+                        </option>
+                      </select>
+                 
+                     <!-- <div class="validation-error" *ngIf="ProductCategoryId.invalid ">
+                 This field is required.
+               </div> -->
+                   </div>
+                 </div>
+                 <div class="col-md-4">
+                    <div class="form-group">
+                      <label>{{'Register.HommeProducts'|translate}}</label>
+                      <select name="ProductId" [(ngModel)]="ProductId"
+                     
+                      id="categories"
+                      class="form-control" required>
+                      <option [value]="null">{{'Register.Selectproduct'|translate}} </option>
+                      <option *ngFor="let c of Products;" [value]="c.Id">
+                        {{c.Name}}
+                      </option>
+                    </select>
+                      <!-- <div class="validation-error" *ngIf="ProductCategoryId.invalid ">
+                  This field is required.
+                </div> -->
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="form-group col-sm-2">
+                    <button type="submit" [disabled]="form.invalid"  (click)="insertRecord()" class="btn btn-primary btn-block">{{'Register.SubmitButton'|translate}}</button>
+                  </div>
+   </div>
+ 
+</form>
+</div>
+</div>
+</div>

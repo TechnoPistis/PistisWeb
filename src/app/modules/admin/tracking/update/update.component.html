@@ -1,0 +1,208 @@
+<div class="main-panel">
+  <div class="content">
+    <div class="page-inner">
+      <div class="row">
+
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-head-row">
+            <div class="card-title">{{'Register.Updateorder'|translate}}</div>
+            <div class="btn-group btn-group-page-header ml-auto">
+              <button type="button" class="btn btn-sm btn-success" [routerLink]="['/admin/tracking']"
+                routerLinkActive="router-link-active">{{'Register.AllOrders'|translate}}</button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+
+          <div class="row">
+            <div class="col-md-6" *ngIf="formData && formData.OrderDetail">
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">
+                    <strong>
+                      {{'Register.Order'|translate}} #{{formData.OrderDetail.InvoiceNumber}} ({{'Register.theorderconfirmationemailwassent'|translate}})
+                    </strong>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>{{'Register.OrderDate'|translate}}</label>
+                        <input class="form-control" type="text" readonly="readonly"
+                          value="{{formData.OrderDetail.CheckoutDate}}">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>{{'Register.Status'|translate}}</label>
+                        <input class="form-control" type="text" readonly="readonly" value="{{formData.Status}}">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>{{'Register.UserIpAddress'|translate}}</label>
+                        <input class="form-control" type="text" readonly="readonly"
+                          value="{{formData.OrderDetail.IpAddress}}">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-md-6" *ngIf="formDataUser">
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">
+                    <strong>
+                      {{'Register.AccountInformation'|translate}}
+                    </strong>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>{{'Register.Cart.Name'|translate}}</label>
+                        <input class="form-control" type="text" readonly="readonly"
+                          value="{{formDataUser.FirstName}} {{formDataUser.MiddleName}}">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>{{'Register.Email'|translate}}</label>
+                        <input class="form-control" type="text" readonly="readonly" value="{{formDataUser.Email}}">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>{{'Register.Cart.PhoneNumber'|translate}}</label>
+                        <input class="form-control" type="text" readonly="readonly" value="{{formDataUser.Phone}}">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-md-6" *ngIf="formDataBillAddress">
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">
+                    <strong>
+                      {{'Register.BillingAddress'|translate}}
+                    </strong>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label *ngIf="formDataBillAddress">
+                          {{formDataBillAddress.Colony}} {{formDataBillAddress.Street}}
+                          {{formDataBillAddress.City}} {{formDataBillAddress.State}}
+                          ({{formDataBillAddress.Pincode}})
+                        </label>
+                        <label>
+                          {{'Register.BillingAddress'|translate}} - <strong> {{formDataBillAddress.PhoneNo}}</strong>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6" *ngIf="formDataShippingAddress">
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">
+                    <strong>
+                      {{'Register.ShippingAddress'|translate}}
+                    </strong>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label *ngIf="formDataShippingAddress">
+                          {{formDataShippingAddress.Address}}
+                          {{formDataShippingAddress.City}}
+                          ({{formDataShippingAddress.Pincode}})
+                        </label>
+                        <label>
+                          {{'Register.Cart.PhoneNumber'|translate}} - <strong> {{formDataShippingAddress.PhoneNo}}</strong>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-md-6" *ngIf="formDataShippingAddress">
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">
+                    <strong>
+                      {{'Register.ShippingTracking'|translate}}
+                    </strong>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <form [formGroup]="editForm" (ngSubmit)="onSubmit($event)">
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>{{'Register.OrderId'|translate}}</label>
+                          <input formControlName="OrderId" class="form-control" type="text" readonly="readonly">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>{{'Register.Status'|translate}}</label>
+                          <input formControlName="Status" class="form-control" type="text" readonly="readonly">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>{{'Register.UpdatedDate'|translate}}</label>
+                          <input formControlName="UpdatedDate" class="form-control" type="text" readonly="readonly">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>{{'Register.TrackingId'|translate}}</label>
+                          <input formControlName="TrackId" class="form-control" type="text">
+                          <!-- <div [hidden]="!editForm.controls['TrackId'].errors && editForm.controls['TrackId'].untouched"
+                            class="text-danger">{{'Register.RequiredField'|translate}}
+                          </div> -->
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <input type="hidden" formControlName="Id">
+                          <button type="submit" id="submitButton" [disabled]="editForm.invalid"
+                            class="btn btn-primary btn-block">{{'Register.Cart.Save'|translate}}</button>
+                        </div>
+                      </div>
+                    </div>
+
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

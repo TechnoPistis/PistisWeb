@@ -1,0 +1,7 @@
+<div class="desktop-container" *ngIf="!isMobileResolution; else mobileContainer">
+  <app-home-page-desktop></app-home-page-desktop>
+</div>
+
+<ng-template #mobileContainer>
+ <app-home-page-mobile></app-home-page-mobile>
+</ng-template>

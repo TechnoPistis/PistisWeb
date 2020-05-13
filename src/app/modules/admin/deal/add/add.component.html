@@ -1,0 +1,215 @@
+<div class="main-panel">
+  <div class="content">
+    <div class="page-inner">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-head-row">
+            <div class="card-title">{{'Register.AddDeal'|translate}}</div>
+            <div class="btn-group btn-group-page-header ml-auto">
+
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <form [formGroup]="addForm" (ngSubmit)="onSubmit($event)">
+                <div class="row mt-3">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="card">
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <label>{{'Register.Alldeals'|translate}}</label>
+                                  <input class="form-control" type="text" placeholder="Name" formControlName="Name">
+                                  <!-- <div [hidden]="!addForm.controls['Name'].errors" class="text-danger">this field
+                                    is
+                                    required</div> -->
+                                </div>
+                              </div>
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <label>{{'Register.Category'|translate}}</label>
+                                  <select formControlName="CategoryId" class="form-control"
+                                    (change)="getSubCategoriesByCategory($event.target.value)">
+                                    <option value="">{{'Register.SelectProductCategory'|translate}}</option>
+                                    <option *ngFor="let c of ProductCategories;" [value]="c.Id">
+                                      {{c.Name}}
+                                    </option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <label>{{'Register.SubCategory'|translate}}</label>
+                                  <select formControlName="ProductCategoryId" name="ProductCategoryId"
+                                    (change)="GetProductCategory($event.target.value)" id="categories"
+                                    class="form-control" required>
+                                    <option value="">{{'Register.Selectsubcategory'|translate}}</option>
+                                    <option *ngFor="let c of Categories;" [value]="c.Id">
+                                      {{c.Name}}
+                                    </option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <label>{{'Register.Status'|translate}}</label>
+                                  <select class="form-control" formControlName="Status">
+                                    <option *ngFor="let c of statusOptions;" [value]="c.value">
+                                      {{c.status}}
+                                    </option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <label>{{'Register.From'|translate}} </label>
+                                      <input class="form-control" bsDatepicker [minDate]="today"
+                                        [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" formControlName="ActiveFrom"
+                                        placeholder="YYYY-MM-DD" type="text" autocomplete="off">
+                                    </div>
+                                    <!-- <div [hidden]="!addForm.controls['ActiveFrom'].errors" class="text-danger">this field
+                                        is required
+                                      </div> -->
+
+                                    <div class="col-md-6">
+                                      <label>{{'Register.FromTime'|translate}}</label>
+
+                                      <input class="form-control" [ngxTimepicker]="picker"
+                                        placeholder="Select time from.." formControlName="ActiveFromTime">
+                                      <ngx-material-timepicker #picker></ngx-material-timepicker>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <label>{{'Register.To'|translate}}</label>
+
+                                      <input class="form-control" bsDatepicker [minDate]="today"
+                                        [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" formControlName="ActiveTo"
+                                        placeholder="YYYY-MM-DD" type="text" autocomplete="off">
+                                    </div>
+                                    <div class="col-md-6">
+                                      <label>{{'Register.ToTime'|translate}}</label>
+                                      <input class="form-control" [ngxTimepicker]="picker1"
+                                        placeholder="Select time to.." formControlName="ActiveToTime">
+                                      <ngx-material-timepicker #picker1></ngx-material-timepicker>
+                                      <!-- <div [hidden]="!addForm.controls['ActiveTo'].errors" class="text-danger">this field is
+                                      required
+                                    </div> -->
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <label>{{'Register.Discount'|translate}}</label>
+                                  <input formControlName="Discount" class="form-control" type="text"
+                                    placeholder="Discount(example-30)">
+                                  <!-- <div [hidden]="!addForm.controls['Discount'].errors" class="text-danger">this field
+                                    is
+                                    required</div> -->
+                                </div>
+                              </div>
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <label>{{'Register.DealQuantity'|translate}}</label>
+                                  <input formControlName="DealQty" class="form-control" type="text"
+                                    placeholder="Quantity">
+                                  <!-- <div [hidden]="!addForm.controls['DealQty'].errors" class="text-danger">this field is
+                                    required</div> -->
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <label>{{'Register.Quantityperusercanbuy'|translate}} </label>
+                                  <input class="form-control" type="text" placeholder="Purchase limit user(1,2,3,4 etc)"
+                                    formControlName="QuantityPerUser">
+                                  <!-- <div [hidden]="!addForm.controls['QuantityPerUser'].errors" class="text-danger">this
+                                        field is required</div> -->
+                                </div>
+                              </div>
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <label>{{'Register.Isfeatured'|translate}}</label>
+                                  <input formControlName="IsFeatured" class="form-control" type="checkbox">
+                                </div>
+                              </div>
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <label>{{'Register.IsShow'|translate}}</label>
+                                  <input formControlName="IsShow" class="form-control" type="checkbox">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2">
+                    <input type="hidden" formControlName="Id">
+                    <button type="submit" id="submitButton" [disabled]="addForm.invalid"
+                      class="btn btn-primary btn-block">{{'Register.Preview'|translate}}</button>
+                  </div>
+                  <div class="col-sm-2">
+                    <button type="button" class="btn btn-danger btn-block" [routerLink]="['/admin/deals']"
+                      routerLinkActive="router-link-active">{{'Register.Cancel'|translate}}</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" *ngIf="Products.length >0">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>{{'Register.Name'|translate}}</th>
+                    <th>{{'Register.Category'|translate}}</th>
+                    <th>SKU</th>
+                    <th>{{'Register.Price'|translate}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of Products; let i = index">
+                    <td *ngIf="!item.AlreadyInDeal"><input type="checkbox" [checked]="item.Selected" (change)="AddProdcut(item.Id,i, $event)"></td>
+                    <td *ngIf="item.AlreadyInDeal"><input type="checkbox" [checked]="item.Selected" (change)="AddProdcut(item.Id,i, $event)" disabled></td>
+                    <td>{{item.Name}}</td>
+                    <td>{{item.Category}}</td>
+                    <td>{{item.SKU}}</td>
+                    <td>{{item.Price}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,242 @@
+<app-header></app-header>
+
+<section class="myaccount">
+  <div *ngIf="hidemainDiv" class="container p-tb-2">
+    <div class="row">
+      <div class="col-md-4 col-sm-4 col-lg-3 col-xs-12">
+        <div class="sign_outsec">
+          <div class="pull-left">
+            <div class="my-account-thumb">
+              <img alt="" src="assets/defaul.jpg">
+            </div>
+          </div>
+          <div class="pull-left">
+            <h4 *ngIf="UserName" class="capitalize">{{UserName}}</h4>
+          </div>
+        </div>
+        <div class="nav flex-column nav-pills myaccount_tab" id="v-pills-tab" role="tablist"
+          aria-orientation="vertical">
+          <a class="nav-link " [routerLink]="['/ManageAddress']" routerLinkActive="router-link-active" data-toggle="tab"
+            href="#tab1" role="tab" aria-controls="Manage Addresses"><i class="fas fa-address-book account_icon"></i>
+            {{'Register.ManageAddresses.ManageAddressesText'|translate}}</a>
+          <a class="nav-link" [routerLink]="['/MyProfile']" routerLinkActive="router-link-active" data-toggle="tab"
+            href="#tab2" role="tab" aria-controls="My Profile"><i class="fas fa-user account_icon"></i>
+            {{'Register.MyProfile.MyProfileText'|translate}}</a>
+
+          <a class="nav-link" [routerLink]="['/MyOrders']" routerLinkActive="router-link-active" data-toggle="tab"
+            href="#tab3" role="tab" aria-controls="My Order"><i class="fas fa-gifts account_icon"></i>{{'Register.MyProfile.MyOrders'|translate}}</a>
+          <a class="nav-link active" [routerLink]="['/wishlist']" routerLinkActive="router-link-active"
+            data-toggle="tab" href="#tab4" role="tab" aria-controls="My Wishlist"><i
+              class="fas fa-heart account_icon"></i>
+              {{'Register.MyProfile.MyWishlist'|translate}}</a>
+              <a class="nav-link" [routerLink]="['/testimonial']" routerLinkActive="router-link-active" data-toggle="tab"
+            href="#tab5" role="tab" aria-controls="Testimonial"><i class="fas fa-heart account_icon"></i>
+            {{'Register.Testimonial'|translate}}</a>
+          <a (click)="logout()" class="nav-link"><i class="fas fa-power-off account_icon"></i>
+            {{'Register.MyProfile.Logout'|translate}}</a>
+        </div>
+      </div>
+      <div class="col-md-8 col-sm-8 col-lg-9 col-xs-12">
+
+        <div class="tab-content addres_top">
+          <!--------------------------------------------tab 1 start------------------------------------------------------>
+
+          <!--------------------------------------------tab 1 end------------------------------------------------------>
+
+          <!--------------------------------------------tab 2 start------------------------------------------------------>
+
+          <!--------------------------------------------tab 2 end------------------------------------------------------>
+          <!--------------------------------------------tab 3 start------------------------------------------------------>
+
+          <!--------------------------------------------tab 3 end------------------------------------------------------>
+
+          <!--------------------------------------------tab 4 start------------------------------------------------------>
+          <div>
+
+
+
+
+
+
+            <div class="row">
+              <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                <section class="cart-main-block">
+                  <div class="cart-page-con-area">
+                    <div class="row mrgn-b-sm">
+                      <div class="col-md-12">
+                        <div class="cart-page-headng" *ngIf="list">
+                          <h3 *ngIf="wishlistLenght!=0">{{'Register.MyProfile.MyWishlist'|translate}} ({{wishlistLenght}})</h3>
+                          <h3 *ngIf="wishlistLenght==0">{{'Register.MyProfile.MyWishlist'|translate}}</h3>
+                          <p *ngIf="wishlistLenght==0" class="mt-3">{{'Register.MyProfile.NoItemsInWishList'|translate}}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="cart-con-area1" *ngFor="let p of list; let i =index">
+                      <div class="row">
+
+                        <div class="col-md-2 col-lg-2 col-sm-2 col-xs-4">
+                          <div class="cart-thumb" (click)="productDetail(p.ProductId,p.VariantDetailId)">
+                            <img class="img-responsive" src={{p.LandingImage150}}>
+                          </div>
+                        </div>
+                        <div class="col-md-7 col-lg-7 col-sm-7 col-xs-12">
+                          <a class="cart-product-title"
+                            (click)="productDetail(p.ProductId,p.VariantDetailId)">{{p.Name}}</a>
+
+                          <div class="wish-rate" *ngIf="p.ReviewCount>0">
+
+                            <span class="label label-success">{{p.RatingAvg}} <i class="fas fa-star"></i></span> (
+                            {{p.ReviewCount}} )
+                          </div>
+                          <div class="wish-rate" *ngIf="p.ReviewCount==0">
+
+                            <span class="label label-success">{{p.RatingAvg}} <i class="fas fa-star"></i></span> ({{'Register.Cart.NoReviews'|translate}})
+                          </div>
+                          <div class="cart-price-row">
+                            <span class="cart-price">${{p.PriceAfterdiscount.toFixed(2)}}</span>
+                            <span class="cart-price-accual" *ngIf="p.Discount>0">${{p.SellingPrice.toFixed(2)}}</span>
+                            <span class="cart-offer" *ngIf="p.Discount>0">{{p.Discount}}% Off</span>
+                            <span *ngIf="p.InStock==0" style="color:red">{{'Register.Cart.OutOfStockItem'|translate}}</span>
+                            <!-- <div class="available-offer">1 Offer Available <i class="fas fa-info-circle"></i></div> -->
+                          </div>
+                        </div>
+
+                        <div class="col-md-3 col-lg-3 col-sm-3 col-xs-12 text-right">
+                          <button *ngIf="!p.ShipmentVendor"[disabled]="p.InStock==0?true:false"
+                            (click)="addToCart(p.VariantDetailId,p.SellingPrice,p.Discount,p.PriceAfterdiscount,p.ShipmentVendor)"
+                            class="btn btn-xs btn-primary mr-1">{{'Register.Compare.AddToCartButton'|translate}}</button>
+                            <button *ngIf="p.ShipmentVendor" [disabled]="p.InStock==0?true:false"
+                            (click)="addToCart(p.VariantDetailId,p.SellingPrice,p.Discount,p.PriceAfterdiscount,p.ShipmentVendor)"
+                            class="btn btn-xs btn-primary mr-1">{{'Register.Compare.BuyNowButton'|translate}}</button>
+                          <!-- <button class="btn btn-sm btn-danger" (click)="onDelete(p.WishListId,i)">Remove</button> -->
+                          <!-- <a (click)="onDelete(p.WishListId,i)"><i class="fas fa-trash"></i></a> -->
+                          <button (click)="onDelete(p.WishListId,i)" class="btn btn-xs btn-danger">{{'Register.Cart.Remove'|translate}}</button>
+
+                        </div>
+
+                      </div>
+                    </div>
+
+
+
+
+
+
+                  </div>
+                </section>
+              </div>
+
+            </div>
+          </div>
+
+          <!--------------------------------------------tab 4 end------------------------------------------------------>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div *ngIf="hidemainDiv==false" class="container p-tb-2">
+      <div class="row">
+        
+        <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+  
+          <div class="tab-content addres_top">
+            <!--------------------------------------------tab 1 start------------------------------------------------------>
+  
+            <!--------------------------------------------tab 1 end------------------------------------------------------>
+  
+            <!--------------------------------------------tab 2 start------------------------------------------------------>
+  
+            <!--------------------------------------------tab 2 end------------------------------------------------------>
+            <!--------------------------------------------tab 3 start------------------------------------------------------>
+  
+            <!--------------------------------------------tab 3 end------------------------------------------------------>
+  
+            <!--------------------------------------------tab 4 start------------------------------------------------------>
+            <div>
+  
+  
+  
+  
+  
+  
+              <div class="row">
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                  <section class="cart-main-block">
+                    <div class="cart-page-con-area">
+                      <div class="row mrgn-b-sm">
+                        <div class="col-md-12">
+                          <div class="cart-page-headng" *ngIf="list">
+                            <h3 *ngIf="wishlistLenght!=0">{{'Register.MyProfile.MyWishlist'|translate}} ({{wishlistLenght}})</h3>
+                            <h3 *ngIf="wishlistLenght==0">{{'Register.MyProfile.MyWishlist'|translate}}</h3>
+                            <p *ngIf="wishlistLenght==0" class="mt-3">
+                                {{'Register.MyProfile.NoItemsInWishList'|translate}}
+                             </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="cart-con-area1" *ngFor="let p of list; let i =index">
+                        <div class="row">
+  
+                          <div class="col-md-2 col-lg-2 col-sm-2 col-xs-4">
+                            <div class="cart-thumb" (click)="productDetail(p.ProductId,p.VariantDetailId)">
+                              <img class="img-responsive" src={{p.LandingImage150}}>
+                            </div>
+                          </div>
+                          <div class="col-md-7 col-lg-7 col-sm-7 col-xs-12">
+                            <a class="cart-product-title"
+                              (click)="productDetail(p.ProductId,p.VariantDetailId)">{{p.Name}}</a>
+  
+                            <div class="wish-rate">
+  
+                              <span class="label label-success">{{p.RatingAvg}} <i class="fas fa-star"></i></span> (
+                              {{p.ReviewCount}} )
+                            </div>
+                            <div class="cart-price-row">
+                              <span class="cart-price">${{p.PriceAfterdiscount.toFixed(2)}}</span>
+                              <span class="cart-price-accual">${{p.SellingPrice.toFixed(2)}}</span>
+                              <span class="cart-offer">{{p.Discount}}% Off</span>
+                              <span *ngIf="p.InStock==0" style="color:red">{{'Register.Cart.OutOfStockItem'|translate}}</span>
+                              <!-- <div class="available-offer">1 Offer Available <i class="fas fa-info-circle"></i></div> -->
+                            </div>
+                          </div>
+  
+                          <div class="col-md-3 col-lg-3 col-sm-3 col-xs-12 text-right">
+                            <button [disabled]="p.InStock==0?true:false" *ngIf="!p.ShipmentVendor"
+                              (click)="addToCart(p.VariantDetailId,p.SellingPrice,p.Discount,p.PriceAfterdiscount,p.ShipmentVendor)"
+                              class="btn btn-xs btn-primary mr-1">{{'Register.Compare.AddToCartButton'|translate}}</button>
+                              <button [disabled]="p.InStock==0?true:false"  *ngIf="p.ShipmentVendor"
+                              (click)="addToCart(p.VariantDetailId,p.SellingPrice,p.Discount,p.PriceAfterdiscount,p.ShipmentVendor)"
+                              class="btn btn-xs btn-primary mr-1">{{'Register.Compare.BuyNowButton'|translate}}</button>
+                            <!-- <button class="btn btn-sm btn-danger" (click)="onDelete(p.WishListId,i)">Remove</button> -->
+                            <!-- <a (click)="onDelete(p.WishListId,i)"><i class="fas fa-trash"></i></a> -->
+                            <button (click)="onDelete(p.WishListId,i)" class="btn btn-xs btn-danger">{{'Register.Cart.Remove'|translate}}</button>
+  
+                          </div>
+  
+                        </div>
+                      </div>
+  
+  
+  
+  
+  
+  
+                    </div>
+                  </section>
+                </div>
+  
+              </div>
+            </div>
+  
+            <!--------------------------------------------tab 4 end------------------------------------------------------>
+  
+          </div>
+        </div>
+      </div>
+  
+    </div>
+</section>
+
+<app-footer></app-footer>

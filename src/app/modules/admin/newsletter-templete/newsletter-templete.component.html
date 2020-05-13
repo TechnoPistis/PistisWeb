@@ -1,0 +1,93 @@
+<div class="main-panel">
+  <div class="content">
+  <div class="page-inner">
+  <div class="row">
+  <div class="col-md-12">
+  <div class="card">
+  <div class="card-header">
+  <div class="card-head-row">
+  <div class="card-title">{{'Register.AddNewsletterTemplate'|translate}}</div>
+  <div class="btn-group btn-group-page-header ml-auto">
+  <hr>
+  <button type="button" class="btn btn-success" [routerLink]="['/admin/newsTempList']"
+    routerLinkActive="router-link-active">
+    {{'Register.ShowNewsletterList'|translate}}
+  </button>
+  </div>
+  
+  </div>
+  </div>
+  <div class="card-body">
+  <form #form="ngForm" (submit)="onSubmit(form)" autocomplete="off">
+  <input type="hidden" name="Id" #Id="ngModel" [(ngModel)]="service.formData.Id">
+  <div class="row">
+  <div class="col-md-8">
+  <div class="row">
+  <div class="col-md-6">
+  <div class="form-group">
+  <label>{{'Register.TemplateType'|translate}} </label>
+  <input name="Templatetype" #Templatetype="ngModel" [(ngModel)]="service.formData.Templatetype" class="form-control" required>
+  <div class="validation-error" *ngIf="Templatetype.invalid && Templatetype.touched">{{'Register.Thisfieldisrequired'|translate}}</div>
+  </div>
+  <!-- <div class="form-group col-md-6">
+  <label>Template Subject</label>
+  <input name="TemplateSubject" #TemplateSubject="ngModel" [(ngModel)]="service.formData.TemplateSubject" class="form-control" required>
+  <div class="validation-error" *ngIf="TemplateSubject.invalid && TemplateSubject.touched">This field is required.</div>
+  </div> -->
+  </div>
+  <div class="col-md-6">
+  
+  <div class="form-group ">
+  <label>{{'Register.TemplateSubject'|translate}}</label>
+  <input name="TemplateSubject" #TemplateSubject="ngModel" [(ngModel)]="service.formData.TemplateSubject" class="form-control" required>
+  <div class="validation-error" *ngIf="TemplateSubject.invalid && TemplateSubject.touched">{{'Register.Thisfieldisrequired'|translate}}</div>
+  </div>
+  </div>
+  </div>
+  <div class="row">
+  <div class="col-md-6">
+  <div class="form-group">
+  <label>{{'Register.SenderName'|translate}}</label>
+  <input name="SenderName" #SenderName="ngModel" [(ngModel)]="service.formData.SenderName" class="form-control" required>
+  <div class="validation-error" *ngIf="SenderName.invalid && SenderName.touched">{{'Register.Thisfieldisrequired'|translate}}</div>
+  </div>
+  <!-- <div class="form-group col-md-6">
+  <label>Template Subject</label>
+  <input name="TemplateSubject" #TemplateSubject="ngModel" [(ngModel)]="service.formData.TemplateSubject" class="form-control" required>
+  <div class="validation-error" *ngIf="TemplateSubject.invalid && TemplateSubject.touched">This field is required.</div>
+  </div> -->
+  </div>
+  <div class="col-md-6">
+  
+  <div class="form-group ">
+  <label>{{'Register.SenderEmail'|translate}}</label>
+  <input name="SenderEmail" #SenderEmail="ngModel" [(ngModel)]="service.formData.SenderEmail" (focusout)="onEntry(SenderEmail.value)" class="form-control" required>
+  <div class="validation-error" *ngIf="SenderEmail.invalid && SenderEmail.touched">{{'Register.Thisfieldisrequired'|translate}}</div>
+  <div *ngIf="emailValid" class="text-danger">{{'Register.Emailmustbeavalidemail'|translate}}</div>
+  </div>
+  </div>
+  </div>
+  <div class="row">
+  
+  <div class="col-md-12">
+  
+  <div class="form-group "> 
+  <label>{{'Register.TemplateContent'|translate}} </label>
+  <ckeditor name="TemplateContent" #TemplateContent="ngModel" [(ngModel)]="service.formData.TemplateContent" ></ckeditor>
+  </div>
+  </div>
+  
+  <div class="form-group col-sm-2">
+  <button type="submit" [disabled]="form.invalid" class="btn btn-primary btn-block">{{'Register.Submit'|translate}}</button>
+  </div>
+  </div>
+  </div>
+  </div>
+  
+  
+  
+  
+  </form>
+  </div></div>
+  </div>
+  </div>

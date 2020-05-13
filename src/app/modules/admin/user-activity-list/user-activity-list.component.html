@@ -1,0 +1,111 @@
+<div class="main-panel">
+  <div class="content">
+    <div class="page-inner">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-head-row">
+                <div class="card-title">{{'Register.UserActivitiesText'|translate}}</div>
+                <div class="btn-group btn-group-page-header ml-auto">
+
+                  <button type="button" class="btn btn-success"
+                    (click)="onClick()">{{'Register.ViewActivitiesButton'|translate}}</button>
+                </div>
+
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="input-group" id="adv-search">
+                    <input type="text" class="form-control" [(ngModel)]="SearchName" placeholder="{{'Register.SearchPlaceholder'|translate}}">
+
+                    <div class="input-group-btn">
+                      <div class="btn-group" role="group">
+                        <div class="dropdown dropdown-lg">
+                          <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"
+                            aria-expanded="false">{{'Register.Filter'|translate}}</button>
+                          <div class="dropdown-menu dropdown-menu-right" role="menu">
+                            <form class="form-horizontal" role="form">
+                              <div class="form-group">
+                                <label for="filter">{{'Register.ShowAllProductsWhere'|translate}}</label>
+                                <select class="form-control">
+                                  <option value="0" selected="">{{'Register.SelectOption'|translate}}</option>
+                                  <option value="1">{{'Register.Featured'|translate}}</option>
+                                  <option value="2">{{'Register.MostPopular'|translate}}</option>
+                                  <option value="3">{{'Register.TopRated'|translate}}</option>
+                                  <option value="4">{{'Register.MostCommented'|translate}}</option>
+                                </select>
+                              </div>
+                              <div class="form-group mb-3">
+                                <label for="contain">is</label>
+                                <select class="form-control">
+                                  <option value="0" selected="">{{'Register.SelectOption'|translate}}</option>
+                                  <option value="1">{{'Register.Featured'|translate}}</option>
+                                  <option value="2">{{'Register.MostPopular'|translate}}</option>
+                                  <option value="3">{{'Register.TopRated'|translate}}</option>
+                                  <option value="4">{{'Register.MostCommented'|translate}}</option>
+                                </select>
+                              </div>
+                              <button type="submit"
+                                class="btn btn-primary">{{'Register.SearchPlaceholder'|translate}}</button>
+                            </form>
+                          </div>
+                        </div>
+                        <button type="button" class="btn btn-primary"><span class="fa fa-search"
+                            aria-hidden="true"></span></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row pt-3">
+
+                <div class="col-md-12">
+                  <div *ngIf="hasChild==false">{{'Register.NoUserActivity'|translate}}</div>
+                  <div *ngIf="hasChild" class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>{{'Register.PageUrl'|translate}}</th>
+                          <th>{{'Register.LoginDate'|translate}}</th>
+                          <th>{{'Register.LogoutDate'|translate}}</th>
+                          <th>{{'Register.IPAddress'|translate}}</th>
+                          <th>{{'Register.EmailAddress'|translate}}</th>
+
+
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                        <tr *ngFor="let cat of dataList">
+                          <td><a href="{{cat.Url}}"> {{cat.Url}}</a></td>
+                          <td>{{cat.LogInDate}}</td>
+                          <td>{{cat.LogOutDate}}</td>
+                          <td *ngIf="cat.IPAddress!='undefined'">{{cat.IPAddress}}</td>
+                          <td *ngIf="cat.IPAddress=='undefined'">Unknown</td>
+                          <td>{{cat.User?.Email}}</td>
+
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="no-left-right" *ngIf="count">
+                    <app-admin-pagination [count]="count" [page]="page" [(perPage)]="perPage" [pagesToShow]="pagesToShow"
+                      (goPrev)="prevPage()" (goNext)="nextPage()" (goPage)="goToPage($event)"
+                      (pageSize)="newPageSize($event)">
+                    </app-admin-pagination>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

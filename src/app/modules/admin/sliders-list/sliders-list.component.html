@@ -1,0 +1,107 @@
+<div class="main-panel">
+  <div class="content">
+    <div class="page-inner">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-head-row">
+                <div class="card-title">{{'Register.AllSliderImages'|translate}}</div>
+                <div class="btn-group btn-group-page-header ml-auto">
+                  <button type="button" class="btn btn-success" (click)="onClick()">{{'Register.AddSliderImages'|translate}}</button>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="input-group" id="adv-search">
+                    <input type="text" class="form-control" [(ngModel)]="SearchName" placeholder="Search..">
+
+                    <div class="input-group-btn">
+                      <div class="btn-group" role="group">
+                        <!-- <div class="dropdown dropdown-lg">
+                          <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"
+                            aria-expanded="false">Filter</button>
+                          <div class="dropdown-menu dropdown-menu-right" role="menu">
+                            <form class="form-horizontal" role="form">
+                              <div class="form-group">
+                                <label for="filter">Show all products where:</label>
+                                <select class="form-control">
+                                  <option value="0" selected="">Select Option</option>
+                                  <option value="1">Featured</option>
+                                  <option value="2">Most popular</option>
+                                  <option value="3">Top rated</option>
+                                  <option value="4">Most commented</option>
+                                </select>
+                              </div>
+                              <div class="form-group mb-3">
+                                <label for="contain">is</label>
+                                <select class="form-control">
+                                  <option value="0" selected="">Select Option</option>
+                                  <option value="1">Featured</option>
+                                  <option value="2">Most popular</option>
+                                  <option value="3">Top rated</option>
+                                  <option value="4">Most commented</option>
+                                </select>
+                              </div>
+                              <button type="submit" class="btn btn-sm btn-primary">Search</button>
+                            </form>
+                          </div>
+                        </div> -->
+                        <button type="button" class="btn btn-primary" (click)="searchProduct()"><span class="fa fa-search"
+                            aria-hidden="true"></span></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- </div> -->
+              <div class="row pt-3">
+                <div class="col-md-12">
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+
+                          <th>{{'Register.StartDate'|translate}}</th>
+                          <th>{{'Register.EndDate'|translate}}</th>
+                          <th>{{'Register.Url'|translate}}</th>
+                          <th>{{'Register.SliderImage'|translate}}</th>
+                          <th>{{'Register.Action'|translate}}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                        <tr *ngFor="let cat of dataList">
+                          <td>{{cat.FromDateTime | date}}</td>
+                          <td>{{cat.ToDateTime | date}}</td>
+                          <td>{{cat.Url}}</td>
+                          <td>
+                            <div class="pro-thumb"><img style="height: 50px;" src={{cat.Image}} /></div>
+                          </td>
+                          <td><button (click)="onDelete(cat.Id)" class="btn btn-sm btn-outline-danger mr-2"><i
+                                class="fas fa-trash "></i></button>
+                            <button (click)="onEdit(cat.Id)" class="btn btn-sm btn-outline-danger"><i
+                                class="fas fa-edit"></i></button></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="no-left-right" *ngIf="count">
+                    <app-admin-pagination [count]="count" [page]="page" [(perPage)]="perPage" [pagesToShow]="pagesToShow"
+                      (goPrev)="prevPage()" (goNext)="nextPage()" (goPage)="goToPage($event)"
+                      (pageSize)="newPageSize($event)">
+                    </app-admin-pagination>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

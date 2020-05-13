@@ -1,0 +1,245 @@
+<div class="main-panel">
+   <div class="content">
+      <div class="page-inner">
+         <div class="row mt-3">
+            <div class="col-md-12">
+               <div class="card">
+                  <div class="card-header">
+                     <div class="card-head-row">
+                        <div class="card-title">{{'Register.VendorDetails'|translate}} </div>
+
+                     </div>
+                  </div>
+                  <form #form="ngForm" (submit)="onSubmit(form)" autocomplete="off">
+                     <input type="hidden" name="Id" #Id="ngModel" [(ngModel)]="service.formData.Id">
+                     <div class="card-body">
+                        <div class="row">
+                           <div class="col-md-3">
+                              <dropzone (success)="onProfilePicUpload($event)" [config]="config"
+                                        [message]="'Profile'"></dropzone>
+                           </div>
+                           <div class="col-md-3">
+                              <dropzone (success)="onLogoUpload($event)" [config]="config"
+                                        [message]="'Logo'"></dropzone>
+                           </div>
+                        </div>
+                        <div class="row mt-3">
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 <label>{{'Register.FirstName'|translate}} * </label>
+                                 <input class="form-control" type="text" placeholder="FirstName" name="FirstName" required
+                                    #FirstName="ngModel" [(ngModel)]="service.formData.FirstName">
+
+                              <div  class="text-danger" *ngIf="FirstName.invalid && (FirstName.dirty || FirstName.touched ||Name)">{{'Register.RequiredField'|translate}}</div>
+                                    
+
+                              </div>
+
+                           </div>
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 <label>{{'Register.MiddleName'|translate}}</label>
+                                 <input class="form-control" type="text" placeholder="MiddleName" name="MiddleName"
+                                    #MiddleName="ngModel" [(ngModel)]="service.formData.MiddleName">
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 <label>{{'Register.LastName'|translate}} </label>
+                                 <input class="form-control" type="text" placeholder="LastName" name="LastName"
+                                    #LastName="ngModel" [(ngModel)]="service.formData.LastName">
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 <label>{{'Register.Company'|translate}}* </label>
+                                 <input class="form-control" type="text" placeholder="Company" name="Company"
+                                    #Company="ngModel" [(ngModel)]="service.formData.Company" required>
+                                    <div  class="text-danger" *ngIf="Company.invalid && (Company.dirty || Company.touched||companyy)">{{'Register.RequiredField'|translate}}</div>
+
+                              </div>
+                           </div>
+                           <!-- <div class="col-md-3">
+                           <div class="form-group">
+                             <label for="exampleFormControlSelect1">Vendor</label>
+                             <select class="form-control" id="exampleFormControlSelect1">
+                               <option>Don't track inventory</option>
+                               <option>Pistis tracks this product's inventory</option>
+                             </select>
+                           </div>
+                         </div> -->
+
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 <label>{{'Register.DisplayName'|translate}} *</label>
+                                 <input class="form-control" type="text" placeholder="DisplayName" name="DisplayName" required
+                                    #DisplayName="ngModel" [(ngModel)]="service.formData.DisplayName">
+                                    <div  class="text-danger" *ngIf="DisplayName.invalid && (DisplayName.dirty || DisplayName.touched||DisName)">{{'Register.RequiredField'|translate}}</div>
+
+
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 <label>{{'Register.UserName'|translate}}</label>
+                                 <input class="form-control" type="text" placeholder="UserName" name="UserName"
+                                    #UserName="ngModel" [(ngModel)]="service.formData.UserName">
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 <label>{{'Register.Password'|translate}}*</label>
+                                 <input class="form-control" type="password" placeholder="Password" name="Password"
+                                    #Password="ngModel" [(ngModel)]="service.formData.Password">
+                                    <div class="text-danger"  *ngIf="passlen">The lenght must be 6 or greater</div>
+                                    
+                                    <div  class="text-danger" *ngIf="Password.invalid && (Password.dirty || Password.touched||Passval)">{{'Register.RequiredField'|translate}}</div>
+
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 <label>{{'Register.EmailAddress'|translate}}*</label>
+                                 <input class="form-control" type="text" placeholder="Email" name="Email"
+                                    #Email="ngModel" [(ngModel)]="service.formData.Email" required>
+                                    <div  class="text-danger" *ngIf="Email.invalid && (Email.dirty || Email.touched||Emailval)">{{'Register.RequiredField'|translate}}</div>
+
+                                    <div  class="text-danger" *ngIf="Emaillen">Enter the valid email.</div>
+                                    
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 <label>{{'Register.Phone'|translate}}</label>
+                                 <input class="form-control" type="text" placeholder="Phone" name="Phone"
+                                    #Phone="ngModel" [(ngModel)]="service.formData.Phone">
+                                    
+
+
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+
+                              <div class="form-group ">
+                                 <label>{{'Register.DOB'|translate}}</label>
+                                 <input name="DOB" #DOB="ngModel" [(ngModel)]="service.formData.DOB" type="text"
+                                    bsDatepicker class="form-control"  />
+
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 <label>{{'Register.Address'|translate}}</label>
+                                 <input class="form-control" type="text" placeholder="Address" name="Address"
+                                    #Address="ngModel" [(ngModel)]="service.formData.Address">
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 <label>{{'Register.Country'|translate}}*</label>
+                                 <select name="CountryId" #CountryId="ngModel" [(ngModel)]="service.formData.CountryId" required
+                                    class="form-control" selected [value]="service.formData.CountryId">
+                                    <option value="0">{{'Register.SelectOption'|translate}}</option>
+                                    <option *ngFor="let c of countryList ;" [value]="c.Id">
+                                       {{c.Name}}
+                                    </option>
+                                 </select>
+    <div  class="text-danger" *ngIf=" (CountryId.dirty || CountryId.touched||Countryval)">{{'Register.RequiredField'|translate}}</div>
+
+
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 <label>{{'Register.State'|translate}}* </label>
+                                 <select name="StateId" #StateId="ngModel" [(ngModel)]="service.formData.StateId" required
+                                    class="form-control" selected [value]="service.formData.StateId">
+                                    <option value="0">{{'Register.SelectOption'|translate}}</option>
+                                    <option *ngFor="let c of stateList ;" [value]="c.Id">
+                                       {{c.Name}}
+                                    </option>
+                                 </select>
+                                 <div  class="text-danger" *ngIf="(StateId.dirty || StateId.touched||Stateval)">{{'Register.RequiredField'|translate}}</div>
+
+
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 <label>{{'Register.City'|translate}}</label>
+                                 <input class="form-control" type="text" placeholder="City" name="City" #City="ngModel"
+                                    [(ngModel)]="service.formData.City">
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 <label>{{'Register.PostalCode'|translate}}*</label>
+                                 <input class="form-control" type="text" placeholder="Postal Code" name="PostalCode" required
+                                    #PostalCode="ngModel" [(ngModel)]="service.formData.PostalCode">
+                                    <div  class="text-danger" *ngIf="PostalCode.invalid && (PostalCode.dirty || PostalCode.touched||Postalval)">{{'Register.RequiredField'|translate}}</div>
+
+
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 <label>{{'Register.Languages'|translate}}*</label>
+                                 <select name="LanguageId" #LanguageId="ngModel" required
+                                    [(ngModel)]="service.formData.LanguageId" class="form-control" selected
+                                    [value]="service.formData.LanguageId">
+                                    <option value="0">{{'Register.SelectOption'|translate}}</option>
+                                    <option *ngFor="let c of languageList ;" [value]="c.Id">
+                                       {{c.Name}}
+                                    </option>
+                                 </select>
+                                 
+                                 <div class="text-danger"   *ngIf="LanguageId.invalid && (LanguageId.dirty || LanguageId.touched||Languageval)">{{'Register.RequiredField'|translate}}</div>
+
+
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 <label>{{'Register.Gender'|translate}}* </label>
+                                 <select name="GenderId" #GenderId="ngModel" [(ngModel)]="service.formData.GenderId"
+                                    class="form-control" selected [value]="service.formData.GenderId">
+                                    <option value="0">{{'Register.SelectOption'|translate}}</option>
+                                    <option *ngFor="let c of genderList ;" [value]="c.Id">
+                                       {{c.Name}}
+                                    </option>
+                                 </select>
+    <div class="text-danger"   *ngIf="GenderId.invalid && (GenderId.dirty || GenderId.touched||Genderval)">{{'Register.RequiredField'|translate}}</div>
+
+
+
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="form-group">
+                                 <label>{{'Register.FacebookId'|translate}}</label>
+                                 <input class="form-control" type="text" placeholder="FacebookId" name="FacebookId"
+                                    #FacebookId="ngModel" [(ngModel)]="service.formData.FacebookId">
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="form-group">
+                                 <label>{{'Register.TwitterId'|translate}}</label>
+                                 <input class="form-control" type="text" placeholder="TwitterId" name="TwitterId"
+                                    #FacebookId="ngModel" [(ngModel)]="service.formData.TwitterId">
+                              </div>
+                           </div>
+
+                           <div class="col-md-2 mt-2">
+                              <button type="submit"
+                                 class="btn btn-primary ">{{'Register.SubmitButton'|translate}}</button>
+                           </div>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+
+   </div>
+</div>

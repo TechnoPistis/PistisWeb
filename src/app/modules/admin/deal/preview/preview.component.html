@@ -1,0 +1,119 @@
+<div class="main-panel">
+    <div class="content">
+        <div class="page-inner">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-head-row">
+                        <div class="card-title">{{'Register.PreviewDeals'|translate}}</div>
+                        <div class=" row btn-group btn-group-page-header ml-auto">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row mt-3">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>{{'Register.Name'|translate}}:</label><br>
+                                                            <label><b>{{model.Name}}</b></label>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label>{{'Register.Category'|translate}}</label><br>
+                                                            {{model.CategoryName}}
+                                                        </div>
+                                                        <!-- <div class="col-md-3">
+                                                            <label>{{'Register.SubCategory'|translate}}</label><br>
+                                                            {{model.SubCategoryName}}
+                                                        </div> -->
+                                                        <div class="col-md-3">
+                                                            <label>From</label><br>
+                                                            {{model.ActiveFrom | date: 'yyyy-MM-dd'}}
+                                                            {{model.ActiveFromTime }}
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
+                                                                <label>To</label><br>
+                                                                {{model.ActiveTo | date: 'yyyy-MM-dd'}}
+                                                                {{model.ActiveToTime }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>{{'Register.Discount'|translate}}</label><br>
+                                                            {{model.Discount }}
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label>{{'Register.DisDealQuantitycount'|translate}}</label><br>
+                                                            {{model.DealQty }}
+
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label>{{'Register.Status'|translate}}</label><br>
+                                                            {{model.Status }}
+                                                        </div>
+
+                                                        <div class="col-md-3">
+                                                            <label>{{'Register.Quantityperusercanbuy'|translate}}</label><br>
+                                                            {{model.QuantityPerUser }}
+                                                        </div>
+                                                        
+                                                      
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="SelectedProducts && SelectedProducts.length >0">
+                    <div class="col-md-12">
+                        <div class="mt-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <table class="table table-striped">
+                                        <tbody>
+                                            <tr *ngFor="let item of SelectedProducts">
+                                                <td>{{item.Name}}</td>
+                                                <td>{{item.Category}}</td>
+                                                <td>{{item.SKU}}</td>
+                                                <td>{{item.Price}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2">
+                    <button type="button" id="Add" *ngIf="ButtonHide == false" class="btn btn-primary btn-block"
+                        (click)="onSubmit()">{{'Register.SaveButton'|translate}}</button>
+                    <button type="button" id="Update" *ngIf="ButtonHide == true" class="btn btn-primary btn-block"
+                        (click)="Update()">{{'Register.Update'|translate}}</button>
+                </div>
+                <div class="col-sm-2" *ngIf="ButtonHide == false" >
+                    <button type="button" class="btn btn-danger btn-block" (click)="editDeal()" *ngIf="DealId">{{'Register.AddMore'|translate}}</button>
+                   
+                    <button type="button" class="btn btn-danger btn-block"  [routerLink]="['/admin/deals/add']" *ngIf="!DealId">{{'Register.AddMore'|translate}}</button>
+             
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

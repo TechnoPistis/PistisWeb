@@ -1,0 +1,47 @@
+
+<div class="main-panel">
+        <div class="content">
+                <div class="page-inner">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+          <div class="card-header">
+              <div class="card-head-row">
+                <div class="card-title">{{'Register.EditMenu'|translate}}</div>
+                <div class="btn-group btn-group-page-header ml-auto">
+                       
+                        <button type="button" class="btn btn-success" >{{'Register.ShowMenuList'|translate}}</button>
+                    </div>
+              
+              </div>
+            </div>
+            
+      <form #form="ngForm" (submit)="onSubmit(form)" autocomplete="off">
+      <input type="hidden" name="Id" #Id="ngModel" [(ngModel)]="service.formData.Id">
+      <div *ngIf="menuName==true" class="form-group col-sm-6">
+            <label>{{'Register.MenuName'|translate}}</label>
+            <input name="MenuName" #MenuName="ngModel" [(ngModel)]="service.formData.MenuName" class="form-control" required>
+            <div class="validation-error" *ngIf="MenuName.invalid && MenuName.touched">{{'Register.RequiredField'|translate}}</div>
+          </div>
+          <div *ngIf="SubMenu==true" class="form-group col-sm-6">
+                <label>{{'Register.SubmenuName'|translate}}</label>
+                <input name="SubMenuName" #SubMenuName="ngModel" [(ngModel)]="service.formData.SubMenuName" class="form-control" required>
+                <div class="validation-error" *ngIf="SubMenuName.invalid && SubMenuName.touched">{{'Register.RequiredField'|translate}}</div>
+              </div>
+        <div *ngIf="MenuId==true" class="form-group col-sm-6">
+          <label>{{'Register.Selectmenu'|translate}}</label>
+          <select name="Id" #Id="ngModel" [(ngModel)]="service.formData.Id"   class="form-control" selected [value]="service.formData.ProductId" >
+          <option value="0">{{'Register.SelectOption'|translate}}</option>
+          <option *ngFor="let c of dataList ;" [value]="c.Id">
+            {{c.Name}}
+          </option>
+        </select>
+      
+        </div>
+        <div class="form-group col-sm-2">
+          <button type="submit" [disabled]="form.invalid" class="btn btn-primary btn-block">{{'Register.SubmitButton'|translate}}</button>
+        </div>
+      </form>
+      </div>
+      </div>
+      </div>

@@ -1,0 +1,1573 @@
+<body>
+    <app-header></app-header>
+
+     <!-- <div  class="modal modal-newsletter-main" *ngIf="showDiv" [ngStyle]="{'display':display}">
+       <div class="modal-dialog modal-newsletter">
+       <div class="modal-content">
+       <form action="/examples/actions/confirmation.php" method="post">
+       <div class="modal-header">
+
+       <button type="button" class="close pull-right" data-dismiss="modal"
+                         aria-label="Close" (click)="onCloseHandled()"><span
+                           aria-hidden="true">&times;</span></button>
+       </div>
+       <div class="modal-body text-center">
+       <div class="row">
+       <div class="col-md-6">
+       <div class="news-pop-tumb">
+       <img alt="newsletter" src={{ModalImage}}>
+
+       </div>
+       </div>
+       <div class="col-md-6">
+       <div class="form-block-news-pop">
+       <h4>Subscribe <br>{{NewsletterHeading}}</h4>
+       <p>{{Newsletterdescription}}</p>
+       <div class="input-group">
+         <input type="email" class="form-control" #email
+         placeholder="{{'Register.NewsLetterSection.EmailPlaceHolder'|translate}}" [(ngModel)]="searchValue">
+       <span class="input-group-btn">
+       <button _ngcontent-xqk-c1="" class="btn btn-lg btn-primary btn-block"
+       (click)="getEmail(email.value)"
+         type="button">{{'Register.NewsLetterSection.SubscribeButton'|translate}}</button>
+       </span>
+       </div>
+       </div>
+       </div>
+
+
+       </div>
+       </div>
+       </form>
+       </div>
+       </div>
+       </div>   -->
+ <!-- live wala spin -->
+ <!-- <audio id="xyz" src="assets/sound/sound.mp3" preload="auto"></audio> -->
+ <div  class="modal modal-spin-main"  [ngStyle]="{'display':myViewModel.display}" *ngIf="myViewModel.showDiv">
+   <div class="modal-dialog modal-spin ">
+   <div class="modal-content">
+   <form action="/examples/actions/confirmation.php" method="post">
+   <div class="modal-header">
+
+   <button type="button" class="close pull-right" data-dismiss="modal"
+                     aria-label="Close" (click)="onSpinnerClose()"><span
+                       aria-hidden="true">&times;</span></button>
+   </div>
+   <div class="modal-body text-center spin-wheel-bg">
+   <div class="row">
+     <!-- Mobile -->
+     <div class="col-md-12">
+       <div class="spin-wheel-block" *ngIf="myViewModel.showDiv">
+         <div class="spin-arrow"><img src="assets/img/spin-arrow.png"></div>
+                 <ngx-mobile-wheel [(prizeToWin)]="myViewModel.prizeToWin" class="text-danger"
+                 [spinRange]="[10,5]"
+                 fontColor="white"
+                 centerText="Spin"
+                     arrowColor="white"
+                     [spinOnce]="myViewModel.spinOnce"
+                     (afterSpin)="afterSpinFn()"
+                 [prize_descriptions]="myViewModel.prizes" [colors]="myViewModel.colors"></ngx-mobile-wheel>
+                 </div>
+
+   </div>
+   <!-- Mobile end -->
+   <!-- Desktop -->
+   <!-- <div class="col-md-12 hiddev-xs hidden-sm visible-lg visible-md" >
+     <div class="spin-wheel-block" *ngIf="showDiv">
+       <div class="spin-arrow"><img src="assets/img/spin-arrow.png"></div>
+               <ngx-wheel [(prizeToWin)]="prizeToWin" class="text-danger"
+               [spinRange]="[10,5]"
+               fontColor="white"
+               centerText="Spin"
+                   arrowColor="white"
+                   [spinOnce]="spinOnce"
+                   (afterSpin)="afterSpinFn()"
+               [prize_descriptions]="prizes" [colors]="colors"></ngx-wheel>
+               </div>
+
+ </div> -->
+   <!-- Desktop end -->
+
+   <div class="col-md-12 text-center" *ngIf="myViewModel.SpinnerMoodId==3">
+         <div class="winner-img">
+                 <img src="assets/img/you-win-img.png">
+
+         </div>
+
+   </div>
+   <div class="col-md-12 text-center" *ngIf="myViewModel.SpinnerMoodId==3">
+     <div class="prize-text">
+     {{myViewModel.prizeToWin}}
+     </div>
+     </div>
+   <div class="col-md-12 text-center" *ngIf="myViewModel.SpinnerMoodId==3">
+         <div class="winner-link">
+                 <a class="winner-btn" (click)="GotoPage()">Click Here to Get</a>
+         </div>
+   </div>
+   <div class="col-md-12 text-center" *ngIf="myViewModel.SpinnerMoodId==2">
+     <div class="winner-img">
+       <img src="assets/img/betterluckimg.png">
+
+ </div>
+     </div>
+   </div>
+   </div>
+   </form>
+   </div>
+   </div>
+   </div>
+ <!-- live wala spin end -->
+       <!--  spin wheel starts -->
+ <!-- <div  class="modal modal-newsletter-main"  [ngStyle]="{'display':display}">
+     <div class="modal-dialog modal-newsletter">
+     <div class="modal-content">
+     <form action="/examples/actions/confirmation.php" method="post">
+     <div class="modal-header">
+
+     <button type="button" class="close pull-right" data-dismiss="modal"
+                       aria-label="Close" (click)="onCloseHandled()"><span
+                         aria-hidden="true">&times;</span></button>
+     </div>
+     <div class="modal-body text-center">
+     <div class="row">
+     <div class="col-md-12" *ngIf="showDiv">
+
+                   <ngx-wheel [(prizeToWin)]="prizeToWin"
+                   [spinRange]="[10,5]"
+
+                   fontColor="white"
+                   centerText="Spin"
+                       arrowColor="#000"
+                       [spinOnce]="spinOnce"
+                       (afterSpin)="afterSpinFn()"
+                   [prize_descriptions]="prizes" [colors]="colors"></ngx-wheel>
+
+     </div>
+
+
+
+     </div>
+     </div>
+     </form>
+     </div>
+     </div>
+     </div> -->
+ <!-- spin wheel end  -->
+     <!-- owl slider -->
+     <div class="container-fluid slider mrgn-b-sm" style="padding:0px;">
+       <div class="jugar">.</div>
+       <owl-carousel-o [options]="customOptions">
+         <ng-template carouselSlide *ngFor="let item of myViewModel.dataList" >
+
+           <a href={{item.Url}}>
+               <img  src={{item.Image}}>
+
+             </a>
+
+
+           </ng-template>
+      </owl-carousel-o>
+
+
+
+   </div>
+    <!-- <div class="container-fluid slider" style="padding:0px;">
+      <div class="slider">
+        <ngb-carousel>
+          <ng-template ngbSlide interval="1000" *ngFor="let cat of dataList">
+            <div class="picsum-img-wrapper"> <a href={{cat.Url}}>
+              <img src={{cat.Image}} alt="Random first slide">
+             </a>
+            </div>
+            <div class="carousel-caption">
+
+            </div>
+          </ng-template>
+
+        </ngb-carousel>
+      </div>
+    </div> -->
+    <!-----------------SLIDER ENDS-------------->
+
+   <!-- Deal list -->
+   <div class="container-fluid bestseller mrgn-b-sm" *ngFor="let item of myViewModel.DealList">
+     <div class="row mrgn-b-md">
+       <div class="col-sm-12 col-xs-12">
+        <div class="deals-head-block">
+          <div class="deal-tag">
+             <img alt="deals" src="assets/img/deal-tag.png">
+          </div>
+          <!-- <h1 class="deals-head">{{item.ListName}}</h1> -->
+          <h1 class="deals-head" (click)="getDealId(item.Id)">{{item.ListName}}</h1>
+          <div class="deals-countdown-sec">
+            <div class="countdown-time-box">
+
+              <countdown-timer  [end]="item.ActiveTo"></countdown-timer>
+           </div>
+           <!--   <img alt="deals" src="assets/img/countdown-dummy.png"> -->
+            <div class="countdown-msg-text"><strong>{{'Register.Hurry'|translate}}!</strong>{{'Register.HurryMsg'|translate}}:</div>
+          </div>
+        </div>
+       </div>
+
+     </div>
+     <div class="row list-hover-icon">
+        <div
+          class="col-sm-3 col-md-2 col-lg-2 col-xs-12 text-center mrgn-b-md doc-item common-doctor animated fadeInUp clearfix ae-animation-fadeInUp"
+          *ngFor="let cat of item.products">
+          <a [routerLink]="" (click)="passTheSalt(cat.Id,cat.LandingVariant.Id)">
+            <div class="bestseller-box" *ngIf="cat.InStock>0; else elseblock">
+
+              <div class="bestseller-sale" *ngIf="cat.Discount>0">{{cat.Discount}}%</div>
+              <div class="sale-tag"><img src="assets/img/sale-tag-img.png"></div>
+              <div class="bestseller-img">
+
+                <img src={{cat.Url150}} />
+
+              </div>
+              <div class="bestseller-text" *ngIf="cat.Name!=null">{{cat.Name.length > 19 ? cat.Name.substring(0,22)+"..." : cat.Name}}</div>
+              <div class="bestseller-stars" *ngIf="cat.Rating==0">
+               <i class="far fa-star" aria-hidden="true"></i>
+               <i class="far fa-star" aria-hidden="true"></i>
+               <i class="far fa-star" aria-hidden="true"></i>
+               <i class="far fa-star" aria-hidden="true"></i>
+               <i class="far fa-star" aria-hidden="true"></i>
+             </div>
+             <div class="bestseller-stars" *ngIf="cat.Rating==1">
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="far fa-star" aria-hidden="true"></i>
+              <i class="far fa-star" aria-hidden="true"></i>
+              <i class="far fa-star" aria-hidden="true"></i>
+              <i class="far fa-star" aria-hidden="true"></i>
+            </div>
+            <div class="bestseller-stars" *ngIf="cat.Rating==2">
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="far fa-star" aria-hidden="true"></i>
+              <i class="far fa-star" aria-hidden="true"></i>
+              <i class="far fa-star" aria-hidden="true"></i>
+            </div>
+            <div class="bestseller-stars" *ngIf="cat.Rating==3">
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="far fa-star" aria-hidden="true"></i>
+              <i class="far fa-star" aria-hidden="true"></i>
+            </div>
+            <div class="bestseller-stars" *ngIf="cat.Rating==4">
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="far fa-star" aria-hidden="true"></i>
+            </div>
+            <div class="bestseller-stars" *ngIf="cat.Rating==5">
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+            </div>
+              <div class="bestseller-price" *ngIf="cat.Discount>0">
+                <span class="price-off">${{cat.PriceAfterdiscount.toFixed(2)}}</span>
+                <span class="price-now">${{cat.SellingPrice.toFixed(2)}}</span>
+              </div>
+              <div class="bestseller-price" *ngIf="cat.Discount==0">
+               <!-- <span class="price-off">${{cat.SellingPrice}}</span> -->
+               <span class="price-off">${{cat.PriceAfterdiscount.toFixed(2)}}</span>
+             </div>
+              <!-- <div class="product-action icon-vertical">
+                <a class="">
+                  <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                  <span class="tooltip">Add to cart</span>
+                </a>
+
+                <a class="">
+                  <i class="fa fa-eye" aria-hidden="true"></i>
+                  <span class="tooltip">Quick View</span>
+                </a>
+
+                <a class="">
+                  <i class="fa fa-refresh" aria-hidden="true"></i>
+                  <span class="tooltip">Compare</span>
+                </a>
+
+                <a class="">
+                  <i class="fa fa-heart-o" aria-hidden="true"></i>
+                  <span class="tooltip">Add to Wishlist</span>
+                </a>
+
+              </div> -->
+            </div>
+            <ng-template #elseblock>
+              <div class="bestseller-box">
+
+                <div class="bestseller-sale" *ngIf="cat.Discount>0">{{cat.Discount}}%</div>
+                <div class="sale-tag"><img src="assets/img/sale-tag-img.png"></div>
+                <div class="bestseller-out-of-stock">Out of Stock</div>
+                <div class="bestseller-img out-of-stock">
+                  <img src={{cat.Url150}} />
+                </div>
+                <div class="bestseller-text" *ngIf="cat.Name!=null">{{cat.Name.length > 19 ? cat.Name.substring(0,19)+"..." : cat.Name}}</div>
+                <div class="bestseller-stars" *ngIf="cat.Rating==0">
+                  <i class="far fa-star" aria-hidden="true"></i>
+                  <i class="far fa-star" aria-hidden="true"></i>
+                  <i class="far fa-star" aria-hidden="true"></i>
+                  <i class="far fa-star" aria-hidden="true"></i>
+                  <i class="far fa-star" aria-hidden="true"></i>
+                </div>
+                <div class="bestseller-stars" *ngIf="cat.Rating==1">
+                 <i class="fa fa-star" aria-hidden="true"></i>
+                 <i class="far fa-star" aria-hidden="true"></i>
+                 <i class="far fa-star" aria-hidden="true"></i>
+                 <i class="far fa-star" aria-hidden="true"></i>
+                 <i class="far fa-star" aria-hidden="true"></i>
+               </div>
+               <div class="bestseller-stars" *ngIf="cat.Rating==2">
+                 <i class="fa fa-star" aria-hidden="true"></i>
+                 <i class="fa fa-star" aria-hidden="true"></i>
+                 <i class="far fa-star" aria-hidden="true"></i>
+                 <i class="far fa-star" aria-hidden="true"></i>
+                 <i class="far fa-star" aria-hidden="true"></i>
+               </div>
+               <div class="bestseller-stars" *ngIf="cat.Rating==3">
+                 <i class="fa fa-star" aria-hidden="true"></i>
+                 <i class="fa fa-star" aria-hidden="true"></i>
+                 <i class="fa fa-star" aria-hidden="true"></i>
+                 <i class="far fa-star" aria-hidden="true"></i>
+                 <i class="far fa-star" aria-hidden="true"></i>
+               </div>
+               <div class="bestseller-stars" *ngIf="cat.Rating==4">
+                 <i class="fa fa-star" aria-hidden="true"></i>
+                 <i class="fa fa-star" aria-hidden="true"></i>
+                 <i class="fa fa-star" aria-hidden="true"></i>
+                 <i class="fa fa-star" aria-hidden="true"></i>
+                 <i class="far fa-star" aria-hidden="true"></i>
+               </div>
+               <div class="bestseller-stars" *ngIf="cat.Rating==5">
+                 <i class="fa fa-star" aria-hidden="true"></i>
+                 <i class="fa fa-star" aria-hidden="true"></i>
+                 <i class="fa fa-star" aria-hidden="true"></i>
+                 <i class="fa fa-star" aria-hidden="true"></i>
+                 <i class="fa fa-star" aria-hidden="true"></i>
+               </div>
+                <div class="bestseller-price" *ngIf="cat.Discount>0">
+                  <span class="price-off">${{cat.PriceAfterdiscount.toFixed(2)}}</span>
+                  <span class="price-now">${{cat.SellingPrice.toFixed(2)}}</span>
+                </div>
+                <div class="bestseller-price" *ngIf="cat.Discount==0">
+                 <span class="price-off">${{cat.PriceAfterdiscount.toFixed(2)}}</span>
+               </div>
+                <div class="product-action icon-vertical">
+                  <a class="" *ngIf="!cat.ShipmentVendor">
+                    <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                    <span class="tooltip">{{'Register.Compare.AddToCartButton'|translate}}</span>
+                  </a>
+                  <a class="" *ngIf="cat.ShipmentVendor">
+                   <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                   <span class="tooltip">{{'Register.Compare.BuyNowButton'|translate}}</span>
+                 </a>
+                  <a class="">
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                    <span class="tooltip">{{'Register.Compare.QuickView'|translate}}</span>
+                  </a>
+
+                  <a class="">
+                    <i class="fa fa-refresh" aria-hidden="true"></i>
+                    <span class="tooltip">{{'Register.Compare.CompareText'|translate}}</span>
+                  </a>
+
+                  <a class="">
+                    <i class="fa fa-heart-o" aria-hidden="true"></i>
+                    <span class="tooltip">{{'Register.Compare.AddToWishlist'|translate}}</span>
+                  </a>
+
+                </div>
+              </div>
+            </ng-template>
+
+          </a>
+          <ul class="list-inline social-lists animate">
+            <li *ngIf="!cat.ShipmentVendor"><a (click)="addToCart(cat.LandingVariant.Id,cat.SellingPrice,cat.Discount,cat.PriceAfterdiscount,cat.ShipmentVendor)"
+                [class.disabled]="cat.InStock<=0 ? true : null" title="{{'Register.Compare.AddToCartButton'|translate}}"><i class="fas fa-cart-plus"></i></a>
+            </li>
+            <li *ngIf="cat.ShipmentVendor"><a (click)="addToCart(cat.LandingVariant.Id,cat.SellingPrice,cat.Discount,cat.PriceAfterdiscount,cat.ShipmentVendor)"
+             [class.disabled]="cat.InStock<=0 ? true : null" title="{{'Register.Compare.BuyNowButton'|translate}}"><i class="fas fa-cart-plus"></i></a>
+         </li>
+            <li><a (click)="getProductDetails1(cat.LandingVariant.Id)" title="{{'Register.Compare.AddToWishlist'|translate}}"><i
+                  class="fas fa-heart"></i></a></li>
+            <li><a (click)="addCompare(cat.LandingVariant.Id)" title="{{'Register.Compare.CompareText'|translate}}"><i class="fas fa-random"></i></a>
+            </li>
+          </ul>
+        </div>
+
+
+      </div>
+      <div class="row" >
+        <div class="col-sm-12 col-xs-12 text-right"                   >
+          <div class="link-bottom">
+            <a (click)="getDealId(item.Id)">{{'Register.ViewAll'|translate}} <i class="fas fa-chevron-right"></i></a>
+          </div>
+        </div>
+      </div>
+      </div>
+     <!-- Deal list end -->
+    <div class="container-fluid sale mrgn-tb-sm">
+      <div class="row">
+        <div *ngFor="let item of myViewModel.banner">
+          <div class="col-sm-4 col-md-4 col-lg-4 col-xs-12" *ngIf="item.Side=='Left'">
+            <!-- ////////// -->
+            <div class="row" *ngIf="item.View=='2-Images'">
+              <div class="col-sm-12 col-md-12 col-xs-12">
+                <div class="banner-4by2">
+                <a href="item.Url[0]"><img class="img-responsive"
+                    src={{item.Images[0]}} /></a>
+                   </div>
+               </div>
+              <div class="col-sm-12 col-md-12 col-xs-12 salemgrn">
+                 <div class="banner-4by2">
+                <a href="item.Url[1]"><img class="img-responsive"
+                    src={{item.Images[1]}} /></a>
+                   </div>
+              </div>
+            </div>
+            <!-- ////////// -->
+            <div class="row" *ngIf="item.View=='Half-Up'">
+               <div class="banner-4by2">
+              <div class="col-sm-12 col-md-12 col-xs-12 ">
+                <a href={{item.Url[0]}}><img class="img-responsive"
+                    src={{item.Images[0]}} /></a></div>
+               </div>
+              <div class="col-sm-6 col-md-6 col-xs-6 electronics-sale salemgrn">
+                 <div class="banner-4by4">
+                <a href={{item.Url[1]}}><img class="img-responsive" src={{item.Images[1]}} /></a>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-6 col-xs-6 lamp-sale salemgrn">
+                 <div class="banner-4by4">
+                <a href={{item.Url[2]}}><img class="img-responsive" src={{item.Images[2]}} /></a>
+                </div>
+
+              </div>
+            </div>
+            <!-- ////////// -->
+            <div class="row" *ngIf="item.View=='Half-Down'">
+              <div class="col-sm-6 col-md-6 col-xs-6 electronics-sale">
+                 <div class="banner-4by4">
+                <a href={{item.Url[0]}}><img class="img-responsive" src={{item.Images[0]}} /></a>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-6 col-xs-6 lamp-sale">
+                 <div class="banner-4by4">
+                <a href={{item.Url[1]}}><img class="img-responsive" src={{item.Images[1]}} /></a>
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-12 col-xs-12 salemgrn">
+                 <div class="banner-4by2">
+                <a href={{item.Url[2]}}><img class="img-responsive" src={{item.Images[2]}} /></a>
+                </div>
+              </div>
+
+            </div>
+            <!-- ////////// -->
+            <div class="full-sell-banner" *ngIf="item.View=='FullImage'">
+              <a href={{item.Url[0]}}><img class="img-responsive" src={{item.Images[0]}} /></a>
+            </div>
+            <!-- ////////// -->
+            <div class="row" *ngIf="item.View=='4-Images'">
+              <div class="col-sm-6 col-md-6 col-xs-6 furniture-sale">
+                 <div class="banner-4by4">
+                <a href={{item.Url[0]}}><img class="img-responsive" src={{item.Images[0]}} /></a>
+                 </div>
+              </div>
+              <div class="col-sm-6 col-md-6 col-xs-6 cosmetic-sale">
+                 <div class="banner-4by4">
+                <a href={{item.Url[1]}}><img class="img-responsive" src={{item.Images[1]}} /></a>
+                </div>
+                <!-- yaha hun -->
+              </div>
+            </div>
+            <div class="row salemgrn" *ngIf="item.View=='4-Images'">
+
+              <div class="col-sm-6 col-md-6 col-xs-12 electronics-sale">
+                 <div class="banner-4by4">
+                <a href={{item.Url[2]}}><img class="img-responsive" src={{item.Images[2]}} /></a>
+                </div>
+
+              </div>
+              <div class="col-sm-6 col-md-6 col-xs-12 lamp-sale">
+                 <div class="banner-4by4">
+                <a href={{item.Url[3]}}><img class="img-responsive" src={{item.Images[3]}} /></a>
+                </div>
+
+              </div>
+            </div>
+            <!-- ////////// -->
+
+          </div>
+          <div class="col-sm-4 col-md-4 col-lg-4 col-xs-12" *ngIf="item.Side=='Middle'">
+            <!-- ////////// -->
+            <div class="row" *ngIf="item.View=='2-Images'">
+              <div class="col-sm-12 col-md-12 col-xs-12">
+                 <div class="banner-4by2">
+                <a href="item.Url[0]"><img class="img-responsive"
+                    src={{item.Images[0]}} /></a></div>
+              </div>
+              <div class="col-sm-12 col-md-12 col-xs-12 salemgrn">
+                 <div class="banner-4by2">
+                <a href="item.Url[1]"><img class="img-responsive"
+                    src={{item.Images[1]}} /></a>
+                    </div>
+              </div>
+            </div>
+            <!-- ////////// -->
+            <div class="row" *ngIf="item.View=='Half-Up'">
+
+              <div class="col-sm-12 col-md-12 col-xs-12 ">
+                 <div class="banner-4by2">
+                <a href={{item.Url[0]}}><img class="img-responsive"
+                    src={{item.Images[0]}} /></a></div>
+              </div>
+
+              <div class="col-sm-6 col-md-6 col-xs-6 electronics-sale salemgrn">
+                 <div class="banner-4by4">
+                <a href={{item.Url[1]}}><img class="img-responsive" src={{item.Images[1]}} /></a>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-6 col-xs-6 lamp-sale salemgrn">
+                 <div class="banner-4by4">
+                <a href={{item.Url[2]}}><img class="img-responsive" src={{item.Images[2]}} /></a>
+                </div>
+
+              </div>
+            </div>
+            <!-- ////////// -->
+            <div class="row" *ngIf="item.View=='Half-Down'">
+              <div class="col-sm-6 col-md-6 col-xs-6 electronics-sale">
+                 <div class="banner-4by4">
+                <a href={{item.Url[0]}}><img class="img-responsive" src={{item.Images[0]}} /></a>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-6 col-xs-6 lamp-sale">
+                 <div class="banner-4by4">
+                <a href={{item.Url[1]}}><img class="img-responsive" src={{item.Images[1]}} /></a>
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-12 col-xs-12 salemgrn">
+                 <div class="banner-4by2">
+                <a href={{item.Url[2]}}><img class="img-responsive" src={{item.Images[2]}} /></a>
+                </div>
+              </div>
+
+            </div>
+            <!-- ////////// -->
+            <div class="full-sell-banner" *ngIf="item.View=='FullImage'">
+
+              <a href={{item.Url[0]}}><img class="img-responsive" src={{item.Images[0]}} /></a>
+
+            </div>
+            <!-- ////////// -->
+            <div class="row" *ngIf="item.View=='4-Images'">
+              <div class="col-sm-6 col-md-6 col-xs-6 furniture-sale">
+                 <div class="banner-4by4">
+                <a href={{item.Url[0]}}><img class="img-responsive" src={{item.Images[0]}} /></a>
+                   </div>
+              </div>
+              <div class="col-sm-6 col-md-6 col-xs-6 cosmetic-sale">
+                 <div class="banner-4by4">
+                <a href={{item.Url[1]}}><img class="img-responsive" src={{item.Images[1]}} /></a>
+                </div>
+                <!-- yaha hun -->
+              </div>
+            </div>
+            <div class="row salemgrn" *ngIf="item.View=='4-Images'">
+              <div class="col-sm-6 col-md-6 col-xs-6 electronics-sale">
+                 <div class="banner-4by4">
+                <a href={{item.Url[2]}}><img class="img-responsive" src={{item.Images[2]}} /></a>
+                   </div>
+              </div>
+              <div class="col-sm-6 col-md-6 col-xs-6 lamp-sale">
+                 <div class="banner-4by4">
+                <a href={{item.Url[3]}}><img class="img-responsive" src={{item.Images[3]}} /></a>
+                </div>
+
+              </div>
+            </div>
+            <!-- ////////// -->
+
+          </div>
+
+          <div class="col-sm-4 col-md-4 col-lg-4 col-xs-12" *ngIf="item.Side=='Right'">
+            <!-- ////////// -->
+            <div class="row" *ngIf="item.View=='2-Images'">
+              <div class="col-sm-12 col-md-12 col-xs-12">
+                 <div class="banner-4by2">
+                <a href="item.Url[0]"><img class="img-responsive"
+                    src={{item.Images[0]}} /></a></div>
+              </div>
+              <div class="col-sm-12 col-md-12 col-xs-12 salemgrn">
+                 <div class="banner-4by2">
+                <a href="item.Url[1]"><img class="img-responsive"
+                    src={{item.Images[1]}} /></a>
+                   </div>
+              </div>
+            </div>
+            <!-- ////////// -->
+            <div class="row" *ngIf="item.View=='Half-Up'">
+
+              <div class="col-sm-12 col-md-12 col-xs-12  ">
+                 <div class="banner-4by2">
+                <a href={{item.Url[0]}}><img class="img-responsive"
+                    src={{item.Images[0]}} /></a></div>
+              </div>
+
+              <div class="col-sm-6 col-md-6 col-xs-6 electronics-sale salemgrn">
+                 <div class="banner-4by4">
+                <a href={{item.Url[1]}}><img class="img-responsive" src={{item.Images[1]}} /></a>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-6 col-xs-6 lamp-sale salemgrn">
+                 <div class="banner-4by4">
+                <a href={{item.Url[2]}}><img class="img-responsive" src={{item.Images[2]}} /></a>
+                </div>
+
+              </div>
+            </div>
+            <!-- ////////// -->
+            <div class="row" *ngIf="item.View=='Half-Down'">
+              <div class="col-sm-6 col-md-6 col-xs-6 electronics-sale">
+                 <div class="banner-4by4">
+                <a href={{item.Url[0]}}><img class="img-responsive" src={{item.Images[0]}} /></a>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-6 col-xs-6 lamp-sale">
+                 <div class="banner-4by4">
+                <a href={{item.Url[1]}}><img class="img-responsive" src={{item.Images[1]}} /></a>
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-12 col-xs-12 salemgrn">
+                 <div class="banner-4by2">
+                <a href={{item.Url[2]}}><img class="img-responsive" src={{item.Images[2]}} /></a>
+                </div>
+              </div>
+
+            </div>
+            <!-- ////////// -->
+            <div class="full-sell-banner" *ngIf="item.View=='FullImage'">
+              <a href={{item.Url[0]}}><img class="img-responsive" src={{item.Images[0]}} /></a>
+            </div>
+            <!-- ////////// -->
+            <div class="row" *ngIf="item.View=='4-Images'">
+              <div class="col-sm-6 col-md-6 col-xs-6 furniture-sale">
+                 <div class="banner-4by4">
+                <a href={{item.Url[0]}}><img class="img-responsive" src={{item.Images[0]}} /></a>
+                </div>
+
+              </div>
+              <div class="col-sm-6 col-md-6 col-xs-6 cosmetic-sale">
+                 <div class="banner-4by4">
+                <a href={{item.Url[1]}}><img class="img-responsive" src={{item.Images[1]}} /></a>
+                </div>
+                <!-- yaha hun -->
+              </div>
+            </div>
+            <div class="row salemgrn" *ngIf="item.View=='4-Images'">
+              <div class="col-sm-6 col-md-6 col-xs-6 electronics-sale">
+                 <div class="banner-4by4">
+                <a href={{item.Url[2]}}><img class="img-responsive" src={{item.Images[2]}} /></a>
+                </div>
+
+              </div>
+              <div class="col-sm-6 col-md-6 col-xs-6 lamp-sale">
+                 <div class="banner-4by4">
+                <a href={{item.Url[3]}}><img class="img-responsive" src={{item.Images[3]}} /></a>
+                </div>
+
+              </div>
+            </div>
+            <!-- ////////// -->
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-----------------SALE ENDS-------------->
+
+     <!-- new list -->
+      <div class="container-fluid bestseller mrgn-b-sm" *ngFor="let item of myViewModel.HomeCtegoryList">
+
+      <div class="row" *ngIf="item.products && item.products.length>0">
+         <div class="col-sm-12 col-xs-12 text-center bestseller-heading">
+           <h1><span>{{item.ListName}}</span></h1>
+         </div>
+       </div>
+
+<div class="row list-hover-icon  ">
+  <div
+    class="col-sm-3 col-md-2 col-lg-2 col-xs-12 text-center mrgn-b-md doc-item common-doctor animated fadeInUp clearfix ae-animation-fadeInUp"
+    *ngFor="let cat of item.products">
+    <a [routerLink]="" (click)="passTheSalt(cat.Id,cat.LandingVariant.Id)">
+       <!-- <app-layout-round [list]="cat"></app-layout-round> -->
+             <div class="bestseller-box" *ngIf="cat.InStock>0; else elseblock">
+
+               <div class="bestseller-sale" *ngIf="cat.Discount>0">{{cat.Discount}}%</div>
+               <div class="sale-tag" *ngIf="cat.Discount>0"><img src="assets/img/sale-tag-img.png"></div>
+              <div class="bestseller-img">
+                 <img src={{cat.Url150}} />
+               </div>
+               <div class="bestseller-text" *ngIf="cat.Name!=null">{{cat.Name.length > 17 ? cat.Name.substring(0,17)+"..." : cat.Name}}</div>
+               <div class="bestseller-stars" *ngIf="cat.Rating==0">
+                 <i class="far fa-star" aria-hidden="true"></i>
+                 <i class="far fa-star" aria-hidden="true"></i>
+                 <i class="far fa-star" aria-hidden="true"></i>
+                 <i class="far fa-star" aria-hidden="true"></i>
+                 <i class="far fa-star" aria-hidden="true"></i>
+               </div>
+               <div class="bestseller-stars" *ngIf="cat.Rating==1">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="far fa-star" aria-hidden="true"></i>
+                <i class="far fa-star" aria-hidden="true"></i>
+                <i class="far fa-star" aria-hidden="true"></i>
+                <i class="far fa-star" aria-hidden="true"></i>
+              </div>
+              <div class="bestseller-stars" *ngIf="cat.Rating==2">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="far fa-star" aria-hidden="true"></i>
+                <i class="far fa-star" aria-hidden="true"></i>
+                <i class="far fa-star" aria-hidden="true"></i>
+              </div>
+              <div class="bestseller-stars" *ngIf="cat.Rating==3">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="far fa-star" aria-hidden="true"></i>
+                <i class="far fa-star" aria-hidden="true"></i>
+              </div>
+              <div class="bestseller-stars" *ngIf="cat.Rating==4">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="far fa-star" aria-hidden="true"></i>
+              </div>
+              <div class="bestseller-stars" *ngIf="cat.Rating==5">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+              </div>
+               <div class="bestseller-price" *ngIf="cat.Discount>0">
+                 <span class="price-off">$ {{cat.PriceAfterdiscount.toFixed(2)}}</span>
+                 <span class="price-now">${{cat.SellingPrice.toFixed(2)}}</span>
+               </div>
+               <div class="bestseller-price" *ngIf="cat.Discount==0">
+                <span class="price-off">${{cat.PriceAfterdiscount.toFixed(2)}}</span>
+              </div>
+                </div>
+             <ng-template #elseblock>
+               <div class="bestseller-box">
+                 <div class="bestseller-sale" *ngIf="cat.Discount>0">{{cat.Discount}}%</div>
+                 <div class="sale-tag" *ngIf="cat.Discount>0"><img src="assets/img/sale-tag-img.png"></div>
+                 <div class="bestseller-out-of-stock">Out of Stock</div>
+                 <div class="bestseller-img out-of-stock">
+                   <img src={{cat.Url150}} />
+                 </div>
+                 <div class="bestseller-text" *ngIf="cat.Name!=null">{{cat.Name.length >22 ? cat.Name.substring(0,22)+"..." : cat.Name}}</div>
+                 <div class="bestseller-stars">
+                   <i class="far fa-star" aria-hidden="true"></i>
+                   <i class="far fa-star" aria-hidden="true"></i>
+                   <i class="far fa-star" aria-hidden="true"></i>
+                   <i class="far fa-star" aria-hidden="true"></i>
+                   <i class="far fa-star" aria-hidden="true"></i>
+                 </div>
+                 <div class="bestseller-price" *ngIf="cat.Discount>0">
+                   <span class="price-off">${{cat.PriceAfterdiscount.toFixed(2)}}</span>
+                   <span class="price-now">${{cat.SellingPrice.toFixed(2)}}</span>
+                 </div>
+                 <div class="bestseller-price" *ngIf="cat.Discount==0">
+                  <span class="price-off">${{cat.PriceAfterdiscount.toFixed(2)}}</span>
+                </div>
+                 <div class="product-action icon-vertical">
+                   <a class="" *ngIf="!cat.ShipmentVendor">
+                     <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                     <span class="tooltip">{{'Register.Compare.AddToCartButton'|translate}}</span>
+                   </a>
+                   <a class="" *ngIf="cat.ShipmentVendor">
+                     <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                     <span class="tooltip">{{'Register.Compare.BuyNowButton'|translate}}</span>
+                   </a>
+                   <a class="">
+                     <i class="fa fa-eye" aria-hidden="true"></i>
+                     <span class="tooltip">{{'Register.Compare.QuickView'|translate}}</span>
+                   </a>
+                   <a class="">
+                     <i class="fa fa-refresh" aria-hidden="true"></i>
+                     <span class="tooltip">{{'Register.Compare.CompareText'|translate}}</span>
+                   </a>
+
+                   <a class="">
+                     <i class="fa fa-heart-o" aria-hidden="true"></i>
+                     <span class="tooltip">{{'Register.Compare.AddToWishlist'|translate}}</span>
+                   </a>
+                 </div>
+               </div>
+             </ng-template>
+           </a>
+
+
+      <ul class="list-inline social-lists animate">
+        <li  *ngIf="!cat.ShipmentVendor"><a (click)="addToCart(cat.LandingVariant.Id,cat.SellingPrice,cat.Discount,cat.PriceAfterdiscount,cat.ShipmentVendor)"
+            [class.disabled]="cat.InStock<=0 ? true : null" title="{{'Register.Compare.AddToCartButton'|translate}}"><i class="fas fa-cart-plus"></i></a>
+        </li>
+        <li *ngIf="cat.ShipmentVendor"><a (click)="addToCart(cat.LandingVariant.Id,cat.SellingPrice,cat.Discount,cat.PriceAfterdiscount,cat.ShipmentVendor)"
+          [class.disabled]="cat.InStock<=0 ? true : null" title="{{'Register.Compare.BuyNowButton'|translate}}"><i class="fas fa-cart-plus"></i></a>
+      </li>
+        <li><a (click)="getProductDetails1(cat.LandingVariant.Id)" title="{{'Register.Compare.AddToWishlist'|translate}}"><i
+              class="fas fa-heart"></i></a></li>
+        <li><a (click)="addCompare(cat.LandingVariant.Id)" title="{{'Register.Compare.CompareText'|translate}}"><i class="fas fa-random"></i></a>
+        </li>
+      </ul>
+    </div>
+    <div class="row" *ngIf="item.products && item.products.length>=6" >
+      <div class="col-sm-12 col-xs-12 text-right">
+        <div class="link-bottom">
+          <a (click)="getListId(item.Id)">{{'Register.ViewAll'|translate}} <i class="fas fa-chevron-right"></i></a>
+        </div>
+      </div>
+     </div>
+  </div>
+
+      </div>
+      <!-- new list end -->
+ <!-- Recently bought Section -->
+ <div class="container-fluid mrgn-b-sm" *ngIf="myViewModel.bought && myViewModel.relatedProducts.length>0">
+  <div class="home-cetegories-main text-center bestseller-heading">
+    <h1><span>{{'Register.RecentlyBought'|translate}} {{myViewModel.bought.Name}}</span></h1></div>
+  <div class="row">
+    <div class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+     <div class="cus-carousel-container">
+       <div class="product-buyed">
+        <img id="myimage" src={{myViewModel.bought.Image}}>
+       </div>
+       <div class="carousel-for-related">
+        <div class="carousel-for-related-inner">
+        <owl-carousel-o [options]="BoughtOptions">
+          <ng-template carouselSlide *ngFor="let cat of myViewModel.relatedProducts" >
+            <div class="categories-box-you-bought">
+                <a [routerLink]="" (click)="passTheSalt(cat.Id,cat.VariantDetailId)">
+                  <div class="bestseller-box" *ngIf="cat.InStock>0">
+                    <div class="bestseller-sale" *ngIf="cat.Discount>0">{{cat.Discount}}%</div>
+                    <div class="sale-tag" *ngIf="cat.Discount>0"><img src="assets/img/sale-tag-img.png"></div>
+                    <div class="bestseller-img">
+                      <img src={{cat.Image150}} />
+                      <!-- <img src="https://pistis.s3.us-east-2.amazonaws.com/159f95b0-964c-45b3-b7e1-feea1a59ebfc.jpeg"> -->
+                    </div>
+                    <div class="bestseller-text" *ngIf="cat.Name!=null">{{cat.Name.length > 19 ? cat.Name.substring(0,19)+"..." : cat.Name}}</div>
+
+                    <div class="bestseller-price" *ngIf="cat.Discount>0">
+                      <span class="price-now">${{cat.PriceAfterDiscount.toFixed(2)}}</span>
+                      <span class="price-off">${{cat.SellingPrice.toFixed(2)}}</span>
+                    </div>
+                    <div class="bestseller-price" *ngIf="cat.Discount==0">
+                     <span class="price-now">${{cat.PriceAfterDiscount.toFixed(2)}}</span>
+                   </div>
+                  </div>
+                  <!-- <ng-template #elseblock>
+                    <div class="bestseller-box">
+
+                      <div class="bestseller-sale" *ngIf="cat.Discount>0">{{cat.Discount}}%</div>
+                      <div class="sale-tag" *ngIf="cat.Discount>0"><img src="assets/img/sale-tag-img.png"></div>
+                      <div class="bestseller-out-of-stock">Out of Stock</div>
+                      <div class="bestseller-img out-of-stock">
+                        <img src={{cat.Image150}} />
+                      </div>
+                  </ng-template> -->
+                </a>
+              </div>
+            </ng-template>
+       </owl-carousel-o>
+      </div>
+       </div>
+     </div>
+    </div>
+    </div>
+  </div>
+ <!-- Recently bought Section Ends -->
+    <!-- You may like Section -->
+    <div class="container-fluid mrgn-b-sm" *ngIf="myViewModel.likeProducts && myViewModel.likeProducts.length>0">
+      <div class="row">
+        <div class="col-xs-12 col-md-12 col-sm-12 col-lg-12 ">
+          <div class="home-cetegories-main text-center bestseller-heading">
+
+                <h1><span>{{'Register.YouMayLike'|translate}}</span></h1>
+            <owl-carousel-o [options]="LikeOptions">
+              <ng-template carouselSlide *ngFor="let cat of myViewModel.likeProducts" >
+                <div class="categories-box-you-like">
+                    <a [routerLink]="" (click)="passTheSalt(cat.Id,cat.VariantDetailId)">
+                      <div class="bestseller-box" *ngIf="cat.InStock>0; else elseblock">
+
+                        <div class="bestseller-sale" *ngIf="cat.Discount>0">{{cat.Discount}}%</div>
+                        <div class="sale-tag" *ngIf="cat.Discount>0"><img src="assets/img/sale-tag-img.png"></div>
+                        <div class="bestseller-img">
+
+                          <img src={{cat.Image150}} />
+
+                        </div>
+                        <div class="bestseller-text" *ngIf="cat.Name!=null">{{cat.Name.length > 17 ? cat.Name.substring(0,17)+"..." : cat.Name}}</div>
+
+                        <div class="bestseller-price" *ngIf="cat.Discount>0">
+                          <span class="price-off">${{cat.PriceAfterDiscount.toFixed(2)}}</span>
+                          <span class="price-now">${{cat.SellingPrice.toFixed(2)}}</span>
+                        </div>
+                        <div class="bestseller-price" *ngIf="cat.Discount==0">
+                         <span class="price-off">${{cat.PriceAfterDiscount.toFixed(2)}}</span>
+                       </div>
+                      </div>
+                      <ng-template #elseblock>
+                        <div class="bestseller-box">
+
+                          <div class="bestseller-sale" *ngIf="cat.Discount>0">{{cat.Discount}}%</div>
+                          <div class="sale-tag" *ngIf="cat.Discount>0"><img src="assets/img/sale-tag-img.png"></div>
+                          <div class="bestseller-out-of-stock">Out of Stock</div>
+                          <div class="bestseller-img out-of-stock">
+                            <img src={{cat.Image150}} />
+                          </div>
+                          <div class="bestseller-text" *ngIf="cat.Name!=null">{{cat.Name.length > 17 ? cat.Name.substring(0,17)+"..." : cat.Name}}</div>
+                          <div class="bestseller-stars" *ngIf="cat.Rating==0">
+                            <i class="far fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>
+                          </div>
+                          <div class="bestseller-stars" *ngIf="cat.Rating==1">
+                           <i class="fa fa-star" aria-hidden="true"></i>
+                           <i class="far fa-star" aria-hidden="true"></i>
+                           <i class="far fa-star" aria-hidden="true"></i>
+                           <i class="far fa-star" aria-hidden="true"></i>
+                           <i class="far fa-star" aria-hidden="true"></i>
+                         </div>
+                         <div class="bestseller-stars" *ngIf="cat.Rating==2">
+                           <i class="fa fa-star" aria-hidden="true"></i>
+                           <i class="fa fa-star" aria-hidden="true"></i>
+                           <i class="far fa-star" aria-hidden="true"></i>
+                           <i class="far fa-star" aria-hidden="true"></i>
+                           <i class="far fa-star" aria-hidden="true"></i>
+                         </div>
+                         <div class="bestseller-stars" *ngIf="cat.Rating==3">
+                           <i class="fa fa-star" aria-hidden="true"></i>
+                           <i class="fa fa-star" aria-hidden="true"></i>
+                           <i class="fa fa-star" aria-hidden="true"></i>
+                           <i class="far fa-star" aria-hidden="true"></i>
+                           <i class="far fa-star" aria-hidden="true"></i>
+                         </div>
+                         <div class="bestseller-stars" *ngIf="cat.Rating==4">
+                           <i class="fa fa-star" aria-hidden="true"></i>
+                           <i class="fa fa-star" aria-hidden="true"></i>
+                           <i class="fa fa-star" aria-hidden="true"></i>
+                           <i class="fa fa-star" aria-hidden="true"></i>
+                           <i class="far fa-star" aria-hidden="true"></i>
+                         </div>
+                         <div class="bestseller-stars" *ngIf="cat.Rating==5">
+                           <i class="fa fa-star" aria-hidden="true"></i>
+                           <i class="fa fa-star" aria-hidden="true"></i>
+                           <i class="fa fa-star" aria-hidden="true"></i>
+                           <i class="fa fa-star" aria-hidden="true"></i>
+                           <i class="fa fa-star" aria-hidden="true"></i>
+                         </div>
+                          <div class="bestseller-price" *ngIf="cat.Discount>0">
+                            <span class="price-off">${{cat.PriceAfterDiscount.toFixed(2)}}</span>
+                            <span class="price-now">${{cat.SellingPrice.toFixed(2)}}</span>
+                          </div>
+                          <div class="bestseller-price" *ngIf="cat.Discount==0">
+                           <span class="price-off">${{cat.PriceAfterDiscount.toFixed(2)}}</span>
+                         </div>
+                          <div class="product-action icon-vertical">
+                            <a class="" *ngIf="!cat.ShipmentVendor">
+                              <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                              <span class="tooltip">{{'Register.Compare.AddToCartButton'|translate}}</span>
+                            </a>
+                            <a class="" *ngIf="cat.ShipmentVendor">
+                             <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                             <span class="tooltip">{{'Register.Compare.BuyNowButton'|translate}}</span>
+                           </a>
+                            <a class="">
+                              <i class="fa fa-eye" aria-hidden="true"></i>
+                              <span class="tooltip">{{'Register.Compare.QuickView'|translate}}</span>
+                            </a>
+
+                            <a class="">
+                              <i class="fa fa-refresh" aria-hidden="true"></i>
+                              <span class="tooltip">{{'Register.Compare.CompareText'|translate}}</span>
+                            </a>
+
+                            <a class="">
+                              <i class="fa fa-heart-o" aria-hidden="true"></i>
+                              <span class="tooltip">{{'Register.Compare.AddToWishlist'|translate}}</span>
+                            </a>
+
+                          </div>
+                        </div>
+                      </ng-template>
+
+                    </a>
+                  </div>
+                </ng-template>
+           </owl-carousel-o>
+      </div>
+      </div>
+      </div>
+
+
+
+    </div>
+    <!-- You may like section end -->
+ <!-- Icon Categories -->
+ <div class="container-fluid mrgn-b-sm">
+   <div class="row">
+     <div class="col-xs-12 col-md-12 col-sm-12 col-lg-12 ">
+       <div class="home-cetegories-main text-center bestseller-heading">
+
+             <h1><span>{{'Register.PopularCategories'|translate}}</span></h1>
+
+         <owl-carousel-o [options]="IconOptions">
+           <ng-template carouselSlide *ngFor="let item of myViewModel.iconCategory" >
+               <div class="categories-box">
+                 <a (click)="mainSearch(item.Id)">
+                   <div class="cate-icon-box">
+                       <img  src={{item.ActualIcon}}>
+                   </div>
+                   <p *ngIf="myViewModel.slanguage=='english'">{{item.Name}}</p>
+                   <p *ngIf="myViewModel.slanguage=='espanol'">{{item.SpanishName}}</p>
+                 </a>
+               </div>
+             </ng-template>
+        </owl-carousel-o>
+   </div>
+   </div>
+   </div>
+
+
+
+ </div>
+ <!-- ICon  Categories Ends -->
+
+
+ <!-- Recently Viewed -->
+ <div class="container-fluid bestseller mrgn-b-lg" >
+
+   <div class="row" *ngIf="myViewModel.recent && myViewModel.recent.length>0">
+      <div class="col-sm-12 col-xs-12  text-center bestseller-heading">
+        <h1><span>{{'Register.RecentlyViewedItems'|translate}}</span></h1>
+      </div>
+
+    </div>
+
+   <div class="row list-hover-icon">
+      <div
+        class="col-sm-3 col-md-2 col-lg-2 col-xs-12 text-center mrgn-b-md doc-item common-doctor animated fadeInUp clearfix ae-animation-fadeInUp"
+        *ngFor="let cat of myViewModel.recent">
+        <a [routerLink]="" (click)="passTheSalt(cat.Id,cat.VariantDetailId)">
+          <div class="bestseller-box" *ngIf="cat.InStock>0; else elseblock">
+
+            <div class="bestseller-sale" *ngIf="cat.Discount>0">{{cat.Discount}}%</div>
+            <div class="sale-tag" *ngIf="cat.Discount>0"><img src="assets/img/sale-tag-img.png"></div>
+            <div class="bestseller-img">
+
+              <img src={{cat.Image150}} />
+
+            </div>
+            <div class="bestseller-text" *ngIf="cat.Name!=null">{{cat.Name.length > 17 ? cat.Name.substring(0,17)+"..." : cat.Name}}</div>
+            <div class="bestseller-price" *ngIf="cat.Discount>0">
+              <span class="price-off">${{cat.PriceAfterDiscount.toFixed(2)}}</span>
+              <span class="price-now">${{cat.SellingPrice.toFixed(2)}}</span>
+            </div>
+            <div class="bestseller-price" *ngIf="cat.Discount==0">
+             <span class="price-off">${{cat.PriceAfterDiscount.toFixed(2)}}</span>
+           </div>
+
+          </div>
+          <ng-template #elseblock>
+            <div class="bestseller-box">
+
+              <div class="bestseller-sale" *ngIf="cat.Discount>0">{{cat.Discount}}%</div>
+              <div class="sale-tag" *ngIf="cat.Discount>0"><img src="assets/img/sale-tag-img.png"></div>
+              <div class="bestseller-out-of-stock">Out of Stock</div>
+              <div class="bestseller-img out-of-stock">
+
+                <img src={{cat.Image150}} />
+
+              </div>
+              <div class="bestseller-text" *ngIf="cat.Name!=null">{{cat.Name.length >22 ? cat.Name.substring(0,22)+"..." : cat.Name}}</div>
+              <div class="bestseller-price" *ngIf="cat.Discount>0">
+                <span class="price-off">${{cat.PriceAfterDiscount.toFixed(2)}}</span>
+                <span class="price-now">${{cat.SellingPrice.toFixed(2)}}</span>
+              </div>
+              <div class="bestseller-price" *ngIf="cat.Discount==0">
+               <!-- <span class="price-off">${{cat.SellingPrice}}</span> -->
+               <span class="price-off">${{cat.PriceAfterDiscount.toFixed(2)}}</span>
+             </div>
+              <div class="product-action icon-vertical">
+                <a class="" *ngIf="!cat.ShipmentVendor">
+                  <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                  <span class="tooltip">{{'Register.Compare.AddToCartButton'|translate}}</span>
+                </a>
+                <a class="" *ngIf="cat.ShipmentVendor">
+                  <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                  <span class="tooltip">{{'Register.Compare.BuyNowButton'|translate}}</span>
+                </a>
+                <a class="">
+                  <i class="fa fa-eye" aria-hidden="true"></i>
+                  <span class="tooltip">{{'Register.Compare.QuickView'|translate}}</span>
+                </a>
+
+                <a class="">
+                  <i class="fa fa-refresh" aria-hidden="true"></i>
+                  <span class="tooltip">{{'Register.Compare.CompareText'|translate}}</span>
+                </a>
+
+                <a class="">
+                  <i class="fa fa-heart-o" aria-hidden="true"></i>
+                  <span class="tooltip">{{'Register.Compare.AddToWishlist'|translate}}</span>
+                </a>
+
+              </div>
+            </div>
+          </ng-template>
+
+        </a>
+        <ul class="list-inline social-lists animate">
+          <li  *ngIf="!cat.ShipmentVendor"><a (click)="addToCart(cat.VariantDetailId,cat.SellingPrice,cat.Discount,cat.PriceAfterDiscount,cat.ShipmentVendor)"
+              [class.disabled]="cat.InStock<=0 ? true : null" title="{{'Register.Compare.AddToCartButton'|translate}}"><i class="fas fa-cart-plus"></i></a>
+          </li>
+          <li *ngIf="cat.ShipmentVendor"><a (click)="addToCart(cat.VariantDetailId,cat.SellingPrice,cat.Discount,cat.PriceAfterDiscount,cat.ShipmentVendor)"
+            [class.disabled]="cat.InStock<=0 ? true : null" title="{{'Register.Compare.BuyNowButton'|translate}}"><i class="fas fa-cart-plus"></i></a>
+        </li>
+          <li><a (click)="getProductDetails1(cat.VariantDetailId)" title="{{'Register.Compare.AddToWishlist'|translate}}"><i
+                class="fas fa-heart"></i></a></li>
+          <li><a (click)="addCompare(cat.VariantDetailId)" title="{{'Register.Compare.CompareText'|translate}}"><i class="fas fa-random"></i></a>
+          </li>
+        </ul>
+      </div>
+
+
+    </div>
+   <div class="row">
+    <div class="col-sm-12 col-xs-12 text-right" *ngIf="myViewModel.recent && myViewModel.recent.length>=6">
+      <div class="link-bottom">
+        <a href="/recently-viewed" >{{'Register.ShowMore'|translate}} <i class="fas fa-chevron-right"></i></a>
+      </div>
+    </div>
+   </div>
+    </div>
+ <!-- End Recently Viewed -->
+ <!-- best seller
+ ----------------- -->
+    <!-- <div class="container-fluid bestseller mrgn-b-lg">
+      <div class="row">
+        <div class="col-sm-12 col-xs-12 text-center bestseller-heading">
+          <h1><span>{{'Register.MiddleSection.BestSeller'|translate}}</span></h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-xs-12">
+          <ul class="bestseller-ul text-center" *ngIf="slanguage=='english'">
+            <li [ngClass]="active ? 'active':''" (click)="getAllproducts()">{{'Register.AllProducts'|translate}}</li>
+            <li [ngClass]="{'active':selectedItem==cat.Id}" *ngFor="let cat of category; let i = index"
+              (click)="onclick(cat.Id)"> {{cat.Name }}</li>
+          </ul>
+          <ul class="bestseller-ul text-center" *ngIf="slanguage=='espanol'">
+           <li [ngClass]="active ? 'active':''" (click)="getAllproducts()">{{'Register.AllProducts'|translate}}</li>
+           <li [ngClass]="{'active':selectedItem==cat.Id}" *ngFor="let cat of category; let i = index"
+             (click)="onclick(cat.Id)"> {{cat.SpanishName }}</li>
+         </ul>
+        </div>
+      </div>
+
+
+      <div class="row list-hover-icon">
+        <div
+          class="col-sm-3 col-md-2 col-lg-2 col-xs-12 text-center mrgn-b-md doc-item common-doctor animated fadeInUp clearfix ae-animation-fadeInUp"
+          *ngFor="let cat of CategoryProducts">
+          <a [routerLink]="" (click)="passTheSalt(cat.Id,cat.LandingVariant.Id)">
+            <div class="bestseller-box" *ngIf="cat.InStock>0; else elseblock">
+
+              <div class="bestseller-sale" *ngIf="cat.Discount>0">{{cat.Discount}}%</div>
+              <div class="sale-tag" *ngIf="cat.Discount>0"><img src="assets/img/sale-tag-img.png"></div>
+
+              <div class="bestseller-img">
+
+                <img src={{cat.Url150}} />
+
+              </div>
+              <div class="bestseller-text" *ngIf="cat.Name!=null">{{cat.Name.length > 17 ? cat.Name.substring(0,17)+"..." : cat.Name}}</div>
+              <div class="bestseller-stars" *ngIf="cat.Rating==0">
+               <i class="far fa-star" aria-hidden="true"></i>
+               <i class="far fa-star" aria-hidden="true"></i>
+               <i class="far fa-star" aria-hidden="true"></i>
+               <i class="far fa-star" aria-hidden="true"></i>
+               <i class="far fa-star" aria-hidden="true"></i>
+             </div>
+             <div class="bestseller-stars" *ngIf="cat.Rating==1">
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="far fa-star" aria-hidden="true"></i>
+              <i class="far fa-star" aria-hidden="true"></i>
+              <i class="far fa-star" aria-hidden="true"></i>
+              <i class="far fa-star" aria-hidden="true"></i>
+            </div>
+            <div class="bestseller-stars" *ngIf="cat.Rating==2">
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="far fa-star" aria-hidden="true"></i>
+              <i class="far fa-star" aria-hidden="true"></i>
+              <i class="far fa-star" aria-hidden="true"></i>
+            </div>
+            <div class="bestseller-stars" *ngIf="cat.Rating==3">
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="far fa-star" aria-hidden="true"></i>
+              <i class="far fa-star" aria-hidden="true"></i>
+            </div>
+            <div class="bestseller-stars" *ngIf="cat.Rating==4">
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="far fa-star" aria-hidden="true"></i>
+            </div>
+            <div class="bestseller-stars" *ngIf="cat.Rating==5">
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+            </div>
+              <div class="bestseller-price" *ngIf="cat.Discount>0">
+                <span class="price-off">${{cat.SellingPrice.toFixed(2)}}</span>
+                <span class="price-now">${{cat.PriceAfterdiscount.toFixed(2)}}</span>
+              </div>
+              <div class="bestseller-price" *ngIf="cat.Discount==0">
+               <span class="price-now">${{cat.PriceAfterdiscount.toFixed(2)}}</span>
+             </div>
+            </div>
+            <ng-template #elseblock>
+              <div class="bestseller-box">
+
+                <div class="bestseller-sale" *ngIf="cat.Discount>0">{{cat.Discount}}%</div>
+                <div class="sale-tag" *ngIf="cat.Discount>0"><img src="assets/img/sale-tag-img.png"></div>
+                <div class="bestseller-out-of-stock">Out of Stock</div>
+                <div class="bestseller-img out-of-stock">
+
+                  <img src={{cat.Url150}} />
+
+                </div>
+                <div class="bestseller-text" *ngIf="cat.Name!=null">{{cat.Name.length > 17 ? cat.Name.substring(0,17)+"..." : cat.Name}}</div>
+                <div class="bestseller-stars" *ngIf="cat.Rating==0">
+                 <i class="far fa-star" aria-hidden="true"></i>
+                 <i class="far fa-star" aria-hidden="true"></i>
+                 <i class="far fa-star" aria-hidden="true"></i>
+                 <i class="far fa-star" aria-hidden="true"></i>
+                 <i class="far fa-star" aria-hidden="true"></i>
+               </div>
+               <div class="bestseller-stars" *ngIf="cat.Rating==1">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="far fa-star" aria-hidden="true"></i>
+                <i class="far fa-star" aria-hidden="true"></i>
+                <i class="far fa-star" aria-hidden="true"></i>
+                <i class="far fa-star" aria-hidden="true"></i>
+              </div>
+              <div class="bestseller-stars" *ngIf="cat.Rating==2">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="far fa-star" aria-hidden="true"></i>
+                <i class="far fa-star" aria-hidden="true"></i>
+                <i class="far fa-star" aria-hidden="true"></i>
+              </div>
+              <div class="bestseller-stars" *ngIf="cat.Rating==3">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="far fa-star" aria-hidden="true"></i>
+                <i class="far fa-star" aria-hidden="true"></i>
+              </div>
+              <div class="bestseller-stars" *ngIf="cat.Rating==4">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="far fa-star" aria-hidden="true"></i>
+              </div>
+              <div class="bestseller-stars" *ngIf="cat.Rating==5">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+              </div>
+                <div class="bestseller-price" *ngIf="cat.Discount>0">
+                  <span class="price-off">${{cat.SellingPrice.toFixed(2)}}</span>
+                  <span class="price-now">${{cat.PriceAfterdiscount.toFixed(2)}}</span>
+                </div>
+                <div class="bestseller-price" *ngIf="cat.Discount==0">
+                 <span class="price-now">${{cat.PriceAfterdiscount.toFixed(2)}}</span>
+               </div>
+                <div class="product-action icon-vertical">
+                 <a class="" *ngIf="!cat.ShipmentVendor">
+                   <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                   <span class="tooltip">{{'Register.Compare.AddToCartButton'|translate}}</span>
+                 </a>
+                 <a class="" *ngIf="cat.ShipmentVendor">
+                   <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                   <span class="tooltip">{{'Register.Compare.BuyNowButton'|translate}}</span>
+                 </a>
+
+                  <a class="">
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                    <span class="tooltip">{{'Register.Compare.QuickView'|translate}}</span>
+                  </a>
+
+                  <a class="">
+                    <i class="fa fa-refresh" aria-hidden="true"></i>
+                    <span class="tooltip">{{'Register.Compare.CompareText'|translate}}</span>
+                  </a>
+
+                  <a class="">
+                    <i class="fa fa-heart-o" aria-hidden="true"></i>
+                    <span class="tooltip">{{'Register.Compare.AddToWishlist'|translate}}</span>
+                  </a>
+
+                </div>
+              </div>
+            </ng-template>
+
+          </a>
+          <ul class="list-inline social-lists animate">
+            <li *ngIf="!cat.ShipmentVendor"><a (click)="addToCart(cat.LandingVariant.Id,cat.SellingPrice,cat.Discount,cat.PriceAfterdiscount,cat.ShipmentVendor)"
+                [class.disabled]="cat.InStock<=0 ? true : null" title="{{'Register.Compare.AddToCartButton'|translate}}"><i class="fas fa-cart-plus"></i></a>
+            </li>
+            <li *ngIf="cat.ShipmentVendor"><a (click)="addToCart(cat.LandingVariant.Id,cat.SellingPrice,cat.Discount,cat.PriceAfterdiscount,cat.ShipmentVendor)"
+             [class.disabled]="cat.InStock<=0 ? true : null" title="{{'Register.Compare.BuyNowButton'|translate}}"><i class="fas fa-cart-plus"></i></a>
+         </li>
+            <li><a (click)="getProductDetails1(cat.LandingVariant.Id)" title="{{'Register.Compare.AddToWishlist'|translate}}"><i
+                  class="fas fa-heart"></i></a></li>
+            <li><a (click)="addCompare(cat.LandingVariant.Id)" title="{{'Register.Compare.CompareText'|translate}}"><i class="fas fa-random"></i></a>
+            </li>
+          </ul>
+        </div>
+
+
+      </div>
+     </div>
+       -->
+
+    <!-----------------Box Categories -------------->
+    <!-- <div class="container-fluid box-categories">
+      <div class="row mrgn-b">
+        <div class="col-sm-3 col-xs-12" *ngFor="let cat of category;let i=index">
+          <div class="box-category-container" *ngIf="i<4">
+
+            <div class="category-img-item">
+              <a (click)="gotocat(cat.Id)">
+                <img class="lazy-loaded" src={{cat.Icon}} alt=" {{cat.Name}} Collection">
+                <span class="cat-text">{{cat.Name}}</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+    </div> -->
+    <!-----------------Box Categories ENDS-------------->
+    <!-----------------Newsletter -------------->
+    <!-- <div class="container-fluid newsletter">
+      <div class="row" *ngIf="TestimonialList.length>0">
+        <div class="col-sm-12 col-xs-12 text-center bestseller-heading" style="margin-bottom: 10px;">
+           <h1><span>{{'Register.Testimonials'|translate}}</span></h1>
+        </div> -->
+        <!-- <div class="col-sm-4 col-xs-4" *ngFor="let item of TestimonialList">
+
+          <div class="col-sm-12 col-xs-12 text-center bestseller-heading">
+             <img src="/assets/img/avatar.png" class="rounded-circle img-fluid"><br>
+             <label>{{item.UserName}}</label>
+          </div>
+          <p>{{item.Description}}</p>
+        </div> -->
+        <!-- <section class="container text-center my-5 mt-5">
+
+         <div class="row">
+         <mdb-carousel [isControls]="true" class="carousel-multi-item multi-animation testimonial-carousel"
+         [type]="'carousel-multi-item'" [animation]="'slide'">
+         <mdb-slide *ngFor="let item of TestimonialList">
+         <div class="col-md-4" *ngFor="let testItem of item.items">
+         <div class="testimonial">
+         <div class="avatar mx-auto">
+         <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(25).jpg"
+         class="rounded-circle img-fluid">
+         </div>
+         <h4 class="font-weight-bold mt-4">{{testItem.UserName}}</h4>
+
+         <p class="font-weight-normal">
+         <mdb-icon fas icon="quote-left" class="pr-2"></mdb-icon>
+         {{testItem.Description}}
+         </p>
+         <div class="grey-text">
+         <mdb-icon fas [icon]="i == 4 ? 'star-half' : 'star'" *ngFor="let star of stars; let i = index">
+         </mdb-icon>
+         </div>
+         </div>
+         </div>
+         </mdb-slide>
+         </mdb-carousel>
+         </div>
+         </section> -->
+     <!-- <div *ngIf="TestimonialList!=null">
+         <div class="container-fluid newsletter" *ngIf="TestimonialList.length >0">
+           <div class="row">
+           <div class="col-sm-12 col-xs-12"> -->
+           <!--Carousel Wrapper-->
+           <!-- <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel"> -->
+           <!--Controls-->
+           <!-- <div class="controls-top">
+           <a class="btn-floating" href="#multi-item-example" data-slide="prev"><i class="fas fa-chevron-left"></i></a>
+           <a class="btn-floating" href="#multi-item-example" data-slide="next"><i
+           class="fas fa-chevron-right"></i></a>
+           </div> -->
+           <!--/.Controls-->
+
+           <!--Indicators-->
+           <!-- <ol class="carousel-indicators">
+           <li data-target="#multi-item-example" data-slide-to="0" class="active"></li>
+           <li data-target="#multi-item-example" data-slide-to="1"></li>
+           <li data-target="#multi-item-example" data-slide-to="2"></li>
+           </ol> -->
+           <!--/.Indicators-->
+
+           <!--Slides-->
+           <!-- <div class="carousel-inner" role="listbox"> -->
+
+           <!--First slide-->
+           <!-- <div class="carousel-item" *ngFor="let item of TestimonialList; let i=index" [ngClass]="{'active':i==0}">
+           <div class="col-md-4" *ngFor="let testItem of item.items">
+           <div class="card mb-2">
+           <img class="card-img-top"
+           src="/assets/img/avatar.png"
+           alt="Card image cap">
+           <div class="card-body">
+           <h4 class="card-title">{{testItem.UserName}}</h4>
+           <p class="card-text">{{testItem.Description}}</p>
+           <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+           </div>
+           </div>
+           </div>
+           </div>-->
+           <!--/.First slide-->
+           <!-- </div> -->
+           <!--/.Slides-->
+           <!-- </div> -->
+           <!--/.Carousel Wrapper-->
+           <!-- </div>
+           </div>
+           </div>
+         </div>
+
+
+       </div>
+    </div> -->
+    <!-----------------Newsletter ENDS------------>
+ <!-- testimonials start -->
+ <!-- Icon Categories -->
+ <div class="container-fluid mrgn-b-lg">
+   <div class="row" *ngIf="TestimonialList && TestimonialList.length>0">
+     <div class="col-xs-12 col-md-12 col-sm-12 col-lg-12 ">
+       <div class="home-cetegories-main text-center bestseller-heading">
+
+             <h1><span>{{'Register.Testimonials'|translate}}</span></h1>
+
+         <owl-carousel-o [options]="Testimonial">
+           <ng-template carouselSlide *ngFor="let item of TestimonialList" >
+             <div class="testi-box-main">
+               <div class="img-box"><img src="assets/img/profile.jpg" alt=""></div>
+               <p class="testimonial"> {{item.Description}}</p>
+               <p class="overview"><b>{{item.UserName}}</b></p>
+               <div class="star-rating" *ngIf="item.Rating==1">
+               <ul class="list-inline" >
+               <li class="list-inline-item"><i class="fa fa-star"></i></li>
+               <li class="list-inline-item"><i class="far fa-star"></i></li>
+               <li class="list-inline-item"><i class="far fa-star"></i></li>
+               <li class="list-inline-item"><i class="far fa-star"></i></li>
+               <li class="list-inline-item"><i class="far fa-star"></i></li>
+               </ul>
+               </div>
+               <div class="star-rating" *ngIf="item.Rating==2">
+                 <ul class="list-inline" >
+                 <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                 <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                 <li class="list-inline-item"><i class="far fa-star"></i></li>
+                 <li class="list-inline-item"><i class="far fa-star"></i></li>
+                 <li class="list-inline-item"><i class="far fa-star"></i></li>
+                 </ul>
+                 </div>
+                 <div class="star-rating" *ngIf="item.Rating==3">
+                   <ul class="list-inline" >
+                   <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                   <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                   <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                   <li class="list-inline-item"><i class="far fa-star"></i></li>
+                   <li class="list-inline-item"><i class="far fa-star"></i></li>
+                   </ul>
+                   </div>
+                   <div class="star-rating" *ngIf="item.Rating==4">
+                     <ul class="list-inline" >
+                     <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                     <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                     <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                     <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                     <li class="list-inline-item"><i class="far fa-star"></i></li>
+                     </ul>
+                     </div>
+                     <div class="star-rating" *ngIf="item.Rating==5">
+                       <ul class="list-inline" >
+                       <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                       <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                       <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                       <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                       <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                       </ul>
+                       </div>
+
+
+               </div>
+               <!-- <div class="categories-box"> -->
+                 <!-- <a (click)="mainSearch(item.Id)"> -->
+                   <!-- <div class="cate-icon-box"> -->
+                       <!-- <img  src={{item.ActualIcon}}> -->
+                          <!-- <strong>Rating</strong> -->
+                       <!-- {{item.Rating}}
+                   </div>
+                   <p >{{item.UserName}}</p>
+                   <p>{{item.Description}}</p> -->
+                   <!-- <p *ngIf="slanguage=='espanol'">{{item.SpanishName}}</p> -->
+                 <!-- </a> -->
+               <!-- </div> -->
+             </ng-template>
+        </owl-carousel-o>
+   </div>
+   </div>
+   </div>
+ </div>
+ <!-- ICon  Categories Ends -->
+ 
+    <app-footer></app-footer>
+  </body>
+ 

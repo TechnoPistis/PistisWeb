@@ -1,0 +1,7 @@
+<div class="desktop-container" *ngIf="!isMobileResolution; else mobileContainer">
+    <app-deal-desktop></app-deal-desktop>
+  </div>
+  
+  <ng-template #mobileContainer>
+   <app-deal-mobile></app-deal-mobile>
+  </ng-template>

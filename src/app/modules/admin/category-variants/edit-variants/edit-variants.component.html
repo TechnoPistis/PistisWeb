@@ -1,0 +1,88 @@
+<div class="main-panel">
+  <div class="content">
+    <div class="page-inner">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-head-row">
+            <div class="card-title">{{'Register.UpdateVariant'|translate}}</div>
+            <div class="btn-group btn-group-page-header ml-auto">
+              <button type="button" class="btn btn-sm btn-success" [routerLink]="['/admin/variants']"
+                routerLinkActive="router-link-active">{{'Register.Allvariants'|translate}}</button>
+            </div>
+
+          </div>
+        </div>
+        <div class="card-body">
+
+          <div class="row">
+            <div class="col-md-12">
+              <form [formGroup]="editForm" (ngSubmit)="onSubmit()" *ngIf="this.variantData && this.variantData!=null">
+                <div class="row mt-3">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="card">
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <label>{{'Register.Category'|translate}}</label>
+                                  <select formControlName="CategoryId" class="form-control"
+                                    *ngIf="this.Categories.length>0">
+                                    <option value="">{{'Register.SelectCategory'|translate}}</option>
+                                    <option *ngFor="let c of Categories;" [value]="c.Id">
+                                      {{c.Name}}
+                                    </option>
+                                  </select>
+                                  <div [hidden]="!editForm.controls['CategoryId'].errors" class="text-danger">{{'Register.Categoryisrequired'|translate}}</div>
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <label>{{'Register.Variant'|translate}}</label>
+                                  <input formControlName="Name" class="form-control" type="text" (change)="checkExistingName()"
+                                    placeholder="size,color etc. . .">
+                                  <div [hidden]="!editForm.controls['Name'].errors" class="text-danger">{{'Register.Nameisrequired'|translate}}</div>
+                                </div>
+                              </div>
+                              <div class="col-md-2">
+                                <div class="form-group">
+                                  <label>{{'Register.SearchOption'|translate}}</label>
+                                  <input formControlName="IsSearchOption" class="form-control" type="checkbox">
+                                </div>
+                              </div>
+                              <div class="col-md-2" *ngIf="(MainSelected && IsMain) || (!MainSelected && !IsMain)">
+                                <div class="form-group">
+                                  <label>{{'Register.IsMain'|translate}}</label>
+                                  <input formControlName="IsMain" class="form-control" type="checkbox">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="form-group">
+                                  <label>{{'Register.Variantoptions'|translate}}</label>
+                                  <input formControlName="AllOptions" class="form-control" type="text"
+                                    placeholder="option-1,option-2,option-3 etc. . .">
+                                  <div [hidden]="!editForm.controls['AllOptions'].errors" class="text-danger">{{'Register.Optionsarerequired'|translate}}</div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group col-sm-2">
+                  <input type="hidden" formControlName="Id">
+                  <button type="submit" [disabled]="editForm.invalid" class="btn btn-primary btn-block">{{'Register.Save'|translate}}</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

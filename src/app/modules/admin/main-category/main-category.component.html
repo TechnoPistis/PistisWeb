@@ -1,0 +1,88 @@
+<div class="main-panel">
+  <div class="content">
+    <div class="page-inner">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-head-row">
+                <h4 class="card-title">{{'Register.AddCatgoryButton'|translate}}</h4>
+                <div class="btn-group btn-group-page-header ml-auto">
+                  <hr>
+                  <button type="button" class="btn btn-success" [routerLink]="['/admin/AddSubMenu']"
+                    routerLinkActive="router-link-active">{{'Register.AddSubCategoryButton'|translate}}</button>
+                </div>
+
+              </div>
+            </div>
+            <div class="card-body">
+              <form #form="ngForm" (submit)="onSubmit(form)" autocomplete="off">
+                <input type="hidden" name="Id" #Id="ngModel" [(ngModel)]="service.formData.Id">
+
+               
+
+                    <div class="row ">
+                      <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="filter" class="mr-2">Is Adult </label>
+                        <input type="checkbox" (change)="handleSelected($event)">
+                       
+                      </div>
+                      </div>
+                      <div class="col-md-6">
+                      <div class="form-group">
+                        <label>{{'Register.CategoryName'|translate}}</label>
+                        <input name="Name" #Name="ngModel" [(ngModel)]="service.formData.Name" class="form-control"
+                          required>
+                        <div class="validation-error" *ngIf="Name.invalid && Name.touched">
+                          {{'Register.RequiredField'|translate}}</div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>{{'Register.Categoryspanishname'|translate}}</label>
+                        <input name="SpanishName" #SpanishName="ngModel" [(ngModel)]="service.formData.SpanishName" class="form-control" required>
+                        <div class="validation-error" *ngIf="SpanishName.invalid && SpanishName.touched">
+                          {{'Register.RequiredField'|translate}}</div>
+                      </div> 
+                      </div>
+                    </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label>{{'Register.Icon'|translate}}</label>
+                          <div  class="cat-upload-img-area" >
+                          
+                            
+                            <img  [ngClass]="{'cate-icon-img': service.formData.ActualIcon }" [src]="!service.formData.ActualIcon?'/assets/1234.png':service.formData.ActualIcon" (click)="Open()">
+                          </div>
+                          <input id="fileDialog" name="ActualIcon"  style="visibility:hidden;" type='file' (change)="onSelectFile($event)" multiple  >
+                        </div>
+                      
+
+                      <div class="col-md-6">
+                        <label>{{'Register.Image'|translate}}</label>
+                        <div  class="cat-upload-img-area" >
+                        
+                          
+                          <img  [ngClass]="{'cate-icon-img': service.formData.Icon }" [src]="!service.formData.Icon?'/assets/1234.png':service.formData.Icon" (click)="Open1()">
+                        </div>
+                        <input id="fileDialog1" name="Icon"  style="visibility:hidden;" type='file' (change)="onSelectFile1($event)" multiple  >
+                      </div>
+                    </div>
+                 
+
+                
+                <div class="row ">
+                </div>
+                <div class="form-group col-sm-2">
+                  <button type="submit" [disabled]="form.invalid"
+                    class="btn btn-primary btn-block">{{'Register.SubmitButton'|translate}}</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+</div>

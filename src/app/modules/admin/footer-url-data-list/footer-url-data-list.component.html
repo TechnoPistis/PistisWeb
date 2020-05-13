@@ -1,0 +1,54 @@
+<div class="main-panel">
+  <div class="content">
+    <div class="page-inner">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-head-row">
+                <div class="card-title">{{'Register.Footerurldata'|translate}}</div>
+                <div class="btn-group btn-group-page-header ml-auto">
+                  <button type="button" class="btn btn-success" (click)="onClick()">{{'Register.AddFooterUrlData'|translate}}</button>
+                </div>
+
+              </div>
+            </div>
+            <div class="card-body">
+                
+              <!-- </div> -->
+              <div class="row pt-3">
+                <div class="col-md-12">
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+
+                          <th>{{'Register.Footername'|translate}}</th>
+                         <th>{{'Register.Footerurldata'|translate}}</th>
+                         <th>{{'Register.Action'|translate}}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                        <tr *ngFor="let cat of list">
+                          <td>{{cat.FooterUrl.Name }}</td>
+                          <td><p
+                            [innerHTML]="cat.Data.length > 70 ? cat.Data.substring(0,70)+'...': cat.Data">
+                          </p></td>
+                          
+                         
+                          <td><button (click)="onDelete(cat.Id)" class="btn btn-sm btn-outline-danger mr-2"><i class="fas fa-trash " ></i></button>
+                            <button (click)="onEdit(cat.FooterUrl.Url,cat.Id)" class="btn btn-sm btn-outline-danger"><i class="fas fa-edit" ></i></button></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

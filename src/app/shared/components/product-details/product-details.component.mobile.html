@@ -1,0 +1,673 @@
+<app-header></app-header>
+<div class="container-fluid inner-page-bg-m-view  main-content">
+  <div class="container inner-page-m-view">
+    
+<!-- for mobile view only start -->
+<div class="row " *ngIf="Details!=null">
+  <div class="product-detail-content detail-main-m-view">
+    <div class="col-xs-12 col-sm-12">
+       <!-- NAme -->
+       <div class="row">
+         <div class="col-xs-12 col-sm-12">
+            <h1 class="product-name-heading">
+              {{Details.Name}}
+              </h1>
+         </div>
+       </div>
+
+       <div class="row">
+        <div class="col-xs-12 col-sm-12 text-right">
+            <div class="rating">
+                <!-- <span class="star-rating-text small">
+                  <span>{{myViewModel.product.RatingAvg}} <i class="fa fa-star" aria-hidden="true"></i></span>
+                </span> -->
+                <div class="bestseller-stars">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i aria-hidden="true" class="far fa-star"></i>
+                  4
+                </div>
+              </div>
+          </div>
+     </div>
+     </div>
+    <!-- mobile pic  -->
+    <div class="col-xs-12 col-sm-12">
+       <div class="row">
+         <div class="col-sm-12 col-xs-12">
+         <div class="detail-carousel-box">
+          <owl-carousel-o [options]="IconOptions1">
+            <ng-template carouselSlide *ngFor="let item of Images" >
+                      <img  src={{item.Image450}}>
+            </ng-template>
+         </owl-carousel-o>
+         <div class="wishlist-icon " *ngIf="myViewModel.activeHeart== false"><i class="fa fa-heart" aria-hidden="true"
+          (click)="onSend(1)"></i>
+      </div>
+      <div class="wishlist-icon active-wish" *ngIf="myViewModel.activeHeart== true"><i class="fa fa-heart"
+          aria-hidden="true" (click)="onSend(0)"></i>
+      </div>
+         </div>
+         </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-12">
+      <div class="_3iZgFn price-block-area" *ngIf="Details && Details.Discount>0">
+          <div class="product-discount">${{Details.SellingPrice.toFixed(2)}}</div>
+        <div class="product-price in-offer">${{Details.PriceAfterDiscount.toFixed(2)}}</div>
+        <div class="off-percentage">{{Details.Discount}}%  {{'Register.off'|translate}}</div>
+      </div>
+      <div class="_3iZgFn" *ngIf="Details && Details.Discount==0">
+        <div class="product-price">${{Details.PriceAfterDiscount.toFixed(2)}}</div>
+      </div>
+    </div>
+    
+  </div>
+  <div class="row" *ngIf="Details && Details.ActiveTo" >
+    <div class="col-sm-12 col-xs-12">
+     <div class="deals-head-block-d">
+       <div class="deal-tag-d">
+          <img alt="deals" src="assets/img/deal-tag-s.png">
+       </div>
+       <div class="deals-head-d">{{'Register.Hurry'|translate}}!</div>
+       <!-- <div class="deals-sub-head"><span class="lim-time-icon"><img alt="deals" src="assets/img/limited-time-icon.png"></span>{{'Register.limited'|translate}}</div> -->
+       <div class="deals-countdown-sec-d">
+         <div class="countdown-time-box-d"><countdown-timer [end]="Details.ActiveTo"></countdown-timer></div>
+         <div class="countdown-msg-text-d">{{'Register.endsin'|translate}}:</div>
+       </div>
+     </div>
+    </div>
+    
+  </div>
+  <div class="row">
+        <div class="col-sm-12 col-xs-12">
+          <div class="row" *ngIf="Details">
+            <div class="col-md-12">
+              <div class="quantity-dd">
+                <div class="box-quantity">
+                  <span class="quantity-title">{{'Register.Quantity'|translate}}</span>
+                </div>
+                <div class="box-quantity dd-box">
+                  <select class="form-control dd-input"   (change)="getQuantity($event,this.myViewModel.LandingVariantId)"  >
+                    <option *ngFor='let in of counter(Details.InStock) ;let i = index'>{{i+1}}
+                    </option>
+                  
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+            <div class="row buttons"*ngIf="Details">
+              <div class="col-sm-6 col-xs-12">
+                <button type="button" class="btn add-to-cart" (click)="addCompare()">
+                  <i class="fas fa-random" aria-hidden="true"></i>{{'Register.Compare.AddToCompare'|translate}}
+                </button>
+              </div>
+              <div class="col-sm-6 col-xs-12">
+                <button type="button" class="btn buy-now" *ngIf="Details &&!Details.ShipmentVendor" [disabled]="Details.InStock==0?true:false" (click)="addToCart()">
+                  <i class="fa fa-shopping-cart" aria-hidden="true"></i>{{'Register.Compare.AddToCartButton'|translate}}
+                </button>
+                <button type="button" class="btn buy-now" *ngIf="Details && Details.ShipmentVendor" [disabled]="Details.InStock==0?true:false" (click)="addToCart()">
+                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>{{'Register.Compare.BuyNowButton'|translate}}
+               </button>
+              </div>
+            </div>
+          </div>
+   
+  </div>
+   </div>
+    <!--  end mobile pic -->
+   
+    <div class="col-sm-12 col-xs-12 product-detail-right img-zoom-result" id="myresult">
+      <div class="content-section">
+        <div class="produ-zoom-area" id="overlay"></div>
+        <div class="row" *ngIf="myViewModel.product.Variant && myViewModel.product.Variant.length>0">
+          <div class="col-md-12">
+            <div class="_3iZgFn row" >
+              <div class="form-group col-lg-3 col-md-3 col-sm-4 col-xs-6" *ngFor="let item of myViewModel.product.Variant ;let i=index">
+                <div class="gray-box-border" *ngIf="item.Name.toLowerCase()!='color'&& item.Name.toLowerCase()!='default' && item.Name.toLowerCase()!='colour' && i==0">
+                  <label>{{item.Name}} </label>
+
+                  <select *ngIf="item.VariantOptions.length>1" (change)="getVarientOptionId($event,this.myViewModel.LandingVariantId)" value="{{item.SelectedValue}}"
+                    #varientOptionId class="form-control">
+                    <option value="0">{{'Register.SelectOption'|translate}}</option>
+                    <option *ngFor="let c of item.VariantOptions ;" [value]="c.Id">
+                      {{c.Name}}
+                    </option>
+                  </select>
+                  <span *ngIf="item.VariantOptions.length==1">: {{item.VariantOptions[0].Name}}</span>
+                </div>
+                <div class="gray-box-border" *ngIf="item.Name.toLowerCase()!='color' && item.Name.toLowerCase()!='default' && item.Name.toLowerCase()!='colour' && i>0">
+                  <label>{{item.Name}} </label>
+                  <span *ngIf="item.VariantOptions.length==1">: {{item.VariantOptions[0].Name}}</span>
+                  <select *ngIf="item.VariantOptions.length>1" (change)="getVarientOptions($event,this.myViewModel.LandingVariantId)" value="{{item.SelectedValue}}"
+                    #varientOptionId class="form-control">
+                    <option value="0">{{'Register.SelectOption'|translate}}</option>
+                    <option *ngFor="let c of item.VariantOptions ;" [value]="c.Id">
+                      {{c.Name}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+           
+          </div>
+        </div>
+
+        <div class="row" *ngIf="myViewModel.product.Variant && myViewModel.product.Variant.length>0">
+          <div class="col-md-12">
+            <div class="_3iZgFn">
+              <div class="" *ngFor="let v of myViewModel.product.Variant">
+                <div class="cat-heading" *ngIf="v.Name.toLowerCase()==='color'||v.Name.toLowerCase()==='colour';">
+                  {{v.Name}}
+                </div>
+                <div class="cat-section" *ngIf="v.Name.toLowerCase()==='color'||v.Name.toLowerCase()==='colour';">
+                  <div class="custom-radios">
+                    <div *ngFor="let o of v.VariantOptions; let i = index;let last=last">
+                      <div *ngIf="o.Name.toLowerCase()==='black'">
+                        <input type="checkbox" [checked]="v.SelectedValue==o.Id?true:false" id="black" name="color"
+                          [value]="o.Id" #black>
+                        <label for="black">
+                          <span (click)="getFilterData(!black.checked,v.Id,o.Id,$event)">
+                          </span>
+                        </label>
+                      </div>
+                      <div *ngIf="o.Name.toLowerCase()==='grey'">
+                        <input type="checkbox" [checked]="v.SelectedValue==o.Id?true:false" id="grey" name="color"
+                          [value]="o.Id" #grey>
+                        <label for="grey">
+                          <span (click)="getFilterData(!grey.checked,v.Id,o.Id,$event)">
+                          </span>
+                        </label>
+                      </div>
+                      <div *ngIf="o.Name.toLowerCase()==='white'">
+                        <input type="checkbox" [checked]="v.SelectedValue==o.Id?true:false" id="white" name="color"
+                          [value]="o.Id" #white>
+                        <label for="white">
+                          <span (click)="getFilterData(!white.checked,v.Id,o.Id,$event)">
+                          </span>
+                        </label>
+                      </div>
+                      <div *ngIf="o.Name.toLowerCase()==='brown'">
+                        <input type="checkbox" id="brown" [checked]="v.SelectedValue==o.Id?true:false" name="color"
+                          [value]="o.Id" #brown>
+                        <label for="brown">
+                          <span (click)="getFilterData(!brown.checked,v.Id,o.Id,$event)">
+                          </span>
+                        </label>
+                      </div>
+                      <div *ngIf="o.Name.toLowerCase()==='beige'">
+                        <input type="checkbox" id="beige" [checked]="v.SelectedValue==o.Id?true:false" name="color"
+                          [value]="o.Id" #beige>
+                        <label for="color-4">
+                          <span (change)="getFilterData(!beige.checked,v.Id,o.Id,$event)">
+                          </span>
+                        </label>
+                      </div>
+                      <div *ngIf="o.Name.toLowerCase()==='red'">
+                        <input type="checkbox" id="red" [checked]="v.SelectedValue==o.Id?true:false" name="color"
+                          [value]="o.Id" #red>
+                        <label for="red">
+                          <span (click)="getFilterData(!red.checked,v.Id,o.Id,$event)">
+                          </span>
+                        </label>
+                      </div>
+                      <div *ngIf="o.Name.toLowerCase()==='pink'">
+                        <input type="checkbox" id="pink" [checked]="v.SelectedValue==o.Id?true:false" name="color"
+                          [value]="o.Id" #check>
+                        <label for="pink">
+                          <span (click)="getFilterData(!check.checked,v.Id,o.Id,$event)">
+                          </span>
+                        </label>
+                      </div>
+                      <div *ngIf="o.Name.toLowerCase()==='orange'">
+                        <input type="checkbox" [checked]="v.SelectedValue==o.Id?true:false" id="orange" name="color"
+                          [value]="o.Id" #orange>
+                        <label for="orange">
+                          <span (click)="getFilterData(!orange.checked,v.Id,o.Id,$event)">
+                          </span>
+                        </label>
+                      </div>
+                      <div *ngIf="o.Name.toLowerCase()==='yellow'">
+                        <input type="checkbox" [checked]="v.SelectedValue==o.Id?true:false" id="yellow" name="color"
+                          [value]="o.Id" #yellow>
+                        <label for="yellow">
+                          <span (click)="getFilterData(!yellow.checked,v.Id,o.Id,$event)">
+                          </span>
+                        </label>
+                      </div>
+                      <div *ngIf="o.Name.toLowerCase()==='offwhite'">
+                        <input type="checkbox" id="offwhite" [checked]="v.SelectedValue==o.Id?true:false"
+                          name="color" [value]="o.Id" #offwhite>
+                        <label for="offwhite">
+                          <span (click)="getFilterData(!offwhite.checked,v.Id,o.Id,$event)">
+                          </span>
+                        </label>
+                      </div>
+                      <div *ngIf="o.Name.toLowerCase()==='green'">
+                        <input type="checkbox" [checked]="v.SelectedValue==o.Id?true:false" id="green" name="color"
+                          [value]="o.Id" #green>
+                        <label for="green">
+                          <span (click)="getFilterData(!green.checked,v.Id,o.Id,$event)">
+                          </span>
+                        </label>
+                      </div>
+                      <div *ngIf="o.Name.toLowerCase()==='turquoise'">
+                        <input type="checkbox" id="turquoise" [checked]="v.SelectedValue==o.Id?true:false"
+                          name="color" [value]="o.Id" #turquoise>
+                        <label for="turquoise">
+                          <span (click)="getFilterData(!turquoise.checked,v.Id,o.Id,$event)">
+                          </span>
+                        </label>
+                      </div>
+                      <div *ngIf="o.Name.toLowerCase()==='blue'">
+                        <input type="checkbox" id="blue" [checked]="v.SelectedValue==o.Id?true:false" name="color"
+                          [value]="o.Id" #blue>
+                        <label for="blue">
+                          <span (click)="getFilterData(!blue.checked,v.Id,o.Id,$event)">
+                          </span>
+                        </label>
+                      </div>
+                      <div *ngIf="o.Name.toLowerCase()==='gold'">
+                        <input type="checkbox" id="gold" [checked]="v.SelectedValue==o.Id?true:false" name="color"
+                          [value]="o.Id" #gold>
+                        <label for="gold">
+                          <span (click)="getFilterData(!gold.checked,v.Id,o.Id,$event)">
+                          </span>
+                        </label>
+                      </div>
+                      <div *ngIf="o.Name.toLowerCase()==='silver'">
+                        <input type="checkbox" id="silver" [checked]="v.SelectedValue==o.Id?true:false" name="color"
+                          [value]="o.Id" #silver>
+                        <label for="silver">
+                          <span (click)="getFilterData(!silver.checked,v.Id,o.Id,$event)">
+                          </span>
+                        </label>
+                      </div>
+                      <div *ngIf="o.Name.toLowerCase()==='multicolor'">
+                        <input type="checkbox" id="multicolor" [checked]="v.SelectedValue==o.Id?true:false"
+                          name="color" [value]="o.Id" #multicolor>
+                        <label for="multicolor">
+                          <span (click)="getFilterData(!multicolor.checked,v.Id,o.Id,$event)">
+                          </span>
+                        </label>
+                      </div>
+                      <div *ngIf="o.Name.toLowerCase()==='transparent'">
+                        <input type="checkbox" id="transparent" [checked]="v.SelectedValue==o.Id?true:false"
+                          name="color" [value]="o.Id" #transparent>
+                        <label for="transparent">
+                          <span (click)="getFilterData(!transparent.checked,v.Id,o.Id,$event)">
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+<p *ngIf="Details && Details.InStock==0" style="color: red">{{'Register.Cart.OutOfStockItem'|translate}}</p>
+       
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="_3iZgFn row">
+              <div class="form-group col-sm-9">
+                <div *ngFor="let item of ShippingCharges">
+                  <label *ngIf="isShipError==false">{{'Register.Cart.DeliveryBy'|translate}}
+                    {{item.DeliveryDate | date:'fullDate'}} |
+                    <span *ngIf="0 >= item.ShipPrice" style="color:green">
+                      {{'Register.Cart.Free'|translate}} ({{item.DeliveryType}})
+                    </span>
+                    <span *ngIf="item.ShipPrice > 0" class="success">
+                      ${{item.ShipPrice.toFixed(2)}} ({{item.DeliveryType}})
+                    </span>
+                  </label>
+                </div>
+                <div *ngIf="isShipError==true">
+                  <label style="color: red">{{errMsg}}
+                   
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+
+        <div class="product-description">
+          <h1>{{'Register.ProductDescription'|translate}}</h1>
+          <span>
+            <div *ngIf="Details && Details.Description" innerHTML="{{Details.Description}}"></div>
+          </span>
+        </div>
+        <!-- ////////////////////////////////////// -->
+
+
+
+        <div class="specifications" *ngIf="specification && specification.length!=0 && specification[0].HeadingName"  >
+          <h1>{{'Register.Cart.Specifications'|translate}}</h1>
+        </div>
+        <div class="specifications specifications-content">
+          <div class="table-responsive">
+            <table class="table">
+              <tbody>
+                <tr *ngFor="let item of specification">
+                  <th>{{item.HeadingName}}</th>
+                  <td>{{item.Description}}</td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+        <div class="customer-ratings" *ngIf="reviewData!=null">
+          <div class="customer-span">
+            <h1>{{'Register.Cart.Ratings'|translate}} &amp; {{'Register.Cart.Reviews'|translate}}</h1>
+           
+          </div>
+          <div class="row">
+            <div class="col-sm-3 col-xs-12 text-center">
+              <span class="star-rating-text big">
+                <span>{{reviewData.RatingAvg}} <i class="fa fa-star" aria-hidden="true"></i></span>
+              </span>
+              <span class="rating-reviews">
+                <span class="stars">{{reviewData.RatingCount}} {{'Register.Cart.Ratings'|translate}} &amp;</span>
+
+                <span class="stars">{{reviewData.ReviewCount}} {{'Register.Cart.Reviews'|translate}}</span>
+              </span>
+            </div>
+
+            <div class="col-sm-7 col-xs-12 text-center">
+              <ul class="rating-overall">
+                <li>
+                  <span class="people-ratings">
+                    <span>5 <i class="fa fa-star" aria-hidden="true"></i></span>
+                  </span>
+                  <span class="rating-bar">
+                    <div class="progress">
+                      <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0"
+                        aria-valuemax="100"[style.width.%]="reviewData.Fivestarper">
+                        <span class="sr-only">70% {{'Register.Complete'|translate}}</span>
+                      </div>
+                    </div>
+                  </span>
+                  <span class="people-total">{{reviewData.Fivestar}}</span>
+                </li>
+
+                <li>
+                  <span class="people-ratings">
+                    <span>4 <i class="fa fa-star" aria-hidden="true"></i></span>
+                  </span>
+                  <span class="rating-bar">
+                    <div class="progress">
+                      <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0"
+                        aria-valuemax="100" [style.width.%]="reviewData.Fourstarper">
+                        <span class="sr-only">60% {{'Register.Complete'|translate}}</span>
+                      </div>
+                    </div>
+                  </span>
+                  <span class="people-total">{{reviewData.Fourstar}}</span>
+                </li>
+
+                <li>
+                  <span class="people-ratings">
+                    <span>3 <i class="fa fa-star" aria-hidden="true"></i></span>
+                  </span>
+                  <span class="rating-bar">
+                    <div class="progress">
+                      <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0"
+                        aria-valuemax="100" [style.width.%]="reviewData.Threestarper">
+                        <span class="sr-only">40% {{'Register.Complete'|translate}}</span>
+                      </div>
+                    </div>
+                  </span>
+                  <span class="people-total">{{reviewData.Threestar}}</span>
+                </li>
+
+                <li>
+                  <span class="people-ratings">
+                    <span>2 <i class="fa fa-star" aria-hidden="true"></i></span>
+                  </span>
+                  <span class="rating-bar">
+                    <div class="progress yellow-progress">
+                      <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0"
+                        aria-valuemax="100"  [style.width.%]="reviewData.Twostarper">
+                        <span class="sr-only">20% {{'Register.Complete'|translate}}</span>
+                      </div>
+                    </div>
+                  </span>
+                  <span class="people-total">{{reviewData.Twostar}}</span>
+                </li>
+
+                <li>
+                  <span class="people-ratings">
+                    <span>1 <i class="fa fa-star" aria-hidden="true"></i></span>
+                  </span>
+                  <span class="rating-bar">
+                    <div class="progress red-progress">
+                      <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0"
+                        aria-valuemax="100"  [style.width.%]="reviewData.Onestarper">
+                        <span class="sr-only">30% {{'Register.Complete'|translate}}</span>
+                      </div>
+                    </div>
+                  </span>
+                  <span class="people-total">{{reviewData.Onestar}}</span>
+                </li>
+
+              </ul>
+
+
+
+
+            </div>
+
+            <!--    reviews start -->
+<div class="container  p-tb-2">
+<div class="cus-review-main">
+
+    
+  
+  
+  
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+            <div class="cus-review-box-main" *ngFor="let item of  reviewData.UserRatings;let i=index">
+                <div class="row mrgn-b-xs" *ngIf="i<4">
+                    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                        <div class="cus-review-img">
+                            <img src="assets/defaul.jpg">
+                        </div>
+                        <div class="cus-review-title">
+                           {{item.Username}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row mrgn-b-sm">
+                    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                      <div class="cus-review-stars">
+                       
+                        <div class="text-warning" *ngIf="item.UserRatings==5">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <div class="text-warning" *ngIf="item.UserRatings==4">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <div class="text-warning" *ngIf="item.UserRatings==3">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <div class="text-warning" *ngIf="item.UserRatings==2">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <div class="text-warning" *ngIf="item.UserRatings==1">
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                    
+
+                        
+                    </div>
+                        
+                    </div>
+                   
+                    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                        <p>
+                            {{item.UserReviews.length > 20 ? item.UserReviews.substring(0,20)+"..." :item.UserReviews}}
+                        </p>
+                        
+                    </div>
+                </div>
+                
+            </div>
+
+           
+        </div>
+    </div>
+   
+  
+</div>
+</div>
+
+<!-- review end -->
+          </div>
+
+          <div class="row">
+            <div class="col-sm-3 col-xs-12 text-center">
+              <div class="all-reviews">
+                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo"
+                  aria-expanded="true" (click)="passTheSalt()">{{'Register.All'|translate}} {{reviewData.ReviewCount}} {{'Register.Cart.Reviews'|translate}}</button>
+                <div id="demo1" class="collapse all-feature-content">
+
+                  <span class="star-rating-text small">
+                    <span>4 <i class="fa fa-star" aria-hidden="true"></i></span>
+                  </span>
+                  <span>Thank you................................................... so much. I'm very Happy. Very
+                    Nice Pen drive...</span>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+        <div class="product-description tags " *ngIf="myViewModel.tag123 && myViewModel.tag123.length>0">
+            <h1 >{{'Register.Cart.ProductTags'|translate}}</h1 >
+            <div class="tags-cont">
+            <h5>{{'Register.Cart.OtherPeople'|translate}}:</h5>
+            <div >
+                <span *ngFor="let item of myViewModel.tag123" class="tag-links"> {{item.productTagName}} |</span>
+            </div>
+           
+            
+          
+            
+            </div>
+            <div class="tags-cont ">
+            <h5>{{'Register.AddYourTags'|translate}}:</h5>
+            <div class="add-tag-input-box">
+            <input type="text" [(ngModel)]="myViewModel.CustomerTags" #tag class="form-control">
+            </div>
+            <div class="add-tag-button-box">
+            <button (click)="addtags(tag.value)" placeholder="Vintage, cotton, summer" class="btn btn-primary">{{'Register.AddYourTags'|translate}}</button>
+            </div>
+            
+            </div>
+           
+            </div>
+      </div>
+
+    </div>
+
+  </div>
+  <!-- You may like Section -->
+<div class="container-fluid mrgn-b-sm" *ngIf="myViewModel.likeProducts && myViewModel.likeProducts.length>0">
+  <div class="row">
+    <div class="col-xs-12 col-md-12 col-sm-12 col-lg-12 ">
+      <div class="home-cetegories-main text-center bestseller-heading">
+
+            <h1><span>{{'Register.YouMayLike'|translate}}</span></h1>
+        <owl-carousel-o [options]="LikeOptions">
+          <ng-template carouselSlide *ngFor="let cat of myViewModel.likeProducts" >
+            <div class="categories-box-you-like">
+                <a [routerLink]="" (click)="passTheSalt1(cat.Id,cat.VariantDetailId,$event)">
+                  <div class="bestseller-box" *ngIf="cat.InStock>0; else elseblock">
+       
+                    <div class="bestseller-sale" *ngIf="cat.Discount>0">{{cat.Discount}}%</div>
+                    <div class="sale-tag" *ngIf="cat.Discount>0"><img src="assets/img/sale-tag-img.png"></div>
+                    <div class="bestseller-img">
+       
+                      <img src={{cat.Image150}} />
+       
+                    </div>
+                    <div class="bestseller-text" *ngIf="cat.Name!=null">{{cat.Name.length > 19 ? cat.Name.substring(0,19)+"..." : cat.Name}}</div>
+                   
+                    <div class="bestseller-price" *ngIf="cat.Discount>0">
+                      <span class="price-off">${{cat.PriceAfterDiscount.toFixed(2)}}</span>
+                      <span class="price-now">${{cat.SellingPrice.toFixed(2)}}</span>
+                    </div>
+                    <div class="bestseller-price" *ngIf="cat.Discount==0">
+                     <span class="price-off">${{cat.PriceAfterDiscount.toFixed(2)}}</span>
+                   </div>
+                  </div>
+                  <ng-template #elseblock>
+                    <div class="bestseller-box">
+       
+                      <div class="bestseller-sale" *ngIf="cat.Discount>0">{{cat.Discount}}%</div>
+                      <div class="sale-tag" *ngIf="cat.Discount>0"><img src="assets/img/sale-tag-img.png"></div>
+                      <div class="bestseller-out-of-stock">Out of Stock</div>
+                      <div class="bestseller-img out-of-stock">
+                        <img src={{cat.Image150}} />
+                      </div>
+                      <div class="bestseller-text" *ngIf="cat.Name!=null">{{cat.Name.length > 19 ? cat.Name.substring(0,19)+"..." : cat.Name}}</div>
+                      <div class="bestseller-price" *ngIf="cat.Discount>0">
+                        <span class="price-off">${{cat.PriceAfterDiscount.toFixed(2)}}</span>
+                        <span class="price-now">${{cat.SellingPrice.toFixed(2)}}</span>
+                      </div>
+                      <div class="bestseller-price" *ngIf="cat.Discount==0">
+                       <span class="price-off">${{cat.PriceAfterDiscount.toFixed(2)}}</span>
+                     </div>
+                    </div>
+                  </ng-template>
+                </a>
+              </div>
+            </ng-template>
+       </owl-carousel-o>
+  </div>
+  </div>
+  </div>
+
+
+
+</div>
+<!-- You may like section end -->
+</div>
+<!-- for mobile view only end -->
+  </div>
+</div>

@@ -1,0 +1,51 @@
+<div class="pagination" *ngIf="count > 0">
+    <div class="col-md-4 mrgn-b-md">
+    <div class="display-no"><span>{{'Register.Showing'|translate}} {{ getMin() }} {{'Register.Of'|translate}} {{ getMax() }} {{'Register.Of'|translate}} {{ count }} {{'Register.Items'|translate}}</span> &nbsp;</div>
+    </div>
+    <div class="col-md-4 text-center mrgn-b-md">
+    <button class="page-item" (click)="onPrev()" [disabled]="page === 1" [ngClass]="{'prev-btn active': page != 1}">&laquo; </button>
+    <button class="page-item" *ngFor="let pageNum of getPages()" (click)="onPage(pageNum)" [class.currentPage]="page==pageNum" >{{pageNum}}</button>
+    <button class="page-item" (click)="onNext()" [disabled]="lastPage()" class="next-btn"> &raquo;</button> </div>
+    
+    
+    <div class="col-md-4 text-right mrgn-b-md">
+        <div class="display-no pad-r-md">
+            <span>{{'Register.Show'|translate}}</span>
+            <select class="show-select" (change)="getPageSize($event.target.value)" [(ngModel)]="selectedSize" >
+            <!-- <option [value]="4">4</option>
+            <option [value]="8">8</option> -->
+            <option [value]="15">15</option>
+            <option [value]="30">30</option>
+            <option [value]="60">60</option>
+            <option [value]="90">90</option>
+            <option [value]="0">All</option>
+            </select>
+            <span>{{'Register.PerPage'|translate}}</span>
+            </div>
+    
+    </div>
+    </div>
+    
+    <hr class="display-no" style="clear:both;">
+
+
+        <!-- <span>showing{{ getMin() }} of {{ getMax() }} of {{ count }} items</span> &nbsp;
+       
+        <div>
+          <label>Show</label>
+          <select (change)="getPageSize($event.target.value)" [(ngModel)]="selectedSize" >
+            <option [value]="4">4</option>
+            <option [value]="8">8</option>
+            <option [value]="12">12</option>
+            <option [value]="15">15</option>
+            <option [value]="30">30</option>
+            <option [value]="80">80</option>
+            <option [value]="0">All</option>
+          </select>
+          <label>per page</label>
+        </div>
+        <button (click)="onPrev()" [disabled]="page === 1 || loading" [ngClass]="{'prev-btn active': page != 1}">&laquo; </button>
+        <button *ngFor="let pageNum of getPages()" (click)="onPage(pageNum)" [class.currentPage]="page==pageNum" >{{pageNum}}</button>
+        <button (click)="onNext()" [disabled]="lastPage() || loading" class="next-btn"> &raquo;</button> -->
+        <!-- <span>{{ totalPages() }} Pages</span> -->
+      

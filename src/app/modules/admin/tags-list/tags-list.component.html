@@ -1,0 +1,150 @@
+<div *ngIf="firstDiv" class="main-panel">
+  <div class="content">
+    <div class="page-inner">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-head-row">
+                <div class="card-title">{{'Register.Tagname'|translate}} : {{ this.Tagname}}</div>
+                <div class="ml-auto">
+                  <button type="button" class="btn btn-success mr-2" (click)="goBackSymon()">{{'Register.Back'|translate}}</button>
+
+                </div>
+
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="input-group" id="adv-Search">
+                    <input type="text" class="form-control" placeholder="Search..">
+                    <div class="input-group-btn">
+                      <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-primary" (click)="search()"><span class="fa fa-search"
+                            aria-hidden="true"></span></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row pt-3">
+                <div class="col-md-12">
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+
+                          <!-- <th>Profile Picture</th> -->
+                          <th>{{'Register.ProductName'|translate}}</th>
+                          <th>{{'Register.Activate/Deactivate'|translate}}</th>
+                          <th>{{'Register.Action'|translate}} </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let cat of dataList">
+                          <!-- <td>
+                              <div class="pro-thumb"><img style="height: 50px;" src={{cat.Image}} /></div>
+                            </td> -->
+                          <td>{{cat.ProductName}}</td>
+
+                          <td *ngIf="cat.IsApproved==true">
+                            <button (click)="onActivate(cat.ProductTagId,2)"
+                              class="btn btn-sm btn-success btn-fix-width">{{'Register.Deactivate'|translate}}</button></td>
+
+                          <td *ngIf="cat.IsApproved==false">
+                            <button (click)="onActivate(cat.ProductTagId,1)"
+                              class="btn btn-sm btn-danger btn-fix-width">{{'Register.Activate'|translate}} </button>
+                          </td>
+                          <td>
+                            <button (click)="onDelete(cat.ProductTagId)" class="btn btn-sm btn-outline-danger"><i
+                                class="fas fa-trash"></i></button></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="firstDiv==false" class="main-panel">
+  <div class="content">
+    <div class="page-inner">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-head-row">
+                <div class="card-title">{{'Register.ProductTags'|translate}}</div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="input-group" id="adv-Search">
+                    <input type="text" class="form-control" [(ngModel)]="SearchName" placeholder="Search..">
+                    <div class="input-group-btn">
+                      <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-primary" (click)="search()"><span class="fa fa-search"
+                            aria-hidden="true"></span></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row pt-3">
+                <div class="col-md-12">
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+
+                          <!-- <th>Profile Picture</th> -->
+
+                          <th>{{'Register.ProductTagName'|translate}}</th>
+                          <th>{{'Register.Numberofproducts'|translate}}</th>
+                          <th>{{'Register.ApprovedCount'|translate}}</th>
+                          <th>{{'Register.DisapprovedCount'|translate}}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let cat of dataList">
+                          <!-- <td>
+                              <div class="pro-thumb"><img style="height: 50px;" src={{cat.Image}} /></div>
+                            </td> -->
+                          <td>{{cat.productTagName}}</td>
+                          <td>
+                            <button (click)="getProducts(cat.TagId,cat.productTagName)"
+                              class="btn btn-sm btn-success btn-fix-width">{{cat.productApproveCount + cat.productDisApproveCount}}</button>
+                          </td>
+                          <td>{{cat.productApproveCount}}</td>
+                          <td>{{cat.productDisApproveCount}}</td>
+
+
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="no-left-right" *ngIf="count">
+                    <app-admin-pagination [count]="count" [page]="page" [(perPage)]="perPage"
+                      [pagesToShow]="pagesToShow" (goPrev)="prevPage()" (goNext)="nextPage()"
+                      (goPage)="goToPage($event)" (pageSize)="newPageSize($event)">
+                    </app-admin-pagination>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

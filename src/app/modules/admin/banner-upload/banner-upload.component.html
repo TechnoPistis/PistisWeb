@@ -1,0 +1,1466 @@
+<div class="main-panel">
+  <div class="content">
+    <div class="page-inner">
+     
+      <div class="row mt-3">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                  <div class="col-md-12">
+                      <div class="card-header">
+                        <h4 class="card-title">{{'Register.UploadImages'|translate}}</h4>
+                      </div>
+                    </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-2 ">
+
+                      <input type="checkbox" class="mr-2" id="piscine" name="piscine" [checked]="updateOn" (change)="handleSelected($event)">
+                      <label for="exampleFormControlSelect1">update images?</label>
+                
+                    </div>
+
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">{{'Register.SelectSide'|translate}}</label>
+                        <select class="form-control" id="exampleFormControlSelect1" #selectView  [(ngModel)]="side" (change)="onChange1(selectView.value)" >
+                          <option value="Left">{{'Register.Left'|translate}}</option>
+                          <option value="Middle">{{'Register.Middle'|translate}}</option>
+                          <option value="Right">{{'Register.Right'|translate}}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">{{'Register.SelectView'|translate}}</label>
+                        <select class="form-control" #ChangeView id="exampleFormControlSelect1" (change)="onChange(ChangeView.value,selectView.value)" [(value)]="view==''?'Half-Up':view">
+                          <option value="Half-Up">{{'Register.Half-Up'|translate}}</option>
+                          <option value="4-Images">{{'Register.4Images'|translate}}</option>
+                          <option value="Half-Down">{{'Register.HalfDown'|translate}}</option>
+                          <option value="FullImage">{{'Register.FullImage'|translate}}</option>
+                          <option value="2-Images">{{'Register.2Images'|translate}}</option>
+                        </select>
+                      </div>
+
+                    </div>
+                    <!-- <div class="col-md-3">
+                      <div class="form-group">
+                        <label class="full" for="exampleFormControlSelect1">&nbsp;</label>
+                        <a href="#" (click)="onEdit(selectView.value)" class="btn btn-success">
+
+                          Edit Images
+                        </a></div>
+                    </div> -->
+                  </div>
+                  <div *ngIf="visibleDiv=='Half-Up'" class="row mt-2">
+                    <div class="col-md-12">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="banner-area-width">
+                            <div class="row">
+                              <div class="col-md-12">
+                                
+                                <div  class="upload-img-area" (click)="openFile(1)">
+                                  <div class="image-number">
+                                    {{'Register.Image1'|translate}}
+                                  </div>
+                                  <img  class="sale-banner-full-2" [src]="!image1?'/assets/1234.jpg':image1">
+                                  
+                                <p class="thumb-size text-right">{{'Register.Size'|translate}}: 600x300</p>
+                                </div>
+                                <!-- <input id="fileDialog" #Image  type='file' (change)="fileChangeEvent($event,selectView.value,ChangeView.value,1,1)" multiple  > -->
+                              <label class="pull-left mt-2"> {{'Register.Enterurlofimage1'|translate}} : </label> 
+                              <input [(ngModel)]="image1Url" class=" form-control col-md-12"  type="text" />
+                              <!-- <input type="file" (change)="fileChangeEvent($event,selectView.value,ChangeView.value)" /> -->
+                              <button type="button"  (click)="openModal()">{{'Register.UploadImage1'|translate}}</button>
+
+                              <!-- start modal image 1 -->
+                              <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}"  >
+                                <div class="modal-dialog modal-lg modal-dialog-full" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal" (click)="onCloseHandled()">&times;</button>
+                                     
+                                    </div>
+                                    <div class="modal-body pad-all-md">
+                                      <div class="row">
+                                  
+                                        <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                          <div class="row">
+                                            <div class="col-md-12">
+                              
+                                              <!-- start -->
+                                              <input id="fileDialog" #Image  type='file' (change)="fileChangeEvent($event,selectView.value,ChangeView.value,1,1)" multiple  >
+                                            
+                                              <br />
+                                              <br />
+                                              <button (click)="rotateLeft()">{{'Register.Rotateleft'|translate}}</button>
+                                              <button (click)="rotateRight()">{{'Register.Rotateright'|translate}}</button>
+                                              <button (click)="flipHorizontal()">{{'Register.Fliphorizontal'|translate}}</button>
+                                              <button (click)="flipVertical()">{{'Register.Flipvertical'|translate}}</button>
+                                              <br />
+                                              <br />
+                                              <button (click)="toggleContainWithinAspectRatio()">{{containWithinAspectRatio?'Fill Aspect Ratio':'Contain Within Aspect Ratio'}}</button>
+                                              <button (click)="resetImage()">{{'Register.ResetImage'|translate}}</button>
+                                              <br />
+                                              <br />
+                                              <input [(ngModel)]="rotation" placeholder="Rotation" type="number" (keyup)="updateRotation()" /> <button (click)="zoomOut()">{{'Register.Zoom'|translate}} -</button> <button (click)="zoomIn()">{{'Register.Zoom'|translate}} +</button>
+                                              <div class="cropper-scrolable">
+                                              <div  *ngIf="imageCropperOne">
+                                                  <image-cropper
+                                                      [imageChangedEvent]="imageChangedEvent"
+                                                      [maintainAspectRatio]="true"
+                                                      [containWithinAspectRatio]="containWithinAspectRatio"
+                                                      [aspectRatio]="4 / 1.5"
+                                                      [resizeToWidth]="500"
+                                                      [cropperMinWidth]="150"
+                                                      [onlyScaleDown]="true"
+                                                      [roundCropper]="false"
+                                                      [canvasRotation]="canvasRotation"
+                                                      [transform]="transform"
+                                                      [alignImage]="'left'"
+                                                      [style.display]="showCropper ? null : 'none'"
+                                                      format="png"
+                                                      (imageCropped)="imageCropped($event,1)"
+                                                      (imageLoaded)="imageLoaded()"
+                                                      (cropperReady)="cropperReady($event)"
+                                                      (loadImageFailed)="loadImageFailed()"
+                                                  ></image-cropper>
+                                              </div>
+                                              <img [src]="image1" [style.border]="image1 ? '1px solid black' : 'none'" />
+                                              <!-- end -->
+                                            </div>
+                                            </div>
+                                          </div>
+                                          
+                                          <!-- <div class="form-group row">
+                                        <div class="col-md-12">
+                                               <input type="password" class="form-control" placeholder="Type New Password">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                            <div class="col-md-12">
+                                                   <input type="password" class="form-control" placeholder="Retype New Password">
+                                            </div>
+                                        </div> -->
+                                          <div class="form-group row">
+                                            <div class="col-md-3">
+                                              <button  class="btn btn-lg btn-primary btn-block"
+                                              (click)="onCloseHandled()"
+                                                type="button">{{'Register.Cart.Save'|translate}}</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                              
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              <!-- end modal image 1 -->
+                              </div>
+                             
+                            </div>
+                            <div class="row mt-3">
+                              <div class="col-md-6">
+                                <div class="upload-img-area" (click)="openFile(2)">
+                                  <div class="image-number">
+                                    {{'Register.Image2'|translate}}
+                                  </div>
+                                  <img   class="sale-banner-full-4" [src]="!image2?'/assets/1234.jpg':image2">
+                                  <p class="thumb-size text-right">{{'Register.Size'|translate}}: 300x300</p>
+                                </div>
+                                <!-- <input id="fileDialog" #Image  type='file' (change)="fileChangeEvent($event,selectView.value,ChangeView.value,2,2)" multiple  > -->
+                                <label class="pull-left mt-2">{{'Register.Enterurlofimage2'|translate}} : </label> 
+                                <input [(ngModel)]="image2Url"  class=" form-control col-md-12"  type="text" />
+                             <!-- start 2 -->
+<button type="button"  (click)="openModal2()">{{'Register.UploadImage2'|translate}}</button>
+
+<!-- start modal image 1 -->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display1}"  >
+  <div class="modal-dialog modal-lg modal-dialog-full" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" (click)="onCloseHandled()">&times;</button>
+       
+      </div>
+      <div class="modal-body pad-all-md">
+        <div class="row">
+    
+          <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+            <div class="row">
+              <div class="col-md-12">
+
+                <!-- start -->
+                <input type="file" (change)="fileChangeEvent($event,selectView.value,ChangeView.value,2,2)" />
+                <br />
+                <br />
+                <button (click)="rotateLeft()">{{'Register.Rotateleft'|translate}}</button>
+                <button (click)="rotateRight()">{{'Register.Rotateright'|translate}}</button>
+                <button (click)="flipHorizontal()">{{'Register.Fliphorizontal'|translate}}</button>
+                <button (click)="flipVertical()">{{'Register.Flipvertical'|translate}}</button>
+                <br />
+                <br />
+                <button (click)="toggleContainWithinAspectRatio()">{{containWithinAspectRatio?'Fill Aspect Ratio':'Contain Within Aspect Ratio'}}</button>
+                <button (click)="resetImage()">{{'Register.ResetImage'|translate}}</button>
+                <br />
+                <br />
+                <input [(ngModel)]="rotation" placeholder="Rotation" type="number" (keyup)="updateRotation()" /> <button (click)="zoomOut()">{{'Register.Zoom'|translate}} -</button> <button (click)="zoomIn()">{{'Register.Zoom'|translate}} +</button>
+                <div class="cropper-scrolable">
+                <div *ngIf="imageCroppertwo">
+                    <image-cropper
+                        [imageChangedEvent]="imageChangedEvent"
+                        [maintainAspectRatio]="true"
+                        [containWithinAspectRatio]="containWithinAspectRatio"
+                        [aspectRatio]="4 / 3"
+                        [resizeToWidth]="256"
+                        [cropperMinWidth]="128"
+                        [onlyScaleDown]="true"
+                        [roundCropper]="false"
+                        [canvasRotation]="canvasRotation"
+                        [transform]="transform"
+                        [alignImage]="'left'"
+                        [style.display]="showCropper ? null : 'none'"
+                        format="png"
+                        (imageCropped)="imageCropped($event,2)"
+                        (imageLoaded)="imageLoaded()"
+                        (cropperReady)="cropperReady($event)"
+                        (loadImageFailed)="loadImageFailed()"
+                    ></image-cropper>
+                </div>
+                <img [src]="image2" [style.border]="image2 ? '1px solid black' : 'none'" />
+
+</div>
+
+                <!-- end -->
+               
+              </div>
+            </div>
+            
+            <!-- <div class="form-group row">
+          <div class="col-md-12">
+                 <input type="password" class="form-control" placeholder="Type New Password">
+          </div>
+      </div>
+      <div class="form-group row">
+              <div class="col-md-12">
+                     <input type="password" class="form-control" placeholder="Retype New Password">
+              </div>
+          </div> -->
+            <div class="form-group row">
+              <div class="col-md-3">
+                <button  class="btn btn-lg btn-primary btn-block"
+                (click)="onCloseHandled()"
+                  type="button">{{'Register.Cart.Save'|translate}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- end 2-->
+                              </div>
+                              <div class="col-md-6" >
+                                <div class="upload-img-area" (click)="openFile(3)">
+                                  <div class="image-number">
+                                    {{'Register.Image3'|translate}}
+                                  </div>
+                                  <img   class="sale-banner-full-4" [src]="!image3?'/assets/1234.jpg':image3">
+                                  <p class="thumb-size text-right">{{'Register.Size'|translate}}: 300x300</p>
+                                </div>
+                                <!-- <input id="fileDialog" #Image  type='file' (change)="fileChangeEvent($event,selectView.value,ChangeView.value,3,3)" multiple  > -->
+                                <label class="pull-left mt-2 "> {{'Register.Enterurlofimage3'|translate}} : </label> 
+                                <input [(ngModel)]="image3Url" class=" form-control col-md-12"  type="text" />
+<!-- start 2 -->
+<button type="button"  (click)="openModal3()">{{'Register.UploadImage3'|translate}}</button>
+
+<!-- start modal image 1 -->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display2}"  >
+  <div class="modal-dialog modal-lg modal-dialog-full" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" (click)="onCloseHandled()">&times;</button>
+       
+      </div>
+      <div class="modal-body pad-all-md">
+        <div class="row">
+    
+          <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+            <div class="row">
+              <div class="col-md-12">
+
+                <!-- start -->
+                <input type="file" (change)="fileChangeEvent($event,selectView.value,ChangeView.value,3,3)" />
+                <br />
+                <br />
+                <button (click)="rotateLeft()">{{'Register.Rotateleft'|translate}}</button>
+                <button (click)="rotateRight()">{{'Register.Rotateright'|translate}}</button>
+                <button (click)="flipHorizontal()">{{'Register.Fliphorizontal'|translate}}</button>
+                <button (click)="flipVertical()">{{'Register.Flipvertical'|translate}}</button>
+                <br />
+                <br />
+                <button (click)="toggleContainWithinAspectRatio()">{{containWithinAspectRatio?'Fill Aspect Ratio':'Contain Within Aspect Ratio'}}</button>
+                <button (click)="resetImage()">{{'Register.ResetImage'|translate}}</button>
+                <br />
+                <br />
+                <input [(ngModel)]="rotation" placeholder="Rotation" type="number" (keyup)="updateRotation()" /> <button (click)="zoomOut()">{{'Register.Zoom'|translate}} -</button> <button (click)="zoomIn()">{{'Register.Zoom'|translate}} +</button>
+                <div class="cropper-scrolable">
+                <div *ngIf="imageCropperThree">
+                    <image-cropper
+                        [imageChangedEvent]="imageChangedEvent"
+                        [maintainAspectRatio]="true"
+                        [containWithinAspectRatio]="containWithinAspectRatio"
+                        [aspectRatio]="4 / 3"
+                        [resizeToWidth]="256"
+                        [cropperMinWidth]="128"
+                        [onlyScaleDown]="true"
+                        [roundCropper]="false"
+                        [canvasRotation]="canvasRotation"
+                        [transform]="transform"
+                        [alignImage]="'left'"
+                        [style.display]="showCropper ? null : 'none'"
+                        format="png"
+                        (imageCropped)="imageCropped($event,3)"
+                        (imageLoaded)="imageLoaded()"
+                        (cropperReady)="cropperReady($event)"
+                        (loadImageFailed)="loadImageFailed()"
+                    ></image-cropper>
+                </div>
+                <img [src]="image3" [style.border]="image3 ? '1px solid black' : 'none'" />
+
+</div>
+                <!-- end -->
+               
+              </div>
+            </div>
+            
+            <!-- <div class="form-group row">
+          <div class="col-md-12">
+                 <input type="password" class="form-control" placeholder="Type New Password">
+          </div>
+      </div>
+      <div class="form-group row">
+              <div class="col-md-12">
+                     <input type="password" class="form-control" placeholder="Retype New Password">
+              </div>
+          </div> -->
+            <div class="form-group row">
+              <div class="col-md-3">
+                <button  class="btn btn-lg btn-primary btn-block"
+                (click)="onCloseHandled()"
+                  type="button">{{'Register.Cart.Save'|translate}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- end 2-->
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+                  <div *ngIf="visibleDiv=='4-Images'" class="row mt-2">
+                    
+
+                      
+                        <div class="col-md-12">
+                            <div class="banner-area-width">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="upload-img-area" (click)="openFile(1)">
+                                <div class="image-number">
+                                  {{'Register.Image1'|translate}}
+                                </div>
+                                <img   class="sale-banner-full-4" [src]="!image1?'/assets/1234.jpg':image1">
+                                <p class="thumb-size text-right">{{'Register.Size'|translate}}: 300x300</p>
+                              </div>
+                              <input id="fileDialog" #Image style="visibility:hidden;" type='file' (change)="onSelectFile($event,selectView.value,ChangeView.value)" multiple   >
+                              <label class="pull-left mt-2"> {{'Register.Enterurlofimage1'|translate}} : </label>
+                               <input [(ngModel)]="image1Url" class=" form-control col-md-12"  type="text" />
+                               <!-- start -->
+                               <button type="button"  (click)="openModal()">{{'Register.UploadImage1'|translate}}</button>
+
+                               <!-- start modal image 1 -->
+                               <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}"  >
+                                 <div class="modal-dialog modal-lg modal-dialog-full" role="document">
+                                   <div class="modal-content">
+                                     <div class="modal-header">
+                                       <button type="button" class="close" data-dismiss="modal" (click)="onCloseHandled()">&times;</button>
+                                      
+                                     </div>
+                                     <div class="modal-body pad-all-md">
+                                       <div class="row">
+                                   
+                                         <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                           <div class="row">
+                                             <div class="col-md-12">
+                               
+                                               <!-- start -->
+                                               <input id="fileDialog" #Image  type='file' (change)="fileChangeEvent($event,selectView.value,ChangeView.value,1,1)" multiple  >
+                                             
+                                               <br />
+                                               <br />
+                                               <button (click)="rotateLeft()">{{'Register.Rotateleft'|translate}}</button>
+                                               <button (click)="rotateRight()">{{'Register.Rotateright'|translate}}</button>
+                                               <button (click)="flipHorizontal()">{{'Register.Fliphorizontal'|translate}}</button>
+                                               <button (click)="flipVertical()">{{'Register.Flipvertical'|translate}}</button>
+                                               <br />
+                                               <br />
+                                               <button (click)="toggleContainWithinAspectRatio()">{{containWithinAspectRatio?'Fill Aspect Ratio':'Contain Within Aspect Ratio'}}</button>
+                                               <button (click)="resetImage()">{{'Register.ResetImage'|translate}}</button>
+                                               <br />
+                                               <br />
+                                               <input [(ngModel)]="rotation" placeholder="Rotation" type="number" (keyup)="updateRotation()" /> <button (click)="zoomOut()">{{'Register.Zoom'|translate}} -</button> <button (click)="zoomIn()">{{'Register.Zoom'|translate}} +</button>
+                                               <div class="cropper-scrolable">
+                                               <div *ngIf="imageCropperOne">
+                                                   <image-cropper
+                                                       [imageChangedEvent]="imageChangedEvent"
+                                                       [maintainAspectRatio]="true"
+                                                       [containWithinAspectRatio]="containWithinAspectRatio"
+                                                       [aspectRatio]="4 / 3"
+                                                       [resizeToWidth]="256"
+                                                       [cropperMinWidth]="128"
+                                                       [onlyScaleDown]="true"
+                                                       [roundCropper]="false"
+                                                       [canvasRotation]="canvasRotation"
+                                                       [transform]="transform"
+                                                       [alignImage]="'left'"
+                                                       [style.display]="showCropper ? null : 'none'"
+                                                       format="png"
+                                                       (imageCropped)="imageCropped($event,1)"
+                                                       (imageLoaded)="imageLoaded()"
+                                                       (cropperReady)="cropperReady($event)"
+                                                       (loadImageFailed)="loadImageFailed()"
+                                                   ></image-cropper>
+                                               </div>
+                                               <img [src]="image1" [style.border]="image1 ? '1px solid black' : 'none'" />
+
+</div>
+                                               <!-- end -->
+                                              
+                                             </div>
+                                           </div>
+                                           
+                                           <!-- <div class="form-group row">
+                                         <div class="col-md-12">
+                                                <input type="password" class="form-control" placeholder="Type New Password">
+                                         </div>
+                                     </div>
+                                     <div class="form-group row">
+                                             <div class="col-md-12">
+                                                    <input type="password" class="form-control" placeholder="Retype New Password">
+                                             </div>
+                                         </div> -->
+                                           <div class="form-group row">
+                                             <div class="col-md-3">
+                                               <button  class="btn btn-lg btn-primary btn-block"
+                                               (click)="onCloseHandled()"
+                                                 type="button">{{'Register.Cart.Save'|translate}}</button>
+                                             </div>
+                                           </div>
+                                         </div>
+                                       </div>
+                                     </div>
+                               
+                                   </div>
+                                 </div>
+                               </div>
+                               <!-- end -->
+                            </div>
+                            <div class="col-md-6">
+                              <div class="upload-img-area" (click)="openFile(2)">
+                                <div class="image-number">
+                                  {{'Register.Image2'|translate}}
+                                </div>
+                                <img   class="sale-banner-full-4" [src]="!image2?'/assets/1234.jpg':image2">
+                                <p class="thumb-size text-right">{{'Register.Size'|translate}}: 300x300</p>
+                              </div>
+                              <label class="pull-left mt-2"> {{'Register.Enterurlofimage2'|translate}} : </label>
+                               <input [(ngModel)]="image2Url" class=" form-control col-md-12"  type="text" />
+                               <button type="button"  (click)="openModal2()">{{'Register.UploadImage2'|translate}}</button>
+
+<!-- start modal image 1 -->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display1}"  >
+  <div class="modal-dialog modal-lg modal-dialog-full" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" (click)="onCloseHandled()">&times;</button>
+       
+      </div>
+      <div class="modal-body pad-all-md">
+        <div class="row">
+    
+          <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+            <div class="row">
+              <div class="col-md-12">
+
+                <!-- start -->
+                <input type="file" (change)="fileChangeEvent($event,selectView.value,ChangeView.value,2,2)" />
+                <br />
+                <br />
+                <button (click)="rotateLeft()">{{'Register.Rotateleft'|translate}}</button>
+                <button (click)="rotateRight()">{{'Register.Rotateright'|translate}}</button>
+                <button (click)="flipHorizontal()">{{'Register.Fliphorizontal'|translate}}</button>
+                <button (click)="flipVertical()">{{'Register.Flipvertical'|translate}}</button>
+                <br />
+                <br />
+                <button (click)="toggleContainWithinAspectRatio()">{{containWithinAspectRatio?'Fill Aspect Ratio':'Contain Within Aspect Ratio'}}</button>
+                <button (click)="resetImage()">{{'Register.ResetImage'|translate}}</button>
+                <br />
+                <br />
+                <input [(ngModel)]="rotation" placeholder="Rotation" type="number" (keyup)="updateRotation()" /> <button (click)="zoomOut()">{{'Register.Zoom'|translate}} -</button> <button (click)="zoomIn()">{{'Register.Zoom'|translate}} +</button>
+                <div class="cropper-scrolable">
+                <div *ngIf="imageCroppertwo">
+                    <image-cropper
+                        [imageChangedEvent]="imageChangedEvent"
+                        [maintainAspectRatio]="true"
+                        [containWithinAspectRatio]="containWithinAspectRatio"
+                        [aspectRatio]="4 / 3"
+                        [resizeToWidth]="256"
+                        [cropperMinWidth]="128"
+                        [onlyScaleDown]="true"
+                        [roundCropper]="false"
+                        [canvasRotation]="canvasRotation"
+                        [transform]="transform"
+                        [alignImage]="'left'"
+                        [style.display]="showCropper ? null : 'none'"
+                        format="png"
+                        (imageCropped)="imageCropped($event,2)"
+                        (imageLoaded)="imageLoaded()"
+                        (cropperReady)="cropperReady($event)"
+                        (loadImageFailed)="loadImageFailed()"
+                    ></image-cropper>
+                </div>
+                <img [src]="image2" [style.border]="image2 ? '1px solid black' : 'none'" />
+
+</div>  
+                <!-- end -->
+               
+              </div>
+            </div>
+            
+            <!-- <div class="form-group row">
+          <div class="col-md-12">
+                 <input type="password" class="form-control" placeholder="Type New Password">
+          </div>
+      </div>
+      <div class="form-group row">
+              <div class="col-md-12">
+                     <input type="password" class="form-control" placeholder="Retype New Password">
+              </div>
+          </div> -->
+            <div class="form-group row">
+              <div class="col-md-3">
+                <button  class="btn btn-lg btn-primary btn-block"
+                (click)="onCloseHandled()"
+                  type="button">{{'Register.Cart.Save'|translate}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+                            </div>
+                          </div>
+                          <div class="row mt-3">
+                            <div class="col-md-6">
+                              <div class="upload-img-area" (click)="openFile(3)">
+                                <div class="image-number">
+                                  {{'Register.Image3'|translate}}
+                                </div>
+                                <img   class="sale-banner-full-4" [src]="!image3?'/assets/1234.jpg':image3">
+                                <p class="thumb-size text-right">{{'Register.Size'|translate}}: 300x300</p>
+                              </div>
+                              <label class="pull-left mt-2"> {{'Register.Enterurlofimage3'|translate}} : </label>
+                               <input [(ngModel)]="image3Url" class=" form-control col-md-12"  type="text" />
+                               <!-- start 2 -->
+<button type="button"  (click)="openModal3()">{{'Register.UploadImage3'|translate}}</button>
+
+<!-- start modal image 1 -->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display2}"  >
+  <div class="modal-dialog modal-lg modal-dialog-full" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" (click)="onCloseHandled()">&times;</button>
+       
+      </div>
+      <div class="modal-body pad-all-md">
+        <div class="row">
+    
+          <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+            <div class="row">
+              <div class="col-md-12">
+
+                <!-- start -->
+                <input type="file" (change)="fileChangeEvent($event,selectView.value,ChangeView.value,3,3)" />
+                <br />
+                <br />
+                <button (click)="rotateLeft()">{{'Register.Rotateleft'|translate}}</button>
+                <button (click)="rotateRight()">{{'Register.Rotateright'|translate}}</button>
+                <button (click)="flipHorizontal()">{{'Register.Fliphorizontal'|translate}}</button>
+                <button (click)="flipVertical()">{{'Register.Flipvertical'|translate}}</button>
+                <br />
+                <br />
+                <button (click)="toggleContainWithinAspectRatio()">{{containWithinAspectRatio?'Fill Aspect Ratio':'Contain Within Aspect Ratio'}}</button>
+                <button (click)="resetImage()">{{'Register.ResetImage'|translate}}</button>
+                <br />
+                <br />
+                <input [(ngModel)]="rotation" placeholder="Rotation" type="number" (keyup)="updateRotation()" /> <button (click)="zoomOut()">{{'Register.Zoom'|translate}} -</button> <button (click)="zoomIn()">{{'Register.Zoom'|translate}} +</button>
+                <div class="cropper-scrolable">
+                <div *ngIf="imageCropperThree">
+                    <image-cropper
+                        [imageChangedEvent]="imageChangedEvent"
+                        [maintainAspectRatio]="true"
+                        [containWithinAspectRatio]="containWithinAspectRatio"
+                        [aspectRatio]="4 / 3"
+                        [resizeToWidth]="256"
+                        [cropperMinWidth]="128"
+                        [onlyScaleDown]="true"
+                        [roundCropper]="false"
+                        [canvasRotation]="canvasRotation"
+                        [transform]="transform"
+                        [alignImage]="'left'"
+                        [style.display]="showCropper ? null : 'none'"
+                        format="png"
+                        (imageCropped)="imageCropped($event,3)"
+                        (imageLoaded)="imageLoaded()"
+                        (cropperReady)="cropperReady($event)"
+                        (loadImageFailed)="loadImageFailed()"
+                    ></image-cropper>
+                </div>
+                <img [src]="image3" [style.border]="image3 ? '1px solid black' : 'none'" />
+
+</div>
+
+                <!-- end -->
+               
+              </div>
+            </div>
+            
+            <!-- <div class="form-group row">
+          <div class="col-md-12">
+                 <input type="password" class="form-control" placeholder="Type New Password">
+          </div>
+      </div>
+      <div class="form-group row">
+              <div class="col-md-12">
+                     <input type="password" class="form-control" placeholder="Retype New Password">
+              </div>
+          </div> -->
+            <div class="form-group row">
+              <div class="col-md-3">
+                <button  class="btn btn-lg btn-primary btn-block"
+                (click)="onCloseHandled()"
+                  type="button">{{'Register.Cart.Save'|translate}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- end 2-->
+                            </div>
+                            <div class="col-md-6">
+                              <div class="upload-img-area"(click)="openFile(4)">
+                                <div class="image-number">
+                                  {{'Register.Image4'|translate}}
+                                </div>
+                                <img   class="sale-banner-full-4" [src]="!image4?'/assets/1234.jpg':image4">
+                                <p class="thumb-size text-right">{{'Register.Size'|translate}}: 300x300</p>
+                              </div>
+                              <label class="pull-left mt-2"> {{'Register.Enterurlofimage4'|translate}} : </label> 
+                              <input [(ngModel)]="image4Url" class=" form-control col-md-12"  type="text" />
+                              <button type="button"  (click)="openmoadal4()">{{'Register.UploadImage4'|translate}}</button>
+
+<!-- start modal image 1 -->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display4}"  >
+  <div class="modal-dialog modal-lg modal-dialog-full" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" (click)="onCloseHandled()">&times;</button>
+       
+      </div>
+      <div class="modal-body pad-all-md">
+        <div class="row">
+    
+          <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+            <div class="row">
+              <div class="col-md-12">
+
+                <!-- start -->
+                <input type="file" (change)="fileChangeEvent($event,selectView.value,ChangeView.value,4,4)" />
+                <br />
+                <br />
+                <button (click)="rotateLeft()">{{'Register.Rotateleft'|translate}}</button>
+                <button (click)="rotateRight()">{{'Register.Rotateright'|translate}}</button>
+                <button (click)="flipHorizontal()">{{'Register.Fliphorizontal'|translate}}</button>
+                <button (click)="flipVertical()">{{'Register.Flipvertical'|translate}}</button>
+                <br />
+                <br />
+                <button (click)="toggleContainWithinAspectRatio()">{{containWithinAspectRatio?'Fill Aspect Ratio':'Contain Within Aspect Ratio'}}</button>
+                <button (click)="resetImage()">{{'Register.ResetImage'|translate}}</button>
+                <br />
+                <br />
+                <input [(ngModel)]="rotation" placeholder="Rotation" type="number" (keyup)="updateRotation()" /> <button (click)="zoomOut()">{{'Register.Zoom'|translate}} -</button> <button (click)="zoomIn()">{{'Register.Zoom'|translate}} +</button>
+                <div class="cropper-scrolable">
+                <div *ngIf="imageCropperFour">
+                    <image-cropper
+                        [imageChangedEvent]="imageChangedEvent"
+                        [maintainAspectRatio]="true"
+                        [containWithinAspectRatio]="containWithinAspectRatio"
+                        [aspectRatio]="4 / 3"
+                        [resizeToWidth]="256"
+                        [cropperMinWidth]="128"
+                        [onlyScaleDown]="true"
+                        [roundCropper]="false"
+                        [canvasRotation]="canvasRotation"
+                        [transform]="transform"
+                        [alignImage]="'left'"
+                        [style.display]="showCropper ? null : 'none'"
+                        format="png"
+                        (imageCropped)="imageCropped($event,4)"
+                        (imageLoaded)="imageLoaded()"
+                        (cropperReady)="cropperReady($event)"
+                        (loadImageFailed)="loadImageFailed()"
+                    ></image-cropper>
+                </div>
+                <img [src]="image4" [style.border]="image4 ? '1px solid black' : 'none'" />
+
+</div>
+                <!-- end -->
+               
+              </div>
+            </div>
+            
+            <!-- <div class="form-group row">
+          <div class="col-md-12">
+                 <input type="password" class="form-control" placeholder="Type New Password">
+          </div>
+      </div>
+      <div class="form-group row">
+              <div class="col-md-12">
+                     <input type="password" class="form-control" placeholder="Retype New Password">
+              </div>
+          </div> -->
+            <div class="form-group row">
+              <div class="col-md-3">
+                <button  class="btn btn-lg btn-primary btn-block"
+                (click)="onCloseHandled()"
+                  type="button">{{'Register.Cart.Save'|translate}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- end 2-->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                     
+
+                   
+                  </div>
+                  <div *ngIf="visibleDiv=='Half-Down'" class="row mt-2">
+                   
+                        <div class="col-md-12">
+                            <div class="banner-area-width">
+                          <div class="row mb-3">
+                            <div class="col-md-6">
+                              <div class="upload-img-area" (click)="openFile(1)">
+                                <div class="image-number">
+                                  {{'Register.Image1'|translate}}
+                                </div>
+                                <img   class="sale-banner-full-4" [src]="!image1?'/assets/1234.jpg':image1">
+                                <p class="thumb-size text-right">{{'Register.Size'|translate}}: 300x300</p>
+                              </div>
+                              <input id="fileDialog" #Image style="visibility:hidden;" type='file' (change)="onSelectFile($event,selectView.value,ChangeView.value)" multiple   >
+                              <label class="pull-left mt-2"> {{'Register.Enterurlofimage1'|translate}} : </label> 
+                              <input [(ngModel)]="image1Url" class=" form-control col-md-12"  type="text" />
+                                <!-- start -->
+                                <button type="button"  (click)="openModal()">{{'Register.UploadImage1'|translate}}</button>
+
+                                <!-- start modal image 1 -->
+                                <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}"  >
+                                  <div class="modal-dialog modal-lg modal-dialog-full" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" (click)="onCloseHandled()">&times;</button>
+                                       
+                                      </div>
+                                      <div class="modal-body pad-all-md">
+                                        <div class="row">
+                                    
+                                          <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                            <div class="row">
+                                              <div class="col-md-12">
+                                
+                                                <!-- start -->
+                                                <input id="fileDialog" #Image  type='file' (change)="fileChangeEvent($event,selectView.value,ChangeView.value,1,1)" multiple  >
+                                              
+                                                <br />
+                                                <br />
+                                                <button (click)="rotateLeft()">{{'Register.Rotateleft'|translate}}</button>
+                                                <button (click)="rotateRight()">{{'Register.Rotateright'|translate}}</button>
+                                                <button (click)="flipHorizontal()">{{'Register.Fliphorizontal'|translate}}</button>
+                                                <button (click)="flipVertical()">{{'Register.Flipvertical'|translate}}</button>
+                                                <br />
+                                                <br />
+                                                <button (click)="toggleContainWithinAspectRatio()">{{containWithinAspectRatio?'Fill Aspect Ratio':'Contain Within Aspect Ratio'}}</button>
+                                                <button (click)="resetImage()">{{'Register.ResetImage'|translate}}</button>
+                                                <br />
+                                                <br />
+                                                <input [(ngModel)]="rotation" placeholder="Rotation" type="number" (keyup)="updateRotation()" /> <button (click)="zoomOut()">{{'Register.Zoom'|translate}} -</button> <button (click)="zoomIn()">{{'Register.Zoom'|translate}} +</button>
+                                                <div class="cropper-scrolable">
+                                                <div *ngIf="imageCropperOne">
+                                                    <image-cropper
+                                                        [imageChangedEvent]="imageChangedEvent"
+                                                        [maintainAspectRatio]="true"
+                                                        [containWithinAspectRatio]="containWithinAspectRatio"
+                                                        [aspectRatio]="4 / 3"
+                        [resizeToWidth]="256"
+                        [cropperMinWidth]="128"
+                                                        [onlyScaleDown]="true"
+                                                        [roundCropper]="false"
+                                                        [canvasRotation]="canvasRotation"
+                                                        [transform]="transform"
+                                                        [alignImage]="'left'"
+                                                        [style.display]="showCropper ? null : 'none'"
+                                                        format="png"
+                                                        (imageCropped)="imageCropped($event,1)"
+                                                        (imageLoaded)="imageLoaded()"
+                                                        (cropperReady)="cropperReady($event)"
+                                                        (loadImageFailed)="loadImageFailed()"
+                                                    ></image-cropper>
+                                                </div>
+                                                <img [src]="image1" [style.border]="image1 ? '1px solid black' : 'none'" />
+
+                                              </div>
+                                                <!-- end -->
+                                               
+                                              </div>
+                                            </div>
+                                            
+                                            <!-- <div class="form-group row">
+                                          <div class="col-md-12">
+                                                 <input type="password" class="form-control" placeholder="Type New Password">
+                                          </div>
+                                      </div>
+                                      <div class="form-group row">
+                                              <div class="col-md-12">
+                                                     <input type="password" class="form-control" placeholder="Retype New Password">
+                                              </div>
+                                          </div> -->
+                                            <div class="form-group row">
+                                              <div class="col-md-3">
+                                                <button  class="btn btn-lg btn-primary btn-block"
+                                                (click)="onCloseHandled()"
+                                                  type="button">{{'Register.Cart.Save'|translate}}</button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- end -->
+                         
+                            </div>
+                            <div class="col-md-6">
+                              <div class="upload-img-area" (click)="openFile(2)">
+                                <div class="image-number">
+                                  {{'Register.Image2'|translate}}
+                                </div>
+                                <img   class="sale-banner-full-4" [src]="!image2?'/assets/1234.jpg':image2">
+                                <p class="thumb-size text-right">{{'Register.Size'|translate}}: 300x300</p>
+                              </div>
+                              <label class="pull-left mt-2"> {{'Register.Enterurlofimage2'|translate}} : </label> 
+                              <input [(ngModel)]="image2Url" class=" form-control col-md-12"  type="text" />
+                                               <!-- start 2 -->
+<button type="button"  (click)="openModal2()">{{'Register.UploadImage2'|translate}}</button>
+
+<!-- start modal image 1 -->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display1}"  >
+  <div class="modal-dialog modal-lg modal-dialog-full" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" (click)="onCloseHandled()">&times;</button>
+       
+      </div>
+      <div class="modal-body pad-all-md">
+        <div class="row">
+    
+          <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+            <div class="row">
+              <div class="col-md-12">
+
+                <!-- start -->
+                <input type="file" (change)="fileChangeEvent($event,selectView.value,ChangeView.value,2,2)" />
+                <br />
+                <br />
+                
+                <button (click)="rotateLeft()">{{'Register.Rotateleft'|translate}}</button>
+                <button (click)="rotateRight()">{{'Register.Rotateright'|translate}}</button>
+                <button (click)="flipHorizontal()">{{'Register.Fliphorizontal'|translate}}</button>
+                <button (click)="flipVertical()">{{'Register.Flipvertical'|translate}}</button>
+                <br />
+                <br />
+                <button (click)="toggleContainWithinAspectRatio()">{{containWithinAspectRatio?'Fill Aspect Ratio':'Contain Within Aspect Ratio'}}</button>
+                <button (click)="resetImage()">{{'Register.ResetImage'|translate}}</button>
+                <br />
+                <br />
+                <input [(ngModel)]="rotation" placeholder="Rotation" type="number" (keyup)="updateRotation()" /> <button (click)="zoomOut()">{{'Register.Zoom'|translate}} -</button> <button (click)="zoomIn()">{{'Register.Zoom'|translate}} +</button>
+                <div class="cropper-scrolable">
+                <div *ngIf="imageCroppertwo">
+                    <image-cropper
+                        [imageChangedEvent]="imageChangedEvent"
+                        [maintainAspectRatio]="true"
+                        [containWithinAspectRatio]="containWithinAspectRatio"
+                        [aspectRatio]="4 / 3"
+                        [resizeToWidth]="256"
+                        [cropperMinWidth]="128"
+                        [onlyScaleDown]="true"
+                        [roundCropper]="false"
+                        [canvasRotation]="canvasRotation"
+                        [transform]="transform"
+                        [alignImage]="'left'"
+                        [style.display]="showCropper ? null : 'none'"
+                        format="png"
+                        (imageCropped)="imageCropped($event,2)"
+                        (imageLoaded)="imageLoaded()"
+                        (cropperReady)="cropperReady($event)"
+                        (loadImageFailed)="loadImageFailed()"
+                    ></image-cropper>
+                </div>
+                <img [src]="image2" [style.border]="image2 ? '1px solid black' : 'none'" />
+
+              </div>
+                <!-- end -->
+               
+              </div>
+            </div>
+            
+            <!-- <div class="form-group row">
+          <div class="col-md-12">
+                 <input type="password" class="form-control" placeholder="Type New Password">
+          </div>
+      </div>
+      <div class="form-group row">
+              <div class="col-md-12">
+                     <input type="password" class="form-control" placeholder="Retype New Password">
+              </div>
+          </div> -->
+            <div class="form-group row">
+              <div class="col-md-3">
+                <button  class="btn btn-lg btn-primary btn-block"
+                (click)="onCloseHandled()"
+                  type="button">{{'Register.Cart.Save'|translate}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- end 2-->
+
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+
+                              <div class="upload-img-area" (click)="openFile(3)">
+                                <div class="image-number">
+                                  {{'Register.Image3'|translate}}
+                                </div>
+                                <img   class="sale-banner-full-2" [src]="!image3?'/assets/1234.jpg':image3">
+                                <p class="thumb-size text-right">{{'Register.Size'|translate}}: 600x300</p>
+                              </div>
+                              <label class="pull-left mt-2"> {{'Register.Enterurlofimage3'|translate}} : </label> 
+                              <input [(ngModel)]="image3Url" class=" form-control col-md-12"  type="text" />
+                              <!-- start 2 -->
+<button type="button"  (click)="openModal3()">{{'Register.UploadImage3'|translate}}</button>
+
+<!-- start modal image 1 -->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display2}"  >
+  <div class="modal-dialog modal-lg modal-dialog-full" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" (click)="onCloseHandled()">&times;</button>
+       
+      </div>
+      <div class="modal-body pad-all-md">
+        <div class="row">
+    
+          <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+            <div class="row">
+              <div class="col-md-12">
+
+                <!-- start -->
+                <input type="file" (change)="fileChangeEvent($event,selectView.value,ChangeView.value,3,3)" />
+                <br />
+                <br />
+                <button (click)="rotateLeft()">{{'Register.Rotateleft'|translate}}</button>
+                <button (click)="rotateRight()">{{'Register.Rotateright'|translate}}</button>
+                <button (click)="flipHorizontal()">{{'Register.Fliphorizontal'|translate}}</button>
+                <button (click)="flipVertical()">{{'Register.Flipvertical'|translate}}</button>
+                <br />
+                <br />
+                <button (click)="toggleContainWithinAspectRatio()">{{containWithinAspectRatio?'Fill Aspect Ratio':'Contain Within Aspect Ratio'}}</button>
+                <button (click)="resetImage()">{{'Register.ResetImage'|translate}}</button>
+                <br />
+                <br />
+                <input [(ngModel)]="rotation" placeholder="Rotation" type="number" (keyup)="updateRotation()" /> <button (click)="zoomOut()">{{'Register.Zoom'|translate}} -</button> <button (click)="zoomIn()">{{'Register.Zoom'|translate}} +</button>
+                <div class="cropper-scrolable">
+                <div *ngIf="imageCropperThree">
+                    <image-cropper
+                        [imageChangedEvent]="imageChangedEvent"
+                        [maintainAspectRatio]="true"
+                        [containWithinAspectRatio]="containWithinAspectRatio"
+                       
+
+                        [aspectRatio]="4 / 1.5"
+                        [resizeToWidth]="500"
+                        [cropperMinWidth]="150"
+                        [onlyScaleDown]="true"
+                        [roundCropper]="false"
+                        [canvasRotation]="canvasRotation"
+                        [transform]="transform"
+                        [alignImage]="'left'"
+                        [style.display]="showCropper ? null : 'none'"
+                        format="png"
+                        (imageCropped)="imageCropped($event,3)"
+                        (imageLoaded)="imageLoaded()"
+                        (cropperReady)="cropperReady($event)"
+                        (loadImageFailed)="loadImageFailed()"
+                    ></image-cropper>
+                </div>
+                <img [src]="image3" [style.border]="image3 ? '1px solid black' : 'none'" />
+
+                </div>
+                <!-- end -->
+               
+              </div>
+            </div>
+            
+            <!-- <div class="form-group row">
+          <div class="col-md-12">
+                 <input type="password" class="form-control" placeholder="Type New Password">
+          </div>
+      </div>
+      <div class="form-group row">
+              <div class="col-md-12">
+                     <input type="password" class="form-control" placeholder="Retype New Password">
+              </div>
+          </div> -->
+            <div class="form-group row">
+              <div class="col-md-3">
+                <button  class="btn btn-lg btn-primary btn-block"
+                (click)="onCloseHandled()"
+                  type="button">{{'Register.Cart.Save'|translate}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- end 2-->
+
+                            </div>
+                          </div>
+
+                        </div>
+
+                   
+                  </div>
+                </div>
+                  <div *ngIf="visibleDiv=='FullImage'" class="row mt-2">
+                    <div class="col-md-12">
+                        <div class="banner-area-width">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                              <div class="upload-img-area" (click)="openFile(1)" >
+                                <div class="image-number">
+                                  {{'Register.Image1'|translate}}
+                                </div>
+                                <img   class="sale-banner-full-1" [src]="!image1?'/assets/1234.jpg':image1">
+                                <p class="thumb-size text-right">{{'Register.Size'|translate}}: 600x600</p>
+                              </div>
+                            
+                              <input id="fileDialog" #Image style="visibility:hidden;" type='file' (change)="onSelectFile($event,selectView.value,ChangeView.value)" multiple  >
+                              <label class="pull-left mt-2"> {{'Register.Enterurlofimage1'|translate}} : </label> 
+                              <input [(ngModel)]="image1Url" class=" form-control col-md-12"  type="text" />
+                                <!-- start -->
+                                <button type="button"  (click)="openModal()">{{'Register.UploadImage1'|translate}}</button>
+
+                                <!-- start modal image 1 -->
+                                <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}"  >
+                                  <div class="modal-dialog modal-lg modal-dialog-full" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" (click)="onCloseHandled()">&times;</button>
+                                       
+                                      </div>
+                                      <div class="modal-body pad-all-md">
+                                        <div class="row">
+                                    
+                                          <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                            <div class="row">
+                                              <div class="col-md-12">
+                                
+                                                <!-- start -->
+                                                <input id="fileDialog" #Image  type='file' (change)="fileChangeEvent($event,selectView.value,ChangeView.value,1,1)" multiple  >
+                                              
+                                                <br />
+                                                <br />
+                                                <button (click)="rotateLeft()">{{'Register.Rotateleft'|translate}}</button>
+                                                <button (click)="rotateRight()">{{'Register.Rotateright'|translate}}</button>
+                                                <button (click)="flipHorizontal()">{{'Register.Fliphorizontal'|translate}}</button>
+                                                <button (click)="flipVertical()">{{'Register.Flipvertical'|translate}}</button>
+                                                <br />
+                                                <br />
+                                                <button (click)="toggleContainWithinAspectRatio()">{{containWithinAspectRatio?'Fill Aspect Ratio':'Contain Within Aspect Ratio'}}</button>
+                                                <button (click)="resetImage()">{{'Register.ResetImage'|translate}}</button>
+                                                <br />
+                                                <br />
+                                                <input [(ngModel)]="rotation" placeholder="Rotation" type="number" (keyup)="updateRotation()" /> <button (click)="zoomOut()">{{'Register.Zoom'|translate}} -</button> <button (click)="zoomIn()">{{'Register.Zoom'|translate}} +</button>
+                                                <div class="cropper-scrolable">
+                                                <div *ngIf="imageCropperOne">
+                                                    <image-cropper
+                                                        [imageChangedEvent]="imageChangedEvent"
+                                                        [maintainAspectRatio]="true"
+                                                        [containWithinAspectRatio]="containWithinAspectRatio"
+                                                        [aspectRatio]="4 / 4"
+                                                        [resizeToWidth]="500"
+                                                        [cropperMinWidth]="500"
+                                                        [onlyScaleDown]="true"
+                                                        [roundCropper]="false"
+                                                        [canvasRotation]="canvasRotation"
+                                                        [transform]="transform"
+                                                        [alignImage]="'left'"
+                                                        [style.display]="showCropper ? null : 'none'"
+                                                        format="png"
+                                                        (imageCropped)="imageCropped($event,1)"
+                                                        (imageLoaded)="imageLoaded()"
+                                                        (cropperReady)="cropperReady($event)"
+                                                        (loadImageFailed)="loadImageFailed()"
+                                                    ></image-cropper>
+                                                </div>
+                                                <img [src]="image1" [style.border]="image1 ? '1px solid black' : 'none'" />
+
+</div>
+                                                <!-- end -->
+                                               
+                                              </div>
+                                            </div>
+                                            
+                                            <!-- <div class="form-group row">
+                                          <div class="col-md-12">
+                                                 <input type="password" class="form-control" placeholder="Type New Password">
+                                          </div>
+                                      </div>
+                                      <div class="form-group row">
+                                              <div class="col-md-12">
+                                                     <input type="password" class="form-control" placeholder="Retype New Password">
+                                              </div>
+                                          </div> -->
+                                            <div class="form-group row">
+                                              <div class="col-md-3">
+                                                <button  class="btn btn-lg btn-primary btn-block"
+                                                (click)="onCloseHandled()"
+                                                  type="button">{{'Register.Cart.Save'|translate}}</button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- end -->
+                           
+                            </div>
+                          </div>
+                  </div>
+                </div>
+                </div>
+                  <div *ngIf="visibleDiv=='2-Images'" class="row mt-2">
+                   
+
+                        <div class="col-md-9">
+                            <div class="banner-area-width">
+                          <div class="row mb-3">
+                            <div class="col-md-12">
+
+                              <div class="upload-img-area" (click)="openFile(1)">
+                                <div class="image-number">
+                                  {{'Register.Image1'|translate}}
+                                </div>
+                                <img   class="sale-banner-full-2" [src]="!image1?'/assets/1234.jpg':image1">
+                                <p class="thumb-size text-right">{{'Register.Size'|translate}}: 600x300</p>
+                              </div>
+                              <input id="fileDialog" #Image style="visibility:hidden;" type='file' (change)="onSelectFile($event,selectView.value,ChangeView.value)" multiple  >
+                              <label class="pull-left mt-2"> {{'Register.Enterurlofimage1'|translate}} : </label>
+                               <input [(ngModel)]="image1Url" class=" form-control col-md-12"  type="text" />
+                                 <!-- start -->
+                                 <button type="button"  (click)="openModal()">{{'Register.UploadImage1'|translate}}</button>
+
+                                 <!-- start modal image 1 -->
+                                 <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}"  >
+                                   <div class="modal-dialog modal-lg modal-dialog-full" role="document">
+                                     <div class="modal-content">
+                                       <div class="modal-header">
+                                         <button type="button" class="close" data-dismiss="modal" (click)="onCloseHandled()">&times;</button>
+                                        
+                                       </div>
+                                       <div class="modal-body pad-all-md">
+                                         <div class="row">
+                                     
+                                           <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                             <div class="row">
+                                               <div class="col-md-12">
+                                 
+                                                 <!-- start -->
+                                                 <input id="fileDialog" #Image  type='file' (change)="fileChangeEvent($event,selectView.value,ChangeView.value,1,1)" multiple  >
+                                               
+                                                 <br />
+                                                 <br />
+                                                 <button (click)="rotateLeft()">{{'Register.Rotateleft'|translate}}</button>
+                                                <button (click)="rotateRight()">{{'Register.Rotateright'|translate}}</button>
+                                                <button (click)="flipHorizontal()">{{'Register.Fliphorizontal'|translate}}</button>
+                                                <button (click)="flipVertical()">{{'Register.Flipvertical'|translate}}</button>
+                                                 <br />
+                                                 <br />
+                                                 <button (click)="toggleContainWithinAspectRatio()">{{containWithinAspectRatio?'Fill Aspect Ratio':'Contain Within Aspect Ratio'}}</button>
+                                                 <button (click)="resetImage()">{{'Register.ResetImage'|translate}}</button>
+                                                 <br />
+                                                 <br />
+                                                 <input [(ngModel)]="rotation" placeholder="Rotation" type="number" (keyup)="updateRotation()" /> <button (click)="zoomOut()">{{'Register.Zoom'|translate}} -</button> <button (click)="zoomIn()">{{'Register.Zoom'|translate}} +</button>
+                                                 <div class="cropper-scrolable">
+                                                 <div *ngIf="imageCropperOne">
+                                                     <image-cropper
+                                                         [imageChangedEvent]="imageChangedEvent"
+                                                         [maintainAspectRatio]="true"
+                                                         [containWithinAspectRatio]="containWithinAspectRatio"
+                                                          [aspectRatio]="4 / 1.5"
+                                                          [resizeToWidth]="500"
+                                                          [cropperMinWidth]="150"
+                                                         [onlyScaleDown]="true"
+                                                         [roundCropper]="false"
+                                                         [canvasRotation]="canvasRotation"
+                                                         [transform]="transform"
+                                                         [alignImage]="'left'"
+                                                         [style.display]="showCropper ? null : 'none'"
+                                                         format="png"
+                                                         (imageCropped)="imageCropped($event,1)"
+                                                         (imageLoaded)="imageLoaded()"
+                                                         (cropperReady)="cropperReady($event)"
+                                                         (loadImageFailed)="loadImageFailed()"
+                                                     ></image-cropper>
+                                                 </div>
+                                                 <img [src]="image1" [style.border]="image1 ? '1px solid black' : 'none'" />
+
+</div>
+                                                 <!-- end -->
+                                                
+                                               </div>
+                                             </div>
+                                             
+                                             <!-- <div class="form-group row">
+                                           <div class="col-md-12">
+                                                  <input type="password" class="form-control" placeholder="Type New Password">
+                                           </div>
+                                       </div>
+                                       <div class="form-group row">
+                                               <div class="col-md-12">
+                                                      <input type="password" class="form-control" placeholder="Retype New Password">
+                                               </div>
+                                           </div> -->
+                                             <div class="form-group row">
+                                               <div class="col-md-3">
+                                                 <button  class="btn btn-lg btn-primary btn-block"
+                                                 (click)="onCloseHandled()"
+                                                   type="button">{{'Register.Cart.Save'|translate}}</button>
+                                               </div>
+                                             </div>
+                                           </div>
+                                         </div>
+                                       </div>
+                                 
+                                     </div>
+                                   </div>
+                                 </div>
+                                 <!-- end -->
+                          
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+
+                              <div class="upload-img-area"  (click)="openFile(2)">
+                                <div class="image-number">
+                                  {{'Register.Image2'|translate}}
+                                </div>
+                                <img   class="sale-banner-full-2" [src]="!image2?'/assets/1234.jpg':image2">
+                                <p class="thumb-size text-right">{{'Register.Size'|translate}}: 600x300</p>
+                              </div>
+                              <label class="pull-left mt-2"> {{'Register.Enterurlofimage2'|translate}} : </label>
+                               <input [(ngModel)]="image2Url" class=" form-control col-md-12"  type="text" />
+                                                            <!-- start 2 -->
+<button type="button"  (click)="openModal2()">{{'Register.UploadImage2'|translate}}</button>
+
+<!-- start modal image 1 -->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display1}"  >
+  <div class="modal-dialog modal-lg modal-dialog-full" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" (click)="onCloseHandled()">&times;</button>
+       
+      </div>
+      <div class="modal-body pad-all-md">
+        <div class="row">
+    
+          <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+            <div class="row">
+              <div class="col-md-12">
+
+                <!-- start -->
+                <input type="file" (change)="fileChangeEvent($event,selectView.value,ChangeView.value,2,2)" />
+                <br />
+                <br />
+                <button (click)="rotateLeft()">{{'Register.Rotateleft'|translate}}</button>
+                <button (click)="rotateRight()">{{'Register.Rotateright'|translate}}</button>
+                <button (click)="flipHorizontal()">{{'Register.Fliphorizontal'|translate}}</button>
+                <button (click)="flipVertical()">{{'Register.Flipvertical'|translate}}</button>
+                <br />
+                <br />
+                <button (click)="toggleContainWithinAspectRatio()">{{containWithinAspectRatio?'Fill Aspect Ratio':'Contain Within Aspect Ratio'}}</button>
+                <button (click)="resetImage()">{{'Register.ResetImage'|translate}}</button>
+                <br />
+                <br />
+                <input [(ngModel)]="rotation" placeholder="Rotation" type="number" (keyup)="updateRotation()" /> <button (click)="zoomOut()">{{'Register.Zoom'|translate}} -</button> <button (click)="zoomIn()">{{'Register.Zoom'|translate}} +</button>
+                <div class="cropper-scrolable">
+                <div *ngIf="imageCroppertwo">
+                    <image-cropper
+                        [imageChangedEvent]="imageChangedEvent"
+                        [maintainAspectRatio]="true"
+                        [containWithinAspectRatio]="containWithinAspectRatio"
+                        [aspectRatio]="4 / 1.5"
+                        [resizeToWidth]="500"
+                       [cropperMinWidth]="150"
+                        [onlyScaleDown]="true"
+                        [roundCropper]="false"
+                        [canvasRotation]="canvasRotation"
+                        [transform]="transform"
+                        [alignImage]="'left'"
+                        [style.display]="showCropper ? null : 'none'"
+                        format="png"
+                        (imageCropped)="imageCropped($event,2)"
+                        (imageLoaded)="imageLoaded()"
+                        (cropperReady)="cropperReady($event)"
+                        (loadImageFailed)="loadImageFailed()"
+                    ></image-cropper>
+                </div>
+                <img [src]="image2" [style.border]="image2 ? '1px solid black' : 'none'" />
+
+                </div>
+                <!-- end -->
+               
+              </div>
+            </div>
+            
+            <!-- <div class="form-group row">
+          <div class="col-md-12">
+                 <input type="password" class="form-control" placeholder="Type New Password">
+          </div>
+      </div>
+      <div class="form-group row">
+              <div class="col-md-12">
+                     <input type="password" class="form-control" placeholder="Retype New Password">
+              </div>
+          </div> -->
+            <div class="form-group row">
+              <div class="col-md-3">
+                <button  class="btn btn-lg btn-primary btn-block"
+                (click)="onCloseHandled()"
+                  type="button">{{'Register.Cart.Save'|translate}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- end 2-->
+
+                            </div>
+                          </div>
+                        </div>
+                       
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 text-right" *ngIf="!updateOn">
+          <hr>
+          <button type="button" (click)="onClick()" [disabled]="image1==''" class="btn btn-success">{{'Register.Cart.Save'|translate}}</button>
+        </div>
+
+        <div class="col-md-12 text-right" *ngIf="updateOn">
+          <hr>
+          <button type="button" (click)="onClick()" [disabled]="image1==''" class="btn btn-success">update</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

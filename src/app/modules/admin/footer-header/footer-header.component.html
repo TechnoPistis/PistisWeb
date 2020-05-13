@@ -1,0 +1,63 @@
+<div class="main-panel">
+  <div class="content">
+          <div class="page-inner">
+
+              
+<div class="card">
+  <div class="card-header">
+    <div class="card-head-row">      <div class="card-title">{{'Register.AddFooterHeaderButton'|translate}} </div>
+                  
+                  
+                  <div class="btn-group btn-group-page-header ml-auto">
+                 
+                      <button type="button" class="btn btn-success" (click)="onClick()">{{'Register.ShowFooterHeadersButton'|translate}}</button>
+                  </div>
+              </div>
+            </div>
+
+
+
+
+             
+                <div class="row">
+                        <div class="col-md-12">
+     
+<form #form="ngForm" (submit)="onSubmit(form)" autocomplete="off">
+    <input type="hidden" name="Id" #Id="ngModel" [(ngModel)]="service.formData.Id">
+    <div class="form-group col-sm-12">
+        <label>{{'Register.HeaderName'|translate}}</label>
+        <input name="Name" #Name="ngModel" [(ngModel)]="service.formData.Name" class="form-control" required>
+        <div class="validation-error" *ngIf="Name.invalid && Name.touched">{{'Register.Required_Msg'|translate}}</div>
+      </div>
+  <div class="form-group col-sm-2">
+        <button type="submit" [disabled]="form.invalid" class="btn btn-primary btn-block">{{'Register.SubmitButton'|translate}}</button>
+      </div>
+    </form>
+</div>
+</div>
+</div>
+
+<!-- <div class="card">
+  <div class="card-header">
+      <div class="card-head-row">
+        <div class="card-title">Add Customer Group</div>
+      </div>
+    </div>
+    
+                       
+<form #form="ngForm" (submit)="onSubmit(form)" autocomplete="off">
+    <input type="hidden" name="Id" #Id="ngModel" [(ngModel)]="service.formData.Id">
+    <div class="form-group col-sm-6">
+        <label>Group Name</label>
+        <input name="GroupName" #GroupName="ngModel" [(ngModel)]="service.formData.GroupName" class="form-control" required>
+        <div class="validation-error" *ngIf="GroupName.invalid && GroupName.touched">This field is required.</div>
+      </div>
+  <div class="form-group col-sm-2">
+        <button type="submit" [disabled]="form.invalid" class="btn btn-primary btn-block">SUBMIT</button>
+      </div>
+    </form>
+
+</div> -->
+</div>
+</div>
+</div>

@@ -1,0 +1,98 @@
+<div class="main-panel">
+    <div class="content">
+      <div class="page-inner">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-head-row">
+                  <div class="card-title">{{'Register.VendorBalanceDetail'|translate}} </div>
+                  <div class="btn-group btn-group-page-header ml-auto">
+                    <button type="button" class="btn btn-sm btn-success" [routerLink]="['/admin/balance']" routerLinkActive="router-link-active">{{'Register.VendorBalanceList'|translate}}</button>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                      <div class="row">
+                        <div class="col-md-5">
+                          <div class="row">
+                            <div class="col-md-9">
+                              <select name="Id" #Id="ngModel" [(ngModel)]="isPaid" #ispaid class="form-control" selected [value]="isPaid" >
+                                  <option value="all">All</option>
+                                  <option value="0"> Pending</option>
+                                  <option value="1">Paid</option>
+                                </select>
+                             
+                            </div>
+                            <div class="col-md-3 p-0">
+                              <button class="btn btn-success btn-sm"  (click)="searchPaid(ispaid.value)">Search</button ></div>
+                          </div>
+                          
+                          </div>
+                         <div class="col-md-7">
+                           <div class="box-style">
+                             <div class="row">
+                              <div class="col-md-6">
+                                <p><strong>{{'Register.VendorName'|translate}}: </strong><span>{{List[0].VendorName}}</span></p>
+                                <p><strong>{{'Register.Phone'|translate}}: </strong><span>{{List[0].Phone}}</span></p>
+                                </div>
+                                <div class="col-md-6">
+                                  <p><strong>{{'Register.Email'|translate}}: </strong> <span>{{List[0].Email}}</span></p>
+                                  <p><strong>{{'Register.Amount'|translate}}: </strong> <span>$ {{List[0].Amount}}</span></p>
+                                </div>
+                             </div>
+                           </div>
+                         </div>
+                          </div>
+                       
+                    </div>
+                </div>
+               
+                <div class="row">
+                    <div class="col-md-12">
+
+                    </div>
+                </div>
+                <div class="row pt-3">
+                  <div class="col-md-12">
+                    <div class="table-responsive">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>{{'Register.TransactionNumber'|translate}}</th>
+                            <th>{{'Register.TransactionDate'|translate}} </th>
+                            <th>{{'Register.Amount'|translate}} </th>
+                            <th>{{'Register.IsPaidByPistis'|translate}} </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let l of List">
+                           
+                            <td>{{l.TransactionNumber}}</td>
+                            <td>{{l.TransactionDate|date:'dd-MMM-yyyy'}}</td>
+                            <td>$ {{l.Amount}}</td>
+                            <td>{{l.IsPaidByPistis}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="no-left-right" *ngIf="count">
+                      <app-admin-pagination [count]="count" [page]="page" [(perPage)]="perPage" [pagesToShow]="pagesToShow"
+                        (goPrev)="prevPage()" (goNext)="nextPage()" (goPage)="goToPage($event)"
+                        (pageSize)="newPageSize($event)">
+                      </app-admin-pagination>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

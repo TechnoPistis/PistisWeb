@@ -1,0 +1,149 @@
+<div class="main-panel">
+    <div class="content">
+      <div class="page-inner">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-head-row">
+                  <div class="card-title">{{'Register.VendorBalanceList'|translate}} </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="input-group" id="adv-search">
+                      <input type="text" class="form-control" [(ngModel)]="SearchName" placeholder="Search..">
+                      <div class="input-group-btn">
+                        <div class="btn-group" role="group">
+                         <button type="button" class="btn btn-primary" (click)="search()"><span class="fa fa-search"
+                              aria-hidden="true"></span></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row pt-3">
+                  <div class="col-md-12">
+                    <div class="table-responsive">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+  
+                            <!-- <th>Profile Picture</th> -->
+                            <th>{{'Register.Name'|translate}}</th>
+                            <th>{{'Register.EmailAddress'|translate}} </th>
+                            <th>{{'Register.Phone'|translate}} </th>
+                            <th>{{'Register.LastPaymentDate'|translate}} </th>
+                            <th>{{'Register.DueAmount'|translate}} </th>
+                            <th>{{'Register.View'|translate}} </th>
+  
+                            
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let l of List">
+                           
+                            <td>{{l.VendorName}}</td>
+                            <td>{{l.Email}}</td>
+                            <td>{{l.Phone}}</td>
+                            <td>{{l.LastPaymentDate|date:'dd-MMM-yyyy'}}</td>
+                            <td>$ {{l.AmountDue}}</td>
+                            <td>
+                              <button (click)="viewDetail(l.VendorId)"
+                                class="btn btn-sm btn-outline-danger">{{'Register.View'|translate}}</button>
+                                <button *ngIf="l.AmountDue>0" (click)="openpopup(l.VendorId)"
+                                class="btn btn-sm btn-outline-danger">{{'Register.Pay'|translate}}</button>
+                                <button *ngIf="l.AmountDue<=0" class="btn btn-sm btn-outline-danger" disabled>  {{'Register.Pay'|translate}}</button>
+                            </td>
+  
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <!-- popup start -->
+                  <div  class="modal modal-new" *ngIf="showDiv" [ngStyle]="{'display':display}">
+      <div class="modal-dialog">
+      <div class="modal-content">
+      <form  method="post">
+      <div class="modal-header">
+      <h5>{{'Register.Pay'|translate}}</h5>
+      <button type="button" class="close pull-right" data-dismiss="modal"
+                        aria-label="Close" (click)="closepopup()"><span
+                          aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+              <div class="box-style">
+                <div class="row">
+                  <div class="col-md-12">
+                    <p><strong>{{'Register.VendorName'|translate}}: </strong><span>{{Vendor.VendorName}}</span></p>
+                    <p><strong>{{'Register.Phone'|translate}}: </strong><span>{{Vendor.Phone}}</span></p>
+                    </div>
+                    <div class="col-md-12">
+                      <p><strong>{{'Register.Email'|translate}}: </strong> <span>{{Vendor.Email}}</span></p>
+                    </div>
+                 </div>
+              </div>
+            </div>
+        </div>
+      <div class="row mt-3 mb-2">
+          <div class="col-md-4">
+              <label>Due Amount</label>
+          </div>
+          <div class="col-md-6">
+            <input class="form-control" type="text" value={{Vendor.AmountDue}} disabled >
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-md-4">
+            <label> Amount Paid</label>
+        </div>
+        <div class="col-md-6">
+          <input class="form-control"  type="text" #payment value=""  >
+      </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-4">
+            <label>Transaction Number</label>
+        </div>
+        <div class="col-md-6">
+          <input class="form-control" s type="text" #transno  >
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        &nbsp;
+    </div>
+        <div class="col-md-8">
+           
+            <button class="btn btn-success btn-sm mr-3"  (click)="pay(transno.value,payment.value)">Pay</button> 
+            <button class="btn btn-danger btn-sm " (click)="closepopup()">Cancel</button>    
+        </div>
+      
+    </div>
+      </div>
+      </form>	
+      </div>
+      </div>
+      </div>  
+                  <!-- popup ends -->
+                  <div class="col-md-12">
+                    <div class="no-left-right" *ngIf="count">
+                      <app-admin-pagination [count]="count" [page]="page" [(perPage)]="perPage" [pagesToShow]="pagesToShow"
+                        (goPrev)="prevPage()" (goNext)="nextPage()" (goPage)="goToPage($event)"
+                        (pageSize)="newPageSize($event)">
+                      </app-admin-pagination>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

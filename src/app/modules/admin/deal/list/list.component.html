@@ -1,0 +1,70 @@
+<div class="main-panel">
+  <div class="content">
+    <div class="page-inner">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-head-row">
+                <div class="card-title">{{'Register.Alldeals'|translate}}</div>
+                <div class="btn-group btn-group-page-header ml-auto">
+                  <button type="button" class="btn btn-success" [routerLink]="['/admin/deals/add']">{{'Register.AddDeal'|translate}}
+                    </button>
+                </div>
+              </div>
+
+            </div>
+            <div class="row pt-3">
+              <div class="col-md-12">
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>{{'Register.Deal'|translate}}</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <!-- <th>Regular Price</th> -->
+                        <th>{{'Register.Discount'|translate}}</th>
+                        <th>{{'Register.DealQuantity'|translate}}</th>
+                        <th>{{'Register.Quantity/User'|translate}}</th>
+                        <!-- <th>{{'Register.SoldQty'|translate}}</th> -->
+                        <th>{{'Register.Featured'|translate}}</th>
+                        <th>{{'Register.Status'|translate}}</th>
+                        <th>{{'Register.IsShow'|translate}}</th>
+                        <th>{{'Register.Actions'|translate}}</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                      <tr *ngFor="let deal of dealsList">
+                        <td>{{deal.Name}}</td>
+                        <!-- <td>{{deal.VariantData.ProductSKU}}</td> -->
+                        <td>{{deal.ActiveFrom | date:'mediumDate'}} {{deal.ActiveFromTime}} </td>
+                        <td>{{deal.ActiveTo | date:'mediumDate'}}  {{deal.ActiveToTime}} </td>
+                        <!-- <td>{{deal.VariantData.Price}}</td> -->
+                        <td>{{deal.Discount}}%</td>
+                        <td>{{deal.DealQty}}</td>
+                        <td>{{deal.QuantityPerUser}}</td>
+                        <!-- <td>{{deal.SoldQty}}</td> -->
+                        <td>{{deal.IsFeatured}}</td>
+                        <td>{{deal.Status}}</td>
+                        <td>{{deal.IsShow}}</td>
+                        <td>
+                          <button (click)="editDeal(deal.Id)" class="btn btn-sm btn-outline-danger"><i
+                              class="fas fa-edit"></i></button>
+                          <button (click)="deleteDeal(deal.Id)" class="btn btn-sm btn-outline-danger mr-2"><i
+                              class="fas fa-trash"></i></button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

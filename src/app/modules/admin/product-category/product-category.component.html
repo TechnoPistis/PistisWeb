@@ -1,0 +1,83 @@
+<div class="main-panel">
+  <div class="content">
+    <div class="page-inner">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-head-row">
+                <h4 class="card-title">Add Menu</h4>
+                <div class="btn-group btn-group-page-header ml-auto">
+                  <hr>
+                  <button type="button" class="btn btn-success" (click)="onClick()">Show products</button>
+                </div>
+
+              </div>
+            </div>
+            <div class="card-body">
+              <form #form="ngForm" (submit)="onSubmit(form)" autocomplete="off">
+                <input type="hidden" name="Id" #Id="ngModel" [(ngModel)]="service.formData.Id">
+
+                <div class="row ">
+                  <div class="col-md-6">
+
+                    <div class="row ">
+
+                      <div class="form-group col-md-12">
+                        <label>Menu Name</label>
+                        <input name="Name" #Name="ngModel" [(ngModel)]="service.formData.Name" class="form-control"
+                          required>
+                        <div class="validation-error" *ngIf="Name.invalid && Name.touched">This field is required.</div>
+                      </div>
+                      <div class="form-group col-md-12">
+                        <label>Menu Category Name</label>
+                        <select name="ParentId" #ParentId="ngModel" [(ngModel)]="service.formData.ParentId"
+                          class="form-control" selected [value]="service.formData.ParentId">
+                          <option value="0" selected [value]='service.formData.Id'>Select Option</option>
+                          <option *ngFor="let c of dataList ;" [value]="c.Id">
+                            {{c.Name}}
+                          </option>
+                        </select>
+
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="col-md-6">
+                    <div class="row">
+
+                      <div class="col-md-12">
+                        <div class="card">
+                          <div class="card-header">
+                            <div class="card-head-row">
+                              <div class="card-title"> Menu Image</div>
+                              <div class="card-tools">
+                                <label for="files" class="btn btn-info btn-border btn-round btn-sm mr-2">Select
+                                  Image</label>
+                                <input id="files" #Icon style="visibility:hidden;" type="file"
+                                  (change)="handleFileInput($event)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card-body">
+                            <div class="upload-img-area">
+                              <img [src]="imageUrl ? imageUrl:service.formData.Icon " style="width:250px;height:200px">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row ">
+                </div>
+                <div class="form-group col-sm-2">
+                  <button type="submit" [disabled]="form.invalid" class="btn btn-primary btn-block">SUBMIT</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

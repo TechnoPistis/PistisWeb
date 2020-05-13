@@ -1,0 +1,88 @@
+<div class="main-panel">
+  <div class="content">
+          <div class="page-inner">
+
+              <!-- <div class="page-header">
+              
+                  <h4 class="page-title">Newsletter Subscription</h4>
+
+                  <div class="btn-group btn-group-page-header ml-auto">
+                          <button type="button" class="btn btn-sm btn-success"
+                          
+                          [routerLink]="['/admin/NewsLetterList']" routerLinkActive="router-link-active" >Show Customer subscribed</button>
+                      
+                  </div>
+              </div> -->
+
+
+  <div class="card">
+      <div class="card-header">
+          <div class="card-head-row">
+            <div class="card-title">{{'Register.NewsletterSubscription'|translate}}</div>
+            <div class="btn-group btn-group-page-header ml-auto">
+                <button type="button" class="btn btn-sm btn-success"
+                          
+                [routerLink]="['/admin/NewsLetterList']" routerLinkActive="router-link-active" >{{'Register.SubscribedCustomers'|translate}}</button>
+                </div>
+          
+          </div>
+        </div>
+              <div class="card-body">
+            
+                <div class="row">
+                        <div class="col-md-12">
+     
+<form #form="ngForm" (submit)="onSubmit(form)" autocomplete="off">
+    <input type="hidden" name="Id" #Id="ngModel" [(ngModel)]="service.formData.Id">
+    <div class="row">
+        <div class="col-sm-6">
+        <div class="form-group">
+            <label>{{'Register.Customers'|translate}} </label>
+            <select name="Id" #ProductId="ngModel" [(ngModel)]="service.formData.Id"   class="form-control" selected [value]="service.formData.Id" (change)="onChange()" [disabled]="!dropdown" >
+            <option value="0">{{'Register.SelectOption'|translate}}</option>
+            <option *ngFor="let c of userList ;" [value]="c.Id">
+              {{c.Email}}
+            </option>
+          </select>
+        </div>
+          </div>
+    </div>
+   <div class="row">
+      <div  class="col-sm-6">
+        <div  class="form-group">
+        <label>{{'Register.EmailAddress'|translate}}</label>
+        <input (keyup)="onKey1(Email.value)"  type="email" name="Email" #Email="ngModel" [(ngModel)]="service.formData.Email" class="form-control" [disabled]="!textboxes" placeholder="Email Address">
+      <div >
+        <label *ngIf="emailCheck==false" class="text-danger">{{'Register.EnterValidEmail'|translate}}</label>
+      </div>
+      </div>
+    </div>
+    <div  class="col-sm-6">
+      <div  class="form-group">
+        <label>{{'Register.IPAddressPlaceholder'|translate}}</label>
+        <input (keyup)="onKey()" name="IpAddress" #IpAddress="ngModel" [(ngModel)]="service.formData.IpAddress" class="form-control" [disabled]="!textboxes" placeholder="Ip Address">
+      </div>
+    </div>
+    </div>
+ 
+ 
+      <div *ngIf="!dropdown && emailCheck==true" class="form-group col-sm-4">
+          <button type="submit" [disabled]="form.invalid" class="btn btn-sm btn-primary">{{'Register.SubmitButton'|translate}}</button>
+        </div>
+        <div *ngIf="!textboxes " class="form-group col-sm-4">
+            <button type="submit" class="btn btn-sm btn-primary">{{'Register.SubmitButton'|translate}}</button>
+          </div>
+          <div  *ngIf="validButt==true  " class="form-group col-sm-4">
+              <button type="submit" disabled class="btn btn-sm btn-primary">{{'Register.SubmitButton'|translate}}</button>
+            </div> 
+             <div *ngIf="emailCheck===false" class="form-group col-sm-4">
+                <button type="submit" disabled class="btn btn-sm btn-primary">{{'Register.SubmitButton'|translate}}</button>
+              </div>
+    </form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>

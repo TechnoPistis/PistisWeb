@@ -1,0 +1,357 @@
+<app-header></app-header>
+<div class="container p-tb-2">
+  <div class="cus-review-main">
+    <div class="row">
+      <div class="col-md-9 col-sm-9 col-lg-9 col-xs-12">
+        <div class="row mrgn-b-sm">
+          <div class="col-md-4 col-sm-4 col-lg-4 col-xs-12">
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 mrgn-b-sm">
+                <h3>Customer reviews</h3>
+                <div class="star-box pull-left">
+                  <div class="wish-rate">
+                   
+                    
+                    <div class="text-warning" *ngIf="product.RatingAvg==5">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <div class="text-warning" *ngIf="product.RatingAvg==4">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <div class="text-warning" *ngIf="product.RatingAvg==3">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <div class="text-warning" *ngIf="product.RatingAvg==2">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <div class="text-warning" *ngIf="product.RatingAvg==1">
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                
+                  </div>
+                </div>
+                <div class="star-overall-rate-box pull-left mrgn-l-sm">
+                  <span>  {{product.RatingAvg}} out of 5 </span>
+                </div>
+              </div>
+              <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                <p>{{product.ReviewCount}} customer ratings</p>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-8 col-sm-8 col-lg-8 col-xs-12">
+            <div class="row">
+              <div class="col-md-10 col-sm-10 col-lg-10 col-xs-12">
+                <div class="product-block-review">
+                  <div class="row">
+                    <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
+                      <div class="cart-thumb-review" (click)="passTheSalt()"><img class="img-responsive"
+                          src={{varientImage}}>
+                      </div>
+                    </div>
+                    <div class="col-md-10 col-sm-10 col-lg-10 col-xs-12">
+                      <a class="review-pro-title" (click)="passTheSalt()">
+                        {{product.Name}}
+                      </a>
+                      <!-- <p>by <a class="by-link" href="#">Twinings</a></p> -->
+                      <p>Price: <span class="price">${{product.PriceAfterdiscount.toFixed(2)}}</span></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 col-sm-4 col-lg-4 col-xs-12">
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 mrgn-b-sm">
+                <ul class="rating-overall">
+                    <li>
+                      <span class="people-ratings">
+                        <span>5 <i class="fa fa-star" aria-hidden="true"></i></span>
+                      </span>
+                      <span class="rating-bar">
+                        <div class="progress">
+                          <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0"
+                            aria-valuemax="100"[style.width.%]="product.Fivestarper">
+                            <span class="sr-only">70% {{'Register.Complete'|translate}}</span>
+                          </div>
+                        </div>
+                      </span>
+                      <span class="people-total">{{product.Fivestar}}</span>
+                    </li>
+
+                    <li>
+                      <span class="people-ratings">
+                        <span>4 <i class="fa fa-star" aria-hidden="true"></i></span>
+                      </span>
+                      <span class="rating-bar">
+                        <div class="progress">
+                          <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0"
+                            aria-valuemax="100" [style.width.%]="product.Fourstarper">
+                            <span class="sr-only">60% {{'Register.Complete'|translate}}</span>
+                          </div>
+                        </div>
+                      </span>
+                      <span class="people-total">{{product.Fourstar}}</span>
+                    </li>
+
+                    <li>
+                      <span class="people-ratings">
+                        <span>3 <i class="fa fa-star" aria-hidden="true"></i></span>
+                      </span>
+                      <span class="rating-bar">
+                        <div class="progress">
+                          <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0"
+                            aria-valuemax="100" [style.width.%]="product.Threestarper">
+                            <span class="sr-only">40% {{'Register.Complete'|translate}}</span>
+                          </div>
+                        </div>
+                      </span>
+                      <span class="people-total">{{product.Threestar}}</span>
+                    </li>
+
+                    <li>
+                      <span class="people-ratings">
+                        <span>2 <i class="fa fa-star" aria-hidden="true"></i></span>
+                      </span>
+                      <span class="rating-bar">
+                        <div class="progress yellow-progress">
+                          <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0"
+                            aria-valuemax="100"  [style.width.%]="product.Twostarper">
+                            <span class="sr-only">20% {{'Register.Complete'|translate}}</span>
+                          </div>
+                        </div>
+                      </span>
+                      <span class="people-total">{{product.Twostar}}</span>
+                    </li>
+
+                    <li>
+                      <span class="people-ratings">
+                        <span>1 <i class="fa fa-star" aria-hidden="true"></i></span>
+                      </span>
+                      <span class="rating-bar">
+                        <div class="progress red-progress">
+                          <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0"
+                            aria-valuemax="100"  [style.width.%]="product.Onestarper">
+                            <span class="sr-only">30% {{'Register.Complete'|translate}}</span>
+                          </div>
+                        </div>
+                      </span>
+                      <span class="people-total">{{product.Onestar}}</span>
+                    </li>
+
+                  </ul>
+              </div>
+
+            </div>
+
+          </div>
+          <!-- <div class="col-md-8 col-sm-8 col-lg-8 col-xs-12">
+            <button class="btn btn-default btn-sm write-review-btn">Write a review</button>
+          </div> -->
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12">
+        <div class="review-right-btn-box sequre-payment-box">
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+              <button class="btn btn-block btn-primary btn-sm"  (click)='addToCart()'><i class="fas fa-shopping-cart"></i> Add
+                to Cart</button>
+            </div>
+            <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+              <hr>
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+              <button class="btn btn-block btn-sm"(click)='getProductDetails1()'><i class="fas fa-heart" ></i> Add to Wishlist</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+        <div id="filter-panel" class="filter-panel collapse in" style="height: auto;">
+          <div class="panel panel-default">
+            <div class="panel-body bg-search-bar">
+              <div class="row">
+                <!-- <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                  <div id="custom-search-input">
+                    <div class="input-group col-md-12">
+                      <input type="text" class="form-control" placeholder="Search customer reviews" [(ngModel)]="SearchName" />
+                      <span class="input-group-btn">
+                        <button class="btn btn-info" type="button">
+                          <i class="fa fa-search"></i>
+                        </button>
+                      </span>
+                    </div>
+                  </div>
+                </div> -->
+                <div class="col-md-5 col-sm-5 col-lg-5 col-xs-12">
+                  <form class="form-inline" role="form">
+                    <div class="form-group">
+                      <label class="filter-col" style="margin-right:0;" for="pref-orderby">FILTER
+                        BY</label>
+                      <select id="pref-orderby" class="form-control" (change)="onChange($event.target.value)">
+                        <option value=1> Most recent</option>
+                        <option value="2"> Least rated</option>
+                        <option value="3"> Highest rated</option>
+
+
+                      </select>
+                    </div>
+                    <!-- <div class="form-group filter-col">
+                      <select id="pref-orderby" class="form-control">
+                        <option>All stars</option>
+                      </select>
+                    </div> -->
+                  </form>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+      </div>
+      <!-- <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 mrgn-b-sm">
+        <div class="p-tb-1">Showing 1-10 of {{product.ReviewCount}}  reviews</div>
+      </div> -->
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+            <div class="cus-review-box-main" *ngFor="let item of  product.UserRatings">
+                <div class="row mrgn-b-xs">
+                    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                        <div class="cus-review-img">
+                            <img src="assets/defaul.jpg">
+                        </div>
+                        <div class="cus-review-title">
+                           {{item.Username}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row mrgn-b-sm">
+                    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                        <div class="cus-review-stars">
+                           
+                            <div class="text-warning" *ngIf="item.UserRatings==5">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="text-warning" *ngIf="item.UserRatings==4">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="text-warning" *ngIf="item.UserRatings==3">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="text-warning" *ngIf="item.UserRatings==2">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="text-warning" *ngIf="item.UserRatings==1">
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        
+
+                            
+                        </div>
+                        <!-- <div class="cus-review-headline">{{item.UserReviews}}</div> -->
+                    </div>
+                    <!-- <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                        <p class="review-date"><span>14 March 2019</span></p>
+                        <p><a href="" class="verified-link">Verified Purchase</a></p>
+                    </div> -->
+                    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                        <p>
+                            {{item.UserReviews}}
+                        </p>
+                        <!-- <p class="helpfull">2 people found this helpful</p> -->
+                    </div>
+                </div>
+                <!-- <div class="row mrgn-b-sm">
+                    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                        <div class="review-bottom-links">
+                            <ul class="review-links">
+                                <li>
+                                    <button class="btn btn-sm btn-default">Helpful</button>
+                                </li>
+                                <li>
+                                    <a class="text-info" href="#">Comment</a>
+                                </li>
+                                <li>
+                                    <a href="#">Report abuse</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+
+           
+        </div>
+    </div>
+    <div class="row mrgn-b-md">
+      <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+        <div class="bottom-info-box">
+          There are {{product.ReviewCount}} customer reviews and {{product.RatingCount}} customer ratings.
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+     
+            <app-pagination [count]="count" [page]="page" [(perPage)]="perPage" [pagesToShow]="pagesToShow"
+              (goPrev)="prevPage()" (goNext)="nextPage()" (goPage)="goToPage($event)"
+              (pageSize)="newPageSize($event)">
+            </app-pagination>
+         
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

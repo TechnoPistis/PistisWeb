@@ -1,0 +1,59 @@
+<div class="main-panel">
+    <div class="content">
+      <div class="page-inner">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-head-row">
+                  <div class="card-title">{{'Register.SearchTermList'|translate}}</div>
+                  <div class="btn-group btn-group-page-header ml-auto"></div>
+                </div>
+              </div>
+              
+              <div class="card-body">
+                  <div class="row pt-3">
+                      <div class="col-md-12">
+                        <div class="table-responsive">
+                          <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th>{{'Register.SearchQuery'|translate}}</th>
+                                <th>{{'Register.Results'|translate}}</th>
+                                <th>{{'Register.NoofUses'|translate}}</th>
+                                <th>{{'Register.DisplayinSuggestedTerms'|translate}}</th>
+                                <th>{{'Register.Action'|translate}}</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let item of List">
+                                <td>{{item.Name}}</td>
+                                <td>{{item.ProductCount}}</td>
+                                <td>{{item.UserCount}}</td>
+                                <td>{{item.IsDisplay}}</td>
+                                <td> <a (click)="edit(item.Id)"><i class="fas fa-edit"></i></a></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="no-left-right" *ngIf="count">
+                          <app-admin-pagination [count]="count" [page]="page" [(perPage)]="perPage"
+                            [pagesToShow]="pagesToShow" (goPrev)="prevPage()" (goNext)="nextPage()"
+                            (goPage)="goToPage($event)" (pageSize)="newPageSize($event)">
+                          </app-admin-pagination>
+                        </div>
+                      </div>
+                    </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!-- </div>
+      </div> -->
+  </div>
+  

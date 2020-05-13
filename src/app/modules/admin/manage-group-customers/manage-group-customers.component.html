@@ -1,0 +1,112 @@
+<div class="main-panel">
+        <div class="content">
+                <div class="page-inner">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-head-row">
+                        <div class="card-title">{{'Register.CustomersListText'|translate}}</div>
+                       
+                        <div class="col-md-3 ml-auto">
+                            <mat-form-field>
+                            <mat-label>{{'Register.Customers'|translate}}</mat-label>
+                            <mat-select name="selectedCustomers" #selectedCustomer="ngModel" [(ngModel)]="selectedCustomers"   class="form-control"  multiple>
+                                <mat-option *ngFor="let data of customerList" [value]="data.Id">{{data.Email}}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+              </div>
+        <div class="col-md-2 pull-right">
+            <button (click)="onclick(selectedCustomer.value)" class="btn btn-success">{{'Register.AddCustomers'|translate}}</button>
+          </div>
+         
+                    </div>
+                </div>
+                <div class="card-body">
+                        <div class="row">
+                                <div class="col-md-12">
+                                  <div class="input-group" id="adv-search">
+                                    <input type="text" class="form-control" placeholder="{{'Register.SearchPlaceholder'|translate}}">
+                
+                                    <div class="input-group-btn">
+                                      <div class="btn-group" role="group">
+                                        <div class="dropdown dropdown-lg">
+                                          <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"
+                                            aria-expanded="false">{{'Register.Filter'|translate}}</button>
+                                          <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                            <form class="form-horizontal" role="form">
+                                              <div class="form-group">
+                                                <label for="filter">{{'Register.ShowAllFooterHeaderWhere'|translate}}</label>
+                                                <select class="form-control">
+                                                  <option value="0" selected="">{{'Register.SelectOption'|translate}}</option>
+                                                  <option value="1">{{'Register.Featured'|translate}}</option>
+                                                  <option value="2">{{'Register.MostPopular'|translate}}</option>
+                                                  <option value="3">{{'Register.TopRated'|translate}}</option>
+                                                  <option value="4">{{'Register.MostCommented'|translate}}</option>
+                                                </select>
+                                              </div>
+                                              <!--filter changes-->
+                                              <div class="form-group mb-3">
+                                                <label for="contain">is</label>
+                                                <select class="form-control">
+                                                  <option value="0" selected="">{{'Register.SelectOption'|translate}}</option>
+                                                  <option value="1">{{'Register.Featured'|translate}}</option>
+                                                  <option value="2">{{'Register.MostPopular'|translate}}</option>
+                                                  <option value="3">{{'Register.TopRated'|translate}}</option>
+                                                  <option value="4">{{'Register.MostCommented'|translate}}</option>
+                                                </select>
+                                              </div>
+                                              <!--filter changes-->
+                                              <div class="form-group">
+                                                <button type="submit" class="btn btn-sm btn-primary">{{'Register.Search'|translate}}</button>
+                                              </div>
+                
+                                            </form>
+                                          </div>
+                                        </div>
+                                        <button type="button" class="btn btn-primary"><span class="fa fa-search"
+                                            aria-hidden="true"></span></button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                                </div>
+                                <div class="row pt-3">
+                                    <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                    <th>{{'Register.UserEmailAddress'|translate}}</th>
+                                                                <th>{{'Register.UseFacebookId'|translate}}</th>
+                                                                <th>{{'Register.UserName'|translate}}</th>
+                                                                <th>{{'Register.UserPhone'|translate}}</th>
+                                                                <th>{{'Register.UserAddress'|translate}}</th>
+                                                                <th>{{'Register.Action'|translate}}</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr  *ngFor="let cat of dataList">
+                                                                 <td>{{cat.User.Email}}</td>
+                                                            <td>{{cat.User.FacebookId}}</td>
+                                                            <td>{{cat.User.FirstName}}{{cat.User.LastName}}</td>
+                                                            <td>{{cat.User.Phone}}</td>
+                                                            <td>{{cat.User.Address}}</td>    
+                                                                   <td><button (click)="onDelete(cat.User.Id)" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash" ></i></button>
+                                                            </td>
+                                                          </tr>
+                                                          
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                    </div>
+                                </div>
+                            </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+        
+        

@@ -1,0 +1,230 @@
+<app-header></app-header>
+
+<section class="myaccount">
+    <div *ngIf="hidemainDiv" class="container p-tb-2">
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-lg-3 col-xs-12">
+                <div class="sign_outsec">
+                    <div class="pull-left">
+                        <div class="my-account-thumb">
+                            <img alt="" src="assets/defaul.jpg">
+                        </div>
+                    </div>
+                    <div class="pull-left">
+                        <h4 *ngIf="UserName"class="capitalize">{{UserName}}</h4>
+                       
+                    </div>
+                </div>
+                <div class="nav flex-column nav-pills myaccount_tab" id="v-pills-tab" role="tablist"
+                aria-orientation="vertical">
+                <a class="nav-link " [routerLink]="['/ManageAddress']" routerLinkActive="router-link-active"
+                data-toggle="tab" href="#tab1" role="tab" aria-controls="Manage Addresses"><i
+                class="fas fa-address-book account_icon"></i>
+                {{'Register.ManageAddresses.ManageAddressesText'|translate}}</a>
+                <a class="nav-link" [routerLink]="['/MyProfile']" routerLinkActive="router-link-active"
+                data-toggle="tab" href="#tab2" role="tab" aria-controls="My Profile"><i
+                class="fas fa-user account_icon"></i>
+                {{'Register.MyProfile.MyProfileText'|translate}}</a>
+                
+                <a class="nav-link" [routerLink]="['/MyOrders']" routerLinkActive="router-link-active"
+                data-toggle="tab" href="#tab3" role="tab" aria-controls="My Order"><i
+                class="fas fa-gifts account_icon"></i>{{'Register.MyProfile.MyOrders'|translate}}</a>
+                <a class="nav-link" [routerLink]="['/wishlist']" routerLinkActive="router-link-active"
+                data-toggle="tab" href="#tab4" role="tab" aria-controls="My Wishlist"><i
+                class="fas fa-heart account_icon"></i>
+                {{'Register.MyProfile.MyWishlist'|translate}}</a>
+                <a class="nav-link active" [routerLink]="['/testimonial']" routerLinkActive="router-link-active"
+                data-toggle="tab" href="#tab4" role="tab" aria-controls="My Wishlist"><i
+                class="fas fa-heart account_icon"></i>
+                {{'Register.Testimonial'|translate}}</a>
+                <a (click)="logout()" class="nav-link"><i class="fas fa-power-off account_icon"></i>
+                {{'Register.MyProfile.Logout'|translate}}</a>
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-8 col-lg-9 col-xs-12">
+                <div class="tab-content addres_top">
+                    <div class="tab-pane active" i role="tabpanel">
+                        <div class="row mrgn-b-lg">
+                            <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 profile-tab-con">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                        <div class="profile-tab-head mrgn-b-xs">
+                                            <span class="profile-tab-head-title">
+                                                Testimonial
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 mrgn-b-sm">
+                                                        <label class="">Description</label>
+                                                        <textarea rows="8" placeholder="Enter Description" #Description
+                                                            class="form-control no-border" (focusout)="focusFunction()"
+                                                            [(ngModel)]="description"></textarea>
+                                                    </div>
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 mrgn-b-sm text-danger"
+                                                        *ngIf="DescriptionValidation">
+                                                        Please enter description.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group required">
+                                                    <label for="FirstName">Rating</label>
+                                                    <div class="rate">
+                                                        <input type="radio" id="star5" name="rate" [checked]="rate==5"
+                                                            #rate5 value="5" (click)="getRating(rate5.value)" />
+                                                        <label for="star5" title="text">5 stars</label>
+                                                        <input type="radio" id="star4" name="rate" #rate4
+                                                            [checked]="rate==4" value="4"
+                                                            (click)="getRating(rate4.value)" />
+                                                        <label for="star4" title="text">4 stars</label>
+                                                        <input type="radio" id="star3" name="rate" #rate3
+                                                            [checked]="rate==3" value="3"
+                                                            (click)="getRating(rate3.value)" />
+                                                        <label for="star3" title="text">3 stars</label>
+                                                        <input type="radio" id="star2" name="rate" #rate2
+                                                            [checked]="rate==2" value="2"
+                                                            (click)="getRating(rate2.value)" />
+                                                        <label for="star2" title="text">2 stars</label>
+                                                        <input type="radio" id="star1" name="rate" #rate1
+                                                            [checked]="rate==1" value="1"
+                                                            (click)="getRating(rate1.value)" />
+                                                        <label for="star1" title="text">1 star</label>
+                                                    </div>
+                                                    <div class="rate-link-box" *ngIf="this.Rating==1">
+                                                        Very Bad
+                                                    </div>
+                                                    <div class="rate-link-box" *ngIf="this.Rating==2">
+                                                        Bad
+                                                    </div>
+                                                    <div class="rate-link-box" *ngIf="this.Rating==3">
+                                                        Good
+                                                    </div>
+                                                    <div class="rate-link-box" *ngIf="this.Rating==4">
+                                                        Very Good
+                                                    </div>
+                                                    <div class="rate-link-box" *ngIf="this.Rating==5">
+                                                        Excellent
+                                                    </div>
+                                                </div>
+                                                <div class="text-danger" *ngIf="message==true">
+                                                    Please enter the rating.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                                <button type="button" class="  place-order pull-right"
+                                                    (click)="OnSumbmit()">
+                                                    <span> Submit</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="hidemainDiv==false" class="container p-tb-2">
+        <div class="row">
+           
+            <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                <div class="tab-content addres_top">
+                    <div class="tab-pane active" i role="tabpanel">
+                        <div class="row mrgn-b-lg">
+                            <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 profile-tab-con">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                        <div class="profile-tab-head mrgn-b-xs">
+                                            <span class="profile-tab-head-title">
+                                                Testimonial
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 mrgn-b-sm">
+                                                        <label class="">Description</label>
+                                                        <textarea rows="8" placeholder="Enter Description" #Description
+                                                            class="form-control no-border" (focus)="focusFunction()"
+                                                            [(ngModel)]="description"></textarea>
+                                                    </div>
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 mrgn-b-sm text-danger"
+                                                        *ngIf="DescriptionValidation">
+                                                        Please enter description.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group required">
+                                                    <label for="FirstName">Rating</label>
+                                                    <div class="rate">
+                                                        <input type="radio" id="star5" name="rate" [checked]="rate==5"
+                                                            #rate5 value="5" (click)="getRating(rate5.value)" />
+                                                        <label for="star5" title="text">5 stars</label>
+                                                        <input type="radio" id="star4" name="rate" #rate4
+                                                            [checked]="rate==4" value="4"
+                                                            (click)="getRating(rate4.value)" />
+                                                        <label for="star4" title="text">4 stars</label>
+                                                        <input type="radio" id="star3" name="rate" #rate3
+                                                            [checked]="rate==3" value="3"
+                                                            (click)="getRating(rate3.value)" />
+                                                        <label for="star3" title="text">3 stars</label>
+                                                        <input type="radio" id="star2" name="rate" #rate2
+                                                            [checked]="rate==2" value="2"
+                                                            (click)="getRating(rate2.value)" />
+                                                        <label for="star2" title="text">2 stars</label>
+                                                        <input type="radio" id="star1" name="rate" #rate1
+                                                            [checked]="rate==1" value="1"
+                                                            (click)="getRating(rate1.value)" />
+                                                        <label for="star1" title="text">1 star</label>
+                                                    </div>
+                                                    <div class="rate-link-box" *ngIf="this.Rating==1">
+                                                        Very Bad
+                                                    </div>
+                                                    <div class="rate-link-box" *ngIf="this.Rating==2">
+                                                        Bad
+                                                    </div>
+                                                    <div class="rate-link-box" *ngIf="this.Rating==3">
+                                                        Good
+                                                    </div>
+                                                    <div class="rate-link-box" *ngIf="this.Rating==4">
+                                                        Very Good
+                                                    </div>
+                                                    <div class="rate-link-box" *ngIf="this.Rating==5">
+                                                        Excellent
+                                                    </div>
+                                                </div>
+                                                <div class="text-danger" *ngIf="message==true">
+                                                    Please enter the rating.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                                <button type="button" class="  place-order pull-right"
+                                                    (click)="OnSumbmit()">
+                                                    <span> Submit</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>

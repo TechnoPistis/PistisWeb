@@ -1,0 +1,73 @@
+
+<div class="main-panel">
+    <div class="content">
+            <div class="page-inner">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+      <div class="card-header">
+          <div class="card-head-row">
+            <div class="card-title">{{'Register.AddSubCategory'|translate}} </div>
+            <div class="btn-group btn-group-page-header ml-auto">
+                   
+                    <button type="button" class="btn btn-success" [routerLink]="['/admin/MenuList']" routerLinkActive="router-link-active" >{{'Register.Showcategorylist'|translate}} </button>
+                </div>
+          
+          </div>
+        </div>
+        
+  <form #form="ngForm" (submit)="onSubmit(form)" autocomplete="off">
+  <input type="hidden" name="Id" #Id="ngModel" [(ngModel)]="service.formData.Id">
+  <div class="row col-md-12">
+   
+    <div class="col-md-12">
+      <div class="form-group">
+        <label for="filter" class="mr-2">Is Adult </label>
+        <input type="checkbox" (change)="handleSelected($event)">
+       
+      </div>
+      </div>
+ 
+    <div class="form-group col-md-4">
+      
+      <label>{{'Register.SelectCategory'|translate}} </label>
+      
+      <select name="Id" #Id="ngModel" [(ngModel)]="service.formData.Id"  class="form-control" selected [value]="service.formData.Id" >
+      <option value="0">{{'Register.SelectOption'|translate}} </option>
+      <option *ngFor="let c of datalist ;" [value]="c.subId==0?c.Id:c.subId">
+        {{c.Name}}
+      </option>
+    </select>
+  
+    </div>
+    <!-- <div class="form-group col-md-4">
+      
+      <label>Select category spanish</label>
+      
+      <select name="Id" #Id="ngModel" [(ngModel)]="service.formData.Id"  class="form-control" selected [value]="service.formData.Id" >
+      <option value="0">Select Option</option>
+      <option *ngFor="let c of SpanishMenu ;" [value]="c.subId==0?c.Id:c.subId">
+        {{c.Name}}
+      </option>
+    </select>
+  
+    </div> -->
+   
+    <div class="form-group col-md-4">
+        <label>{{'Register.SubCategory'|translate}} </label>
+        <input name="Name" #Name="ngModel" [(ngModel)]="service.formData.Name" class="form-control" required>
+        <div class="validation-error" *ngIf="Name.invalid && Name.touched">This field is required.</div>
+      </div>
+      <div class="form-group col-md-4">
+        <label>{{'Register.Subcategoryspanish'|translate}}  </label>
+        <input name="SpanishName" #SpanishName="ngModel" [(ngModel)]="service.formData.SpanishName" class="form-control" required>
+        <div class="validation-error" *ngIf="SpanishName.invalid && SpanishName.touched">{{'Register.Thisfieldisrequired'|translate}} </div>
+      </div>
+  </div>
+    <div class="form-group col-sm-2">
+      <button type="submit" [disabled]="form.invalid" class="btn btn-primary btn-block">{{'Register.Submit'|translate}}</button>
+    </div>
+  </form>
+  </div>
+  </div>
+  </div>

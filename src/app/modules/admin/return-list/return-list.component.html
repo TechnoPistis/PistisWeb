@@ -1,0 +1,67 @@
+<div class="main-panel">
+    <div class="content">
+      <div class="page-inner">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-head-row">
+                  <div class="card-title">{{'Register.ReturnRequests'|translate}}</div>
+                  <div class="btn-group btn-group-page-header ml-auto"></div>
+                </div>
+              </div>
+              
+              <div class="row pt-3">
+                <div class="col-md-12">
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>{{'Register.Image'|translate}}</th>
+                          <th>{{'Register.ReturnNumber'|translate}}</th>
+                          <th>{{'Register.Description'|translate}}</th>
+                          <th>{{'Register.ReturnDate'|translate}}</th>
+                          <th>{{'Register.Quantity'|translate}}</th>
+                          <th>{{'Register.Amount'|translate}}</th>
+                          <th>{{'Register.ReturnStatus'|translate}}</th>
+                          <th>{{'Register.Actions'|translate}}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of List">
+                          <td class="ml-2"><img src={{item.Image}} style="width:50px;height:50px"></td>
+                          <td>{{item.ReturnNumber}}</td>
+                          <td>{{item.Description}}</td>
+                          <td>{{item.ReturnDate}}</td>
+                          <td>{{item.Quantity}}</td>
+                          <td>{{item.Amount}}</td>
+                          <th>{{item.ReturnStatus}}</th>
+                          
+                          <td >
+                            <button class="btn btn-sm btn-danger mr-2" *ngIf="item.IsPaid==false;else elseblock" (click)="refund(item.Amount,item.Id)">
+                            Refund</button>
+                            <ng-template #elseblock>{{'Register.Refunded'|translate}}</ng-template>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="no-left-right" *ngIf="count">
+                    <app-admin-pagination [count]="count" [page]="page" [(perPage)]="perPage"
+                      [pagesToShow]="pagesToShow" (goPrev)="prevPage()" (goNext)="nextPage()"
+                      (goPage)="goToPage($event)" (pageSize)="newPageSize($event)">
+                    </app-admin-pagination>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- </div>
+      </div> -->
+  </div>
+  
